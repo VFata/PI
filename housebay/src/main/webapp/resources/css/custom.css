@@ -1,0 +1,39 @@
+/* 
+    Created on : Oct 9, 2017, 3:01:40 PM
+    Author     : Diego
+*/
+.menu.is-dark {
+    background-color: #363636;
+    color: whitesmoke;
+}
+.menu.is-dark .menu-list a {
+    color: #f2f2f2;
+}
+
+.is-dark .menu-list a {
+    border-radius: 0;
+}
+
+.is-dark .menu-list a:hover {
+    background-color: #2f2f2f;
+    color: whitesmoke;
+}
+
+.is-dark .menu-list a.is-active {
+    background-color: #2f2f2f;
+    color: whitesmoke;
+    border-right: 2px solid whitesmoke ;
+}
+
+.tooltip {
+    display: inline;
+    visibility: hidden;
+    margin-left: 8px;
+    position: absolute;
+    z-index: 1;
+}
+
+.has-tooltip:hover .tooltip {
+    visibility: visible;
+}
+
