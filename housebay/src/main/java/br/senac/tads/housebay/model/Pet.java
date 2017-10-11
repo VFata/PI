@@ -4,7 +4,7 @@ package br.senac.tads.housebay.model;
  *
  * @author Diego
  */
-public class Pet extends Modelo{
+public class Pet extends TabelaDB{
     private String nome;
     private String descricao;
 

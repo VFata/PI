@@ -10,127 +10,121 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Novo / Alterar Pet</title>
-        <c:url var="resources" value="/resources" />
-        <link rel="stylesheet" href="${resources}/css/bulma.css" />
-        <link rel="stylesheet" href="${resources}/css/font-awesome.css" />
-        <link rel="stylesheet" href="${resources}/css/custom.css" />
-        <script type="text/javascript" src="${resources}/js/application.js"></script>
+        
+        <!-- Título da página -->
+    <c:choose><c:when test="${type=='edit' && pet != null}">
+        <title>Alterar Pet</title>
+    </c:when><c:otherwise>
+        <title>Novo Pet</title>
+    </c:otherwise></c:choose>
+        
+        <c:url var="index_url" value="/" />
+        <c:url var="resources_url" value="/resources" />
+        <c:url var="main_url" value="/pets" />
+        <c:url var="new_url" value="/pets/new" />
+        <c:url var="edit_url" value="/pets/edit" />
+        
+        <link rel="stylesheet" href="${resources_url}/css/bulma.css" />
+        <link rel="stylesheet" href="${resources_url}/css/font-awesome.css" />
+        <link rel="stylesheet" href="${resources_url}/css/custom.css" />
+        <script type="text/javascript" src="${resources_url}/js/application.js"></script>
     </head>
     <body>
-        <main class="hero">
-        <c:url var="create_url" value="/pets" />
-        <c:choose>
-            <c:when test="${type=='edit' && pet != null}">
-                <div class=hero-head">
-                    <div class="container">
-                        <h1 class="title">Alterar Pet</h1>
-                    </div>
-                </div>
-                <div class="hero-body">
-                    <div class="container">
-                        <form action="${create_url}/edit" method="post" >
-                            <input type="hidden" name="id" value="${pet.id}" />
+        <div class="columns is-mobile">
+            <!-- Inclui menu vertical -->
+            <jsp:include page="/resources/vertical_menu.jsp" />
+        
+            <div class="column is-11-touch is-9-desktop is-9-widescreen is-10-fullhd ">
+                <main class="hero">
+                    <div class=hero-head">
+                        <div class="container is-fluid">
+                        <c:choose><c:when test="${type=='edit' && pet != null}">
+                            <h1 class="title is-4">Alterar Pet</h1>
+                            <nav class="subtitle is-6 breadcrumb" aria-label="breadcrumbs">
+                                <ul>
+                                    <li><a href="${index_url}">Home</a></li>
+                                    <li><a href="${main_url}">Pets</a></li>
+                                    <li class="is-active"><a href="#" aria-current="page">Alterar</a></li>
+                                    <!-- Incluir novos itens na breadcrumbs, caso necessário -->
+                                </ul>
+                            </nav>
+                        </c:when><c:otherwise>
+                            <h1 class="title is-4">Novo Pet</h1>
+                            <nav class="subtitle is-6 breadcrumb" aria-label="breadcrumbs">
+                                <ul>
+                                    <li><a href="${index_url}">Home</a></li>
+                                    <li><a href="${main_url}">Pets</a></li>
+                                    <li class="is-active"><a href="#" aria-current="page">Novo</a></li>
+                                    <!-- Incluir novos itens na breadcrumbs, caso necessário -->
+                                </ul>
+                            </nav>
+                        </c:otherwise></c:choose>
                             
-                            <div class="field is-horizontal">
-                                <div class="field-label is-normal">
-                                    <label class="label">Nome</label>
-                                </div>
-                                <div class="field-body">
-                                    <div class="field">
-                                        <div class="control">
-                                            <input class="input" type="text" name="nome" placeholder="Nome" value="${pet.nome}">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="field is-horizontal">
-                                <div class="field-label is-normal">
-                                    <label class="label">Descrição</label>
-                                </div>
-                                <div class="field-body">
-                                    <div class="field">
-                                        <div class="control">
-                                            <textarea class="textarea" name="descricao" placeholder="Descrição">${pet.descricao}</textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="field is-horizontal">
-                                <div class="field-label">
-                                    <!-- Left empty for spacing -->
-                                </div>
-                                <div class="field-body">
-                                    <div class="field">
-                                        <div class="control">
-                                            <button class="button is-primary" >
-                                                Alterar
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </form>
+                        </div>
                     </div>
-                </div>
-            </c:when>    
-            <c:otherwise>
-                <div class=hero-head">
-                    <div class="container">
-                        <h1 class="title">Novo Pet</h1>
-                    </div>
-                </div>
-                <div class="hero-body">
-                    <div class="container">
-                        <form action="${create_url}/new" method="post">
-                            <div class="field is-horizontal">
-                                <div class="field-label is-normal">
-                                    <label class="label">Nome</label>
-                                </div>
-                                <div class="field-body">
-                                    <div class="field">
-                                        <div class="control">
-                                            <input class="input" type="text" name="nome" placeholder="Nome">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="field is-horizontal">
-                                <div class="field-label is-normal">
-                                    <label class="label">Descrição</label>
-                                </div>
-                                <div class="field-body">
-                                    <div class="field">
-                                        <div class="control">
-                                            <textarea class="textarea" name="descricao" placeholder="Descrição"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="hero-body">
+                        <!-- TODO: incluir Notificações param: msg -->
+                        <div class="container is-fluid">
+                        <c:choose><c:when test="${type=='edit' && pet != null}">
+                            <form action="${edit_url}" method="post">
+                                <input type="hidden" name="id" value="${pet.id}" />
+                        </c:when><c:otherwise>
+                            <form action="${new_url}" method="post">
+                        </c:otherwise></c:choose>
 
-                            <div class="field is-horizontal">
-                                <div class="field-label">
-                                    <!-- Left empty for spacing -->
-                                </div>
-                                <div class="field-body">
-                                    <div class="field">
-                                        <div class="control">
-                                            <button class="button is-primary">
-                                                Salvar
-                                            </button>
+                                <div class="field is-horizontal">
+                                    <div class="field-label is-normal">
+                                        <label class="label">Nome</label>
+                                    </div>
+                                    <div class="field-body">
+                                        <div class="field">
+                                            <div class="control">
+                                                <input class="input" type="text" name="nome" placeholder="Nome" value="${pet.nome}">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
+
+                                <div class="field is-horizontal">
+                                    <div class="field-label is-normal">
+                                        <label class="label">Descrição</label>
+                                    </div>
+                                    <div class="field-body">
+                                        <div class="field">
+                                            <div class="control">
+                                                <textarea class="textarea" name="descricao" placeholder="Descrição">${pet.descricao}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="field is-horizontal">
+                                    <div class="field-label">
+                                        <!-- Left empty for spacing -->
+                                    </div>
+                                    <div class="field-body">
+                                        <div class="field">
+                                            <div class="control">
+                                                <button class="button is-primary" >
+                                                    <c:choose><c:when test="${type=='edit' && pet != null}">
+                                                        Alterar
+                                                    </c:when><c:otherwise>
+                                                        Salvar
+                                                    </c:otherwise></c:choose> 
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
                     </div>
-                </div>
-            </c:otherwise>
-        </c:choose>
-        </main>
+                    
+                </main>
+            </div>
+
+        </div>
     </body>
 </html>

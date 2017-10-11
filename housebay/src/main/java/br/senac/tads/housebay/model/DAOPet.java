@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class DAOPet {
     public static Long create(Pet pet) {
-        String sql = "INSERT INTO pets (nome, descricao, ativo) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO pets (nome, descricao, ativo, criado, modificado) VALUES (?, ?, ?)";
         Long id = null;
         try (Connection connection = SQLUtils.getConnection()) {
             connection.setAutoCommit(false);
@@ -24,7 +26,11 @@ public class DAOPet {
                 statement.setString(1, pet.getNome());
                 statement.setString(2, pet.getDescricao());
                 statement.setBoolean(3, pet.isAtivo());
-
+                
+                Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
+                statement.setTimestamp(4, now);
+                statement.setTimestamp(5, now);
+                
                 statement.executeUpdate();
                 try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
@@ -104,14 +110,16 @@ public class DAOPet {
 
     public static boolean update(Pet pet) {
         if (pet != null && pet.getId() != null && pet.getId() > 0) {
-            String sql = "UPDATE pets SET nome=?, descricao=?, ativo=? WHERE id=?";
+            String sql = "UPDATE pets SET nome=?, descricao=?, ativo=?, modificado=? WHERE id=?";
             try (Connection connection = SQLUtils.getConnection()) {
                 connection.setAutoCommit(false);
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
                     statement.setString(1, pet.getNome());
                     statement.setString(2, pet.getDescricao());
                     statement.setBoolean(3, pet.isAtivo());
-                    statement.setLong(4, pet.getId());
+                    Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
+                    statement.setTimestamp(4, now);
+                    statement.setLong(5, pet.getId());
 
                     statement.execute();
                     connection.commit();
@@ -132,11 +140,13 @@ public class DAOPet {
 
     public static boolean delete(Pet pet) {
         if (pet != null && pet.getId() != null && pet.getId() > 0) {
-            String sql = "UPDATE pets SET ativo=? WHERE id=?";
+            String sql = "UPDATE pets SET ativo=?, modificado=? WHERE id=?";
             try (Connection connection = SQLUtils.getConnection()) {
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
                     statement.setBoolean(1, !pet.isAtivo());
-                    statement.setLong(2, pet.getId());
+                    Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
+                    statement.setTimestamp(2, now);
+                    statement.setLong(3, pet.getId());
                     statement.execute();
                 }
             } catch (SQLException ex) {

@@ -37,3 +37,24 @@
     visibility: visible;
 }
 
+.delete-action {
+    display: inline;
+}
+
+@media screen and (max-width: 1023px) {
+  .menu-logo {
+    display: block !important;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .menu-logo {
+    margin: 6px 2px 2px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .menu-logo {
+    margin: 12px 24px;
+  }  
+}

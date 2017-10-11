@@ -12,5 +12,7 @@ CREATE TABLE pets (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     nome VARCHAR(255),
     descricao VARCHAR(2048),
-    ativo BOOLEAN
+    ativo BOOLEAN,
+    criado TIMESTAMP,
+    modificado TIMESTAMP
 );

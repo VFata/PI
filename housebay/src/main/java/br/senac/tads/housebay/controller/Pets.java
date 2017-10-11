@@ -68,7 +68,10 @@ public class Pets extends HttpServlet {
             
         } else if (url.equals("/pets") && id != null) {
             //TODO Detalhes do pet id
-            processRequest(request, response, "Detalhes do pet id: " + id);
+            Pet pet = DAOPet.read(Long.parseLong(id));
+            request.setAttribute("pet", pet);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/pet/pet_show.jsp");
+            dispatcher.forward(request, response);
             
         } else if (url.equals("/pets/new") && id == null) {
             request.setAttribute("type", "new");

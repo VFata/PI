@@ -1,4 +1,13 @@
 window.addEventListener("load", function () {
+    
+    [... document.querySelectorAll("form.delete-action")].forEach(form => {
+        form.querySelector("button[type=button].send").addEventListener('click', () => {
+            if( confirm(form.attributes["confirm"].value) ) {
+                form.submit();
+            }
+        });
+    });
+    
 /*    
    [... document.querySelectorAll("a[data-method]")].forEach(el => { 
 	el.addEventListener('click', function() { 
