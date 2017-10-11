@@ -1,4 +1,5 @@
 window.addEventListener("load", function () {
+/*    
    [... document.querySelectorAll("a[data-method]")].forEach(el => { 
 	el.addEventListener('click', function() { 
             if(confirm('Are you sure?')) {
@@ -23,7 +24,7 @@ window.addEventListener("load", function () {
             
             jsbtn.addEventListener('click', function () {
                 let formData = new FormData(jsform);
-                /*
+                / *
                 [... jsform.querySelectorAll("input, textarea, select")].forEach(inp => {
                     formData.append(inp.name, inp.value);
                     console.log(inp.name + ": " + inp.value);
@@ -31,7 +32,7 @@ window.addEventListener("load", function () {
                 for(var pair of formData.entries()) {
                     console.log(pair[0]+ ', '+ pair[1]); 
                 }
-                */
+                * /
                 var request = new XMLHttpRequest();
                 request.onreadystatechange = function() {
                     if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
@@ -47,4 +48,5 @@ window.addEventListener("load", function () {
             });
         }
     }
+*/
 });

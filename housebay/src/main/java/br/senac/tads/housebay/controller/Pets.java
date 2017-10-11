@@ -105,15 +105,44 @@ public class Pets extends HttpServlet {
 
         System.out.println("DEBUG: post method");
         
-        if (url.equals("/pets") && id == null) {
+        if (url.equals("/pets") && id != null) {
+            //TODO Deleta o pet id=xxx
+            //processRequest(request, response, "Deleta o pet id: " + id);
+            Pet pet = new Pet();
+            pet.setId(Long.parseLong(id));
+            if(DAOPet.delete(pet)) {
+                response.sendRedirect(request.getContextPath() + "/pets");
+            }
+        } else if (url.equals("/pets/new") && id == null) {
             //TODO Cria um novo pet
-            processRequest(request, response, "Cria um novo pet");
+            //processRequest(request, response, "Cria um novo pet");
+            Pet pet = new Pet();
+            pet.setNome(request.getParameter("nome"));
+            pet.setDescricao(request.getParameter("descricao"));
+            pet.setAtivo(true);
+            
+            Long newID = DAOPet.create(pet);
+            if (newID > 0) {
+                response.sendRedirect(request.getContextPath() + "/pets?id=" + newID);
+            }
+        }else if (url.equals("/pets/edit") && id != null) {
+            //TODO Altera o pet id=xxx
+            //processRequest(request, response, "Altera o pet id: " + id);
+            Pet pet = new Pet();
+            pet.setId(Long.parseLong(id));
+            pet.setNome(request.getParameter("nome"));
+            pet.setDescricao(request.getParameter("descricao"));
+            pet.setAtivo(true);
+            
+            if (DAOPet.update(pet)) {
+                response.sendRedirect(request.getContextPath() + "/pets?id=" + id);
+            }
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 
-    /**
+    /* *
      * Handles the HTTP <code>PUT</code> method.
      * 
      * Responde:
@@ -123,7 +152,7 @@ public class Pets extends HttpServlet {
      * @param response
      * @throws ServletException
      * @throws IOException 
-     */
+     * /
     @Override protected void doPut(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         String url = request.getServletPath();
@@ -137,8 +166,9 @@ public class Pets extends HttpServlet {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
+    */
     
-    /**
+    /* *
      * Handles the HTTP <code>DELETE</code> method.
      * 
      * Responde:
@@ -148,7 +178,7 @@ public class Pets extends HttpServlet {
      * @param response
      * @throws ServletException
      * @throws IOException 
-     */
+     * /
     @Override protected void doDelete(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         String url = request.getServletPath();
@@ -161,13 +191,5 @@ public class Pets extends HttpServlet {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
-    
-    /**
-     * Returna descrição do Servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override public String getServletInfo() {
-        return "Pets";
-    }
+    */
 }

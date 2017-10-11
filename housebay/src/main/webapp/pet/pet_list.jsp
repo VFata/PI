@@ -84,10 +84,12 @@
                                                 Alterar
                                             </a>
 
-                                            <a class="button is-danger is-outlined" data-method="delete" rel="nofollow" data-href="${show_url}?id=${pet.id}">
-                                                <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;
-                                                Apagar
-                                            </a>
+                                            <form action="${show_url}?id=${pet.id}" method="post" style="display: inline;">
+                                                <button class="button is-danger is-outlined" >
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;
+                                                    Apagar    
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 </c:forEach>
