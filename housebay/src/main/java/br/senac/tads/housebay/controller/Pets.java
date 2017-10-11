@@ -4,7 +4,9 @@ import br.senac.tads.housebay.model.DAOPet;
 import br.senac.tads.housebay.model.Pet;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -126,11 +128,10 @@ public class Pets extends HttpServlet {
             throws ServletException, IOException {
         String url = request.getServletPath();
         String id = request.getParameter("id");
-        
-        System.out.println("DEBUG: put method");
-        
+                
         if (url.equals("/pets") && id != null) {
             //TODO Altera o pet id=xxx
+            
             processRequest(request, response, "Altera o pet id: " + id);
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);

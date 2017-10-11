@@ -46,7 +46,7 @@ public class DAOPet {
     }
 
     public static Pet read(Long id) {
-        String sql = "SELECT id, nome, descricao FROM pets WHERE (id=? AND ativo=?)";
+        String sql = "SELECT id, nome, descricao, ativo FROM pets WHERE (id=? AND ativo=?)";
         Pet pet = null;
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {

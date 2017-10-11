@@ -29,9 +29,8 @@
                 </div>
                 <div class="hero-body">
                     <div class="container">
-                        <form action="${create_url}" method="post">
-                            <input type="hidden" name="_method" value="put" />
-                            <input type="hidden" name="id" value="{pet.id}" />
+                        <form action="${create_url}?id=${pet.id}" method="post" data-method="put">
+                            <!--<input type="hidden" name="id" value="${pet.id}" />-->
                             
                             <div class="field is-horizontal">
                                 <div class="field-label is-normal">
@@ -40,7 +39,7 @@
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control">
-                                            <input class="input" type="text" placeholder="Nome" value="${pet.nome}">
+                                            <input class="input" type="text" name="nome" placeholder="Nome" value="${pet.nome}">
                                         </div>
                                     </div>
                                 </div>
@@ -66,13 +65,14 @@
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control">
-                                            <button class="button is-primary" type="button" data-method="put" data-href="${create_url}">
+                                            <button class="button is-primary send" type="button">
                                                 Alterar
                                             </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                         </form>
                     </div>
                 </div>

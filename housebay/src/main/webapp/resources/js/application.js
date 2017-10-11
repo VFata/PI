@@ -17,23 +17,32 @@ window.addEventListener("load", function () {
     
     let jsform = document.querySelector("form[data-method]");
     if (jsform) { 
+        
         let jsbtn = jsform.querySelector("button[type=button].send");
         if (jsbtn) {
+            
             jsbtn.addEventListener('click', function () {
-                var formData = new FormData(jsform);
+                let formData = new FormData(jsform);
+                /*
+                [... jsform.querySelectorAll("input, textarea, select")].forEach(inp => {
+                    formData.append(inp.name, inp.value);
+                    console.log(inp.name + ": " + inp.value);
+                });
+                for(var pair of formData.entries()) {
+                    console.log(pair[0]+ ', '+ pair[1]); 
+                }
+                */
                 var request = new XMLHttpRequest();
                 request.onreadystatechange = function() {
                     if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+                        console.log(request.responseText);
                         if (request.responseType === "json") {
                             let response = JSON.parse(request.responseText);
-                            if (response.redirect) {
-                                window.location.replace(response.redirect);
-                            }
+                            if (response.redirect) window.location.replace(response.redirect);
                         }
                     }
-                };      
-                request.open(jsform.attributes["data-method"].value, 
-                        jsform.attributes["data-action"].value);
+                };
+                request.open(jsform.attributes["data-method"].value, jsform.attributes["action"].value);
                 request.send(formData);
             });
         }
