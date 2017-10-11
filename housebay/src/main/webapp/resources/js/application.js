@@ -15,6 +15,27 @@ window.addEventListener("load", function () {
  	}); 
     });
     
-    
-    
+    let jsform = document.querySelector("form[data-method]");
+    if (jsform) { 
+        let jsbtn = jsform.querySelector("button[type=button].send");
+        if (jsbtn) {
+            jsbtn.addEventListener('click', function () {
+                var formData = new FormData(jsform);
+                var request = new XMLHttpRequest();
+                request.onreadystatechange = function() {
+                    if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+                        if (request.responseType === "json") {
+                            let response = JSON.parse(request.responseText);
+                            if (response.redirect) {
+                                window.location.replace(response.redirect);
+                            }
+                        }
+                    }
+                };      
+                request.open(jsform.attributes["data-method"].value, 
+                        jsform.attributes["data-action"].value);
+                request.send(formData);
+            });
+        }
+    }
 });
