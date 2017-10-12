@@ -44,19 +44,14 @@
                     </div>
                     
                     <div class="hero-body">
-                        <div class="container is-fluid">
-                            <div class="content">
-                                <!-- id: <c:out value="${pet.id}" /> -->
-                                <p>
-                                    <strong>Nome:</strong> <c:out value="${pet.nome}" />
-                                </p>
-                                <p>
-                                    <strong>Descrição:</strong> <c:out value="${pet.descricao}" />
-                                </p>
-                            </div>
-                            
-                            
-                            
+                        <div class="content">
+                            <!-- id: <c:out value="${pet.id}" /> -->
+                            <p>
+                                <strong>Nome:</strong> <c:out value="${pet.nome}" />
+                            </p>
+                            <p>
+                                <strong>Descrição:</strong> <c:out value="${pet.descricao}" />
+                            </p>
                         </div>
                     </div>
                 </main>

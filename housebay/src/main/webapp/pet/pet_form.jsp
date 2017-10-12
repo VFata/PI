@@ -65,7 +65,6 @@
 
                     <div class="hero-body">
                         <!-- TODO: incluir Notificações param: msg -->
-                        <div class="container is-fluid">
                         <c:choose><c:when test="${type=='edit' && pet != null}">
                             <form action="${edit_url}" method="post">
                                 <input type="hidden" name="id" value="${pet.id}" />
@@ -73,53 +72,52 @@
                             <form action="${new_url}" method="post">
                         </c:otherwise></c:choose>
 
-                                <div class="field is-horizontal">
-                                    <div class="field-label is-normal">
-                                        <label class="label">Nome</label>
-                                    </div>
-                                    <div class="field-body">
-                                        <div class="field">
-                                            <div class="control">
-                                                <input class="input" type="text" name="nome" placeholder="Nome" value="${pet.nome}">
-                                            </div>
+                            <div class="field is-horizontal">
+                                <div class="field-label is-normal">
+                                    <label class="label">Nome</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <div class="control">
+                                            <input class="input" type="text" name="nome" placeholder="Nome" value="${pet.nome}">
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="field is-horizontal">
-                                    <div class="field-label is-normal">
-                                        <label class="label">Descrição</label>
-                                    </div>
-                                    <div class="field-body">
-                                        <div class="field">
-                                            <div class="control">
-                                                <textarea class="textarea" name="descricao" placeholder="Descrição">${pet.descricao}</textarea>
-                                            </div>
+                            <div class="field is-horizontal">
+                                <div class="field-label is-normal">
+                                    <label class="label">Descrição</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <div class="control">
+                                            <textarea class="textarea" name="descricao" placeholder="Descrição">${pet.descricao}</textarea>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="field is-horizontal">
-                                    <div class="field-label">
-                                        <!-- Left empty for spacing -->
-                                    </div>
-                                    <div class="field-body">
-                                        <div class="field">
-                                            <div class="control">
-                                                <button class="button is-primary" >
-                                                    <c:choose><c:when test="${type=='edit' && pet != null}">
-                                                        Alterar
-                                                    </c:when><c:otherwise>
-                                                        Salvar
-                                                    </c:otherwise></c:choose> 
-                                                </button>
-                                            </div>
+                            <div class="field is-horizontal">
+                                <div class="field-label">
+                                    <!-- Left empty for spacing -->
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <div class="control">
+                                            <button class="button is-primary" >
+                                                <c:choose><c:when test="${type=='edit' && pet != null}">
+                                                    Alterar
+                                                </c:when><c:otherwise>
+                                                    Salvar
+                                                </c:otherwise></c:choose> 
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                            </form>
-                        </div>
+                        </form>
                     </div>
                     
                 </main>

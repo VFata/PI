@@ -13,7 +13,7 @@
         <title>Lista de Pets</title>
         <c:url var="index_url" value="/" />
         <c:url var="resources_url" value="/resources" />
-        <c:url var="show_url" value="/pets" />
+        <c:url var="main_url" value="/pets" />
         <c:url var="new_url" value="/pets/new" />
         <c:url var="edit_url" value="/pets/edit" />
         
@@ -43,50 +43,48 @@
                     </div>
                     
                     <div class="hero-body">
-                        <div class="container is-fluid">
-                            <!-- TODO: Incluir campo de busca param: q -->
-                            <!-- TODO: incluir Notificações param: msg -->
-                            
-                            <div>
-                                <a class="button is-success" href="${new_url}">Novo Pet</a>
-                            </div>
+                        <!-- TODO: Incluir campo de busca param: q -->
+                        <!-- TODO: incluir Notificações param: msg -->
 
-                            <table class="table is-hoverable is-fullwidth">
-                                <thead>
-                                    <tr>
-                                        <th>Nome</th>
-                                        <th>Descrição</th>
-                                        <th>Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach items="${pets}" var="pet">
-                                        <tr>
-                                            <td><c:out value="${pet.nome}" /></td>
-                                            <td><c:out value="${pet.descricao}" /></td>
-                                            <td>
-                                                <a class="button is-info is-outlined" href='${show_url}?id=${pet.id}'>
-                                                    <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;
-                                                    Detalhes
-                                                </a>
-
-                                                <a class="button is-warning is-outlined" href='${edit_url}?id=${pet.id}'>
-                                                    <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;
-                                                    Alterar
-                                                </a>
-
-                                                <form class="delete-action" action="${show_url}?id=${pet.id}" method="post" confirm="Tem certeza?">
-                                                    <button class="button is-danger is-outlined send" type="button" >
-                                                        <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;
-                                                        Apagar    
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
+                        <div>
+                            <a class="button is-success" href="${new_url}">Novo Pet</a>
                         </div>
+
+                        <table class="table is-hoverable is-fullwidth">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Descrição</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach items="${pets}" var="pet">
+                                    <tr>
+                                        <td><c:out value="${pet.nome}" /></td>
+                                        <td><c:out value="${pet.descricao}" /></td>
+                                        <td>
+                                            <a class="button is-info is-outlined" href='${main_url}?id=${pet.id}'>
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;
+                                                Detalhes
+                                            </a>
+
+                                            <a class="button is-warning is-outlined" href='${edit_url}?id=${pet.id}'>
+                                                <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;
+                                                Alterar
+                                            </a>
+
+                                            <form class="delete-action" action="${main_url}?id=${pet.id}" method="post" confirm="Tem certeza?">
+                                                <button class="button is-danger is-outlined send" type="button" >
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;
+                                                    Apagar    
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
                     </div>
 
                 </main>

@@ -12,13 +12,13 @@
             </div>
             <ul class="menu-list">
                 <li>
-                    <!-- Novos itens de menu devem ser inseridos aqui -->
                     <a href="${base}pets" class="has-tooltip">
                         <i class="fa fa-paw" aria-hidden="true"></i>
                         <span class="is-hidden-touch">&nbsp;Pets</span>
                         <span class="tooltip tag is-black is-hidden-desktop">Pets</span>
                     </a>
                 </li>
+                <!-- Novos itens de menu devem ser inseridos aqui -->
             </ul>
         </aside>
     </div>

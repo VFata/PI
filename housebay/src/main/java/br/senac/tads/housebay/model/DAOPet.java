@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class DAOPet {
     public static Long create(Pet pet) {
-        String sql = "INSERT INTO pets (nome, descricao, ativo, criado, modificado) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO pets (nome, descricao, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?)";
         Long id = null;
         try (Connection connection = SQLUtils.getConnection()) {
             connection.setAutoCommit(false);
@@ -26,7 +26,6 @@ public class DAOPet {
                 statement.setString(1, pet.getNome());
                 statement.setString(2, pet.getDescricao());
                 statement.setBoolean(3, pet.isAtivo());
-                
                 Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
                 statement.setTimestamp(4, now);
                 statement.setTimestamp(5, now);
