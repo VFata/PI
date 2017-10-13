@@ -2,7 +2,7 @@
 package br.senac.tads.housebay.model;
 
 
-public class Funcionario {
+public class Funcionario extends TabelaDB {
     
     private String nome;
     private String datanascimento;
@@ -10,8 +10,13 @@ public class Funcionario {
     private String cpf;
     private String email;
     private String cargo;
-
+    
+    public Funcionario() {
+        super();
+    }
+    
     public Funcionario(String nome, String datanascimento, String telefone, String cpf, String email, String cargo) {
+        super();
         this.nome = nome;
         this.datanascimento = datanascimento;
         this.telefone = telefone;
@@ -19,6 +24,7 @@ public class Funcionario {
         this.email = email;
         this.cargo = cargo;
     }
+   
 
     public String getNome() {
         return nome;
