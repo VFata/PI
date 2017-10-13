@@ -1,7 +1,7 @@
 
 package br.senac.tads.housebay.model;
 
-
+//Classe relacionada com a tabela Funcionario do Banco de Dados...
 public class Funcionario extends TabelaDB {
     
     private String nome;

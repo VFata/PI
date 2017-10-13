@@ -4,6 +4,7 @@ package br.senac.tads.housebay.model;
  *
  * @author Igor
  */
+//Classe relacionada com a tabela Produto do Banco de Dados...
 public class Produto extends TabelaDB {
 
     private String produto;

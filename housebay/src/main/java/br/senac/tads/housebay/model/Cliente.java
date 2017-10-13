@@ -9,6 +9,7 @@ import java.util.GregorianCalendar;
  * @author Igor
  */
 
+//Classe relacionada com a tabela Clientes do Banco de Dados...
 public class Cliente extends TabelaDB{
     private String nome;
     private GregorianCalendar dataNascimento;
