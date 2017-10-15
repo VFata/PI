@@ -5,10 +5,56 @@
  */
 package br.senac.tads.housebay.controller;
 
-/**
- *
- * @author Tron
- */
+import br.senac.tads.housebay.exception.ClienteException;
+import br.senac.tads.housebay.model.Cliente;
+
+
 public class ValidateCliente {
+    
+        public static boolean create(Pet pet) 
+            throws PetException {
+        String erro = "Erro: ";
+        
+        erro = geraMensagem(pet, erro);
+        
+        if (!erro.equals("Erro: ")) {
+            throw new PetException(erro);
+        }
+        
+        return true;
+    }
+    
+    public static boolean update(Pet pet) 
+            throws PetException {
+        String erro = "Erro: ";
+        
+        if (pet.getId() == null || pet.getId() <= 0 ) {
+            erro += "\nId vazio.";
+        }
+        
+        erro = geraMensagem(pet, erro);
+        
+        if (!erro.equals("Erro: ")) {
+            throw new PetException(erro);
+        }
+        
+        return true;
+    }
+    
+    private static String geraMensagem(Pet pet, String mensagem) {
+        String erro = "";
+        
+        if (pet == null) {
+            erro += "\nPet nulo.";
+        }
+        if (pet.getNome() == null || pet.getNome().equals("")) {
+            erro += "\nNome vazio.";
+        }
+        if (pet.getDescricao()== null || pet.getDescricao().equals("")) {
+            erro += "\nDescrição vazia.";
+        }
+        
+        return erro;
+    }
     
 }
