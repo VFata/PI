@@ -11,47 +11,56 @@ import br.senac.tads.housebay.model.Cliente;
 
 public class ValidateCliente {
     
-        public static boolean create(Pet pet) 
-            throws PetException {
+        public static boolean create(Cliente cliente) 
+            throws ClienteException {
         String erro = "Erro: ";
         
-        erro = geraMensagem(pet, erro);
+        erro = geraMensagem(cliente, erro);
         
         if (!erro.equals("Erro: ")) {
-            throw new PetException(erro);
+            throw new ClienteException(erro);
         }
         
         return true;
     }
     
-    public static boolean update(Pet pet) 
-            throws PetException {
+    public static boolean update(Cliente cliente) 
+            throws ClienteException {
         String erro = "Erro: ";
         
-        if (pet.getId() == null || pet.getId() <= 0 ) {
+        if (cliente.getId() == null || cliente.getId() <= 0 ) {
             erro += "\nId vazio.";
         }
         
-        erro = geraMensagem(pet, erro);
+        erro = geraMensagem(cliente, erro);
         
         if (!erro.equals("Erro: ")) {
-            throw new PetException(erro);
+            throw new ClienteException(erro);
         }
         
         return true;
     }
     
-    private static String geraMensagem(Pet pet, String mensagem) {
+    private static String geraMensagem(Cliente cliente, String mensagem) {
         String erro = "";
         
-        if (pet == null) {
-            erro += "\nPet nulo.";
+        if (cliente == null) {
+            erro += "\nCliente nulo.";
         }
-        if (pet.getNome() == null || pet.getNome().equals("")) {
+        if (cliente.getNome() == null || cliente.getNome().equals("")) {
             erro += "\nNome vazio.";
         }
-        if (pet.getDescricao()== null || pet.getDescricao().equals("")) {
-            erro += "\nDescrição vazia.";
+        if (cliente.getCpf()== null || cliente.getCpf().equals("")) {
+            erro += "\nCPF vazia.";
+        }
+        if (cliente.getDataNascimento()== null || cliente.getDataNascimento().equals("")) {
+            erro += "\nDataNascimento vazia.";
+        }
+        if (cliente.getEmail()== null || cliente.getEmail().equals("")) {
+            erro += "\nEmail vazia.";
+        }
+        if (cliente.getTelefone()== null || cliente.getTelefone().equals("")) {
+            erro += "\nTelefone vazia.";
         }
         
         return erro;
