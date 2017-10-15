@@ -38,7 +38,7 @@ public class Funcionarios extends HttpServlet{
         System.out.println("DEBUG: get method");
         
         if (url.equals("/funcionarios") && id == null) {
-            //Lista pets
+            //Lista funcionarios
             String query = request.getParameter("q");
             List<Funcionario> funcionarios = DAOFuncionario.search(query);
             request.setAttribute("funcionarios", funcionarios);
@@ -46,20 +46,20 @@ public class Funcionarios extends HttpServlet{
             dispatcher.forward(request, response);
             
         } else if (url.equals("/funcionarios") && id != null) {
-            //Detalhes do pet id
+            //Detalhes do funcionario id
             Funcionario funcionario = DAOFuncionario.read(Long.parseLong(id));
             request.setAttribute("funcionario", funcionario);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/funcionario/funcionario_show.jsp");
             dispatcher.forward(request, response);
             
         } else if (url.equals("/funcionarios/new") && id == null) {
-            //Form novo pet
+            //Form novo funcionario
             request.setAttribute("type", "new");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/funcionario/funcionario_form.jsp");
             dispatcher.forward(request, response);
             
         } else if (url.equals("/funcionarios/edit") && id != null) {
-            //Form alterar pet
+            //Form alterar funcionario
             Funcionario funcionario = DAOFuncionario.read(Long.parseLong(id));
             request.setAttribute("funcionario", funcionario);
             request.setAttribute("type", "edit");
@@ -109,14 +109,14 @@ public class Funcionarios extends HttpServlet{
             funcionario.setEmail(request.getParameter("email"));
             funcionario.setAtivo(true);
             
-            //TODO validar ValidatePet.create(pet)
+            //TODO validar ValidateFuncionario.create(funcionario)
             
             Long newID = DAOFuncionario.create(funcionario);
             if (newID > 0) {
                 response.sendRedirect(request.getContextPath() + "/funcionario?id=" + newID);
             }
         }else if (url.equals("/funcionario/edit") && id != null) {
-            //Altera o pet id=xxx
+            //Altera o funcionario id=xxx
             Funcionario funcionario = new Funcionario();
             funcionario.setNome(request.getParameter("nome"));
             funcionario.setDatanascimento(request.getParameter("datanascimento"));
@@ -126,7 +126,7 @@ public class Funcionarios extends HttpServlet{
             funcionario.setEmail(request.getParameter("email"));
             funcionario.setAtivo(true);
             
-            //TODO validar ValidatePet.update(pet)
+            //TODO validar ValidateFuncionario.update(funcionario)
             
             if (DAOFuncionario.update(funcionario)) {
                 response.sendRedirect(request.getContextPath() + "/funcionario?id=" + id);

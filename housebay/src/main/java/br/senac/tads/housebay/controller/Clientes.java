@@ -43,7 +43,7 @@ public class Clientes extends HttpServlet{
         System.out.println("DEBUG: get method");
         
         if (url.equals("/clientes") && id == null) {
-            //Lista pets
+            //Lista clientes
             String query = request.getParameter("q");
             List<Cliente> clientes = DAOCliente.search(query);
             request.setAttribute("clinetes", clientes);
@@ -97,7 +97,7 @@ public class Clientes extends HttpServlet{
         System.out.println("DEBUG: post method");
         
         if (url.equals("/clientes") && id != null) {
-            //Deleta o pet id=xxx
+            //Deleta o cliente id=xxx
             Cliente cliente = new Cliente();
             cliente.setId(Long.parseLong(id));
             if(DAOCliente.delete(cliente)) {
@@ -113,7 +113,7 @@ public class Clientes extends HttpServlet{
             cliente.setTelefone(request.getParameter("telefone"));             
             cliente.setAtivo(true);
             
-            //TODO validar ValidatePet.create(cliente)
+            //TODO validar ValidateCliente.create(cliente)
             
             Long newID = DAOCliente.create(cliente);
             if (newID > 0) {
@@ -130,7 +130,7 @@ public class Clientes extends HttpServlet{
             cliente.setTelefone(request.getParameter("telefone"));  
             cliente.setAtivo(true);
             
-            //TODO validar ValidatePet.update(pet)
+            //TODO validar ValidateCliente.update(pet)
             
             if (DAOCliente.update(cliente)) {
                 response.sendRedirect(request.getContextPath() + "/clientes?id=" + id);

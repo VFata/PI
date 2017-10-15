@@ -98,14 +98,14 @@ public class Produtos extends HttpServlet {
         System.out.println("DEBUG: post method");
         
         if (url.equals("/produtos") && id != null) {
-            //Deleta o pet id=xxx
+            //Deleta o produto id=xxx
             Produto produto = new Produto();
             produto.setId(Long.parseLong(id));
             if(DAOProduto.delete(produto)) {
                 response.sendRedirect(request.getContextPath() + "/produtos");
             }
         } else if (url.equals("/produtos/new") && id == null) {
-            //Cria um novo pet
+            //Cria um novo produto
             Produto produto = new Produto();
             produto.setProduto(request.getParameter("produto"));
             produto.setTipo(request.getParameter("tipo"));
@@ -113,14 +113,14 @@ public class Produtos extends HttpServlet {
             produto.setCodigoDeBarras(request.getParameter("codigobarras"));
             produto.setAtivo(true);
             
-            //TODO validar ValidatePet.create(pet)
+            //TODO validar ValidateProduto.create(produto)
             
             Long newID = DAOProduto.create(produto);
             if (newID > 0) {
                 response.sendRedirect(request.getContextPath() + "/produtos?id=" + newID);
             }
         }else if (url.equals("/produtos/edit") && id != null) {
-            //Altera o pet id=xxx
+            //Altera o produto id=xxx
             Produto produto = new Produto();
             produto.setId(Long.parseLong(id));
             produto.setProduto(request.getParameter("produto"));
@@ -129,7 +129,7 @@ public class Produtos extends HttpServlet {
             produto.setCodigoDeBarras(request.getParameter("codigobarras"));
             produto.setAtivo(true);
             
-            //TODO validar ValidatePet.update(pet)
+            //TODO validar ValidateProduto.update(produto)
             
             if (DAOProduto.update(produto)) {
                 response.sendRedirect(request.getContextPath() + "/produtos?id=" + id);
