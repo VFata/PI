@@ -16,16 +16,16 @@ import java.util.logging.Logger;
  *
  * @author Diego
  */
-public class DAOPet {
-    public static Long create(Pet pet) {
-        String sql = "INSERT INTO pets (nome, descricao, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?)";
+public class DAOCliente {
+    public static Long create(Cliente cliente) {
+        String sql = "INSERT INTO clientes (nome, descricao, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?)";
         Long id = null;
         try (Connection connection = SQLUtils.getConnection()) {
             connection.setAutoCommit(false);
             try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                statement.setString(1, pet.getNome());
-                statement.setString(2, pet.getDescricao());
-                statement.setBoolean(3, pet.isAtivo());
+                statement.setString(1, cliente.getNome());
+                statement.setString(2, cliente.getDescricao());
+                statement.setBoolean(3, cliente.isAtivo());
                 Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
                 statement.setTimestamp(4, now);
                 statement.setTimestamp(5, now);
@@ -34,14 +34,14 @@ public class DAOPet {
                 try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         id = generatedKeys.getLong(1);
-                        pet.setId(id);
+                        cliente.setId(id);
                     }
                 }
                 connection.commit();
             } catch (SQLException ex) {
                 connection.rollback();
                 System.err.println(ex.getMessage());
-                Logger.getLogger(DAOPet.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DAOCliente.class.getName()).log(Level.SEVERE, null, ex);
                 return -1l;
             }
         } catch (SQLException ex) {
@@ -50,9 +50,9 @@ public class DAOPet {
         return id;
     }
 
-    public static Pet read(Long id) {
-        String sql = "SELECT id, nome, descricao, ativo FROM pets WHERE (id=? AND ativo=?)";
-        Pet pet = null;
+    public static Cliente read(Long id) {
+        String sql = "SELECT id, nome, descricao, ativo FROM clientes WHERE (id=? AND ativo=?)";
+        Cliente cliente = null;
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setLong(1, id);
@@ -60,27 +60,27 @@ public class DAOPet {
 
             try (ResultSet resultados = statement.executeQuery()) {
                 if (resultados.next()) {
-                    pet = new Pet();
-                    pet.setId(resultados.getLong("id"));
-                    pet.setNome(resultados.getString("nome"));
-                    pet.setDescricao(resultados.getString("descricao"));
-                    pet.setAtivo(resultados.getBoolean("ativo"));
+                    cliente = new Cliente();
+                    cliente.setId(resultados.getLong("id"));
+                    cliente.setNome(resultados.getString("nome"));
+                    cliente.setDescricao(resultados.getString("descricao"));
+                    cliente.setAtivo(resultados.getBoolean("ativo"));
                 }
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        return pet;
+        return cliente;
     }
 
-    public static List<Pet> search(String query) {
+    public static List<Cliente> search(String query) {
         String sql;
         if (query != null) {
-            sql = "SELECT id, nome, descricao, ativo FROM pets WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
+            sql = "SELECT id, nome, descricao, ativo FROM clientes WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
         } else {
-            sql = "SELECT id, nome, descricao, ativo FROM pets WHERE ativo=?";
+            sql = "SELECT id, nome, descricao, ativo FROM clientes WHERE ativo=?";
         }
-        List<Pet> list = null;
+        List<Cliente> list = null;
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             if (query != null) {
@@ -93,12 +93,12 @@ public class DAOPet {
             try (ResultSet resultados = statement.executeQuery()) {
                 list = new ArrayList<>();
                 while (resultados.next()) {
-                    Pet pet = new Pet();
-                    pet.setId(resultados.getLong("id"));
-                    pet.setNome(resultados.getString("nome"));
-                    pet.setDescricao(resultados.getString("descricao"));
-                    pet.setAtivo(resultados.getBoolean("ativo"));
-                    list.add(pet);
+                    Cliente cliente = new Cliente();
+                    cliente.setId(resultados.getLong("id"));
+                    cliente.setNome(resultados.getString("nome"));
+                    cliente.setDescricao(resultados.getString("descricao"));
+                    cliente.setAtivo(resultados.getBoolean("ativo"));
+                    list.add(cliente);
                 }
             }
         } catch (SQLException ex) {
@@ -107,18 +107,18 @@ public class DAOPet {
         return list;
     }
 
-    public static boolean update(Pet pet) {
-        if (pet != null && pet.getId() != null && pet.getId() > 0) {
-            String sql = "UPDATE pets SET nome=?, descricao=?, ativo=?, modificado=? WHERE id=?";
+    public static boolean update(Cliente cliente) {
+        if (cliente != null && cliente.getId() != null && cliente.getId() > 0) {
+            String sql = "UPDATE clientes SET nome=?, descricao=?, ativo=?, modificado=? WHERE id=?";
             try (Connection connection = SQLUtils.getConnection()) {
                 connection.setAutoCommit(false);
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                    statement.setString(1, pet.getNome());
-                    statement.setString(2, pet.getDescricao());
-                    statement.setBoolean(3, pet.isAtivo());
+                    statement.setString(1, cliente.getNome());
+                    statement.setString(2, cliente.getDescricao());
+                    statement.setBoolean(3, cliente.isAtivo());
                     Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
                     statement.setTimestamp(4, now);
-                    statement.setLong(5, pet.getId());
+                    statement.setLong(5, cliente.getId());
 
                     statement.execute();
                     connection.commit();
@@ -137,15 +137,15 @@ public class DAOPet {
         }
     }
 
-    public static boolean delete(Pet pet) {
-        if (pet != null && pet.getId() != null && pet.getId() > 0) {
-            String sql = "UPDATE pets SET ativo=?, modificado=? WHERE id=?";
+    public static boolean delete(Cliente cliente) {
+        if (cliente != null && cliente.getId() != null && cliente.getId() > 0) {
+            String sql = "UPDATE clientes SET ativo=?, modificado=? WHERE id=?";
             try (Connection connection = SQLUtils.getConnection()) {
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                    statement.setBoolean(1, !pet.isAtivo());
+                    statement.setBoolean(1, !cliente.isAtivo());
                     Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
                     statement.setTimestamp(2, now);
-                    statement.setLong(3, pet.getId());
+                    statement.setLong(3, cliente.getId());
                     statement.execute();
                 }
             } catch (SQLException ex) {

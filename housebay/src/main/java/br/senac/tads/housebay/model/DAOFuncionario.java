@@ -18,13 +18,13 @@ import java.util.logging.Logger;
  */
 public class DAOFuncionario {
     public static Long create(Funcionario funcionario) {
-        String sql = "INSERT INTO funcionarios (nome, datadeNascimento, telefone, cpf, cargo, email, ativo) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO funcionarios (nome, dataNascimento, telefone, cpf, cargo, email, ativo) VALUES (?, ?, ?, ?, ?, ?, ?)";
         Long id = null;
         try (Connection connection = SQLUtils.getConnection()) {
             connection.setAutoCommit(false);
             try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, funcionario.getNome());
-                statement.setDate(2, funcionario.getdatadeNascimento());
+                statement.setTimestamp(2, funcionario.getDatanascimento().getTime());
                 statement.setString(3, funcionario.getTelefone());
                 statement.setString(4, funcionario.getCpf());
                 statement.setString(5, funcionario.getCargo());
@@ -55,7 +55,7 @@ public class DAOFuncionario {
     }
 
     public static Funcionario read(Long id) {
-        String sql = "SELECT id, nome, data de nascimento, telefone, cpf, cargo, email, ativo FROM funcionarios WHERE (id=? AND ativo=?)";
+        String sql = "SELECT id, nome, dataNascimento, telefone, cpf, cargo, email, ativo FROM funcionarios WHERE (id=? AND ativo=?)";
         Funcionario funcionario = null;
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -67,7 +67,7 @@ public class DAOFuncionario {
                     funcionario = new Funcionario();
                     funcionario.setId(resultados.getLong("id"));
                     funcionario.setNome(resultados.getString("nome"));
-                    funcionario.setDatanascimento(resultado.getDate("data de nascimento"));
+                    funcionario.setDatanascimento(resultados.getTimestamp("data de nascimento"));
                     funcionario.setTelefone(resultados.getString("telefone"));
                     funcionario.setCpf(resultados.getString("cpf"));
                     funcionario.setCargo(resultados.getString("cargo"));
@@ -81,14 +81,14 @@ public class DAOFuncionario {
         return funcionario;
     }
 
-    public static List<Pet> search(String query) {
+    public static List<Funcionario> search(String query) {
         String sql;
         if (query != null) {
-            sql = "SELECT id, nome, descricao, ativo FROM pets WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
+            sql = "SELECT id, nome, dataNascimento, telefone, cpf, cargo, email, ativo FROM funcionarios WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
         } else {
-            sql = "SELECT id, nome, descricao, ativo FROM pets WHERE ativo=?";
+            sql = "SELECT id, nome, dataNascimento, telefone, cpf, cargo, email, ativo FROM funcionarios WHERE ativo=?";
         }
-        List<Pet> list = null;
+        List<Funcionario> list = null;
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             if (query != null) {
@@ -101,12 +101,16 @@ public class DAOFuncionario {
             try (ResultSet resultados = statement.executeQuery()) {
                 list = new ArrayList<>();
                 while (resultados.next()) {
-                    Pet pet = new Pet();
-                    pet.setId(resultados.getLong("id"));
-                    pet.setNome(resultados.getString("nome"));
-                    pet.setDescricao(resultados.getString("descricao"));
-                    pet.setAtivo(resultados.getBoolean("ativo"));
-                    list.add(pet);
+                    Funcionario funcionario = new Funcionario();
+                    funcionario.setId(resultados.getLong("id"));
+                    funcionario.setNome(resultados.getString("nome"));
+                    funcionario.setDatanascimento(resultados.getTimestamp("data de nascimento"));
+                    funcionario.setTelefone(resultados.getString("telefone"));
+                    funcionario.setCpf(resultados.getString("cpf"));
+                    funcionario.setCargo(resultados.getString("cargo"));
+                    funcionario.setEmail(resultados.getString("email"));
+                    funcionario.setAtivo(resultados.getBoolean("ativo"));
+                    list.add(funcionario);
                 }
             }
         } catch (SQLException ex) {
@@ -115,18 +119,22 @@ public class DAOFuncionario {
         return list;
     }
 
-    public static boolean update(Pet pet) {
-        if (pet != null && pet.getId() != null && pet.getId() > 0) {
-            String sql = "UPDATE pets SET nome=?, descricao=?, ativo=?, modificado=? WHERE id=?";
+    public static boolean update(Funcionario funcionario) {
+        if (funcionario != null && funcionario.getId() != null && funcionario.getId() > 0) {
+            String sql = "UPDATE funcionarios SET nome=?, dataNascimento=?, telefone=?, cpf=?, cargo=?, email=?, ativo=?, modificado=? WHERE id=?";
             try (Connection connection = SQLUtils.getConnection()) {
                 connection.setAutoCommit(false);
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                    statement.setString(1, pet.getNome());
-                    statement.setString(2, pet.getDescricao());
-                    statement.setBoolean(3, pet.isAtivo());
+                    statement.setString(1, funcionario.getNome());
+                    statement.setTimestamp(2, funcionario.getDatanascimento();
+                    statement.setString(3, funcionario.getTelefone());
+                    statement.setString(4, funcionario.getCpf());
+                    statement.setString(5, funcionario.getCargo());
+                    statement.setString(6, funcionario.getEmail());
+                    statement.setBoolean(7, funcionario.isAtivo());
                     Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
-                    statement.setTimestamp(4, now);
-                    statement.setLong(5, pet.getId());
+                    statement.setTimestamp(8, now);
+                    statement.setLong(9, funcionario.getId());
 
                     statement.execute();
                     connection.commit();
@@ -145,15 +153,15 @@ public class DAOFuncionario {
         }
     }
 
-    public static boolean delete(Pet pet) {
-        if (pet != null && pet.getId() != null && pet.getId() > 0) {
-            String sql = "UPDATE pets SET ativo=?, modificado=? WHERE id=?";
+    public static boolean delete(Funcionario funcionario) {
+        if (funcionario != null && funcionario.getId() != null && funcionario.getId() > 0) {
+            String sql = "UPDATE funcionarios SET ativo=?, modificado=? WHERE id=?";
             try (Connection connection = SQLUtils.getConnection()) {
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                    statement.setBoolean(1, !pet.isAtivo());
+                    statement.setBoolean(1, !funcionario.isAtivo());
                     Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
                     statement.setTimestamp(2, now);
-                    statement.setLong(3, pet.getId());
+                    statement.setLong(3, funcionario.getId());
                     statement.execute();
                 }
             } catch (SQLException ex) {
