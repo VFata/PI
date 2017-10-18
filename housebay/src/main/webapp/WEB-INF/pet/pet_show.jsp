@@ -25,7 +25,7 @@
     <body>
         <div class="columns is-mobile">
             <!-- Inclui menu vertical -->
-            <jsp:include page="/resources/vertical_menu.jsp" />
+            <jsp:include page="/WEB-INF/vertical_menu.jsp" />
             
             <div class="column is-11-touch is-9-desktop is-9-widescreen is-10-fullhd ">
                 <main class="hero">

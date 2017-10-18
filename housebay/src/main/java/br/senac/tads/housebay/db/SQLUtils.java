@@ -1,4 +1,4 @@
-package br.senac.tads.housebay.model;
+package br.senac.tads.housebay.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,7 +12,7 @@ import java.util.Properties;
 public class SQLUtils {
     private final static String DB_URI = "jdbc:derby://localhost:1527/housebay";
     private final static String DB_USER = "housebay";
-    private final static String DB_PASSWORD = "senhahousebay";
+    private final static String DB_PASSWORD = "senhahousebay"; //alterada de novo
     
     public static Connection getConnection() {
         Connection connection = null;

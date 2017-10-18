@@ -1,9 +1,8 @@
 package br.senac.tads.housebay.controller;
 
-import br.senac.tads.housebay.model.DAOFuncionario;
+import br.senac.tads.housebay.db.DAOFuncionario;
 import br.senac.tads.housebay.model.Funcionario;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

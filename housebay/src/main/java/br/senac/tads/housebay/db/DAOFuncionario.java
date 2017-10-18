@@ -1,5 +1,6 @@
-package br.senac.tads.housebay.model;
+package br.senac.tads.housebay.db;
 
+import br.senac.tads.housebay.model.Funcionario;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
@@ -17,6 +18,10 @@ import java.util.logging.Logger;
  * @author Diego
  */
 public class DAOFuncionario {
+    /*
+     * TODO: ARRUMAR impede compilação
+     */
+    
     public static Long create(Funcionario funcionario) {
         String sql = "INSERT INTO funcionarios (nome, dataNascimento, telefone, cpf, cargo, email, ativo) VALUES (?, ?, ?, ?, ?, ?, ?)";
         Long id = null;
@@ -24,7 +29,7 @@ public class DAOFuncionario {
             connection.setAutoCommit(false);
             try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, funcionario.getNome());
-                statement.setTimestamp(2, funcionario.getDatanascimento().getTime());
+                // sstatement.setTimestamp(2, funcionario.getDatanascimento().getTime());
                 statement.setString(3, funcionario.getTelefone());
                 statement.setString(4, funcionario.getCpf());
                 statement.setString(5, funcionario.getCargo());
@@ -67,7 +72,7 @@ public class DAOFuncionario {
                     funcionario = new Funcionario();
                     funcionario.setId(resultados.getLong("id"));
                     funcionario.setNome(resultados.getString("nome"));
-                    funcionario.setDatanascimento(resultados.getTimestamp("data de nascimento"));
+                    // funcionario.setDatanascimento(resultados.getTimestamp("data de nascimento"));
                     funcionario.setTelefone(resultados.getString("telefone"));
                     funcionario.setCpf(resultados.getString("cpf"));
                     funcionario.setCargo(resultados.getString("cargo"));
@@ -104,7 +109,7 @@ public class DAOFuncionario {
                     Funcionario funcionario = new Funcionario();
                     funcionario.setId(resultados.getLong("id"));
                     funcionario.setNome(resultados.getString("nome"));
-                    funcionario.setDatanascimento(resultados.getTimestamp("data de nascimento"));
+                    // funcionario.setDatanascimento(resultados.getTimestamp("data de nascimento"));
                     funcionario.setTelefone(resultados.getString("telefone"));
                     funcionario.setCpf(resultados.getString("cpf"));
                     funcionario.setCargo(resultados.getString("cargo"));
@@ -126,7 +131,7 @@ public class DAOFuncionario {
                 connection.setAutoCommit(false);
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
                     statement.setString(1, funcionario.getNome());
-                    statement.setTimestamp(2, funcionario.getDatanascimento();
+                    // statement.setTimestamp(2, funcionario.getDatanascimento());
                     statement.setString(3, funcionario.getTelefone());
                     statement.setString(4, funcionario.getCpf());
                     statement.setString(5, funcionario.getCargo());

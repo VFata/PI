@@ -1,5 +1,6 @@
-package br.senac.tads.housebay.model;
+package br.senac.tads.housebay.db;
 
+import br.senac.tads.housebay.model.Produto;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
@@ -12,20 +13,20 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Diego
- */
-public class DAOCliente {
-    public static Long create(Cliente cliente) {
-        String sql = "INSERT INTO clientes (nome, descricao, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?)";
+public class DAOProduto {
+    /*
+     * TODO: ARRUMAR impede compilação
+     */
+    
+    public static Long create(Produto produto) {
+        String sql = "INSERT INTO produto (nome, descricao, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?)";
         Long id = null;
         try (Connection connection = SQLUtils.getConnection()) {
             connection.setAutoCommit(false);
             try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                statement.setString(1, cliente.getNome());
-                statement.setString(2, cliente.getDescricao());
-                statement.setBoolean(3, cliente.isAtivo());
+                //statement.setString(1, produto.getNome());
+                //statement.setString(2, produto.getDescricao());
+                statement.setBoolean(3, produto.isAtivo());
                 Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
                 statement.setTimestamp(4, now);
                 statement.setTimestamp(5, now);
@@ -34,14 +35,14 @@ public class DAOCliente {
                 try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         id = generatedKeys.getLong(1);
-                        cliente.setId(id);
+                        produto.setId(id);
                     }
                 }
                 connection.commit();
             } catch (SQLException ex) {
                 connection.rollback();
                 System.err.println(ex.getMessage());
-                Logger.getLogger(DAOCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DAOProduto.class.getName()).log(Level.SEVERE, null, ex);
                 return -1l;
             }
         } catch (SQLException ex) {
@@ -50,9 +51,9 @@ public class DAOCliente {
         return id;
     }
 
-    public static Cliente read(Long id) {
-        String sql = "SELECT id, nome, descricao, ativo FROM clientes WHERE (id=? AND ativo=?)";
-        Cliente cliente = null;
+    public static Produto read(Long id) {
+        String sql = "SELECT id, nome, descricao, ativo FROM produtos WHERE (id=? AND ativo=?)";
+        Produto produto = null;
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setLong(1, id);
@@ -60,27 +61,27 @@ public class DAOCliente {
 
             try (ResultSet resultados = statement.executeQuery()) {
                 if (resultados.next()) {
-                    cliente = new Cliente();
-                    cliente.setId(resultados.getLong("id"));
-                    cliente.setNome(resultados.getString("nome"));
-                    cliente.setDescricao(resultados.getString("descricao"));
-                    cliente.setAtivo(resultados.getBoolean("ativo"));
+                    produto = new Produto();
+                    produto.setId(resultados.getLong("id"));
+                    //produto.setNome(resultados.getString("nome"));
+                    //produto.setDescricao(resultados.getString("descricao"));
+                    produto.setAtivo(resultados.getBoolean("ativo"));
                 }
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        return cliente;
+        return produto;
     }
 
-    public static List<Cliente> search(String query) {
+    public static List<Produto> search(String query) {
         String sql;
         if (query != null) {
-            sql = "SELECT id, nome, descricao, ativo FROM clientes WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
+            sql = "SELECT id, nome, descricao, ativo FROM produtos WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
         } else {
-            sql = "SELECT id, nome, descricao, ativo FROM clientes WHERE ativo=?";
+            sql = "SELECT id, nome, descricao, ativo FROM produtos WHERE ativo=?";
         }
-        List<Cliente> list = null;
+        List<Produto> list = null;
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             if (query != null) {
@@ -93,12 +94,12 @@ public class DAOCliente {
             try (ResultSet resultados = statement.executeQuery()) {
                 list = new ArrayList<>();
                 while (resultados.next()) {
-                    Cliente cliente = new Cliente();
-                    cliente.setId(resultados.getLong("id"));
-                    cliente.setNome(resultados.getString("nome"));
-                    cliente.setDescricao(resultados.getString("descricao"));
-                    cliente.setAtivo(resultados.getBoolean("ativo"));
-                    list.add(cliente);
+                    Produto produto = new Produto();
+                    produto.setId(resultados.getLong("id"));
+                    //produto.setNome(resultados.getString("nome"));
+                    //produto.setDescricao(resultados.getString("descricao"));
+                    produto.setAtivo(resultados.getBoolean("ativo"));
+                    list.add(produto);
                 }
             }
         } catch (SQLException ex) {
@@ -107,18 +108,18 @@ public class DAOCliente {
         return list;
     }
 
-    public static boolean update(Cliente cliente) {
-        if (cliente != null && cliente.getId() != null && cliente.getId() > 0) {
-            String sql = "UPDATE clientes SET nome=?, descricao=?, ativo=?, modificado=? WHERE id=?";
+    public static boolean update(Produto produto) {
+        if (produto != null && produto.getId() != null && produto.getId() > 0) {
+            String sql = "UPDATE produtos SET nome=?, descricao=?, ativo=?, modificado=? WHERE id=?";
             try (Connection connection = SQLUtils.getConnection()) {
                 connection.setAutoCommit(false);
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                    statement.setString(1, cliente.getNome());
-                    statement.setString(2, cliente.getDescricao());
-                    statement.setBoolean(3, cliente.isAtivo());
+                    //statement.setString(1, produto.getNome());
+                    //statement.setString(2, produto.getDescricao());
+                    statement.setBoolean(3, produto.isAtivo());
                     Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
                     statement.setTimestamp(4, now);
-                    statement.setLong(5, cliente.getId());
+                    statement.setLong(5, produto.getId());
 
                     statement.execute();
                     connection.commit();
@@ -137,15 +138,15 @@ public class DAOCliente {
         }
     }
 
-    public static boolean delete(Cliente cliente) {
-        if (cliente != null && cliente.getId() != null && cliente.getId() > 0) {
-            String sql = "UPDATE clientes SET ativo=?, modificado=? WHERE id=?";
+    public static boolean delete(Produto produto) {
+        if (produto != null && produto.getId() != null && produto.getId() > 0) {
+            String sql = "UPDATE produtos SET ativo=?, modificado=? WHERE id=?";
             try (Connection connection = SQLUtils.getConnection()) {
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                    statement.setBoolean(1, !cliente.isAtivo());
+                    statement.setBoolean(1, !produto.isAtivo());
                     Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
                     statement.setTimestamp(2, now);
-                    statement.setLong(3, cliente.getId());
+                    statement.setLong(3, produto.getId());
                     statement.execute();
                 }
             } catch (SQLException ex) {
@@ -158,4 +159,3 @@ public class DAOCliente {
         }
     }
 }
-

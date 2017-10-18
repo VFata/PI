@@ -25,7 +25,7 @@
     <body>
         <div class="columns is-mobile">
             <!-- Inclui menu vertical -->
-            <jsp:include page="/resources/vertical_menu.jsp" />
+            <jsp:include page="/WEB-INF/vertical_menu.jsp" />
             
             <div class="column is-11-touch is-9-desktop is-9-widescreen is-10-fullhd ">
                 <main class="hero">
@@ -43,12 +43,27 @@
                     </div>
                     
                     <div class="hero-body">
-                        <!-- TODO: Incluir campo de busca param: q -->
+                        
                         <!-- TODO: incluir Notificações param: msg -->
-
-                        <div>
-                            <a class="button is-success" href="${new_url}">Novo Pet</a>
+                        <div id="notification" class="notification" style="display: none;">
+                            <button class="delete"></button>
+                            <p>Texto da notificação</p>
                         </div>
+
+                        <form action="" method="get" class="field is-grouped">
+                            <p class="control is-expanded">
+                                <input name="q" class="input" type="text" placeholder="Pesquisar Pet">
+                            </p>
+                            <p class="control">
+                                <button class="button is-light">
+                                    Pesquisar
+                                </button>
+                            </p>
+                            
+                            <p class="control">
+                                <a class="button is-success" href="${new_url}">Novo Pet</a>
+                            </p>
+                        </form>
 
                         <table class="table is-hoverable is-fullwidth">
                             <thead>

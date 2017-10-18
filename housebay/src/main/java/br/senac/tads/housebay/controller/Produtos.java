@@ -5,7 +5,7 @@
  */
 package br.senac.tads.housebay.controller;
 
-import br.senac.tads.housebay.model.DAOProduto;
+import br.senac.tads.housebay.db.DAOProduto;
 import br.senac.tads.housebay.model.Produto;
 import java.io.IOException;
 import java.io.PrintWriter;

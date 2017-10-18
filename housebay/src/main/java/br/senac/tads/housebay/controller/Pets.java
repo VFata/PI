@@ -1,9 +1,8 @@
 package br.senac.tads.housebay.controller;
 
-import br.senac.tads.housebay.model.DAOPet;
+import br.senac.tads.housebay.db.DAOPet;
 import br.senac.tads.housebay.model.Pet;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -38,27 +37,27 @@ public class Pets extends HttpServlet {
         String url = request.getServletPath();
         String id = request.getParameter("id");
         
-        System.out.println("DEBUG: get method");
+        //System.out.println("DEBUG: get method");
         
         if (url.equals("/pets") && id == null) {
             //Lista pets
             String query = request.getParameter("q");
             List<Pet> pets = DAOPet.search(query);
             request.setAttribute("pets", pets);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/pet/pet_list.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/pet/pet_list.jsp");
             dispatcher.forward(request, response);
             
         } else if (url.equals("/pets") && id != null) {
             //Detalhes do pet id
             Pet pet = DAOPet.read(Long.parseLong(id));
             request.setAttribute("pet", pet);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/pet/pet_show.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pet/pet_show.jsp");
             dispatcher.forward(request, response);
             
         } else if (url.equals("/pets/new") && id == null) {
             //Form novo pet
             request.setAttribute("type", "new");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/pet/pet_form.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pet/pet_form.jsp");
             dispatcher.forward(request, response);
             
         } else if (url.equals("/pets/edit") && id != null) {
@@ -66,7 +65,7 @@ public class Pets extends HttpServlet {
             Pet pet = DAOPet.read(Long.parseLong(id));
             request.setAttribute("pet", pet);
             request.setAttribute("type", "edit");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/pet/pet_form.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pet/pet_form.jsp");
             dispatcher.forward(request, response);
             
         } else {
@@ -92,7 +91,7 @@ public class Pets extends HttpServlet {
         String url = request.getServletPath();
         String id = request.getParameter("id");
 
-        System.out.println("DEBUG: post method");
+        //System.out.println("DEBUG: post method");
         
         if (url.equals("/pets") && id != null) {
             //Deleta o pet id=xxx

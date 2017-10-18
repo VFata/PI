@@ -5,10 +5,9 @@
  */
 package br.senac.tads.housebay.controller;
 
-import br.senac.tads.housebay.model.DAOCliente;
+import br.senac.tads.housebay.db.DAOCliente;
 import br.senac.tads.housebay.model.Cliente;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,6 +19,13 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "Clientes", urlPatterns = {"/clientes", "/clientes/new", "/clientes/edit"})
 public class Clientes extends HttpServlet{
+    /*
+     * TODO: ARRUMAR impede compilação
+     */
+    
+    
+    
+    
     
      /**
      * Handles the HTTP <code>GET</code> method.
@@ -108,7 +114,7 @@ public class Clientes extends HttpServlet{
             Cliente cliente = new Cliente();
             cliente.setNome(request.getParameter("nome"));
             cliente.setCpf(request.getParameter("cpf"));
-            cliente.setDataNascimento(dataNascimento);
+            //cliente.setDataNascimento(dataNascimento);
             cliente.setEmail(request.getParameter("email"));
             cliente.setTelefone(request.getParameter("telefone"));             
             cliente.setAtivo(true);
@@ -125,7 +131,7 @@ public class Clientes extends HttpServlet{
             cliente.setId(Long.parseLong(id));
             cliente.setNome(request.getParameter("nome"));
             cliente.setCpf(request.getParameter("cpf"));
-            cliente.setDataNascimento(dataNascimento);
+            //cliente.setDataNascimento(dataNascimento);
             cliente.setEmail(request.getParameter("email"));
             cliente.setTelefone(request.getParameter("telefone"));  
             cliente.setAtivo(true);
