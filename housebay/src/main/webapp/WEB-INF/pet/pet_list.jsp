@@ -90,7 +90,7 @@
                                             </a>
 
                                             <form class="delete-action" action="${main_url}?id=${pet.id}" method="post" confirm="Tem certeza?">
-                                                <button class="button is-danger is-outlined send" type="button" >
+                                                <button class="button is-danger is-outlined send">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;
                                                     Apagar    
                                                 </button>
