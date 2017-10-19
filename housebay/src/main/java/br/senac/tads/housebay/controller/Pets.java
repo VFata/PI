@@ -1,6 +1,7 @@
 package br.senac.tads.housebay.controller;
 
 import br.senac.tads.housebay.db.DAOPet;
+import br.senac.tads.housebay.exception.PetException;
 import br.senac.tads.housebay.model.Pet;
 import java.io.IOException;
 import java.util.List;
@@ -41,6 +42,8 @@ public class Pets extends HttpServlet {
         
         if (url.equals("/pets") && id == null) {
             //Lista pets
+            String mensagens[] = request.getParameterValues("msg");
+            request.setAttribute("notifications", mensagens);
             String query = request.getParameter("q");
             List<Pet> pets = DAOPet.search(query);
             request.setAttribute("pets", pets);
@@ -49,6 +52,8 @@ public class Pets extends HttpServlet {
             
         } else if (url.equals("/pets") && id != null) {
             //Detalhes do pet id
+            String mensagens[] = request.getParameterValues("msg");
+            request.setAttribute("notifications", mensagens);
             Pet pet = DAOPet.read(Long.parseLong(id));
             request.setAttribute("pet", pet);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pet/pet_show.jsp");
@@ -56,18 +61,21 @@ public class Pets extends HttpServlet {
             
         } else if (url.equals("/pets/new") && id == null) {
             //Form novo pet
+            String mensagens[] = request.getParameterValues("msg");
+            request.setAttribute("notifications", mensagens);
             request.setAttribute("type", "new");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pet/pet_form.jsp");
             dispatcher.forward(request, response);
             
         } else if (url.equals("/pets/edit") && id != null) {
             //Form alterar pet
+            String mensagens[] = request.getParameterValues("msg");
+            request.setAttribute("notifications", mensagens);
             Pet pet = DAOPet.read(Long.parseLong(id));
             request.setAttribute("pet", pet);
             request.setAttribute("type", "edit");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pet/pet_form.jsp");
             dispatcher.forward(request, response);
-            
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
@@ -98,7 +106,7 @@ public class Pets extends HttpServlet {
             Pet pet = new Pet();
             pet.setId(Long.parseLong(id));
             if(DAOPet.delete(pet)) {
-                response.sendRedirect(request.getContextPath() + "/pets");
+                response.sendRedirect(request.getContextPath() + "/pets" + "?msg=Pet removido.");
             }
         } else if (url.equals("/pets/new") && id == null) {
             //Cria um novo pet
@@ -107,11 +115,19 @@ public class Pets extends HttpServlet {
             pet.setDescricao(request.getParameter("descricao"));
             pet.setAtivo(true);
             
-            //TODO validar ValidatePet.create(pet)
+            //TODO validar 
+            try {
+                ValidatePet.create(pet);
+            } catch (PetException ex) {
+                System.out.println("Pet Exception: " + ex.getMessage());
+                request.setAttribute("notifications", (new String[] { ex.getMessage() }));
+                request.getRequestDispatcher("/WEB-INF/pet/pet_form.jsp").forward(request, response);
+                return;
+            }
             
-            Long newID = DAOPet.create(pet);
-            if (newID > 0) {
-                response.sendRedirect(request.getContextPath() + "/pets?id=" + newID);
+            Long newId = DAOPet.create(pet);
+            if (newId > 0) {
+                response.sendRedirect(request.getContextPath() + "/pets?id=" + newId + "&msg=Pet criado com sucesso.");
             }
         }else if (url.equals("/pets/edit") && id != null) {
             //Altera o pet id=xxx
@@ -122,9 +138,17 @@ public class Pets extends HttpServlet {
             pet.setAtivo(true);
             
             //TODO validar ValidatePet.update(pet)
+            try {
+                ValidatePet.update(pet);
+            } catch (PetException ex) {
+                System.out.println("Pet Exception: " + ex.getMessage());
+                request.setAttribute("notifications", (new String[] { ex.getMessage() }));
+                request.getRequestDispatcher("/WEB-INF/pet/pet_form.jsp").forward(request, response);
+                return;
+            }
             
             if (DAOPet.update(pet)) {
-                response.sendRedirect(request.getContextPath() + "/pets?id=" + id);
+                response.sendRedirect(request.getContextPath() + "/pets?id=" + id + "&msg=Pet alterado com sucesso.");
             }
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);

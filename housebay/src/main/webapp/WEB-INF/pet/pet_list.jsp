@@ -9,7 +9,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        
         <title>Lista de Pets</title>
         <c:url var="index_url" value="/" />
         <c:url var="resources_url" value="/resources" />
@@ -43,13 +44,13 @@
                     </div>
                     
                     <div class="hero-body">
+                        <c:forEach items="${notifications}" var="note">
+                            <div class="notification">
+                                <button class="delete"></button>
+                                <p><c:out value="${note}" /></p>
+                            </div>
+                        </c:forEach>
                         
-                        <!-- TODO: incluir Notificações param: msg -->
-                        <div id="notification" class="notification" style="display: none;">
-                            <button class="delete"></button>
-                            <p>Texto da notificação</p>
-                        </div>
-
                         <form action="" method="get" class="field is-grouped">
                             <p class="control is-expanded">
                                 <input name="q" class="input" type="text" placeholder="Pesquisar Pet">

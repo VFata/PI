@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
         
         <!-- Título da página -->
     <c:choose><c:when test="${type=='edit' && pet != null}">
@@ -64,7 +64,13 @@
                     </div>
 
                     <div class="hero-body">
-                        <!-- TODO: incluir Notificações param: msg -->
+                        <c:forEach items="${notifications}" var="note">
+                            <div class="notification">
+                                <button class="delete"></button>
+                                <p><c:out value="${note}" /></p>
+                            </div>
+                        </c:forEach>
+                        
                         <c:choose><c:when test="${type=='edit' && pet != null}">
                             <form action="${edit_url}" method="post">
                                 <input type="hidden" name="id" value="${pet.id}" />

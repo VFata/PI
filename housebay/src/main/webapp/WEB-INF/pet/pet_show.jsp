@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
         <title>Detalhes Pet</title>
         <c:url var="index_url" value="/" />
         <c:url var="resources_url" value="/resources" />
@@ -44,15 +44,20 @@
                     </div>
                     
                     <div class="hero-body">
-                        <div class="content">
-                            <!-- id: <c:out value="${pet.id}" /> -->
-                            <p>
-                                <strong>Nome:</strong> <c:out value="${pet.nome}" />
-                            </p>
-                            <p>
-                                <strong>Descrição:</strong> <c:out value="${pet.descricao}" />
-                            </p>
-                        </div>
+                        <c:forEach items="${notifications}" var="note">
+                            <div class="notification">
+                                <button class="delete"></button>
+                                <p><c:out value="${note}" /></p>
+                            </div>
+                        </c:forEach>
+
+                        <!-- DEBUG-id: <c:out value="${pet.id}" /> -->
+                        <p>
+                            <strong>Nome:</strong> <c:out value="${pet.nome}" />
+                        </p>
+                        <p>
+                            <strong>Descrição:</strong> <c:out value="${pet.descricao}" />
+                        </p>
                     </div>
                 </main>
             </div>

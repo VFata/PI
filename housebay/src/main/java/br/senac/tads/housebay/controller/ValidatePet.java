@@ -13,13 +13,20 @@ import br.senac.tads.housebay.model.Pet;
  * @author diego.matsuki
  */
 public class ValidatePet {
+    private final static String ERRO = "Erro: ";
+    
+    
     public static boolean create(Pet pet) 
             throws PetException {
-        String erro = "Erro: ";
+        String erro = ERRO;
         
-        erro = geraMensagem(pet, erro);
+        if (pet == null) {
+            erro += "\nPet nulo.";
+        } else {
+            erro = geraMensagem(pet, erro);
+        }
         
-        if (!erro.equals("Erro: ")) {
+        if (!erro.equals(ERRO)) {
             throw new PetException(erro);
         }
         
@@ -28,15 +35,18 @@ public class ValidatePet {
     
     public static boolean update(Pet pet) 
             throws PetException {
-        String erro = "Erro: ";
+        String erro = ERRO;
         
-        if (pet.getId() == null || pet.getId() <= 0 ) {
-            erro += "\nId vazio.";
+        if (pet == null) {
+            erro += "\nPet nulo.";
+        } else {
+            if (pet.getId() == null || pet.getId() <= 0 ) {
+                erro += "\nId vazio.";
+            }
+            erro = geraMensagem(pet, erro);
         }
         
-        erro = geraMensagem(pet, erro);
-        
-        if (!erro.equals("Erro: ")) {
+        if (!erro.equals(ERRO)) {
             throw new PetException(erro);
         }
         
@@ -44,15 +54,12 @@ public class ValidatePet {
     }
     
     private static String geraMensagem(Pet pet, String mensagem) {
-        String erro = "";
+        String erro = mensagem;
         
-        if (pet == null) {
-            erro += "\nPet nulo.";
-        }
         if (pet.getNome() == null || pet.getNome().equals("")) {
             erro += "\nNome vazio.";
         }
-        if (pet.getDescricao()== null || pet.getDescricao().equals("")) {
+        if (pet.getDescricao() == null || pet.getDescricao().equals("")) {
             erro += "\nDescrição vazia.";
         }
         
