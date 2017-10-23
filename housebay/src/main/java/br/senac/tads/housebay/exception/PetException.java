@@ -5,13 +5,21 @@
  */
 package br.senac.tads.housebay.exception;
 
+import java.util.Map;
+
 /**
  *
  * @author diego.matsuki
  */
 public class PetException extends Exception {
-
-    public PetException(String message) {
+    private final Map errors;
+    
+    public PetException(String message, Map errors) {
         super(message);
+        this.errors = errors;
+    }
+
+    public Map getErrors() {
+        return errors;
     }
 }

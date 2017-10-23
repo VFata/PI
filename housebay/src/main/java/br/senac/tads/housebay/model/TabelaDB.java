@@ -13,6 +13,9 @@ import java.util.GregorianCalendar;
  * @author Diego
  */
 public abstract class TabelaDB {
+    public static final String ID = "id";
+    public final static String ATIVO = "ativo";
+    
     private Long _id;
     private boolean ativo;
     private GregorianCalendar criado;

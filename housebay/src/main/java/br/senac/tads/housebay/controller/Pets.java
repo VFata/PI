@@ -47,7 +47,7 @@ public class Pets extends HttpServlet {
             String query = request.getParameter("q");
             List<Pet> pets = DAOPet.search(query);
             request.setAttribute("pets", pets);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/pet/pet_list.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pet/pet_list.jsp");
             dispatcher.forward(request, response);
             
         } else if (url.equals("/pets") && id != null) {
@@ -120,7 +120,10 @@ public class Pets extends HttpServlet {
                 ValidatePet.create(pet);
             } catch (PetException ex) {
                 System.out.println("Pet Exception: " + ex.getMessage());
-                request.setAttribute("notifications", (new String[] { ex.getMessage() }));
+                //request.setAttribute("notifications", (new String[] { ex.getMessage() }));
+                // TODO tratar mensagem de erro
+                request.setAttribute("notification", ex.getErrors());
+                
                 request.getRequestDispatcher("/WEB-INF/pet/pet_form.jsp").forward(request, response);
                 return;
             }
@@ -142,7 +145,8 @@ public class Pets extends HttpServlet {
                 ValidatePet.update(pet);
             } catch (PetException ex) {
                 System.out.println("Pet Exception: " + ex.getMessage());
-                request.setAttribute("notifications", (new String[] { ex.getMessage() }));
+                // TODO tratar mensagem de erro
+                request.setAttribute("notification", ex.getErrors());
                 request.getRequestDispatcher("/WEB-INF/pet/pet_form.jsp").forward(request, response);
                 return;
             }
@@ -154,4 +158,9 @@ public class Pets extends HttpServlet {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
+    
+    //TODO separate routes to post and get
+    //TODO create new methods to handle forms 
+    
+    
 }
