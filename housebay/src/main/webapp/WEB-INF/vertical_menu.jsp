@@ -13,10 +13,20 @@
             <ul class="menu-list">
                 <li>
                     <a href="${base}pets" class="has-tooltip">
+                        <i class="fa fa-address-card" aria-hidden="true"></i>
+                        <span class="is-hidden-touch">&nbsp;Clientes</span>
+                        <span class="tooltip tag is-black is-hidden-desktop">Pets</span>
+                    </a>
+                    <a href="${base}pets" class="has-tooltip">
                         <i class="fa fa-paw" aria-hidden="true"></i>
                         <span class="is-hidden-touch">&nbsp;Pets</span>
                         <span class="tooltip tag is-black is-hidden-desktop">Pets</span>
                     </a>
+                    <a href="${base}pets" class="has-tooltip">
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                        <span class="is-hidden-touch">&nbsp;Funcionarios</span>
+                        <span class="tooltip tag is-black is-hidden-desktop">Pets</span>
+                    </a>    
                 </li>
                 <!-- Novos itens de menu devem ser inseridos aqui -->
             </ul>
