@@ -9,13 +9,14 @@
  */
 
 CREATE TABLE funcionarios (
-    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+    idFuncionario INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     nome VARCHAR(255) NOT NULL,
-    dataNascimento DATETIME NOT NULL,
+    dataNascimento TIMESTAMP NOT NULL,
     telefone VARCHAR(15) NOT NULL,
     cpf VARCHAR(11) NOT NULL,
-    cargo varchar(255) NOT NULL,
-    email varchar(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    salt VARCHAR(255) NOT NULL,
     ativo BOOLEAN,
     criado TIMESTAMP,
     modificado TIMESTAMP

@@ -24,7 +24,7 @@ public class DAOCliente {
     
     
     public static Long create(Cliente cliente) {
-        String sql = "INSERT INTO clientes (nome, descricao, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO clientes (nome, dataNascimento, telefone, cpf, email) VALUES (?, ?, ?, ?, ?)";
         Long id = null;
         try (Connection connection = SQLUtils.getConnection()) {
             connection.setAutoCommit(false);
