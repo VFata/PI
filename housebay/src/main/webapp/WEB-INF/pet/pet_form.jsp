@@ -21,8 +21,8 @@
         <c:url var="index_url" value="/" />
         <c:url var="resources_url" value="/resources" />
         <c:url var="main_url" value="/pets" />
-        <c:url var="new_url" value="/pets/new" />
-        <c:url var="edit_url" value="/pets/edit" />
+        <c:url var="create_url" value="/pets/create" />
+        <c:url var="update_url" value="/pets/update" />
         
         <link rel="stylesheet" href="${resources_url}/css/bulma.css" />
         <link rel="stylesheet" href="${resources_url}/css/font-awesome.css" />
@@ -71,11 +71,18 @@
                             </div>
                         </c:forEach>
                         
+                        <c:forEach items="${errors}" var="note">
+                            <div class="notification is-danger">
+                                <button class="delete"></button>
+                                <p><c:out value="${note.value}" /></p>
+                            </div>
+                        </c:forEach>
+                        
                         <c:choose><c:when test="${type=='edit' && pet != null}">
-                            <form action="${edit_url}" method="post">
+                            <form action="${update_url}" method="post">
                                 <input type="hidden" name="id" value="${pet.id}" />
                         </c:when><c:otherwise>
-                            <form action="${new_url}" method="post">
+                            <form action="${create_url}" method="post">
                         </c:otherwise></c:choose>
 
                             <div class="field is-horizontal">

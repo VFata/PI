@@ -17,6 +17,7 @@
         <c:url var="main_url" value="/pets" />
         <c:url var="new_url" value="/pets/new" />
         <c:url var="edit_url" value="/pets/edit" />
+        <c:url var="destroy_url" value="/pets/destroy" />
         
         <link rel="stylesheet" href="${resources_url}/css/bulma.css" />
         <link rel="stylesheet" href="${resources_url}/css/font-awesome.css" />
@@ -51,6 +52,13 @@
                             </div>
                         </c:forEach>
                         
+                        <c:forEach items="${errors}" var="note">
+                            <div class="notification is-danger">
+                                <button class="delete"></button>
+                                <p><c:out value="${note.value}" /></p>
+                            </div>
+                        </c:forEach>
+                                                
                         <form action="" method="get" class="field is-grouped">
                             <p class="control is-expanded">
                                 <input name="q" class="input" type="text" placeholder="Pesquisar Pet">
@@ -90,7 +98,7 @@
                                                 Alterar
                                             </a>
 
-                                            <form class="delete-action" action="${main_url}?id=${pet.id}" method="post" confirm="Tem certeza?">
+                                            <form class="delete-action" action="${destroy_url}?id=${pet.id}" method="post" confirm="Tem certeza?">
                                                 <button class="button is-danger is-outlined send">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;
                                                     Apagar    

@@ -50,6 +50,13 @@
                                 <p><c:out value="${note}" /></p>
                             </div>
                         </c:forEach>
+                        
+                        <c:forEach items="${errors}" var="note">
+                            <div class="notification is-danger">
+                                <button class="delete"></button>
+                                <p><c:out value="${note.value}" /></p>
+                            </div>
+                        </c:forEach>
 
                         <!-- DEBUG-id: <c:out value="${pet.id}" /> -->
                         <p>
