@@ -19,17 +19,19 @@ public class DAOProduto {
      */
     
     public static Long create(Produto produto) {
-        String sql = "INSERT INTO produto (nome, descricao, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO produto (produto, tipo, valor, codigodeBarras, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?, ?, ?)";
         Long id = null;
         try (Connection connection = SQLUtils.getConnection()) {
             connection.setAutoCommit(false);
             try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                //statement.setString(1, produto.getNome());
-                //statement.setString(2, produto.getDescricao());
-                statement.setBoolean(3, produto.isAtivo());
+                statement.setString(1, produto.getProduto());
+                statement.setString(2, produto.getTipo());
+                statement.setString(3, produto.getValor());
+                statement.setString(4, produto.getCodigoDeBarras());
+                statement.setBoolean(5, produto.isAtivo());
                 Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
-                statement.setTimestamp(4, now);
-                statement.setTimestamp(5, now);
+                statement.setTimestamp(6, now);
+                statement.setTimestamp(7, now);
                 
                 statement.executeUpdate();
                 try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -52,7 +54,7 @@ public class DAOProduto {
     }
 
     public static Produto read(Long id) {
-        String sql = "SELECT id, nome, descricao, ativo FROM produtos WHERE (id=? AND ativo=?)";
+        String sql = "SELECT id, produto, tipo, valor, ativo FROM produtos WHERE (id=? AND ativo=?)";
         Produto produto = null;
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -63,8 +65,9 @@ public class DAOProduto {
                 if (resultados.next()) {
                     produto = new Produto();
                     produto.setId(resultados.getLong("id"));
-                    //produto.setNome(resultados.getString("nome"));
-                    //produto.setDescricao(resultados.getString("descricao"));
+                    produto.setProduto(resultados.getString("produto"));
+                    produto.setValor(resultados.getString("valor"));
+                    produto.setCodigoDeBarras(resultados.getString("codigoDeBarras"));
                     produto.setAtivo(resultados.getBoolean("ativo"));
                 }
             }
@@ -77,9 +80,9 @@ public class DAOProduto {
     public static List<Produto> search(String query) {
         String sql;
         if (query != null) {
-            sql = "SELECT id, nome, descricao, ativo FROM produtos WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
+            sql = "SELECT id, produto, tipo, valor, codigoDeBarras, ativo FROM produtos WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
         } else {
-            sql = "SELECT id, nome, descricao, ativo FROM produtos WHERE ativo=?";
+            sql = "SELECT id, produto, tipo, valor, codigoDeBarras, ativo FROM produtos WHERE ativo=?";
         }
         List<Produto> list = null;
         try (Connection connection = SQLUtils.getConnection();
@@ -96,8 +99,9 @@ public class DAOProduto {
                 while (resultados.next()) {
                     Produto produto = new Produto();
                     produto.setId(resultados.getLong("id"));
-                    //produto.setNome(resultados.getString("nome"));
-                    //produto.setDescricao(resultados.getString("descricao"));
+                    produto.setProduto(resultados.getString("produto"));
+                    produto.setValor(resultados.getString("valor"));
+                    produto.setCodigoDeBarras(resultados.getString("codigoDeBarras"));
                     produto.setAtivo(resultados.getBoolean("ativo"));
                     list.add(produto);
                 }
@@ -114,9 +118,11 @@ public class DAOProduto {
             try (Connection connection = SQLUtils.getConnection()) {
                 connection.setAutoCommit(false);
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                    //statement.setString(1, produto.getNome());
-                    //statement.setString(2, produto.getDescricao());
-                    statement.setBoolean(3, produto.isAtivo());
+                    statement.setString(1, produto.getProduto());
+                    statement.setString(2, produto.getTipo());
+                    statement.setString(3, produto.getValor());
+                    statement.setString(4, produto.getCodigoDeBarras());
+                    statement.setBoolean(5, produto.isAtivo());
                     Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
                     statement.setTimestamp(4, now);
                     statement.setLong(5, produto.getId());

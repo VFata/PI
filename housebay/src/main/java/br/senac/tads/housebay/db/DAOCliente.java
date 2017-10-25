@@ -30,11 +30,14 @@ public class DAOCliente {
             connection.setAutoCommit(false);
             try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, cliente.getNome());
-                //statement.setString(2, cliente.getDescricao());
-                statement.setBoolean(3, cliente.isAtivo());
+                //statement.setTimestamp(2, cliente.getDataNascimento());
+                statement.setString(3, cliente.getTelefone());
+                statement.setString(4, cliente.getCpf());
+                statement.setString(5, cliente.getEmail());
+                statement.setBoolean(6, cliente.isAtivo());
                 Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
-                statement.setTimestamp(4, now);
-                statement.setTimestamp(5, now);
+                statement.setTimestamp(7, now);
+                statement.setTimestamp(8, now);
                 
                 statement.executeUpdate();
                 try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -57,7 +60,7 @@ public class DAOCliente {
     }
 
     public static Cliente read(Long id) {
-        String sql = "SELECT id, nome, descricao, ativo FROM clientes WHERE (id=? AND ativo=?)";
+        String sql = "SELECT id, nome, dataNascimento, telefone, cpf, email, ativo FROM clientes WHERE (id=? AND ativo=?)";
         Cliente cliente = null;
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -69,7 +72,10 @@ public class DAOCliente {
                     cliente = new Cliente();
                     cliente.setId(resultados.getLong("id"));
                     cliente.setNome(resultados.getString("nome"));
-                    //cliente.setDescricao(resultados.getString("descricao"));
+                    //cliente.setDataNascimento(resultados.getTimestamp());
+                    cliente.setTelefone(resultados.getString("telefone"));
+                    cliente.setCpf(resultados.getString("cpf"));
+                    cliente.setEmail(resultados.getString("email"));
                     cliente.setAtivo(resultados.getBoolean("ativo"));
                 }
             }
@@ -82,9 +88,9 @@ public class DAOCliente {
     public static List<Cliente> search(String query) {
         String sql;
         if (query != null) {
-            sql = "SELECT id, nome, descricao, ativo FROM clientes WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
+            sql = "SELECT id, nome, dataNascimento, telefone, cpf, email, ativo FROM clientes WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
         } else {
-            sql = "SELECT id, nome, descricao, ativo FROM clientes WHERE ativo=?";
+            sql = "SELECT id, nome, dataNascimento, telefone, cpf, email, ativo FROM clientes WHERE ativo=?";
         }
         List<Cliente> list = null;
         try (Connection connection = SQLUtils.getConnection();
@@ -102,7 +108,10 @@ public class DAOCliente {
                     Cliente cliente = new Cliente();
                     cliente.setId(resultados.getLong("id"));
                     cliente.setNome(resultados.getString("nome"));
-                    //cliente.setDescricao(resultados.getString("descricao"));
+                    //cliente.setDataNascimento(resultados.getTimestamp());
+                    cliente.setTelefone(resultados.getString("telefone"));
+                    cliente.setCpf(resultados.getString("cpf"));
+                    cliente.setEmail(resultados.getString("email"));
                     cliente.setAtivo(resultados.getBoolean("ativo"));
                     list.add(cliente);
                 }
@@ -120,11 +129,14 @@ public class DAOCliente {
                 connection.setAutoCommit(false);
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
                     statement.setString(1, cliente.getNome());
-                    //statement.setString(2, cliente.getDescricao());
-                    statement.setBoolean(3, cliente.isAtivo());
+                    //statement.setTimestamp(2, cliente.getDataNascimento());
+                    statement.setString(3, cliente.getTelefone());
+                    statement.setString(4, cliente.getCpf());
+                    statement.setString(5, cliente.getEmail());
+                    statement.setBoolean(6, cliente.isAtivo());
                     Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
-                    statement.setTimestamp(4, now);
-                    statement.setLong(5, cliente.getId());
+                    statement.setTimestamp(7, now);
+                    statement.setLong(8, cliente.getId());
 
                     statement.execute();
                     connection.commit();
