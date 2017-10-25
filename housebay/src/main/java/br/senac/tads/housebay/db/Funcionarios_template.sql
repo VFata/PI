@@ -17,7 +17,9 @@ CREATE TABLE funcionarios (
     email VARCHAR(255) NOT NULL,
     senha VARCHAR(255) NOT NULL,
     salt VARCHAR(255) NOT NULL,
+    idCargo INTEGER,
     ativo BOOLEAN,
     criado TIMESTAMP,
-    modificado TIMESTAMP
+    modificado TIMESTAMP,
+    FOREIGN KEY (idCargo) REFERENCES Cargo (idCargo)
 );
