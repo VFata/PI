@@ -47,20 +47,20 @@ public class Produtos extends HttpServlet {
             String query = request.getParameter("q");
             List<Produto> produtos = DAOProduto.search(query);
             request.setAttribute("produtos", produtos);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/produto/produto_list.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/produto/produto_list.jsp");
             dispatcher.forward(request, response);
             
         } else if (url.equals("/produtos") && id != null) {
             //Detalhes do produto id
             Produto produto = DAOProduto.read(Long.parseLong(id));
             request.setAttribute("produto", produto);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/produto/produto_show.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/produto/produto_show.jsp");
             dispatcher.forward(request, response);
             
         } else if (url.equals("/produtos/new") && id == null) {
             //Form novo produto
             request.setAttribute("type", "new");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/produto/produto_form.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/produto/produto_form.jsp");
             dispatcher.forward(request, response);
             
         } else if (url.equals("/produtos/edit") && id != null) {

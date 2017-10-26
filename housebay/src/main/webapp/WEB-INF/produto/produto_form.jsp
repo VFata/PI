@@ -23,8 +23,8 @@
         <c:url var="index_url" value="/" />
         <c:url var="resources_url" value="/resources" />
         <c:url var="main_url" value="/produtos" />
-        <c:url var="new_url" value="/produtos/new" />
-        <c:url var="edit_url" value="/produtos/edit" />
+        <c:url var="create_url" value="/produtos/create" />
+        <c:url var="update_url" value="/produtos/update" />
         
         <link rel="stylesheet" href="${resources_url}/css/bulma.css" />
         <link rel="stylesheet" href="${resources_url}/css/font-awesome.css" />
