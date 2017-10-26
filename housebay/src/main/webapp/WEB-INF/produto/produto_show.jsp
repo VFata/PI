@@ -59,15 +59,15 @@
                             </div>
                         </c:forEach>
 
-                        <!-- DEBUG-id: <c:out value="${pet.id}" /> -->
+                        <!-- DEBUG-id: <c:out value="${produto.id}" /> -->
                         <p>
-                            <strong>Nome:</strong> <c:out value="${pet.nome}" />
+                            <strong>Nome:</strong> <c:out value="${produto.nomeProduto}" />
                         </p>
                         <p>
-                            <strong>Descrição:</strong> <c:out value="${pet.descricao}" />
+                            <strong>Tipo:</strong> <c:out value="${produto.tipo}" />
                         </p>
                         <p>
-                            <strong>Codigo de Barras:</strong> <c:out value="${produto.descricao}" />
+                            <strong>Codigo de Barras:</strong> <c:out value="${produto.codigoDeBarras}" />
                         </p>
                     </div>
                 </main>

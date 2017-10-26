@@ -70,7 +70,7 @@
                             </p>
                             
                             <p class="control">
-                                <a class="button is-success" href="${new_url}">Novo Pet</a>
+                                <a class="button is-success" href="${new_url}">Novo Produto</a>
                             </p>
                         </form>
 
@@ -78,7 +78,7 @@
                             <thead>
                                 <tr>
                                     <th>Nome</th>
-                                    <th>Descrição</th>
+                                    <th>Tipo</th>
                                     <th> Valor</th>
                                     <th> Codigo de Barras</th>
                                     <th>Ações</th>
@@ -86,22 +86,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach items="${produtos}" var="pet">
+                                <c:forEach items="${produtos}" var="produto">
                                     <tr>
-                                        <td><c:out value="${pet.nome}" /></td>
-                                        <td><c:out value="${pet.descricao}" /></td>
+                                        <td><c:out value="${produto.nome}" /></td>
+                                        <td><c:out value="${produto.descricao}" /></td>
                                         <td>
-                                            <a class="button is-info is-outlined" href='${main_url}?id=${pet.id}'>
+                                            <a class="button is-info is-outlined" href='${main_url}?id=${produto.id}'>
                                                 <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;
                                                 Detalhes
                                             </a>
 
-                                            <a class="button is-warning is-outlined" href='${edit_url}?id=${pet.id}'>
+                                            <a class="button is-warning is-outlined" href='${edit_url}?id=${produto.id}'>
                                                 <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;
                                                 Alterar
                                             </a>
 
-                                            <form class="delete-action" action="${destroy_url}?id=${pet.id}" method="post" confirm="Tem certeza?">
+                                            <form class="delete-action" action="${destroy_url}?id=${produto.id}" method="post" confirm="Tem certeza?">
                                                 <button class="button is-danger is-outlined send">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;
                                                     Apagar    

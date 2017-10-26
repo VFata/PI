@@ -116,7 +116,7 @@
                                     <div class="field">
                                         <div class="control">
                                             <button class="button is-primary" >
-                                                <c:choose><c:when test="${type=='edit' && pet != null}">
+                                                <c:choose><c:when test="${type=='edit' && produto != null}">
                                                     Alterar
                                                 </c:when><c:otherwise>
                                                     Salvar
