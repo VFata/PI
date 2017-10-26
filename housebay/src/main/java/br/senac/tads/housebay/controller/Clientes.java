@@ -52,21 +52,21 @@ public class Clientes extends HttpServlet{
             //Lista clientes
             String query = request.getParameter("q");
             List<Cliente> clientes = DAOCliente.search(query);
-            request.setAttribute("clinetes", clientes);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/cliente/cliente_list.jsp");
+            request.setAttribute("clientes", clientes);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/cliente/cliente_list.jsp");
             dispatcher.forward(request, response);
             
         } else if (url.equals("/clientes") && id != null) {
             //Detalhes do cliente id
             Cliente cliente = DAOCliente.read(Long.parseLong(id));
             request.setAttribute("cliente", cliente);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/cliente/cliente_show.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/cliente/cliente_show.jsp");
             dispatcher.forward(request, response);
             
         } else if (url.equals("/clientes/new") && id == null) {
             //Form novo cliente
             request.setAttribute("type", "new");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/cliente/cliente_form.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/cliente/cliente_form.jsp");
             dispatcher.forward(request, response);
             
         } else if (url.equals("/clientes/edit") && id != null) {
@@ -74,7 +74,7 @@ public class Clientes extends HttpServlet{
             Cliente cliente = DAOCliente.read(Long.parseLong(id));
             request.setAttribute("cliente", cliente);
             request.setAttribute("type", "edit");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/cliente/cliente_form.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/cliente/cliente_form.jsp");
             dispatcher.forward(request, response);
             
         } else {

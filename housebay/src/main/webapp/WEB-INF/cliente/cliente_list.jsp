@@ -1,7 +1,7 @@
 <%-- 
-    Document   : produto_list
-    Created on : 25/10/2017, 21:33:27
-    Author     : vinicius.fsilv11
+    Document   : cliente_list
+    Created on : 26/10/2017, 19:42:35
+    Author     : diego.matsuki
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -11,13 +11,13 @@
     <head>
         <meta charset="UTF-8">
         
-        <title>Lista de Produtos</title>
+        <title>Lista de Clientes</title>
         <c:url var="index_url" value="/" />
         <c:url var="resources_url" value="/resources" />
-        <c:url var="main_url" value="/produtos" />
-        <c:url var="new_url" value="/produtos/new" />
-        <c:url var="edit_url" value="/produtos/edit" />
-        <c:url var="destroy_url" value="/produtos/destroy" />
+        <c:url var="main_url" value="/clientes" />
+        <c:url var="new_url" value="/clientes/new" />
+        <c:url var="edit_url" value="/clientes/edit" />
+        <c:url var="destroy_url" value="/clientes/destroy" />
         
         <link rel="stylesheet" href="${resources_url}/css/bulma.css" />
         <link rel="stylesheet" href="${resources_url}/css/font-awesome.css" />
@@ -33,11 +33,11 @@
                 <main class="hero">
                     <div class="hero-head">
                         <div class="container is-fluid">
-                            <h1 class="title is-4">Lista de Produtos</h1>
+                            <h1 class="title is-4">Lista de Clientes</h1>
                             <nav class="subtitle is-6 breadcrumb" aria-label="breadcrumbs">
                                 <ul>
                                     <li><a href="${index_url}">Home</a></li>
-                                    <li class="is-active"><a href="#" aria-current="page">Produtos</a></li>
+                                    <li class="is-active"><a href="#" aria-current="page">Clientes</a></li>
                                     <!-- Incluir novos itens na breadcrumbs, caso necessário -->
                                 </ul>
                             </nav>
@@ -61,7 +61,7 @@
                                                 
                         <form action="" method="get" class="field is-grouped">
                             <p class="control is-expanded">
-                                <input name="q" class="input" type="text" placeholder="Pesquisar Produto">
+                                <input name="q" class="input" type="text" placeholder="Pesquisar Cliente">
                             </p>
                             <p class="control">
                                 <button class="button is-light">
@@ -70,7 +70,7 @@
                             </p>
                             
                             <p class="control">
-                                <a class="button is-success" href="${new_url}">Novo Produto</a>
+                                <a class="button is-success" href="${new_url}">Novo Cliente</a>
                             </p>
                         </form>
 
@@ -85,23 +85,23 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach items="${produtos}" var="produto">
+                                <c:forEach items="${clientes}" var="cliente">
                                     <tr>
-                                        <td><c:out value="${produto.nome}" /></td>
-                                        <td><c:out value="${produto.tipo}" /></td>
-                                        <td><c:out value="${produto.valor}" /></td>
+                                        <td><c:out value="${cliente.nome}" /></td>
+                                        <td><c:out value="${cliente.tipo}" /></td>
+                                        <td><c:out value="${cliente.valor}" /></td>
                                         <td>
-                                            <a class="button is-info is-outlined" href='${main_url}?id=${produto.id}'>
+                                            <a class="button is-info is-outlined" href='${main_url}?id=${cliente.id}'>
                                                 <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;
                                                 Detalhes
                                             </a>
 
-                                            <a class="button is-warning is-outlined" href='${edit_url}?id=${produto.id}'>
+                                            <a class="button is-warning is-outlined" href='${edit_url}?id=${cliente.id}'>
                                                 <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;
                                                 Alterar
                                             </a>
 
-                                            <form class="delete-action" action="${destroy_url}?id=${produto.id}" method="post" confirm="Tem certeza?">
+                                            <form class="delete-action" action="${destroy_url}?id=${cliente.id}" method="post" confirm="Tem certeza?">
                                                 <button class="button is-danger is-outlined send">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;
                                                     Apagar    
@@ -120,3 +120,4 @@
 
     </body>
 </html>
+

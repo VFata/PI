@@ -38,9 +38,9 @@
                         <span class="is-hidden-touch">&nbsp;Relatorios</span>
                         <span class="tooltip tag is-black is-hidden-desktop">Relatorios</span>
                     </a>     
-                        <a href="${base}produto" class="has-tooltip">
+                        <a href="${base}produtos" class="has-tooltip">
                         <i class="fa fa-archive" aria-hidden="true"></i>
-                        <span class="is-hidden-touch">&nbsp;Produto</span>
+                        <span class="is-hidden-touch">&nbsp;Produtos</span>
                         <span class="tooltip tag is-black is-hidden-desktop">Produtos</span>
                     </a>   
                 </li>

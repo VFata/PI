@@ -1,9 +1,8 @@
 <%-- 
-    Document   : produto_show
-    Created on : 25/10/2017, 21:29:29
-    Author     : vinicius.fsilv11
+    Document   : cliente_show
+    Created on : 26/10/2017, 19:42:23
+    Author     : diego.matsuki
 --%>
-
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -11,12 +10,12 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Detalhes Produto</title>
+        <title>Detalhes Clientes</title>
         <c:url var="index_url" value="/" />
         <c:url var="resources_url" value="/resources" />
-        <c:url var="main_url" value="/produto" />
-        <c:url var="new_url" value="/produto/new" />
-        <c:url var="edit_url" value="/produto/edit" />
+        <c:url var="main_url" value="/clientes" />
+        <c:url var="new_url" value="/clientes/new" />
+        <c:url var="edit_url" value="/clientes/edit" />
         
         <link rel="stylesheet" href="${resources_url}/css/bulma.css" />
         <link rel="stylesheet" href="${resources_url}/css/font-awesome.css" />
@@ -26,17 +25,17 @@
     <body>
         <div class="columns is-mobile">
             <!-- Inclui menu vertical -->
-            <jsp:include page="/WEB-INF/vertical_menu.jsp" />
+            <c:import url="/WEB-INF/vertical_menu.jsp" />
             
             <div class="column is-11-touch is-9-desktop is-9-widescreen is-10-fullhd ">
                 <main class="hero">
                     <div class="hero-head">
                         <div class="container is-fluid">
-                            <h1 class="title is-4">Detalhes Produto</h1>
+                            <h1 class="title is-4">Detales Clientes</h1>
                             <nav class="subtitle is-6 breadcrumb" aria-label="breadcrumbs">
                                 <ul>
                                     <li><a href="${index_url}">Home</a></li>
-                                    <li><a href="${main_url}">Produto</a></li>
+                                    <li><a href="${main_url}">Clientess</a></li>
                                     <li class="is-active"><a href="#" aria-current="page">Detalhes</a></li>
                                     <!-- Incluir novos itens na breadcrumbs, caso necessário -->
                                 </ul>
@@ -59,14 +58,13 @@
                             </div>
                         </c:forEach>
 
-                        <!-- DEBUG-id: <c:out value="${produto.id}" /> -->
+                        <!-- DEBUG-id: <c:out value="${cliente.id}" /> -->
                         <p>
-                            <strong>Nome:</strong> <c:out value="${produto.nome}" />
+                            <strong>Nome:</strong> <c:out value="${cliente.nome}" />
                         </p>
                         <p>
-                            <strong>Tipo:</strong> <c:out value="${produto.tipo}" />
+                            <strong>Descrição:</strong> <c:out value="${cliente.descricao}" />
                         </p>
-                        
                     </div>
                 </main>
             </div>

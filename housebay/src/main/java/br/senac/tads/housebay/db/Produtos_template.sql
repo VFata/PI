@@ -10,10 +10,10 @@
 
 CREATE TABLE produtos (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
-    nomeProduto VARCHAR(255) NOT NULL,
+    nome VARCHAR(255) NOT NULL,
     tipo VARCHAR(255) NOT NULL,
     valor NUMERIC(16,2) NOT NULL,
-    codigoDeBarras VARCHAR(2048) NOT NULL,
+    codigo_de_barras VARCHAR(2048) NOT NULL,
     ativo BOOLEAN,
     criado TIMESTAMP,
     modificado TIMESTAMP
