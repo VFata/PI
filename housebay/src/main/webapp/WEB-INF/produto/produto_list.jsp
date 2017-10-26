@@ -79,6 +79,7 @@
                                 <tr>
                                     <th>Nome</th>
                                     <th>Descrição</th>
+                                    <th> Valor</th>
                                     <th> Codigo de Barras</th>
                                     <th>Ações</th>
                                     
