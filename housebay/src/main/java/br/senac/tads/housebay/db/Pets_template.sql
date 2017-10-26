@@ -14,5 +14,6 @@ CREATE TABLE pets (
     descricao VARCHAR(2048) NOT NULL,
     ativo BOOLEAN,
     criado TIMESTAMP,
-    modificado TIMESTAMP
+    modificado TIMESTAMP,
+    
 );

@@ -15,7 +15,11 @@ CREATE TABLE clientes (
     telefone VARCHAR(15) NOT NULL,
     cpf VARCHAR(11) NOT NULL,
     email VARCHAR(255) NOT NULL,
+    idPet INTEGER,
+    idVenda INTEGER,
     ativo BOOLEAN,
     criado TIMESTAMP,
-    modificado TIMESTAMP
+    modificado TIMESTAMP,
+    FOREIGN KEY (idPet) REFERENCES Pets (idPet),
+    FOREIGN KEY (idVenda) REFERENCES Vendas (idVenda)
 );

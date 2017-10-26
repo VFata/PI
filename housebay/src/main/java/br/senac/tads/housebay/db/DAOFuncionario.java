@@ -72,7 +72,7 @@ public class DAOFuncionario {
                     funcionario = new Funcionario();
                     funcionario.setId(resultados.getLong("id"));
                     funcionario.setNome(resultados.getString("nome"));
-                    // funcionario.setDatanascimento(resultados.getTimestamp("data de nascimento"));
+                    //funcionario.setDatanascimento(resultados.getTimestamp());
                     funcionario.setTelefone(resultados.getString("telefone"));
                     funcionario.setCpf(resultados.getString("cpf"));
                     funcionario.setCargo(resultados.getString("cargo"));
