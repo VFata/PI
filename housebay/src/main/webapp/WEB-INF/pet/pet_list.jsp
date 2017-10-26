@@ -9,8 +9,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
-        
+        <meta charset="UTF-8">        
         <title>Lista de Pets</title>
         <c:url var="index_url" value="/" />
         <c:url var="resources_url" value="/resources" />
@@ -27,7 +26,7 @@
     <body>
         <div class="columns is-mobile">
             <!-- Inclui menu vertical -->
-            <jsp:include page="/WEB-INF/vertical_menu.jsp" />
+            <c:import url="/WEB-INF/vertical_menu.jsp" />
             
             <div class="column is-11-touch is-9-desktop is-9-widescreen is-10-fullhd ">
                 <main class="hero">
@@ -60,14 +59,20 @@
                         </c:forEach>
                                                 
                         <form action="" method="get" class="field is-grouped">
-                            <p class="control is-expanded">
+                            
+                            <p class="control is-expanded has-icons-left">
                                 <input name="q" class="input" type="text" placeholder="Pesquisar Pet">
+                                <span class="icon is-small is-left">
+                                    <i class="fa fa-search"></i>
+                                </span>
                             </p>
+
                             <p class="control">
-                                <button class="button is-light">
+                                <button class="button is-info">
                                     Pesquisar
                                 </button>
                             </p>
+                            
                             
                             <p class="control">
                                 <a class="button is-success" href="${new_url}">Novo Pet</a>
@@ -98,10 +103,11 @@
                                                 Alterar
                                             </a>
 
-                                            <form class="delete-action" action="${destroy_url}?id=${pet.id}" method="post" confirm="Tem certeza?">
+                                            <form class="delete-action" action="${destroy_url}" method="post" confirm="Tem certeza?">
+                                                <input type="hidden" name="id" value="${pet.id}" />
                                                 <button class="button is-danger is-outlined send">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;
-                                                    Apagar    
+                                                    Apagar
                                                 </button>
                                             </form>
                                         </td>
