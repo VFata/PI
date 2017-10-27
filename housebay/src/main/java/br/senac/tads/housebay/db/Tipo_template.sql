@@ -4,15 +4,10 @@
  * and open the template in the editor.
  */
 /**
- * Author:  Diego
- * Created: Oct 8, 2017
+ * Author:  ricardo.pleite
+ * Created: 26/10/2017
  */
-
-CREATE TABLE pets (
+CREATE TABLE tipo (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
-    nome VARCHAR(255) NOT NULL,
-    descricao VARCHAR(2048) NOT NULL,
-    ativo BOOLEAN,
-    criado TIMESTAMP,
-    modificado TIMESTAMP
+    nome VARCHAR(255) NOT NULL
 );

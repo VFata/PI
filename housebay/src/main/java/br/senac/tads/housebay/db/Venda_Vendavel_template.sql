@@ -4,17 +4,17 @@
  * and open the template in the editor.
  */
 /**
- * Author:  antonio.cmajunior
- * Created: 25/10/2017
+ * Author:  ricardo.pleite
+ * Created: 26/10/2017
  */
-
-CREATE TABLE vendas(
+CREATE TABLE venda_vendavel(
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
-    cliente_id INTEGER,
-    empresa_id INTEGER,
+    quantidade INTEGER NOT NULL,
+    venda_id INTEGER NOT NULL,
+    vendavel_id INTEGER NOT NULL,
     ativo BOOLEAN,
     criado TIMESTAMP,
     modificado TIMESTAMP,
-    FOREIGN KEY (cliente_id) REFERENCES Clientes (id),
-    FOREIGN KEY (empresa_id) REFERENCES Empresa (id)
+    FOREIGN KEY (venda_id) REFERENCES Vendas (id),
+    FOREIGN KEY (vendavel_id) REFERENCES Vendavel (id)
 );

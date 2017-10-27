@@ -4,17 +4,12 @@
  * and open the template in the editor.
  */
 /**
- * Author:  j.anjos
- * Created: 17/10/2017
+ * Author:  ricardo.pleite
+ * Created: 26/10/2017
  */
-
-CREATE TABLE produtos (
+CREATE TABLE empresa (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     nome VARCHAR(255) NOT NULL,
-    tipo VARCHAR(255) NOT NULL,
-    valor NUMERIC(16,2) NOT NULL,
-    codigo_de_barras VARCHAR(2048) NOT NULL,
-    ativo BOOLEAN,
-    criado TIMESTAMP,
-    modificado TIMESTAMP
+    cnpj varchar(50) NOT NULL
+
 );

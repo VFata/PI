@@ -9,7 +9,7 @@
  */
 
 CREATE TABLE funcionarios (
-    idFuncionario INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     nome VARCHAR(255) NOT NULL,
     dataNascimento TIMESTAMP NOT NULL,
     telefone VARCHAR(15) NOT NULL,
@@ -17,9 +17,9 @@ CREATE TABLE funcionarios (
     email VARCHAR(255) NOT NULL,
     senha VARCHAR(255) NOT NULL,
     salt VARCHAR(255) NOT NULL,
-    idCargo INTEGER,
+    cargo_id INTEGER,
     ativo BOOLEAN,
     criado TIMESTAMP,
     modificado TIMESTAMP,
-    FOREIGN KEY (idCargo) REFERENCES Cargo (idCargo)
+    FOREIGN KEY (cargo_id) REFERENCES Cargo (id)
 );
