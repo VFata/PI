@@ -16,20 +16,20 @@ public class Cliente extends TabelaDB{
     private String telefone;
     private String cpf;
     private String email;
-    private ArrayList <Long> id_Pet;
+    private ArrayList <Long> petIds;
     
     public Cliente(){
         super();        
     }
 
-    public Cliente(String nome, GregorianCalendar dataNascimento, String telefone, String cpf, String email, ArrayList<Long> id_Pet) {
+    public Cliente(String nome, GregorianCalendar dataNascimento, String telefone, String cpf, String email, ArrayList<Long> petIds) {
         super();
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.telefone = telefone;
         this.cpf = cpf;
         this.email = email;
-        this.id_Pet = id_Pet;
+        this.petIds = petIds;
     }
 
     public String getNome() {
@@ -72,12 +72,12 @@ public class Cliente extends TabelaDB{
         this.email = email;
     }
 
-    public ArrayList<Long> getId_Pet() {
-        return id_Pet;
+    public ArrayList<Long> getPetIds() {
+        return petIds;
     }
 
-    public void setId_Pet(ArrayList<Long> id_Pet) {
-        this.id_Pet = id_Pet;
+    public void setPetIds(ArrayList<Long> petIds) {
+        this.petIds = petIds;
     }
     
 }
