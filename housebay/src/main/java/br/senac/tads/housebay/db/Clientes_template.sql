@@ -15,11 +15,7 @@ CREATE TABLE clientes (
     telefone VARCHAR(15) NOT NULL,
     cpf VARCHAR(11) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    pet_id INTEGER,
-    venda_id INTEGER,
     ativo BOOLEAN,
     criado TIMESTAMP,
-    modificado TIMESTAMP,
-    FOREIGN KEY (pet_id) REFERENCES Pets (id),
-    FOREIGN KEY (venda_id) REFERENCES Vendas (id)
+    modificado TIMESTAMP
 );
