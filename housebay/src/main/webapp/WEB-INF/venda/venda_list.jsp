@@ -1,6 +1,6 @@
 <%-- 
-    Document   : produto_list
-    Created on : 25/10/2017, 21:33:27
+    Document   : venda_list
+    Created on : 27/10/2017, 21:40:57
     Author     : vinicius.fsilv11
 --%>
 
@@ -11,13 +11,13 @@
     <head>
         <meta charset="UTF-8">
         
-        <title>Lista de Produtos</title>
+        <title>Lista de Vendas</title>
         <c:url var="index_url" value="/" />
         <c:url var="resources_url" value="/resources" />
-        <c:url var="main_url" value="/produtos" />
-        <c:url var="new_url" value="/produtos/new" />
-        <c:url var="edit_url" value="/produtos/edit" />
-        <c:url var="destroy_url" value="/produtos/destroy" />
+        <c:url var="main_url" value="/vendas" />
+        <c:url var="new_url" value="/vendas/new" />
+        <c:url var="edit_url" value="/vendas/edit" />
+        <c:url var="destroy_url" value="/vendas/destroy" />
         
         <link rel="stylesheet" href="${resources_url}/css/bulma.css" />
         <link rel="stylesheet" href="${resources_url}/css/font-awesome.css" />
@@ -33,11 +33,11 @@
                 <main class="hero">
                     <div class="hero-head">
                         <div class="container is-fluid">
-                            <h1 class="title is-4">Lista de Produtos</h1>
+                            <h1 class="title is-4">Lista de Vendas</h1>
                             <nav class="subtitle is-6 breadcrumb" aria-label="breadcrumbs">
                                 <ul>
                                     <li><a href="${index_url}">Home</a></li>
-                                    <li class="is-active"><a href="#" aria-current="page">Produtos</a></li>
+                                    <li class="is-active"><a href="#" aria-current="page">Vendas</a></li>
                                     <!-- Incluir novos itens na breadcrumbs, caso necessário -->
                                 </ul>
                             </nav>
@@ -80,30 +80,29 @@
                                     <th>Nome</th>
                                     <th>Tipo</th>
                                     <th> Valor</th>
-                                    <th> Estoque</th>
                                      <th>Ações</th>
                                     
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach items="${produtos}" var="produto">
+                                <c:forEach items="${vendas}" var="servico">
                                     <tr>
                                         <td><c:out value="${produto.nome}" /></td>
                                         <td><c:out value="${produto.tipo}" /></td>
                                         <td><c:out value="${produto.valor}" /></td>
-                                        <td><c:out value="${produto.estoque}" /></td>
+                                        
                                         <td>
-                                            <a class="button is-info is-outlined" href='${main_url}?id=${produto.id}'>
+                                            <a class="button is-info is-outlined" href='${main_url}?id=${venda.id}'>
                                                 <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;
                                                 Detalhes
                                             </a>
 
-                                            <a class="button is-warning is-outlined" href='${edit_url}?id=${produto.id}'>
+                                            <a class="button is-warning is-outlined" href='${edit_url}?id=${venda.id}'>
                                                 <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;
                                                 Alterar
                                             </a>
 
-                                            <form class="delete-action" action="${destroy_url}?id=${produto.id}" method="post" confirm="Tem certeza?">
+                                            <form class="delete-action" action="${destroy_url}?id=${venda.id}" method="post" confirm="Tem certeza?">
                                                 <button class="button is-danger is-outlined send">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;
                                                     Apagar    
@@ -122,3 +121,4 @@
 
     </body>
 </html>
+

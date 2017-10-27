@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-@WebServlet(name = "Funcionarios", urlPatterns = {"/Funcionrios", "/Funcionarios/new", "/Funcionarios/edit"})
+@WebServlet(name = "Funcionarios", urlPatterns = {"/funcionarios", "/funcionarios/new", "/funcionarios/edit"})
 public class Funcionarios extends HttpServlet{
     
     /*  ROTAS:

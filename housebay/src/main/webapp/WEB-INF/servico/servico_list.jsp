@@ -1,8 +1,9 @@
 <%-- 
-    Document   : produto_list
-    Created on : 25/10/2017, 21:33:27
+    Document   : servico_list
+    Created on : 27/10/2017, 21:18:47
     Author     : vinicius.fsilv11
 --%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -14,10 +15,10 @@
         <title>Lista de Produtos</title>
         <c:url var="index_url" value="/" />
         <c:url var="resources_url" value="/resources" />
-        <c:url var="main_url" value="/produtos" />
-        <c:url var="new_url" value="/produtos/new" />
-        <c:url var="edit_url" value="/produtos/edit" />
-        <c:url var="destroy_url" value="/produtos/destroy" />
+        <c:url var="main_url" value="/servicos" />
+        <c:url var="new_url" value="/servicos/new" />
+        <c:url var="edit_url" value="/servicos/edit" />
+        <c:url var="destroy_url" value="/servicos/destroy" />
         
         <link rel="stylesheet" href="${resources_url}/css/bulma.css" />
         <link rel="stylesheet" href="${resources_url}/css/font-awesome.css" />
@@ -80,18 +81,17 @@
                                     <th>Nome</th>
                                     <th>Tipo</th>
                                     <th> Valor</th>
-                                    <th> Estoque</th>
                                      <th>Ações</th>
                                     
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach items="${produtos}" var="produto">
+                                <c:forEach items="${servicos}" var="servico">
                                     <tr>
                                         <td><c:out value="${produto.nome}" /></td>
                                         <td><c:out value="${produto.tipo}" /></td>
                                         <td><c:out value="${produto.valor}" /></td>
-                                        <td><c:out value="${produto.estoque}" /></td>
+                                        
                                         <td>
                                             <a class="button is-info is-outlined" href='${main_url}?id=${produto.id}'>
                                                 <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;
