@@ -96,20 +96,31 @@
                                     </div>
                                 </div>
                             </div>
-
+                                           
                             <div class="field is-horizontal">
                                 <div class="field-label is-normal">
-                                    <label class="label">Descrição</label>
+                                    <label class="label">Data de Nascimento</label>
                                 </div>
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control">
-                                            <textarea class="textarea" name="descricao" placeholder="Descrição">${cliente.descricao}</textarea>
+                                            <input type="date" name="nascimento" value="${cliente.nascimento}">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="field is-horizontal">
+                                <div class="field-label is-normal">
+                                    <label class="label">Telefone</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <div class="control">
+                                            <input class="input" type="text" name="telefone" placeholder="Telefone" value="${cliente.telefone}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                 
                             <div class="field is-horizontal">
                                 <div class="field-label">
                                     <!-- Left empty for spacing -->
