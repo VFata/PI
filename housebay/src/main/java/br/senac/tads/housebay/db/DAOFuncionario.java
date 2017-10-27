@@ -34,7 +34,7 @@ public class DAOFuncionario {
                 statement.setString(4, funcionario.getCpf());
                 statement.setString(5, funcionario.getEmail());
                 statement.setString(6, funcionario.getSenha());
-                statement.setString(5, funcionario.getCargo_id());
+                statement.setLong(5, funcionario.getCargoId());
                 statement.setBoolean(7, funcionario.isAtivo());
                 Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
                 statement.setTimestamp(8, now);
@@ -76,7 +76,7 @@ public class DAOFuncionario {
                     //funcionario.setDatanascimento(resultados.getTimestamp());
                     funcionario.setTelefone(resultados.getString("telefone"));
                     funcionario.setCpf(resultados.getString("cpf"));
-                    funcionario.setCargo_id(resultados.getString("cargo"));
+                    funcionario.setCargoId(resultados.getLong("cargo"));
                     funcionario.setEmail(resultados.getString("email"));
                     funcionario.setAtivo(resultados.getBoolean("ativo"));
                 }
@@ -113,7 +113,7 @@ public class DAOFuncionario {
                     // funcionario.setDatanascimento(resultados.getTimestamp("data de nascimento"));
                     funcionario.setTelefone(resultados.getString("telefone"));
                     funcionario.setCpf(resultados.getString("cpf"));
-                    funcionario.setCargo_id(resultados.getString("cargo_id"));
+                    funcionario.setCargoId(resultados.getLong("cargo_id"));
                     funcionario.setEmail(resultados.getString("email"));
                     funcionario.setAtivo(resultados.getBoolean("ativo"));
                     list.add(funcionario);
@@ -135,7 +135,7 @@ public class DAOFuncionario {
                     // statement.setTimestamp(2, funcionario.getDatanascimento());
                     statement.setString(3, funcionario.getTelefone());
                     statement.setString(4, funcionario.getCpf());
-                    statement.setString(5, funcionario.getCargo_id());
+                    statement.setLong(5, funcionario.getCargoId());
                     statement.setString(6, funcionario.getEmail());
                     statement.setBoolean(7, funcionario.isAtivo());
                     Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
