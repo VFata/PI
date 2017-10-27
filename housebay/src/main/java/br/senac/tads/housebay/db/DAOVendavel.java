@@ -28,7 +28,7 @@ public class DAOVendavel {
                 statement.setString(2, produto.getDescricao());
                 statement.setInt(3, produto.getEstoque());
                 statement.setLong(4, produto.getTipoId());
-                statement.setDouble(5, produto.getValor());
+                statement.setDouble(5, produto.getValor()) ;
                 statement.setString(6, produto.getCodigoDeBarras());
                 statement.setBoolean(7, produto.isAtivo());
                 Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
