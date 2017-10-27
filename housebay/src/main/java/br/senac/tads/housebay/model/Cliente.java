@@ -11,6 +11,14 @@ import java.util.GregorianCalendar;
 
 //Classe relacionada com a tabela Clientes do Banco de Dados...
 public class Cliente extends TabelaDB{
+    
+    public final static String NOME = "nome";
+    public final static String DATA_NASCIMENTO = "data nascimento";
+    public final static String TELEFONE = "telefone";
+    public final static String CPF = "cpf";
+    public final static String EMAIL = "email";
+    public final static String PET_ID = "pet id";
+    
     private String nome;
     private GregorianCalendar dataNascimento;
     private String telefone;

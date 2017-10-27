@@ -7,6 +7,10 @@ package br.senac.tads.housebay.model;
  */
 public class Produto extends Vendavel {
     
+    public final static String CODIGO_DE_BARRAS = "codigo de barras";
+    public final static String ESTOQUE = "estoque";
+    
+    
     private String codigoDeBarras;
     private int estoque;
     

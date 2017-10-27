@@ -7,6 +7,10 @@ package br.senac.tads.housebay.model;
 //Classe relacionada com a tabela Vendavel do Banco de Dados...
 public class Vendavel extends TabelaDB {
 
+    public final static String PRODUTO = "produto";
+    public final static String TIPO = "tipo";
+    public final static String VALOR = "valor";
+    
     private String produto;
     private String tipo;
     private double valor;

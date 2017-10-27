@@ -8,6 +8,10 @@ import java.util.ArrayList;
  */
 public class Venda extends TabelaDB {
 
+    public static final String CLIENTE_ID = "cliente id";
+    public static final String PRODUTO_ID = "produto id";
+    public static final String LIST = "list";
+    
     private long clienteId;
     private long produtoId;
     private ArrayList<relacao> list = new ArrayList();

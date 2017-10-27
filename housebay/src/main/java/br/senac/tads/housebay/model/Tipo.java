@@ -7,6 +7,8 @@ package br.senac.tads.housebay.model;
  */
 public class Tipo extends TabelaDB{
     
+    public static final String NOME = "nome";
+    
     private String nome;
     
     public Tipo(){

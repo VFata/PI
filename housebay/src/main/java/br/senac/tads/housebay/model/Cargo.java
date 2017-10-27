@@ -6,6 +6,9 @@ package br.senac.tads.housebay.model;
  * @author igor.soliveira11
  */
 public class Cargo extends TabelaDB {
+    
+    public final static String NOME = "nome";
+        
     private String nome;
     
     public Cargo (){

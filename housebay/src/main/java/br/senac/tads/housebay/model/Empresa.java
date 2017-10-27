@@ -7,6 +7,9 @@ package br.senac.tads.housebay.model;
  */
 public class Empresa extends TabelaDB{
     
+    public final static String NOME = "nome";
+    public final static String CNPJ = "cnpj";
+    
     private String nome;
     private String cnpj;
     
