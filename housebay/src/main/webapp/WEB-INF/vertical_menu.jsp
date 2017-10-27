@@ -42,6 +42,11 @@
                         <i class="fa fa-archive" aria-hidden="true"></i>
                         <span class="is-hidden-touch">&nbsp;Produtos</span>
                         <span class="tooltip tag is-black is-hidden-desktop">Produtos</span>
+                    </a>
+                        <a href="${base}servicos" class="has-tooltip">
+                        <i class="fa fa-cogs" aria-hidden="true"></i>
+                        <span class="is-hidden-touch">&nbsp;Serviços</span>
+                        <span class="tooltip tag is-black is-hidden-desktop">Serviços</span>
                     </a>   
                 </li>
                 <!-- Novos itens de menu devem ser inseridos aqui -->

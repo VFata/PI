@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name = "Funcionarios", urlPatterns = {"/Funcionrios", "/Funcionarios/new", "/Funcionarios/edit"})
+@WebServlet(name = "Funcionarios", urlPatterns = {"/funcionarios", "/funcionarios/new", "/funcionarios/edit"})
 public class Funcionarios extends HttpServlet{
     
     /**
@@ -41,20 +41,20 @@ public class Funcionarios extends HttpServlet{
             String query = request.getParameter("q");
             List<Funcionario> funcionarios = DAOFuncionario.search(query);
             request.setAttribute("funcionarios", funcionarios);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/Funcionario/Funcionario_list.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/funcionario/funcionario_list.jsp");
             dispatcher.forward(request, response);
             
         } else if (url.equals("/funcionarios") && id != null) {
             //Detalhes do funcionario id
             Funcionario funcionario = DAOFuncionario.read(Long.parseLong(id));
             request.setAttribute("funcionario", funcionario);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/funcionario/funcionario_show.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/funcionario/funcionario_show.jsp");
             dispatcher.forward(request, response);
             
         } else if (url.equals("/funcionarios/new") && id == null) {
             //Form novo funcionario
             request.setAttribute("type", "new");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/funcionario/funcionario_form.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/funcionario/funcionario_form.jsp");
             dispatcher.forward(request, response);
             
         } else if (url.equals("/funcionarios/edit") && id != null) {
@@ -62,7 +62,7 @@ public class Funcionarios extends HttpServlet{
             Funcionario funcionario = DAOFuncionario.read(Long.parseLong(id));
             request.setAttribute("funcionario", funcionario);
             request.setAttribute("type", "edit");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/funcionario/funcionario_form.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/funcionario/funcionario_form.jsp");
             dispatcher.forward(request, response);
             
         } else {

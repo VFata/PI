@@ -78,8 +78,8 @@
                             <thead>
                                 <tr>
                                     <th>Nome</th>
-                                    <th>Tipo</th>
-                                    <th> Valor</th>
+                                    <th>Telefone</th>
+                                    <th>Email</th>
                                      <th>Ações</th>
                                     
                                 </tr>
@@ -88,8 +88,8 @@
                                 <c:forEach items="${clientes}" var="cliente">
                                     <tr>
                                         <td><c:out value="${cliente.nome}" /></td>
-                                        <td><c:out value="${cliente.tipo}" /></td>
-                                        <td><c:out value="${cliente.valor}" /></td>
+                                        <td><c:out value="${cliente.telefone}" /></td>
+                                        <td><c:out value="${cliente.email}" /></td>
                                         <td>
                                             <a class="button is-info is-outlined" href='${main_url}?id=${cliente.id}'>
                                                 <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;

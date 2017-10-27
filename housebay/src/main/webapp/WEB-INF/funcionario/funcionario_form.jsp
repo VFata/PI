@@ -1,7 +1,7 @@
 <%-- 
-    Document   : cliente_form
-    Created on : 26/10/2017, 19:42:03
-    Author     : diego.matsuki
+    Document   : form_funcionario
+    Created on : 27/10/2017, 20:39:43
+    Author     : vinicius.fsilv11
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -11,7 +11,7 @@
     <head>
         <meta charset="UTF-8">
         <!-- Título da página -->
-    <c:choose><c:when test="${type=='edit' && cliente != null}">
+    <c:choose><c:when test="${type=='edit' && funcionario != null}">
         <title>Alterar Cliente</title>
     </c:when><c:otherwise>
         <title>Novo Cliente</title>
@@ -19,9 +19,9 @@
         
         <c:url var="index_url" value="/" />
         <c:url var="resources_url" value="/resources" />
-        <c:url var="main_url" value="/clientes" />
-        <c:url var="create_url" value="/clientes/create" />
-        <c:url var="update_url" value="/clientes/update" />
+        <c:url var="main_url" value="/funcionarios" />
+        <c:url var="create_url" value="/funcionarios/create" />
+        <c:url var="update_url" value="/funcionarios/update" />
         
         <link rel="stylesheet" href="${resources_url}/css/bulma.css" />
         <link rel="stylesheet" href="${resources_url}/css/font-awesome.css" />
@@ -37,12 +37,12 @@
                 <main class="hero">
                     <div class=hero-head">
                         <div class="container is-fluid">
-                        <c:choose><c:when test="${type=='edit' && cliente != null}">
-                            <h1 class="title is-4">Alterar Clientes</h1>
+                        <c:choose><c:when test="${type=='edit' && funcionario != null}">
+                            <h1 class="title is-4">Alterar Funcionarios</h1>
                             <nav class="subtitle is-6 breadcrumb" aria-label="breadcrumbs">
                                 <ul>
                                     <li><a href="${index_url}">Home</a></li>
-                                    <li><a href="${main_url}">Clientess</a></li>
+                                    <li><a href="${main_url}">Funcionarioss</a></li>
                                     <li class="is-active"><a href="#" aria-current="page">Alterar</a></li>
                                     <!-- Incluir novos itens na breadcrumbs, caso necessário -->
                                 </ul>
@@ -52,7 +52,7 @@
                             <nav class="subtitle is-6 breadcrumb" aria-label="breadcrumbs">
                                 <ul>
                                     <li><a href="${index_url}">Home</a></li>
-                                    <li><a href="${main_url}">Clientes</a></li>
+                                    <li><a href="${main_url}">Funcionarios</a></li>
                                     <li class="is-active"><a href="#" aria-current="page">Novo</a></li>
                                     <!-- Incluir novos itens na breadcrumbs, caso necessário -->
                                 </ul>
@@ -77,9 +77,9 @@
                             </div>
                         </c:forEach>
                         
-                        <c:choose><c:when test="${type=='edit' && cliente != null}">
+                        <c:choose><c:when test="${type=='edit' && funcionario != null}">
                             <form action="${update_url}" method="post">
-                                <input type="hidden" name="id" value="${cliente.id}" />
+                                <input type="hidden" name="id" value="${funcionario.id}" />
                         </c:when><c:otherwise>
                             <form action="${create_url}" method="post">
                         </c:otherwise></c:choose>
@@ -91,7 +91,7 @@
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control">
-                                            <input class="input" type="text" name="nome" placeholder="Nome" value="${cliente.nome}">
+                                            <input class="input" type="text" name="nome" placeholder="Nome" value="${funcionario.nome}">
                                         </div>
                                     </div>
                                 </div>
@@ -105,7 +105,7 @@
                                     <div class="field">
                                         <div class="control">
                                             <%-- TODO: define css class: input-date  --%>
-                                            <input type="date" name="nascimento"  value="${cliente.dataNascimento}">
+                                            <input type="date" name="nascimento" value="${funcionario.dataNascimento}">
                                         </div>
                                     </div>
                                 </div>
@@ -117,7 +117,7 @@
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control">
-                                            <input class="input" type="text" name="telefone" placeholder="Telefone" value="${cliente.telefone}">
+                                            <input class="input" type="text" name="telefone" placeholder="Telefone" value="${funcionario.telefone}">
                                         </div>
                                     </div>
                                 </div>
@@ -129,7 +129,7 @@
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control">
-                                            <input class="input" type="text" name="cpf" placeholder="Cpf" value="${cliente.cpf}">
+                                            <input class="input" type="text" name="cpf" placeholder="Cpf" value="${funcionario.cpf}">
                                         </div>
                                     </div>
                                 </div>
@@ -141,7 +141,7 @@
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control">
-                                            <input class="input" type="text" name="email" placeholder="Email" value="${cliente.email}">
+                                            <input class="input" type="text" name="email" placeholder="Email" value="${funcionario.email}">
                                         </div>
                                     </div>
                                 </div>
@@ -154,7 +154,7 @@
                                     <div class="field">
                                         <div class="control">
                                             <button class="button is-primary" >
-                                                <c:choose><c:when test="${type=='edit' && cliente != null}">
+                                                <c:choose><c:when test="${type=='edit' && funcionario != null}">
                                                     Alterar
                                                 </c:when><c:otherwise>
                                                     Salvar

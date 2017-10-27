@@ -120,7 +120,18 @@
                                     </div>
                                 </div>
                             </div>
-                                        
+                            <div class="field is-horizontal">
+                                <div class="field-label is-normal">
+                                    <label class="label">Estoque</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <div class="control">
+                                            <input class="input" type="text" name="estoque" placeholder="Estoque" value="${produto.estoque}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>            
                             <div class="field is-horizontal">
                                 <div class="field-label">
                                     <!-- Left empty for spacing -->
