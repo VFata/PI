@@ -26,7 +26,7 @@ public class DAOPet {
             try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, pet.getNome());
                 statement.setString(2, pet.getDescricao());
-                statement.setInt(3, pet.getCliente_id());
+                statement.setLong(3, pet.getClienteID());
                 statement.setBoolean(3, pet.isAtivo());
                 Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
                 statement.setTimestamp(4, now);
@@ -66,7 +66,7 @@ public class DAOPet {
                     pet.setId(resultados.getLong("id"));
                     pet.setNome(resultados.getString("nome"));
                     pet.setDescricao(resultados.getString("descricao"));
-                    pet.setCliente_id(resultados.getInt("cliente_id"));
+                    pet.setClienteID(resultados.getLong("cliente_id"));
                     pet.setAtivo(resultados.getBoolean("ativo"));
                 }
             }
@@ -100,7 +100,7 @@ public class DAOPet {
                     pet.setId(resultados.getLong("id"));
                     pet.setNome(resultados.getString("nome"));
                     pet.setDescricao(resultados.getString("descricao"));
-                    pet.setCliente_id(resultados.getInt("cliente_id"));
+                    pet.setClienteID(resultados.getLong("cliente_id"));
                     pet.setAtivo(resultados.getBoolean("ativo"));
                     list.add(pet);
                 }
@@ -119,7 +119,7 @@ public class DAOPet {
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
                     statement.setString(1, pet.getNome());
                     statement.setString(2, pet.getDescricao());
-                    statement.setInt(3, pet.getCliente_id());
+                    statement.setLong(3, pet.getClienteID());
                     statement.setBoolean(4, pet.isAtivo());
                     Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
                     statement.setTimestamp(5, now);
