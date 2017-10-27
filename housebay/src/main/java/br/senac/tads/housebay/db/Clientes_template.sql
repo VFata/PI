@@ -17,5 +17,5 @@ CREATE TABLE clientes (
     email VARCHAR(255) NOT NULL,
     ativo BOOLEAN,
     criado TIMESTAMP,
-    modificado TIMESTAMP
+    modificado TIMESTAMP 
 );
