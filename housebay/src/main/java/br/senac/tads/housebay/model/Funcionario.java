@@ -12,27 +12,50 @@ public class Funcionario extends TabelaDB {
     public final static String CPF = "cpf";
     public final static String EMAIL = "email";
     public final static String CARGO_ID = "cargo id";
+    public final static String SENHA = "senha";
+    public final static String SALT = "salt";
     
     private String nome;
     private GregorianCalendar dataNascimento;
     private String telefone;
     private String cpf;
     private String email;
+    private String senha;
+    private String salt;
     private ArrayList<Long> cargoId;
 
     public Funcionario() {
         super();
     }
 
-    public Funcionario(String nome, GregorianCalendar datanascimento, String telefone, String cpf, String email, ArrayList<Long> cargoId) {        
-        super();
+    public Funcionario(String nome, GregorianCalendar dataNascimento, String telefone, String cpf, String email, String senha, String salt, ArrayList<Long> cargoId) {
         this.nome = nome;
-        this.dataNascimento = datanascimento;
+        this.dataNascimento = dataNascimento;
         this.telefone = telefone;
         this.cpf = cpf;
         this.email = email;
+        this.senha = senha;
+        this.salt = salt;
         this.cargoId = cargoId;
     }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    
 
     public String getNome() {
         return nome;
