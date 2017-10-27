@@ -27,7 +27,7 @@ public class DAOVendavel {
                 statement.setString(1, vendavel.getNome());
                 statement.setString(2, vendavel.getDescricao());
                 statement.setInt(3, vendavel.getEstoque());
-                statement.setInt(4, vendavel.getTipo_id());
+                statement.setLong(4, vendavel.getTipoId());
                 statement.setString(5, vendavel.getValor());
                 statement.setString(6, vendavel.getCodigoDeBarras());
                 statement.setBoolean(7, vendavel.isAtivo());
@@ -70,7 +70,7 @@ public class DAOVendavel {
                     vendavel.setNome(resultados.getString("nome"));
                     vendavel.setDescricao(resultados.getString("descricao"));
                     vendavel.setEstoque(resultados.getInt("estoque"));
-                    vendavel.setTipo_Id(resultados.getInt("tipo_id"));
+                    vendavel.setTipoId(resultados.getInt("tipo_id"));
                     vendavel.setValor(resultados.getString("valor"));
                     vendavel.setCodigoDeBarras(resultados.getString("codigoDeBarras"));
                     vendavel.setAtivo(resultados.getBoolean("ativo"));
@@ -107,7 +107,7 @@ public class DAOVendavel {
                     vendavel.setNome(resultados.getString("nome"));
                     vendavel.setDescricao(resultados.getString("descricao"));
                     vendavel.setEstoque(resultados.getInt("estoque"));
-                    vendavel.setTipo_Id(resultados.getInt("tipo_id"));
+                    vendavel.setTipoId(resultados.getInt("tipo_id"));
                     vendavel.setValor(resultados.getString("valor"));
                     vendavel.setCodigoDeBarras(resultados.getString("codigoDeBarras"));
                     vendavel.setAtivo(resultados.getBoolean("ativo"));
@@ -129,7 +129,7 @@ public class DAOVendavel {
                 statement.setString(1, vendavel.getNome());
                 statement.setString(2, vendavel.getDescricao());
                 statement.setInt(3, vendavel.getEstoque());
-                statement.setInt(4, vendavel.getTipo_id());
+                statement.setInt(4, vendavel.getTipoId());
                 statement.setString(5, vendavel.getValor());
                 statement.setString(6, vendavel.getCodigoDeBarras());
                 statement.setBoolean(7, vendavel.isAtivo());
