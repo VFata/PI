@@ -14,7 +14,7 @@ public class Vendavel extends TabelaDB {
     public final static String DESCRICAO = "descricao";
     
     private String produto;
-    private Long idTipo;
+    private Long tipoId;
     private double valor;
     private String nome;
     private String descricao;
@@ -23,10 +23,10 @@ public class Vendavel extends TabelaDB {
         super();
     }
 
-    public Vendavel(String produto, Long idTipo, double valor, String nome, String descricao) {
+    public Vendavel(String produto, Long tipoId, double valor, String nome, String descricao) {
         super();
         this.produto = produto;
-        this.idTipo = idTipo;
+        this.tipoId = tipoId;
         this.valor = valor;
         this.nome = nome;
         this.descricao = descricao;
@@ -50,12 +50,12 @@ public class Vendavel extends TabelaDB {
 
    
 
-    public Long getIdTipo() {
-        return idTipo;
+    public Long getTipoId() {
+        return tipoId;
     }
 
-    public void setIdTipo(Long idTipo) {
-        this.idTipo = idTipo;
+    public void setTipoId(Long idTipo) {
+        this.tipoId = tipoId;
     }
 
     
