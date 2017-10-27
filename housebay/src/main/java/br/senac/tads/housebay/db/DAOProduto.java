@@ -1,6 +1,6 @@
 package br.senac.tads.housebay.db;
 
-import br.senac.tads.housebay.model.Produto;
+import br.senac.tads.housebay.model.Vendavel;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
@@ -18,7 +18,7 @@ public class DAOProduto {
      * TODO: ARRUMAR impede compilação
      */
     
-    public static Long create(Produto produto) {
+    public static Long create(Vendavel produto) {
         String sql = "INSERT INTO produto (produto, tipo, valor, codigodeBarras, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?, ?, ?)";
         Long id = null;
         try (Connection connection = SQLUtils.getConnection()) {
@@ -53,9 +53,9 @@ public class DAOProduto {
         return id;
     }
 
-    public static Produto read(Long id) {
+    public static Vendavel read(Long id) {
         String sql = "SELECT id, produto, tipo, valor, ativo FROM produtos WHERE (id=? AND ativo=?)";
-        Produto produto = null;
+        Vendavel produto = null;
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setLong(1, id);
@@ -63,7 +63,7 @@ public class DAOProduto {
 
             try (ResultSet resultados = statement.executeQuery()) {
                 if (resultados.next()) {
-                    produto = new Produto();
+                    produto = new Vendavel();
                     produto.setId(resultados.getLong("id"));
                     produto.setProduto(resultados.getString("produto"));
                     produto.setValor(resultados.getString("valor"));
@@ -77,14 +77,14 @@ public class DAOProduto {
         return produto;
     }
 
-    public static List<Produto> search(String query) {
+    public static List<Vendavel> search(String query) {
         String sql;
         if (query != null) {
             sql = "SELECT id, produto, tipo, valor, codigoDeBarras, ativo FROM produtos WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
         } else {
             sql = "SELECT id, produto, tipo, valor, codigoDeBarras, ativo FROM produtos WHERE ativo=?";
         }
-        List<Produto> list = null;
+        List<Vendavel> list = null;
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             if (query != null) {
@@ -97,7 +97,7 @@ public class DAOProduto {
             try (ResultSet resultados = statement.executeQuery()) {
                 list = new ArrayList<>();
                 while (resultados.next()) {
-                    Produto produto = new Produto();
+                    Vendavel produto = new Vendavel();
                     produto.setId(resultados.getLong("id"));
                     produto.setProduto(resultados.getString("produto"));
                     produto.setValor(resultados.getString("valor"));
@@ -112,7 +112,7 @@ public class DAOProduto {
         return list;
     }
 
-    public static boolean update(Produto produto) {
+    public static boolean update(Vendavel produto) {
         if (produto != null && produto.getId() != null && produto.getId() > 0) {
             String sql = "UPDATE produtos SET nome=?, descricao=?, ativo=?, modificado=? WHERE id=?";
             try (Connection connection = SQLUtils.getConnection()) {
@@ -144,7 +144,7 @@ public class DAOProduto {
         }
     }
 
-    public static boolean delete(Produto produto) {
+    public static boolean delete(Vendavel produto) {
         if (produto != null && produto.getId() != null && produto.getId() > 0) {
             String sql = "UPDATE produtos SET ativo=?, modificado=? WHERE id=?";
             try (Connection connection = SQLUtils.getConnection()) {

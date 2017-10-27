@@ -6,7 +6,7 @@
 package br.senac.tads.housebay.controller;
 
 import br.senac.tads.housebay.db.DAOProduto;
-import br.senac.tads.housebay.model.Produto;
+import br.senac.tads.housebay.model.Vendavel;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -45,14 +45,14 @@ public class Produtos extends HttpServlet {
         if (url.equals("/produtos") && id == null) {
             //Lista produtos
             String query = request.getParameter("q");
-            List<Produto> produtos = DAOProduto.search(query);
+            List<Vendavel> produtos = DAOProduto.search(query);
             request.setAttribute("produtos", produtos);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/produto/produto_list.jsp");
             dispatcher.forward(request, response);
             
         } else if (url.equals("/produtos") && id != null) {
             //Detalhes do produto id
-            Produto produto = DAOProduto.read(Long.parseLong(id));
+            Vendavel produto = DAOProduto.read(Long.parseLong(id));
             request.setAttribute("produto", produto);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/produto/produto_show.jsp");
             dispatcher.forward(request, response);
@@ -65,7 +65,7 @@ public class Produtos extends HttpServlet {
             
         } else if (url.equals("/produtos/edit") && id != null) {
             //Form alterar produto
-            Produto produto = DAOProduto.read(Long.parseLong(id));
+            Vendavel produto = DAOProduto.read(Long.parseLong(id));
             request.setAttribute("produto", produto);
             request.setAttribute("type", "edit");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/produto/produto_form.jsp");
@@ -99,14 +99,14 @@ public class Produtos extends HttpServlet {
         
         if (url.equals("/produtos") && id != null) {
             //Deleta o produto id=xxx
-            Produto produto = new Produto();
+            Vendavel produto = new Vendavel();
             produto.setId(Long.parseLong(id));
             if(DAOProduto.delete(produto)) {
                 response.sendRedirect(request.getContextPath() + "/produtos");
             }
         } else if (url.equals("/produtos/new") && id == null) {
             //Cria um novo produto
-            Produto produto = new Produto();
+            Vendavel produto = new Vendavel();
             produto.setProduto(request.getParameter("produto"));
             produto.setTipo(request.getParameter("tipo"));
             produto.setValor(request.getParameter("valor"));
@@ -121,7 +121,7 @@ public class Produtos extends HttpServlet {
             }
         }else if (url.equals("/produtos/edit") && id != null) {
             //Altera o produto id=xxx
-            Produto produto = new Produto();
+            Vendavel produto = new Vendavel();
             produto.setId(Long.parseLong(id));
             produto.setProduto(request.getParameter("produto"));
             produto.setTipo(request.getParameter("tipo"));

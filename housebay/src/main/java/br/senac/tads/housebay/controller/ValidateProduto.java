@@ -6,11 +6,11 @@
 package br.senac.tads.housebay.controller;
 
 import br.senac.tads.housebay.exception.ProdutoException;
-import br.senac.tads.housebay.model.Produto;
+import br.senac.tads.housebay.model.Vendavel;
 
 public class ValidateProduto {
     
-    public static boolean create(Produto produto) 
+    public static boolean create(Vendavel produto) 
             throws ProdutoException {
         String erro = "Erro: ";
         
@@ -23,7 +23,7 @@ public class ValidateProduto {
         return true;
     }
     
-    public static boolean update(Produto produto) 
+    public static boolean update(Vendavel produto) 
             throws ProdutoException {
         String erro = "Erro: ";
         
@@ -40,7 +40,7 @@ public class ValidateProduto {
         return true;
     }
     
-    private static String geraMensagem(Produto produto, String mensagem) {
+    private static String geraMensagem(Vendavel produto, String mensagem) {
         String erro = "";
         
         if (produto == null) {
