@@ -1,21 +1,22 @@
-
 package br.senac.tads.housebay.model;
 
 //Classe relacionada com a tabela Funcionario do Banco de Dados...
+import java.util.GregorianCalendar;
+
 public class Funcionario extends TabelaDB {
-    
+
     private String nome;
-    private String datanascimento;
+    private GregorianCalendar datanascimento;
     private String telefone;
     private String cpf;
     private String email;
     private String cargo;
-    
+
     public Funcionario() {
         super();
     }
-    
-    public Funcionario(String nome, String datanascimento, String telefone, String cpf, String email, String cargo) {
+
+    public Funcionario(String nome, GregorianCalendar datanascimento, String telefone, String cpf, String email, String cargo) {
         super();
         this.nome = nome;
         this.datanascimento = datanascimento;
@@ -24,13 +25,12 @@ public class Funcionario extends TabelaDB {
         this.email = email;
         this.cargo = cargo;
     }
-   
 
     public String getNome() {
         return nome;
     }
 
-    public String getDatanascimento() {
+    public GregorianCalendar getDatanascimento() {
         return datanascimento;
     }
 
@@ -54,7 +54,7 @@ public class Funcionario extends TabelaDB {
         this.nome = nome;
     }
 
-    public void setDatanascimento(String datanascimento) {
+    public void setDatanascimento(GregorianCalendar datanascimento) {
         this.datanascimento = datanascimento;
     }
 
@@ -73,7 +73,5 @@ public class Funcionario extends TabelaDB {
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }
-    
-    
-    
+
 }

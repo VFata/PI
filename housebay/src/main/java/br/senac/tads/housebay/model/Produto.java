@@ -9,14 +9,14 @@ public class Produto extends TabelaDB {
 
     private String produto;
     private String tipo;
-    private String valor;
+    private double valor;
     private String codigoDeBarras;
 
     public Produto() {
         super();
     }
 
-    public Produto(String produto, String tipo, String valor, String codigoDeBarras) {
+    public Produto(String produto, String tipo, double valor, String codigoDeBarras) {
         super();
         this.produto = produto;
         this.tipo = tipo;
@@ -40,11 +40,11 @@ public class Produto extends TabelaDB {
         this.tipo = tipo;
     }
 
-    public String getValor() {
+    public double getValor() {
         return valor;
     }
 
-    public void setValor(String valor) {
+    public void setValor(double valor) {
         this.valor = valor;
     }
 
