@@ -23,17 +23,18 @@ public class DAOFuncionario {
      */
     
     public static Long create(Funcionario funcionario) {
-        String sql = "INSERT INTO funcionarios (nome, dataNascimento, telefone, cpf, cargo, email, ativo) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO funcionarios (nome, dataNascimento, telefone, cpf, cargo, email, senha, salt, cargo_id, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Long id = null;
         try (Connection connection = SQLUtils.getConnection()) {
             connection.setAutoCommit(false);
             try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, funcionario.getNome());
-                // sstatement.setTimestamp(2, funcionario.getDatanascimento().getTime());
+                // statement.setTimestamp(2, funcionario.getDatanascimento().getTime());
                 statement.setString(3, funcionario.getTelefone());
                 statement.setString(4, funcionario.getCpf());
+                statement.setString(5, funcionario.getEmail());
+                statement.setString(6, funcionario.getSenha());
                 statement.setString(5, funcionario.getCargo());
-                statement.setString(6, funcionario.getEmail());
                 statement.setBoolean(7, funcionario.isAtivo());
                 Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
                 statement.setTimestamp(8, now);

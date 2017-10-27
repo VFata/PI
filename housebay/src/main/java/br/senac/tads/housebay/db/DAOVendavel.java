@@ -13,38 +13,40 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DAOProduto {
+public class DAOVendavel {
     /*
      * TODO: ARRUMAR impede compilação
      */
     
-    public static Long create(Vendavel produto) {
-        String sql = "INSERT INTO produto (produto, tipo, valor, codigodeBarras, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public static Long create(Vendavel vendavel) {
+        String sql = "INSERT INTO vendavel (nome, descricao, estoque, tipo_id, valor, codigo_de_barras, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Long id = null;
         try (Connection connection = SQLUtils.getConnection()) {
             connection.setAutoCommit(false);
             try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                statement.setString(1, produto.getProduto());
-                statement.setString(2, produto.getTipo());
-                statement.setString(3, produto.getValor());
-                statement.setString(4, produto.getCodigoDeBarras());
-                statement.setBoolean(5, produto.isAtivo());
+                statement.setString(1, vendavel.getNome());
+                statement.setString(2, vendavel.getDescricao());
+                statement.setInt(3, vendavel.getEstoque());
+                statement.setInt(4, vendavel.getTipo_id());
+                statement.setString(5, vendavel.getValor());
+                statement.setString(6, vendavel.getCodigoDeBarras());
+                statement.setBoolean(7, vendavel.isAtivo());
                 Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
-                statement.setTimestamp(6, now);
-                statement.setTimestamp(7, now);
+                statement.setTimestamp(8, now);
+                statement.setTimestamp(9, now);
                 
                 statement.executeUpdate();
                 try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         id = generatedKeys.getLong(1);
-                        produto.setId(id);
+                        vendavel.setId(id);
                     }
                 }
                 connection.commit();
             } catch (SQLException ex) {
                 connection.rollback();
                 System.err.println(ex.getMessage());
-                Logger.getLogger(DAOProduto.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DAOVendavel.class.getName()).log(Level.SEVERE, null, ex);
                 return -1l;
             }
         } catch (SQLException ex) {
@@ -54,8 +56,8 @@ public class DAOProduto {
     }
 
     public static Vendavel read(Long id) {
-        String sql = "SELECT id, produto, tipo, valor, ativo FROM produtos WHERE (id=? AND ativo=?)";
-        Vendavel produto = null;
+        String sql = "SELECT id, nome, descricao, estoque, tipo_id, valor, codigo_de_barras, ativo, criado, modificado FROM vendavel WHERE (id=? AND ativo=?)";
+        Vendavel vendavel = null;
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setLong(1, id);
@@ -63,26 +65,29 @@ public class DAOProduto {
 
             try (ResultSet resultados = statement.executeQuery()) {
                 if (resultados.next()) {
-                    produto = new Vendavel();
-                    produto.setId(resultados.getLong("id"));
-                    produto.setProduto(resultados.getString("produto"));
-                    produto.setValor(resultados.getString("valor"));
-                    produto.setCodigoDeBarras(resultados.getString("codigoDeBarras"));
-                    produto.setAtivo(resultados.getBoolean("ativo"));
+                    vendavel = new Vendavel();
+                    vendavel.setId(resultados.getLong("id"));
+                    vendavel.setNome(resultados.getString("nome"));
+                    vendavel.setDescricao(resultados.getString("descricao"));
+                    vendavel.setEstoque(resultados.getInt("estoque"));
+                    vendavel.setTipo_Id(resultados.getInt("tipo_id"));
+                    vendavel.setValor(resultados.getString("valor"));
+                    vendavel.setCodigoDeBarras(resultados.getString("codigoDeBarras"));
+                    vendavel.setAtivo(resultados.getBoolean("ativo"));
                 }
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        return produto;
+        return vendavel;
     }
 
     public static List<Vendavel> search(String query) {
         String sql;
         if (query != null) {
-            sql = "SELECT id, produto, tipo, valor, codigoDeBarras, ativo FROM produtos WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
+            sql = "SELECT id, nome, descricao, estoque, tipo_id, valor, codigo_de_barras, ativo, criado, modificado FROM vendavel WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
         } else {
-            sql = "SELECT id, produto, tipo, valor, codigoDeBarras, ativo FROM produtos WHERE ativo=?";
+            sql = "SELECT id, nome, descricao, estoque, tipo_id, valor, codigo_de_barras, ativo, criado, modificado FROM vendavel WHERE ativo=?";
         }
         List<Vendavel> list = null;
         try (Connection connection = SQLUtils.getConnection();
@@ -97,13 +102,16 @@ public class DAOProduto {
             try (ResultSet resultados = statement.executeQuery()) {
                 list = new ArrayList<>();
                 while (resultados.next()) {
-                    Vendavel produto = new Vendavel();
-                    produto.setId(resultados.getLong("id"));
-                    produto.setProduto(resultados.getString("produto"));
-                    produto.setValor(resultados.getString("valor"));
-                    produto.setCodigoDeBarras(resultados.getString("codigoDeBarras"));
-                    produto.setAtivo(resultados.getBoolean("ativo"));
-                    list.add(produto);
+                    Vendavel vendavel = new Vendavel();
+                    vendavel.setId(resultados.getLong("id"));
+                    vendavel.setNome(resultados.getString("nome"));
+                    vendavel.setDescricao(resultados.getString("descricao"));
+                    vendavel.setEstoque(resultados.getInt("estoque"));
+                    vendavel.setTipo_Id(resultados.getInt("tipo_id"));
+                    vendavel.setValor(resultados.getString("valor"));
+                    vendavel.setCodigoDeBarras(resultados.getString("codigoDeBarras"));
+                    vendavel.setAtivo(resultados.getBoolean("ativo"));
+                    list.add(vendavel);
                 }
             }
         } catch (SQLException ex) {
@@ -112,20 +120,22 @@ public class DAOProduto {
         return list;
     }
 
-    public static boolean update(Vendavel produto) {
-        if (produto != null && produto.getId() != null && produto.getId() > 0) {
-            String sql = "UPDATE produtos SET nome=?, descricao=?, ativo=?, modificado=? WHERE id=?";
+    public static boolean update(Vendavel vendavel) {
+        if (vendavel != null && vendavel.getId() != null && vendavel.getId() > 0) {
+            String sql = "UPDATE vendavel SET nome=?, descricao=?, estoque=?, tipo_id=?, valor=?, codigo_de_barras=?, ativo=?, modificado=? WHERE id=?";
             try (Connection connection = SQLUtils.getConnection()) {
                 connection.setAutoCommit(false);
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                    statement.setString(1, produto.getProduto());
-                    statement.setString(2, produto.getTipo());
-                    statement.setString(3, produto.getValor());
-                    statement.setString(4, produto.getCodigoDeBarras());
-                    statement.setBoolean(5, produto.isAtivo());
+                statement.setString(1, vendavel.getNome());
+                statement.setString(2, vendavel.getDescricao());
+                statement.setInt(3, vendavel.getEstoque());
+                statement.setInt(4, vendavel.getTipo_id());
+                statement.setString(5, vendavel.getValor());
+                statement.setString(6, vendavel.getCodigoDeBarras());
+                statement.setBoolean(7, vendavel.isAtivo());
                     Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
-                    statement.setTimestamp(4, now);
-                    statement.setLong(5, produto.getId());
+                    statement.setTimestamp(8, now);
+                    statement.setLong(9, vendavel.getId());
 
                     statement.execute();
                     connection.commit();
@@ -144,15 +154,15 @@ public class DAOProduto {
         }
     }
 
-    public static boolean delete(Vendavel produto) {
-        if (produto != null && produto.getId() != null && produto.getId() > 0) {
-            String sql = "UPDATE produtos SET ativo=?, modificado=? WHERE id=?";
+    public static boolean delete(Vendavel vendavel) {
+        if (vendavel != null && vendavel.getId() != null && vendavel.getId() > 0) {
+            String sql = "UPDATE vendavel SET ativo=?, modificado=? WHERE id=?";
             try (Connection connection = SQLUtils.getConnection()) {
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                    statement.setBoolean(1, !produto.isAtivo());
+                    statement.setBoolean(1, !vendavel.isAtivo());
                     Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
                     statement.setTimestamp(2, now);
-                    statement.setLong(3, produto.getId());
+                    statement.setLong(3, vendavel.getId());
                     statement.execute();
                 }
             } catch (SQLException ex) {

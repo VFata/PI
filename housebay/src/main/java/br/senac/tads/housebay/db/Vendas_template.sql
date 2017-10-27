@@ -18,4 +18,3 @@ CREATE TABLE vendas(
     FOREIGN KEY (cliente_id) REFERENCES Clientes (id),
     FOREIGN KEY (empresa_id) REFERENCES Empresa (id)
 );
-    
