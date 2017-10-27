@@ -13,7 +13,7 @@ CREATE TABLE vendavel (
     nome VARCHAR(255) NOT NULL,
     descricao VARCHAR(2048) NOT NULL,
     estoque INTEGER NOT NULL,
-    tipo_id VARCHAR(255) NOT NULL,
+    tipo_id INTEGER NOT NULL,
     valor NUMERIC(16,2) NOT NULL,
     codigo_de_barras VARCHAR(26) NOT NULL,
     ativo BOOLEAN,

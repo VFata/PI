@@ -24,7 +24,7 @@ public class DAOCliente {
     
     
     public static Long create(Cliente cliente) {
-        String sql = "INSERT INTO clientes (nome, dataNascimento, telefone, cpf, email) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO clientes (id, nome, dataNascimento, telefone, cpf, email, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Long id = null;
         try (Connection connection = SQLUtils.getConnection()) {
             connection.setAutoCommit(false);
@@ -60,7 +60,7 @@ public class DAOCliente {
     }
 
     public static Cliente read(Long id) {
-        String sql = "SELECT id, nome, dataNascimento, telefone, cpf, email, ativo FROM clientes WHERE (id=? AND ativo=?)";
+        String sql = "SELECT id, nome, dataNascimento, telefone, cpf, email, ativo, criado, modificado FROM clientes WHERE (id=? AND ativo=?)";
         Cliente cliente = null;
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -124,7 +124,7 @@ public class DAOCliente {
 
     public static boolean update(Cliente cliente) {
         if (cliente != null && cliente.getId() != null && cliente.getId() > 0) {
-            String sql = "UPDATE clientes SET nome=?, descricao=?, ativo=?, modificado=? WHERE id=?";
+            String sql = "UPDATE clientes SET nome=?, data_de_nascimento=?, telefone=?, cpf=?, email=?, ativo=?, modificado=? WHERE id=?";
             try (Connection connection = SQLUtils.getConnection()) {
                 connection.setAutoCommit(false);
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {

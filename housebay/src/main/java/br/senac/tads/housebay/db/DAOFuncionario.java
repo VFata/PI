@@ -23,17 +23,18 @@ public class DAOFuncionario {
      */
     
     public static Long create(Funcionario funcionario) {
-        String sql = "INSERT INTO funcionarios (nome, dataNascimento, telefone, cpf, cargo, email, ativo) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO funcionarios (nome, dataNascimento, telefone, cpf, cargo_id, email, senha, salt, cargo_id, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Long id = null;
         try (Connection connection = SQLUtils.getConnection()) {
             connection.setAutoCommit(false);
             try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, funcionario.getNome());
-                // sstatement.setTimestamp(2, funcionario.getDatanascimento().getTime());
+                // statement.setTimestamp(2, funcionario.getDatanascimento().getTime());
                 statement.setString(3, funcionario.getTelefone());
                 statement.setString(4, funcionario.getCpf());
-                statement.setString(5, funcionario.getCargo());
-                statement.setString(6, funcionario.getEmail());
+                statement.setString(5, funcionario.getEmail());
+                statement.setString(6, funcionario.getSenha());
+                statement.setLong(5, funcionario.getCargoId());
                 statement.setBoolean(7, funcionario.isAtivo());
                 Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
                 statement.setTimestamp(8, now);
@@ -60,7 +61,7 @@ public class DAOFuncionario {
     }
 
     public static Funcionario read(Long id) {
-        String sql = "SELECT id, nome, dataNascimento, telefone, cpf, cargo, email, ativo FROM funcionarios WHERE (id=? AND ativo=?)";
+        String sql = "SELECT id, nome, dataNascimento, telefone, cpf, cargo_id, email, ativo FROM funcionarios WHERE (id=? AND ativo=?)";
         Funcionario funcionario = null;
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -75,7 +76,7 @@ public class DAOFuncionario {
                     //funcionario.setDatanascimento(resultados.getTimestamp());
                     funcionario.setTelefone(resultados.getString("telefone"));
                     funcionario.setCpf(resultados.getString("cpf"));
-                    funcionario.setCargo(resultados.getString("cargo"));
+                    funcionario.setCargoId(resultados.getLong("cargo"));
                     funcionario.setEmail(resultados.getString("email"));
                     funcionario.setAtivo(resultados.getBoolean("ativo"));
                 }
@@ -89,9 +90,9 @@ public class DAOFuncionario {
     public static List<Funcionario> search(String query) {
         String sql;
         if (query != null) {
-            sql = "SELECT id, nome, dataNascimento, telefone, cpf, cargo, email, ativo FROM funcionarios WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
+            sql = "SELECT id, nome, dataNascimento, telefone, cpf, cargo_id, email, ativo FROM funcionarios WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
         } else {
-            sql = "SELECT id, nome, dataNascimento, telefone, cpf, cargo, email, ativo FROM funcionarios WHERE ativo=?";
+            sql = "SELECT id, nome, dataNascimento, telefone, cpf, cargo_id, email, ativo FROM funcionarios WHERE ativo=?";
         }
         List<Funcionario> list = null;
         try (Connection connection = SQLUtils.getConnection();
@@ -112,7 +113,7 @@ public class DAOFuncionario {
                     // funcionario.setDatanascimento(resultados.getTimestamp("data de nascimento"));
                     funcionario.setTelefone(resultados.getString("telefone"));
                     funcionario.setCpf(resultados.getString("cpf"));
-                    funcionario.setCargo(resultados.getString("cargo"));
+                    funcionario.setCargoId(resultados.getLong("cargo_id"));
                     funcionario.setEmail(resultados.getString("email"));
                     funcionario.setAtivo(resultados.getBoolean("ativo"));
                     list.add(funcionario);
@@ -126,7 +127,7 @@ public class DAOFuncionario {
 
     public static boolean update(Funcionario funcionario) {
         if (funcionario != null && funcionario.getId() != null && funcionario.getId() > 0) {
-            String sql = "UPDATE funcionarios SET nome=?, dataNascimento=?, telefone=?, cpf=?, cargo=?, email=?, ativo=?, modificado=? WHERE id=?";
+            String sql = "UPDATE funcionarios SET nome=?, dataNascimento=?, telefone=?, cpf=?, cargo_id=?, email=?, ativo=?, modificado=? WHERE id=?";
             try (Connection connection = SQLUtils.getConnection()) {
                 connection.setAutoCommit(false);
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -134,7 +135,7 @@ public class DAOFuncionario {
                     // statement.setTimestamp(2, funcionario.getDatanascimento());
                     statement.setString(3, funcionario.getTelefone());
                     statement.setString(4, funcionario.getCpf());
-                    statement.setString(5, funcionario.getCargo());
+                    statement.setLong(5, funcionario.getCargoId());
                     statement.setString(6, funcionario.getEmail());
                     statement.setBoolean(7, funcionario.isAtivo());
                     Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
