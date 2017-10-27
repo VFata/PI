@@ -4,9 +4,9 @@ package br.senac.tads.housebay.model;
  *
  * @author igor.soliveira11
  */
-public class Serviço extends Vendavel {
+public class Servico extends Vendavel {
       
-    public Serviço  (){
+    public Servico  (){
         super();
     }
     
