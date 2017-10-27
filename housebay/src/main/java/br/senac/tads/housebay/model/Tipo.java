@@ -5,14 +5,15 @@ package br.senac.tads.housebay.model;
  *
  * @author igor.soliveira11
  */
-public class Cargo extends TabelaDB {
+public class Tipo extends TabelaDB{
+    
     private String nome;
     
-    public Cargo (){
-        super ();
+    public Tipo(){
+        super();
     }
 
-    public Cargo(String nome) {
+    public Tipo(String nome) {
         super();
         this.nome = nome;
     }
@@ -23,6 +24,6 @@ public class Cargo extends TabelaDB {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-        
+    }               
+    
 }

@@ -6,8 +6,9 @@ package br.senac.tads.housebay.model;
  * @author igor.soliveira11
  */
 public class Empresa extends TabelaDB{
+    
     private String nome;
-    private String CNPJ;
+    private String cnpj;
     
     public Empresa (){
         super();
@@ -16,7 +17,7 @@ public class Empresa extends TabelaDB{
     public Empresa(String nome, String CNPJ) {
         super();
         this.nome = nome;
-        this.CNPJ = CNPJ;
+        this.cnpj = CNPJ;
     }
 
     public String getNome() {
@@ -27,12 +28,12 @@ public class Empresa extends TabelaDB{
         this.nome = nome;
     }
 
-    public String getCNPJ() {
-        return CNPJ;
+    public String getCnpj() {
+        return cnpj;
     }
 
-    public void setCNPJ(String CNPJ) {
-        this.CNPJ = CNPJ;
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
     
 }
