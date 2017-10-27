@@ -10,18 +10,17 @@ public class Vendavel extends TabelaDB {
     private String produto;
     private String tipo;
     private double valor;
-    private String codigoDeBarras;
 
     public Vendavel() {
         super();
     }
 
-    public Vendavel(String produto, String tipo, double valor, String codigoDeBarras) {
+    public Vendavel(String produto, String tipo, double valor) {
         super();
         this.produto = produto;
         this.tipo = tipo;
         this.valor = valor;
-        this.codigoDeBarras = codigoDeBarras;
+
     }
 
     public String getProduto() {
@@ -48,13 +47,4 @@ public class Vendavel extends TabelaDB {
         this.valor = valor;
     }
 
-    public String getCodigoDeBarras() {
-        return codigoDeBarras;
-    }
-
-    public void setCodigoDeBarras(String codigoDeBarras) {
-        this.codigoDeBarras = codigoDeBarras;
-    }
-    
-    
 }

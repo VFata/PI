@@ -53,7 +53,7 @@ public class ValidateFuncionario {
         if (funcionario.getCpf()== null || funcionario.getCpf().equals("")) {
             erro += "\nCPF vazio.";
         }
-        if (funcionario.getDatanascimento()== null || funcionario.getDatanascimento().equals("")) {
+        if (funcionario.getDataNascimento()== null || funcionario.getDataNascimento().equals("")) {
             erro += "\nDataNascimento vazio.";
         }
         if (funcionario.getEmail()== null || funcionario.getEmail().equals("")) {
