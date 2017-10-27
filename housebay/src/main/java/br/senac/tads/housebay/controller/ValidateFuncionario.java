@@ -7,63 +7,98 @@ package br.senac.tads.housebay.controller;
 
 import br.senac.tads.housebay.exception.FuncionarioException;
 import br.senac.tads.housebay.model.Funcionario;
+import java.util.HashMap;
+import java.util.Map;
 
 
-public class ValidateFuncionario {
+public class ValidateFuncionario {private final static String ERRO = "Erro na Validação.";
+    
     
     public static boolean create(Funcionario funcionario) 
             throws FuncionarioException {
-        String erro = "Erro: ";
+        Map errors = new HashMap();
         
-        erro = geraMensagem(funcionario, erro);
-        
-        if (!erro.equals("Erro: ")) {
+        if (funcionario == null) {
+            //erro += "\nFuncionario nulo.";
+            errors.put(Funcionario.class.getCanonicalName() + "_empty", "Funcionario nulo.");
+        } else {
+            //erro = geraMensagem(funcionario, erro);
+            errors.putAll(geraMensagem(funcionario));
+        }
+        if (!errors.isEmpty()) {
+            throw new FuncionarioException(ERRO, errors);
+        }
+        /*
+        if (!erro.equals(ERRO)) {
             throw new FuncionarioException(erro);
         }
+        */
         
         return true;
     }
     
     public static boolean update(Funcionario funcionario) 
             throws FuncionarioException {
-        String erro = "Erro: ";
+        Map errors = new HashMap();
         
-        if (funcionario.getId() == null || funcionario.getId() <= 0 ) {
-            erro += "\nId vazio.";
+        if (funcionario == null) {
+            //erro += "\nFuncionario nulo.";
+            errors.put(Funcionario.class.getCanonicalName() + "_empty", "Funcionario nulo.");
+        } else {
+            if (funcionario.getId() == null || funcionario.getId() <= 0 ) {
+                //erro += "\nId vazio.";
+                errors.put(Funcionario.ID + "_empty", "ID vazio.");
+            }
+            //erro = geraMensagem(funcionario, erro);
+            errors.putAll(geraMensagem(funcionario));
         }
         
-        erro = geraMensagem(funcionario, erro);
-        
-        if (!erro.equals("Erro: ")) {
+        if (!errors.isEmpty()) {
+            throw new FuncionarioException(ERRO, errors);
+        }
+        /*
+        if (!erro.equals(ERRO)) {
             throw new FuncionarioException(erro);
         }
+        */
         
         return true;
     }
     
-    private static String geraMensagem(Funcionario funcionario, String mensagem) {
-        String erro = "";
+    private static Map geraMensagem(Funcionario funcionario) {
+        Map errors = new HashMap(); 
         
-        if (funcionario == null) {
-            erro += "\nPet nulo.";
-        }
         if (funcionario.getNome() == null || funcionario.getNome().equals("")) {
-            erro += "\nNome vazio.";
+            //erro += "\nNome vazio.";
+            errors.put(Funcionario.NOME + "_empty", "Nome vazio.");
         }
         if (funcionario.getCpf()== null || funcionario.getCpf().equals("")) {
-            erro += "\nCPF vazio.";
+            //erro += "\nNome vazio.";
+            errors.put(Funcionario.CPF + "_empty", "Nome vazio.");
         }
         if (funcionario.getDataNascimento()== null || funcionario.getDataNascimento().equals("")) {
-            erro += "\nDataNascimento vazio.";
+            //erro += "\nNome vazio.";
+            errors.put(Funcionario.DATA_NASCIMENTO + "_empty", "Nome vazio.");
         }
         if (funcionario.getEmail()== null || funcionario.getEmail().equals("")) {
-            erro += "\nEmail vazio.";
+            //erro += "\nNome vazio.";
+            errors.put(Funcionario.EMAIL + "_empty", "Nome vazio.");
+        }
+        if (funcionario.getSalt()== null) {
+            //erro += "\nNome vazio.";
+            errors.put(Funcionario.SALT + "_empty", "Nome vazio.");
+        }
+        if (funcionario.getSenha()== null || funcionario.getSenha().equals("")) {
+            //erro += "\nNome vazio.";
+            errors.put(Funcionario.SENHA + "_empty", "Nome vazio.");
         }
         if (funcionario.getTelefone()== null || funcionario.getTelefone().equals("")) {
-            erro += "\nTelefone vazio.";
+            //erro += "\nNome vazio.";
+            errors.put(Funcionario.TELEFONE + "_empty", "Nome vazio.");
         }
+
         
-        return erro;
+        return errors;
     }
     
 }

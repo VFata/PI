@@ -6,64 +6,96 @@
 package br.senac.tads.housebay.controller;
 
 import br.senac.tads.housebay.exception.ClienteException;
+import br.senac.tads.housebay.exception.ClienteException;
 import br.senac.tads.housebay.model.Cliente;
+import br.senac.tads.housebay.model.Cliente;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class ValidateCliente {
     
-        public static boolean create(Cliente cliente) 
+    private final static String ERRO = "Erro na Validação.";
+    
+    
+    public static boolean create(Cliente cliente) 
             throws ClienteException {
-        String erro = "Erro: ";
+        Map errors = new HashMap();
         
-        erro = geraMensagem(cliente, erro);
-        
-        if (!erro.equals("Erro: ")) {
+        if (cliente == null) {
+            //erro += "\nCliente nulo.";
+            errors.put(Cliente.class.getCanonicalName() + "_empty", "Cliente nulo.");
+        } else {
+            //erro = geraMensagem(cliente, erro);
+            errors.putAll(geraMensagem(cliente));
+        }
+        if (!errors.isEmpty()) {
+            throw new ClienteException(ERRO, errors);
+        }
+        /*
+        if (!erro.equals(ERRO)) {
             throw new ClienteException(erro);
         }
+        */
         
         return true;
     }
     
     public static boolean update(Cliente cliente) 
             throws ClienteException {
-        String erro = "Erro: ";
+        Map errors = new HashMap();
         
-        if (cliente.getId() == null || cliente.getId() <= 0 ) {
-            erro += "\nId vazio.";
+        if (cliente == null) {
+            //erro += "\nCliente nulo.";
+            errors.put(Cliente.class.getCanonicalName() + "_empty", "Cliente nulo.");
+        } else {
+            if (cliente.getId() == null || cliente.getId() <= 0 ) {
+                //erro += "\nId vazio.";
+                errors.put(Cliente.ID + "_empty", "ID vazio.");
+            }
+            //erro = geraMensagem(cliente, erro);
+            errors.putAll(geraMensagem(cliente));
         }
         
-        erro = geraMensagem(cliente, erro);
-        
-        if (!erro.equals("Erro: ")) {
+        if (!errors.isEmpty()) {
+            throw new ClienteException(ERRO, errors);
+        }
+        /*
+        if (!erro.equals(ERRO)) {
             throw new ClienteException(erro);
         }
+        */
         
         return true;
     }
     
-    private static String geraMensagem(Cliente cliente, String mensagem) {
-        String erro = "";
+    private static Map geraMensagem(Cliente cliente) {
+        Map errors = new HashMap(); 
         
-        if (cliente == null) {
-            erro += "\nCliente nulo.";
-        }
         if (cliente.getNome() == null || cliente.getNome().equals("")) {
-            erro += "\nNome vazio.";
-        }
-        if (cliente.getCpf()== null || cliente.getCpf().equals("")) {
-            erro += "\nCPF vazia.";
-        }
-        if (cliente.getDataNascimento()== null || cliente.getDataNascimento().equals("")) {
-            erro += "\nDataNascimento vazia.";
+            //erro += "\nNome vazio.";
+            errors.put(Cliente.NOME + "_empty", "Nome vazio.");
         }
         if (cliente.getEmail()== null || cliente.getEmail().equals("")) {
-            erro += "\nEmail vazia.";
+            //erro += "\nDescrição vazia.";
+            errors.put(Cliente.EMAIL + "_empty", "Descrição vazia.");
         }
         if (cliente.getTelefone()== null || cliente.getTelefone().equals("")) {
-            erro += "\nTelefone vazia.";
+            //erro += "\nDescrição vazia.";
+            errors.put(Cliente.TELEFONE + "_empty", "Descrição vazia.");
         }
+        if (cliente.getCpf()== null || cliente.getCpf().equals("")) {
+            //erro += "\nDescrição vazia.";
+            errors.put(Cliente.CPF + "_empty", "Descrição vazia.");
+        }
+        if (cliente.getDataNascimento()== null || cliente.getDataNascimento().equals("")) {
+            //erro += "\nDescrição vazia.";
+            errors.put(Cliente.DATA_NASCIMENTO + "_empty", "Descrição vazia.");
+        }
+
         
-        return erro;
+        
+        return errors;
     }
     
 }

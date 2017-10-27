@@ -5,14 +5,23 @@
  */
 package br.senac.tads.housebay.exception;
 
+import java.util.Map;
+
 /**
  *
  * @author Tron
  */
 public class FuncionarioException extends Exception{
     
-    public FuncionarioException(String message) {
+    private final Map errors;
+    
+    public FuncionarioException(String message, Map errors) {
         super(message);
+        this.errors = errors;
+    }
+
+    public Map getErrors() {
+        return errors;
     }
     
 }

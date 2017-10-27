@@ -5,6 +5,9 @@ import br.senac.tads.housebay.exception.PetException;
 import br.senac.tads.housebay.model.Pet;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -133,6 +136,9 @@ public class Pets extends HttpServlet {
             Pet pet = new Pet();
             pet.setNome(request.getParameter("nome"));
             pet.setDescricao(request.getParameter("descricao"));
+            Calendar agora = Calendar.getInstance();
+            pet.setCriado((GregorianCalendar) agora);
+            pet.setModificado((GregorianCalendar) agora);
             pet.setAtivo(true);
             
             try {
