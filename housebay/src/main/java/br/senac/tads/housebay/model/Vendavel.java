@@ -54,7 +54,7 @@ public class Vendavel extends TabelaDB {
         return tipoId;
     }
 
-    public void setTipoId(Long idTipo) {
+    public void setTipoId(Long tipoId) {
         this.tipoId = tipoId;
     }
 

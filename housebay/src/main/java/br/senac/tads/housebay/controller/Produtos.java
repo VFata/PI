@@ -8,9 +8,7 @@ package br.senac.tads.housebay.controller;
 import br.senac.tads.housebay.db.DAOVendavel;
 import br.senac.tads.housebay.exception.ProdutoException;
 import br.senac.tads.housebay.model.Produto;
-import br.senac.tads.housebay.model.Vendavel;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -64,7 +62,7 @@ public class Produtos extends HttpServlet {
         if (url.equals("/produtos") && id == null) {
             //Lista produtos
             String query = request.getParameter("q");
-            List<Vendavel> produtos = DAOVendavel.search(query);
+            List produtos = DAOVendavel.search(query);
             request.setAttribute("produtos", produtos);
             responseURL = "/WEB-INF/produto/produto_list.jsp";
         } else if (url.equals("/produtos") && id != null) {
@@ -139,7 +137,7 @@ public class Produtos extends HttpServlet {
             //Cria um novo produto
             Produto produto = new Produto();
             produto.setProduto(request.getParameter("produto"));
-            produto.setTipo(request.getParameter("tipo"));
+            produto.setTipoId(Long.parseLong(request.getParameter("tipo")));
             produto.setValor(Double.parseDouble(request.getParameter("valor")));
             produto.setCodigoDeBarras(request.getParameter("cofigoDeBarras"));
             
@@ -175,7 +173,7 @@ public class Produtos extends HttpServlet {
             //Altera o produto id=xxx            
             Produto produto = new Produto();
             produto.setProduto(request.getParameter("produto"));
-            produto.setTipo(request.getParameter("tipo"));
+            produto.setTipoId(Long.parseLong(request.getParameter("tipo")));
             produto.setValor(Double.parseDouble(request.getParameter("valor")));
             produto.setCodigoDeBarras(request.getParameter("cofigoDeBarras"));
             
