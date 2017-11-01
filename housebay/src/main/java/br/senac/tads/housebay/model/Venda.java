@@ -10,7 +10,7 @@ public class Venda extends TabelaDB {
 
     public static final String CLIENTE_ID = "cliente id";
     public static final String PRODUTO_ID = "produto id";
-    public static final Strinng EMPRESA_ID = "empresa id"
+    public static final String EMPRESA_ID = "empresa id";
     public static final String LIST = "list";
     
     private long clienteId;
@@ -26,7 +26,7 @@ public class Venda extends TabelaDB {
         super();
         this.clienteId = cliente_id;
         this.produtoId = produto_id;
-        this.empresId = empresa_id
+        this.empresId = empresa_id;
     }
 
     public long getClienteId() {
