@@ -1,7 +1,8 @@
 package br.senac.tads.housebay.db;
 
 import br.senac.tads.housebay.db.SQLUtils;
-import br.senac.tads.housebay.model.Cliente;
+import br.senac.tads.housebay.db.SQLUtils;
+import br.senac.tads.housebay.model.Tipo;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
@@ -14,44 +15,35 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Diego
- */
-public class DAOCliente {
+public class DAOTipo {
     /*
-     * TODO: ARRUMAR impede compilação
+     * TODO: Change the product to instance of sellable.
      */
     
-    
-    public static Long create(Cliente cliente) {
-        String sql = "INSERT INTO clientes (id, nome, dataNascimento, telefone, cpf, email, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public static Long create(Tipo tipo) {
+        String sql = "INSERT INTO tipo (nome, ativo, criado, modificado) VALUES (?, ?, ?, ?)";
         Long id = null;
         try (Connection connection = SQLUtils.getConnection()) {
             connection.setAutoCommit(false);
             try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                statement.setString(1, cliente.getNome());
-                //statement.setTimestamp(2, cliente.getDataNascimento());
-                statement.setString(3, cliente.getTelefone());
-                statement.setString(4, cliente.getCpf());
-                statement.setString(5, cliente.getEmail());
-                statement.setBoolean(6, cliente.isAtivo());
+                statement.setString(1, tipo.getNome());
+                statement.setBoolean(2, tipo.isAtivo());
                 Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
-                statement.setTimestamp(7, now);
-                statement.setTimestamp(8, now);
+                statement.setTimestamp(3, now);
+                statement.setTimestamp(4, now);
                 
                 statement.executeUpdate();
                 try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         id = generatedKeys.getLong(1);
-                        cliente.setId(id);
+                        tipo.setId(id);
                     }
                 }
                 connection.commit();
             } catch (SQLException ex) {
                 connection.rollback();
                 System.err.println(ex.getMessage());
-                Logger.getLogger(DAOCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DAOTipo.class.getName()).log(Level.SEVERE, null, ex);
                 return -1l;
             }
         } catch (SQLException ex) {
@@ -60,9 +52,9 @@ public class DAOCliente {
         return id;
     }
 
-    public static Cliente read(Long id) {
-        String sql = "SELECT id, nome, dataNascimento, telefone, cpf, email, ativo, criado, modificado FROM clientes WHERE (id=? AND ativo=?)";
-        Cliente cliente = null;
+    public static Tipo read(Long id) {
+        String sql = "SELECT id, nome, ativo, criado, modificado FROM tipo WHERE (id=? AND ativo=?)";
+        Tipo tipo = null;
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setLong(1, id);
@@ -70,30 +62,26 @@ public class DAOCliente {
 
             try (ResultSet resultados = statement.executeQuery()) {
                 if (resultados.next()) {
-                    cliente = new Cliente();
-                    cliente.setId(resultados.getLong("id"));
-                    cliente.setNome(resultados.getString("nome"));
-                    //cliente.setDataNascimento(resultados.getTimestamp());
-                    cliente.setTelefone(resultados.getString("telefone"));
-                    cliente.setCpf(resultados.getString("cpf"));
-                    cliente.setEmail(resultados.getString("email"));
-                    cliente.setAtivo(resultados.getBoolean("ativo"));
+                    tipo = new Tipo();
+                    tipo.setId(resultados.getLong("id"));
+                    tipo.setNome(resultados.getString("nome"));
+                    tipo.setAtivo(resultados.getBoolean("ativo"));
                 }
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        return cliente;
+        return tipo;
     }
 
-    public static List<Cliente> search(String query) {
+    public static List<Tipo> search(String query) {
         String sql;
         if (query != null) {
-            sql = "SELECT id, nome, dataNascimento, telefone, cpf, email, ativo FROM clientes WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
+            sql = "SELECT id, nome, ativo, criado, modificado FROM tipo WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
         } else {
-            sql = "SELECT id, nome, dataNascimento, telefone, cpf, email, ativo FROM clientes WHERE ativo=?";
+            sql = "SELECT id, nome, ativo, criado, modificado FROM tipo WHERE ativo=?";
         }
-        List<Cliente> list = null;
+        List<Tipo> list = null;
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             if (query != null) {
@@ -106,15 +94,11 @@ public class DAOCliente {
             try (ResultSet resultados = statement.executeQuery()) {
                 list = new ArrayList<>();
                 while (resultados.next()) {
-                    Cliente cliente = new Cliente();
-                    cliente.setId(resultados.getLong("id"));
-                    cliente.setNome(resultados.getString("nome"));
-                    //cliente.setDataNascimento(resultados.getTimestamp());
-                    cliente.setTelefone(resultados.getString("telefone"));
-                    cliente.setCpf(resultados.getString("cpf"));
-                    cliente.setEmail(resultados.getString("email"));
-                    cliente.setAtivo(resultados.getBoolean("ativo"));
-                    list.add(cliente);
+                    Tipo tipo = new Tipo();
+                    tipo.setId(resultados.getLong("id"));
+                    tipo.setNome(resultados.getString("nome"));
+                    tipo.setAtivo(resultados.getBoolean("ativo"));
+                    list.add(tipo);
                 }
             }
         } catch (SQLException ex) {
@@ -123,21 +107,17 @@ public class DAOCliente {
         return list;
     }
 
-    public static boolean update(Cliente cliente) {
-        if (cliente != null && cliente.getId() != null && cliente.getId() > 0) {
-            String sql = "UPDATE clientes SET nome=?, data_de_nascimento=?, telefone=?, cpf=?, email=?, ativo=?, modificado=? WHERE id=?";
+    public static boolean update(Tipo tipo) {
+        if (tipo != null && tipo.getId() != null && tipo.getId() > 0) {
+            String sql = "UPDATE tipo SET nome=?, ativo=?, modificado=? WHERE id=?";
             try (Connection connection = SQLUtils.getConnection()) {
                 connection.setAutoCommit(false);
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                    statement.setString(1, cliente.getNome());
-                    //statement.setTimestamp(2, cliente.getDataNascimento());
-                    statement.setString(3, cliente.getTelefone());
-                    statement.setString(4, cliente.getCpf());
-                    statement.setString(5, cliente.getEmail());
-                    statement.setBoolean(6, cliente.isAtivo());
+                statement.setString(1, tipo.getNome());
+                statement.setBoolean(2, tipo.isAtivo());
                     Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
-                    statement.setTimestamp(7, now);
-                    statement.setLong(8, cliente.getId());
+                    statement.setTimestamp(3, now);
+                    statement.setLong(4, tipo.getId());
 
                     statement.execute();
                     connection.commit();
@@ -156,15 +136,15 @@ public class DAOCliente {
         }
     }
 
-    public static boolean delete(Cliente cliente) {
-        if (cliente != null && cliente.getId() != null && cliente.getId() > 0) {
-            String sql = "UPDATE clientes SET ativo=?, modificado=? WHERE id=?";
+    public static boolean delete(Tipo tipo) {
+        if (tipo != null && tipo.getId() != null && tipo.getId() > 0) {
+            String sql = "UPDATE tipo SET ativo=?, modificado=? WHERE id=?";
             try (Connection connection = SQLUtils.getConnection()) {
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                    statement.setBoolean(1, !cliente.isAtivo());
+                    statement.setBoolean(1, !tipo.isAtivo());
                     Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
                     statement.setTimestamp(2, now);
-                    statement.setLong(3, cliente.getId());
+                    statement.setLong(3, tipo.getId());
                     statement.execute();
                 }
             } catch (SQLException ex) {
@@ -177,4 +157,3 @@ public class DAOCliente {
         }
     }
 }
-
