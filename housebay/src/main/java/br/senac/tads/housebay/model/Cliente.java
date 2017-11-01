@@ -1,7 +1,9 @@
 
 package br.senac.tads.housebay.model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -10,7 +12,7 @@ import java.util.GregorianCalendar;
  */
 
 //Classe relacionada com a tabela Clientes do Banco de Dados...
-public class Cliente extends TabelaDB{
+public class Cliente extends TabelaDB {
     
     public final static String NOME = "nome";
     public final static String DATA_NASCIMENTO = "data nascimento";
@@ -51,9 +53,20 @@ public class Cliente extends TabelaDB{
     public GregorianCalendar getDataNascimento() {
         return dataNascimento;
     }
-
+    public String getInputDataNascimento() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        return sdf.format(this.dataNascimento.getTime());
+    }
+    public String getFormatDataNascimento() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd / mm / yyyy");
+        return sdf.format(this.dataNascimento.getTime());
+    }
     public void setDataNascimento(GregorianCalendar dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+    public void setDataNascimento(long timeInMillis) {
+        this.dataNascimento = new GregorianCalendar();
+        this.dataNascimento.setTimeInMillis(timeInMillis);
     }
 
     public String getTelefone() {
@@ -86,7 +99,6 @@ public class Cliente extends TabelaDB{
 
     public void setPetIds(ArrayList<Long> petIds) {
         this.petIds = petIds;
-    }
-    
+    }    
 }
 

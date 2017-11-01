@@ -35,7 +35,7 @@
                             <nav class="subtitle is-6 breadcrumb" aria-label="breadcrumbs">
                                 <ul>
                                     <li><a href="${index_url}">Home</a></li>
-                                    <li><a href="${main_url}">Clientess</a></li>
+                                    <li><a href="${main_url}">Clientes</a></li>
                                     <li class="is-active"><a href="#" aria-current="page">Detalhes</a></li>
                                     <!-- Incluir novos itens na breadcrumbs, caso necessário -->
                                 </ul>
@@ -63,7 +63,16 @@
                             <strong>Nome:</strong> <c:out value="${cliente.nome}" />
                         </p>
                         <p>
-                            <strong>Descrição:</strong> <c:out value="${cliente.descricao}" />
+                            <strong>CPF:</strong> <c:out value="${cliente.cpf}" />
+                        </p>
+                        <p>
+                            <strong>Data de nascimento:</strong> <c:out value="${cliente.formatDataNascimento}" />
+                        </p>
+                        <p>
+                            <strong>E-mail:</strong> <c:out value="${cliente.email}" />
+                        </p>
+                        <p>
+                            <strong>Telefone:</strong> <c:out value="${cliente.telefone}" />
                         </p>
                     </div>
                 </main>

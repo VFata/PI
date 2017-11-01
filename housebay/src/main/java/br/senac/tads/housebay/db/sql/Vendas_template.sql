@@ -15,6 +15,6 @@ CREATE TABLE vendas(
     ativo BOOLEAN,
     criado TIMESTAMP,
     modificado TIMESTAMP,
-    FOREIGN KEY (cliente_id) REFERENCES Clientes (id),
-    FOREIGN KEY (empresa_id) REFERENCES Empresa (id)
+    CONSTRAINT references_cliente FOREIGN KEY (cliente_id) REFERENCES clientes (id),
+    CONSTRAINT references_empresa FOREIGN KEY (empresa_id) REFERENCES empresas (id)
 );

@@ -51,9 +51,9 @@ public abstract class TabelaDB {
     public void setCriado(GregorianCalendar criado) {
         this.criado = criado;
     }
-    public void setCriado(Date criado) {
+    public void setCriado(long timeInMillis) {
         this.criado = new GregorianCalendar();
-        this.criado.setTime(criado);
+        this.criado.setTimeInMillis(timeInMillis);
     }
 
     public GregorianCalendar getModificado() {
@@ -62,10 +62,9 @@ public abstract class TabelaDB {
     public void setModificado(GregorianCalendar modificado) {
         this.modificado = modificado;
     }
-    public void setModificado(Date modificado) {
+    public void setModificado(long timeInMillis) {
         this.modificado = new GregorianCalendar();
-        this.modificado.setTime(modificado);
+        this.modificado.setTimeInMillis(timeInMillis);
     }
-    
     
 }

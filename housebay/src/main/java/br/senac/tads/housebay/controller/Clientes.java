@@ -13,7 +13,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-@WebServlet(name = "Clientes", urlPatterns = {"/clientes", "/clientes/new", "/clientes/edit"})
+@WebServlet(name = "Clientes", urlPatterns = {"/clientes", "/clientes/new", "/clientes/create", "/clientes/edit", "/clientes/update", "/clientes/destroy"} )
 public class Clientes extends HttpServlet{
     
     
@@ -71,19 +70,23 @@ public class Clientes extends HttpServlet{
             List<Cliente> clientes = DAOCliente.search(query);
             request.setAttribute("clientes", clientes);
             responseURL = "/WEB-INF/cliente/cliente_list.jsp";
+            
         } else if (url.equals("/clientes") && id != null) {
             //Detalhes do cliente id
             Cliente cliente = DAOCliente.read(Long.parseLong(id));
             request.setAttribute("cliente", cliente);
             responseURL = "/WEB-INF/cliente/cliente_show.jsp";
+            
         } else if (url.equals("/clientes/new") && id == null) {
             //Form novo cliente
             newForm(request, response, sessao);
             return;
+            
         } else if (url.equals("/clientes/edit") && id != null) {
             //Form alterar cliente
             editForm(request, response, sessao, Long.parseLong(id));
             return;
+            
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
@@ -139,6 +142,7 @@ public class Clientes extends HttpServlet{
                 sessao.setAttribute("mensagem", mensagens);
                 response.sendRedirect(request.getContextPath() + "/clientes");
             }
+            
         } else if (url.equals("/clientes/create") && id == null) {
             //Cria um novo cliente
             Cliente cliente = new Cliente();
@@ -146,23 +150,26 @@ public class Clientes extends HttpServlet{
             cliente.setCpf(request.getParameter("cpf"));
             cliente.setEmail(request.getParameter("email"));
             cliente.setTelefone(request.getParameter("telefone"));
+            /*
             Calendar agora = Calendar.getInstance();
             cliente.setCriado((GregorianCalendar) agora);
             cliente.setModificado((GregorianCalendar) agora);
             cliente.setAtivo(true);
+            */
             
-            String dataNascimento = request.getParameter("dataNascimento");
+            String dataNascimento = request.getParameter("nascimento");
             SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
-            GregorianCalendar nasc = new GregorianCalendar();
+            GregorianCalendar nasc = null;
             try {
-                 nasc.setTime(format.parse(dataNascimento));
-                
+                if (dataNascimento != null) {
+                    nasc = new GregorianCalendar();
+                    nasc.setTime(format.parse(dataNascimento));
+                }
             } catch (ParseException ex) {
-                Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+                System.err.println(ex.getMessage());
+                //Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
             }
             cliente.setDataNascimento(nasc);
-
-            
             
             try {
                 ValidateCliente.create(cliente);
@@ -187,29 +194,33 @@ public class Clientes extends HttpServlet{
                 sessao.setAttribute("mensagem", mensagens);
                 response.sendRedirect(request.getContextPath() + "/clientes?id=" + newId);
             }
+            
         } else if (url.equals("/clientes/update") && id != null) {
             //Altera o cliente id=xxx            
             Cliente cliente = new Cliente();
+            cliente.setId(Long.parseLong(id));
             cliente.setNome(request.getParameter("nome"));
             cliente.setCpf(request.getParameter("cpf"));
             cliente.setEmail(request.getParameter("email"));
             cliente.setTelefone(request.getParameter("telefone"));
             Calendar agora = Calendar.getInstance();
-            cliente.setCriado((GregorianCalendar) agora);
+            //cliente.setCriado((GregorianCalendar) agora);
             cliente.setModificado((GregorianCalendar) agora);
             cliente.setAtivo(true);
             
-            String dataNascimento = request.getParameter("dataNascimento");
+            String dataNascimento = request.getParameter("nascimento");
             SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
-            GregorianCalendar nasc = new GregorianCalendar();
+            GregorianCalendar nasc = null;
             try {
-                 nasc.setTime(format.parse(dataNascimento));
-                
+                if (dataNascimento != null) {
+                    nasc = new GregorianCalendar();
+                    nasc.setTime(format.parse(dataNascimento));
+                }
             } catch (ParseException ex) {
-                Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+                System.err.println(ex.getMessage());
+                //Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
             }
             cliente.setDataNascimento(nasc);
-            
             
             try {
                 ValidateCliente.update(cliente);

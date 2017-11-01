@@ -23,20 +23,13 @@ public class ValidatePet {
         Map errors = new HashMap();
         
         if (pet == null) {
-            //erro += "\nPet nulo.";
             errors.put(Pet.class.getCanonicalName() + "_empty", "Pet nulo.");
         } else {
-            //erro = geraMensagem(pet, erro);
             errors.putAll(geraMensagem(pet));
         }
         if (!errors.isEmpty()) {
             throw new PetException(ERRO, errors);
         }
-        /*
-        if (!erro.equals(ERRO)) {
-            throw new PetException(erro);
-        }
-        */
         
         return true;
     }
@@ -46,25 +39,17 @@ public class ValidatePet {
         Map errors = new HashMap();
         
         if (pet == null) {
-            //erro += "\nPet nulo.";
             errors.put(Pet.class.getCanonicalName() + "_empty", "Pet nulo.");
         } else {
             if (pet.getId() == null || pet.getId() <= 0 ) {
-                //erro += "\nId vazio.";
                 errors.put(Pet.ID + "_empty", "ID vazio.");
             }
-            //erro = geraMensagem(pet, erro);
             errors.putAll(geraMensagem(pet));
         }
         
         if (!errors.isEmpty()) {
             throw new PetException(ERRO, errors);
         }
-        /*
-        if (!erro.equals(ERRO)) {
-            throw new PetException(erro);
-        }
-        */
         
         return true;
     }
@@ -73,11 +58,9 @@ public class ValidatePet {
         Map errors = new HashMap(); 
         
         if (pet.getNome() == null || pet.getNome().equals("")) {
-            //erro += "\nNome vazio.";
             errors.put(Pet.NOME + "_empty", "Nome vazio.");
         }
         if (pet.getDescricao() == null || pet.getDescricao().equals("")) {
-            //erro += "\nDescrição vazia.";
             errors.put(Pet.DESCRICAO + "_empty", "Descrição vazia.");
         }
         

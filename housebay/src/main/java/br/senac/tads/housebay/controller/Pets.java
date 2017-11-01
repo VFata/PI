@@ -6,7 +6,6 @@ import br.senac.tads.housebay.model.Pet;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
@@ -123,26 +122,36 @@ public class Pets extends HttpServlet {
             //Deleta o pet id=xxx
             Pet pet = new Pet();
             pet.setId(Long.parseLong(id));
-            if(DAOPet.delete(pet)) {
-                if (mensagens == null) {
-                    mensagens = new ArrayList();
+            try {
+                if(DAOPet.delete(pet)) {
+                    if (mensagens == null) {
+                        mensagens = new ArrayList();
+                    }
+                    mensagens.add("Pet removido.");
+                    sessao.setAttribute("mensagem", mensagens);
+                    response.sendRedirect(request.getContextPath() + "/pets");
                 }
-                mensagens.add("Pet removido.");
-                sessao.setAttribute("mensagem", mensagens);
-                response.sendRedirect(request.getContextPath() + "/pets");
+            } catch(PetException ex) {
+                System.out.println("Pet Exception: " + ex.getMessage());
+                sessao.setAttribute("pet", pet);
+                if (erros == null) {
+                    erros = new HashMap();
+                }
+                erros.putAll(ex.getErrors());
+                sessao.setAttribute("erro", erros);
+                newForm(request, response, sessao);
+                return;
             }
         } else if (url.equals("/pets/create") && id == null) {
             //Cria um novo pet
             Pet pet = new Pet();
             pet.setNome(request.getParameter("nome"));
             pet.setDescricao(request.getParameter("descricao"));
-            Calendar agora = Calendar.getInstance();
-            pet.setCriado((GregorianCalendar) agora);
-            pet.setModificado((GregorianCalendar) agora);
-            pet.setAtivo(true);
-            
+            Long newId;
             try {
                 ValidatePet.create(pet);
+                
+                newId = DAOPet.create(pet);
             } catch (PetException ex) {
                 System.out.println("Pet Exception: " + ex.getMessage());
                 sessao.setAttribute("pet", pet);
@@ -155,7 +164,6 @@ public class Pets extends HttpServlet {
                 return;
             }
             
-            Long newId = DAOPet.create(pet);
             if (newId > 0) {
                 if (mensagens == null) {
                     mensagens = new ArrayList();
@@ -172,8 +180,11 @@ public class Pets extends HttpServlet {
             pet.setDescricao(request.getParameter("descricao"));
             pet.setAtivo(true);
             
+            boolean update;
             try {
                 ValidatePet.update(pet);
+                
+                update = DAOPet.update(pet);
             } catch (PetException ex) {
                 System.out.println("Pet Exception: " + ex.getMessage());                
                 sessao.setAttribute("pet", pet);
@@ -186,7 +197,7 @@ public class Pets extends HttpServlet {
                 return;
             }
             
-            if (DAOPet.update(pet)) {
+            if (update) {
                 if (mensagens == null) {
                     mensagens = new ArrayList();
                 }

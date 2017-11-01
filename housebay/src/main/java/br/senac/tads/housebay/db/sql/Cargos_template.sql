@@ -1,4 +1,8 @@
 CREATE TABLE cargos (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     nome VARCHAR(255) NOT NULL,
+    ativo BOOLEAN,
+    criado TIMESTAMP,
+    modificado TIMESTAMP,
+    CONSTRAINT unique_nome UNIQUE (nome)
 );
