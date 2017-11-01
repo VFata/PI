@@ -1,6 +1,7 @@
 package br.senac.tads.housebay.db;
 
 import br.senac.tads.housebay.model.Cliente;
+import br.senac.tads.housebay.model.Pet;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
@@ -77,6 +78,7 @@ public class DAOCliente {
                     cliente.setAtivo(resultados.getBoolean("ativo"));
                     cliente.setCriado(resultados.getTimestamp("criado").getTime());
                     cliente.setModificado(resultados.getTimestamp("modificado").getTime());
+                    cliente.setPets(DAOPet.referencesCliente(resultados.getLong("id")));
                 }
             }
         } catch (SQLException ex) {

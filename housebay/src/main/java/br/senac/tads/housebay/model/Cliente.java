@@ -3,8 +3,8 @@ package br.senac.tads.housebay.model;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  *
@@ -26,20 +26,20 @@ public class Cliente extends TabelaDB {
     private String telefone;
     private String cpf;
     private String email;
-    private ArrayList <Long> petIds;
-    
+    private List <Pet> pets;
+
     public Cliente(){
         super();        
     }
 
-    public Cliente(String nome, GregorianCalendar dataNascimento, String telefone, String cpf, String email, ArrayList<Long> petIds) {
+    public Cliente(String nome, GregorianCalendar dataNascimento, String telefone, String cpf, String email) {
         super();
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.telefone = telefone;
         this.cpf = cpf;
         this.email = email;
-        this.petIds = petIds;
+        this.pets = new ArrayList<>();
     }
 
     public String getNome() {
@@ -92,13 +92,12 @@ public class Cliente extends TabelaDB {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public ArrayList<Long> getPetIds() {
-        return petIds;
+    
+    public List<Pet> getPets() {
+        return pets;
     }
-
-    public void setPetIds(ArrayList<Long> petIds) {
-        this.petIds = petIds;
-    }    
+    public void setPets(List<Pet> pets) {
+        this.pets = pets;
+    }
 }
 

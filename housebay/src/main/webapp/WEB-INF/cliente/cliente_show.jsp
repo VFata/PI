@@ -74,6 +74,17 @@
                         <p>
                             <strong>Telefone:</strong> <c:out value="${cliente.telefone}" />
                         </p>
+                        
+                        <c:if test="not empty cliente.pets" >
+                            <p>
+                                <strong>Pets:</strong>
+                            </p>
+                            <div>
+                                <c:forEach items="${cliente.pets}" var="pet">
+                                    <p><c:out value="${pet.nome}" /></p>
+                                </c:forEach>
+                            </div>
+                        </c:if>
                     </div>
                 </main>
             </div>

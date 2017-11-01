@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -184,5 +183,40 @@ public class DAOPet {
         } else {
             return false;
         }
+    }
+    
+    public static List<Pet> referencesCliente(long cliente_id) {
+        String sql;
+        if (cliente_id > 0) {
+            sql = "SELECT id, nome, descricao, cliente_id, ativo, criado, modificado FROM pets WHERE (cliente_id=? AND ativo=?)";
+        } else {
+            return new ArrayList();
+        }
+        List<Pet> list = null;
+        try (Connection connection = SQLUtils.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)) {
+            if (cliente_id > 0) {
+                statement.setLong(1, cliente_id);
+                statement.setBoolean(2, true);
+            }
+
+            try (ResultSet resultados = statement.executeQuery()) {
+                list = new ArrayList<>();
+                while (resultados.next()) {
+                    Pet pet = new Pet();
+                    pet.setId(resultados.getLong("id"));
+                    pet.setNome(resultados.getString("nome"));
+                    pet.setDescricao(resultados.getString("descricao"));
+                    pet.setClienteId(resultados.getLong("cliente_id"));
+                    pet.setAtivo(resultados.getBoolean("ativo"));
+                    pet.setCriado(resultados.getTimestamp("criado").getTime());
+                    pet.setModificado(resultados.getTimestamp("modificado").getTime());
+                    list.add(pet);
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return list;
     }
 }
