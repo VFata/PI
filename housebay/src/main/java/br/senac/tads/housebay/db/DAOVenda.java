@@ -26,11 +26,11 @@ public class DAOVenda {
             connection.setAutoCommit(false);
             try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statement.setLong(1, venda.getClienteId());
-                statement.setLong(2, venda.getProdutoId());
-                statement.setBoolean(2, venda.isAtivo());
+                statement.setLong(2, venda.getEmpresaId());
+                statement.setBoolean(3, venda.isAtivo());
                 Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
-                statement.setTimestamp(3, now);
                 statement.setTimestamp(4, now);
+                statement.setTimestamp(5, now);
                 
                 statement.executeUpdate();
                 try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -53,7 +53,7 @@ public class DAOVenda {
     }
 
     public static Venda read(Long id) {
-        String sql = "SELECT id, nome, ativo, criado, modificado FROM venda WHERE (id=? AND ativo=?)";
+        String sql = "SELECT id, cliente_id, empresa_id, ativo, criado, modificado FROM venda WHERE (id=? AND ativo=?)";
         Venda venda = null;
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -64,7 +64,8 @@ public class DAOVenda {
                 if (resultados.next()) {
                     venda = new Venda();
                     venda.setId(resultados.getLong("id"));
-                    venda.setNome(resultados.getString("nome"));
+                    venda.setClienteId(resultados.getLong("cliente_id"));
+                    venda.setEmpresaId(resultados.getLong("empresa_id"));
                     venda.setAtivo(resultados.getBoolean("ativo"));
                 }
             }
@@ -77,9 +78,9 @@ public class DAOVenda {
     public static List<Venda> search(String query) {
         String sql;
         if (query != null) {
-            sql = "SELECT id, nome, ativo, criado, modificado FROM venda WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
+            sql = "SELECT id, cliente_id, empresa_id, ativo, criado, modificado FROM venda WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
         } else {
-            sql = "SELECT id, nome, ativo, criado, modificado FROM venda WHERE ativo=?";
+            sql = "SELECT id, cliente_id, empresa_id, ativo, criado, modificado FROM venda WHERE ativo=?";
         }
         List<Venda> list = null;
         try (Connection connection = SQLUtils.getConnection();
@@ -96,7 +97,8 @@ public class DAOVenda {
                 while (resultados.next()) {
                     Venda venda = new Venda();
                     venda.setId(resultados.getLong("id"));
-                    venda.setNome(resultados.getString("nome"));
+                    venda.setClienteId(resultados.getLong("cliente_id"));
+                    venda.setEmpresaId(resultados.getLong("empresa_id"));
                     venda.setAtivo(resultados.getBoolean("ativo"));
                     list.add(venda);
                 }
@@ -109,15 +111,16 @@ public class DAOVenda {
 
     public static boolean update(Venda venda) {
         if (venda != null && venda.getId() != null && venda.getId() > 0) {
-            String sql = "UPDATE venda SET nome=?, ativo=?, modificado=? WHERE id=?";
+            String sql = "UPDATE venda SET id=?, cliente_id=?, empresa_id=?, ativo=?, modificado=? WHERE id=?";
             try (Connection connection = SQLUtils.getConnection()) {
                 connection.setAutoCommit(false);
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setString(1, venda.getNome());
-                statement.setBoolean(2, venda.isAtivo());
+                statement.setLong(1, venda.getClienteId());
+                statement.setLong(2, venda.getEmpresaId());
+                statement.setBoolean(3, venda.isAtivo());
                     Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
-                    statement.setTimestamp(3, now);
-                    statement.setLong(4, venda.getId());
+                    statement.setTimestamp(4, now);
+                    statement.setLong(5, venda.getId());
 
                     statement.execute();
                     connection.commit();
