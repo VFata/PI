@@ -15,7 +15,7 @@ public class Venda extends TabelaDB {
     
     private long clienteId;
     private long produtoId;
-    private long empresId;
+    private long empresaId;
     private ArrayList<relacao> list = new ArrayList();
 
     public Venda() {
@@ -26,7 +26,7 @@ public class Venda extends TabelaDB {
         super();
         this.clienteId = cliente_id;
         this.produtoId = produto_id;
-        this.empresId = empresa_id;
+        this.empresaId = empresa_id;
     }
 
     public long getClienteId() {
@@ -45,12 +45,12 @@ public class Venda extends TabelaDB {
         this.produtoId = produtoId;
     }
 
-    public long getEmpresId() {
-        return empresId;
+    public long getEmpresaId() {
+        return empresaId;
     }
 
-    public void setEmpresId(long empresId) {
-        this.empresId = empresId;
+    public void setEmpresaId(long empresId) {
+        this.empresaId = empresId;
     }
 
     
