@@ -132,6 +132,7 @@ public class DAOCliente {
             String sql = "UPDATE clientes SET nome=?, data_nascimento=?, telefone=?, cpf=?, email=?, ativo=?, modificado=? WHERE id=?";
             try (Connection connection = SQLUtils.getConnection()) {
                 connection.setAutoCommit(false);
+                Savepoint savepoint = connection.setSavepoint();
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
                     statement.setString(1, cliente.getNome());
                     statement.setTimestamp(2, new Timestamp(cliente.getDataNascimento().getTimeInMillis()));
@@ -144,6 +145,9 @@ public class DAOCliente {
                     statement.setLong(8, cliente.getId());
 
                     statement.execute();
+                    
+                    nestedCreatePets(connection, savepoint, cliente.getPets(), cliente.getId());
+                    
                     connection.commit();
                 } catch (SQLException ex) {
                     connection.rollback();

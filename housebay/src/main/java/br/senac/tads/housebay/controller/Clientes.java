@@ -16,8 +16,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,10 +35,10 @@ public class Clientes extends HttpServlet{
     
     /*  ROTAS:
      *  GET:  /clientes             => Lista de clientes
-     *  GET:  /clientes?id=xxx      => Detalhes do cliente
+     *  GET:  /clientes?id=xx       => Detalhes do cliente
      *  GET:  /clientes/new         => Formulário para criar
      *  POST: /clientes/create      => Cria cliente
-     *  GET:  /clientes/edit?id=xxx => Formulário para alterar
+     *  GET:  /clientes/edit?id=xx  => Formulário para alterar
      *  POST: /clientes/update      => Altera cliente
      *  POST: /clientes/destroy     => Apaga cliente
      *
@@ -110,9 +112,9 @@ public class Clientes extends HttpServlet{
      * Handles the HTTP <code>POST</code> method.
      * 
      * Responde:
-     * /clientes?id=xxx         #deleta o cliente id=xxx
+     * /clientes?id=xx          #deleta o cliente id=xx
      * /clientes/new            #cria um novo cliente
-     * /clientes/edit           #alterar o cliente id=xxx
+     * /clientes/edit           #alterar o cliente id=xx
      * 
      * @param request servlet request
      * @param response servlet response
@@ -131,7 +133,7 @@ public class Clientes extends HttpServlet{
         response.setContentType("text/html;charset=UTF-8");
         
         if (url.equals("/clientes/destroy") && id != null) {
-            //Deleta o cliente id=xxx
+            //Deleta o cliente id=xx
             Cliente cliente = new Cliente();
             cliente.setId(Long.parseLong(id));           
             
@@ -164,44 +166,29 @@ public class Clientes extends HttpServlet{
                 System.err.println(ex.getMessage());
             }
             cliente.setDataNascimento(nasc);
-
-            //String petNome[] = request.getParameterValues("pet_descricao");
-            //String petDescricao[] = request.getParameterValues("pet_descricao"); 
             
             try {
                 Map pets = request.getParameterMap();
-                
+                /*
+                Iterator entries = pets.entrySet().iterator();
+                while (entries.hasNext()) {  
+                    Entry thisEntry = (Entry) entries.next();
+                    String par = (String) thisEntry.getKey();
+                    
+                    if(par.startsWith("pet_id_")) {
+                        String idKey = (String) par;
+                */
                 for(Object par : pets.keySet()) {
                     if((par instanceof String) && ((String) par).startsWith("pet_id_")) {
                         String idKey = (String) par;
                         String nomeKey = "pet_nome_" + idKey.substring(7);
                         String descKey = "pet_descricao_" + idKey.substring(7);
                         
-                        Pet pet = new Pet((String) pets.get(nomeKey), (String) pets.get(descKey));
-                        pet.setId(Long.parseLong((String) pets.get(idKey)));
+                        Pet pet = new Pet(((String[]) pets.get(nomeKey))[0], ((String[]) pets.get(descKey))[0]);
+                        pet.setId(Long.parseLong(((String[]) pets.get(idKey))[0]));
                         cliente.addPets(pet);
                     } 
                 }
-                
-                /*
-                if(petNome != null && petDescricao != null) {
-                    if(petNome.length == petDescricao.length) {
-                        for(int i=0; i< petNome.length; i++) {
-                            Pet pet = new Pet(petNome[i], petDescricao[i]);
-                            cliente.addPets(pet);
-                        }
-                    } else {
-                        Map errors = new HashMap();
-                        if(petNome.length < petDescricao.length) {
-                            errors.put(Pet.NOME + "_empty", "Nome vazio.");
-                            throw new PetException("Erro na Validação.", errors);
-                        } else {
-                            errors.put(Pet.DESCRICAO + "_empty", "Descrição vazia.");
-                            throw new PetException("Erro na Validação.", errors);
-                        }
-                    }
-                }
-                */
                                        
                 ValidateCliente.create(cliente);
                 for(Pet pet: cliente.getPets()) {
@@ -230,7 +217,7 @@ public class Clientes extends HttpServlet{
             }
             
         } else if (url.equals("/clientes/update") && id != null) {
-            //Altera o cliente id=xxx            
+            //Altera o cliente id=xx            
             Cliente cliente = new Cliente();
             cliente.setId(Long.parseLong(id));
             cliente.setNome(request.getParameter("nome"));
@@ -267,9 +254,11 @@ public class Clientes extends HttpServlet{
                     } 
                 }
                 
-                
                 ValidateCliente.update(cliente);
-            } catch (ClienteException ex) {
+                for(Pet pet: cliente.getPets()) {
+                    ValidatePet.create(pet);
+                }
+            } catch (ClienteException | PetException ex) {
                 System.out.println("Cliente Exception: " + ex.getMessage());                
                 sessao.setAttribute("cliente", cliente);
                 if (erros == null) {

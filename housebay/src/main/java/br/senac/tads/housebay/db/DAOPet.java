@@ -250,12 +250,32 @@ public class DAOPet {
         }
     }
     
-    public static void nestedUpdatePets(Connection connection, Savepoint savepoint, List<Pet> pets, long id) throws SQLException {
-        String sql = "INSERT INTO pets (nome, descricao, cliente_id, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?, ?)";
+    public static void nestedUpdatePets(Connection connection, Savepoint savepoint, List<Pet> pets, long id) throws SQLException, PetException {
+        String sqlCreate = "INSERT INTO pets (nome, descricao, cliente_id, ativo, modificado, criado) VALUES (?, ?, ?, ?, ?, ?)";
+        String sqlUpdate = "UPDATE pets SET nome=?, descricao=?, cliente_id=?, ativo=?, modificado=? WHERE id=?";
         PreparedStatement statement = null;
+        
+        List<Pet> oldPets = referencesCliente(id);
+        for (Pet velho: oldPets) {
+            boolean encontrado = false;
+            for (Pet novo: pets) {
+                if(novo.getId().equals(velho.getId())) {
+                    encontrado = true;
+                    break;
+                }
+            }
+            if(!encontrado) {
+                delete(velho);
+            }
+        }
+        
         for(Pet pet : pets) {
             try {
-                statement = connection.prepareStatement(sql);
+                if(pet.getId() == -1) {
+                    statement = connection.prepareStatement(sqlCreate);
+                } else {
+                    statement = connection.prepareStatement(sqlUpdate);
+                }
                 
                 statement.setString(1, pet.getNome());
                 statement.setString(2, pet.getDescricao());
@@ -264,9 +284,14 @@ public class DAOPet {
                 
                 long now = Calendar.getInstance().getTime().getTime();
                 statement.setTimestamp(5, new Timestamp(now));
-                pet.setCriado(now);
-                statement.setTimestamp(6, new Timestamp(now));
                 pet.setModificado(now);
+                
+                if(pet.getId() == -1) {
+                    statement.setTimestamp(6, new Timestamp(now));
+                    pet.setCriado(now);
+                } else {
+                    statement.setLong(6, pet.getId());
+                }
                 
                 statement.executeUpdate();
             } catch (SQLException ex) {

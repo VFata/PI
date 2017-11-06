@@ -26,7 +26,7 @@ public class Cliente extends TabelaDB {
     private String telefone;
     private String cpf;
     private String email;
-    private List <Pet> pets;
+    private List<Pet> pets;
 
     public Cliente(){
         super();
