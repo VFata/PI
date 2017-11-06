@@ -18,11 +18,17 @@ public class Pet
         super();
     }
 
-    public Pet(String nome, String descricao, Long clienteID) {
+    public Pet(String nome, String descricao) {
         super();
         this.nome = nome;
         this.descricao = descricao;
-        this.clienteId = clienteID;
+    }
+
+    public Pet(String nome, String descricao, Long clienteId) {
+        super();
+        this.nome = nome;
+        this.descricao = descricao;
+        this.clienteId = clienteId;
     }
 
     public String getNome() {

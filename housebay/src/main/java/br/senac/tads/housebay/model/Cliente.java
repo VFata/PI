@@ -29,7 +29,8 @@ public class Cliente extends TabelaDB {
     private List <Pet> pets;
 
     public Cliente(){
-        super();        
+        super();
+        this.pets = new ArrayList<>();        
     }
 
     public Cliente(String nome, GregorianCalendar dataNascimento, String telefone, String cpf, String email) {
@@ -98,6 +99,9 @@ public class Cliente extends TabelaDB {
     }
     public void setPets(List<Pet> pets) {
         this.pets = pets;
+    }
+    public void addPets(Pet pet) {
+        this.pets.add(pet);
     }
 }
 

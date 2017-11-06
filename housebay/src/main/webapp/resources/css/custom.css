@@ -33,6 +33,11 @@
     z-index: 1;
 }
 
+.fieldset {
+    padding: 12px 5px;
+    margin-bottom: 12px;
+}
+
 .has-tooltip:hover .tooltip {
     visibility: visible;
 }
@@ -57,4 +62,22 @@
   .menu-logo {
     margin: 12px 24px;
   }  
+}
+
+.list-block {
+    /*margin-top: 1rem;*/
+    padding-top: 2.5rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.list-block:not(:last-child) {
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #d7d7d7;
+}
+
+.list-block > .delete {
+  position: absolute;
+  right: 0.5em;
+  top: 0.5em;
 }

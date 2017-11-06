@@ -9,10 +9,17 @@ import java.util.Map;
 
 /**
  *
- * @author Tron
+ * @author Diego
  */
-public class ClienteException extends MultiException {
-    public ClienteException(String message, Map errors) {
-        super(message, errors);
+public class MultiException extends Exception { 
+   private final Map errors;
+    
+    public MultiException(String message, Map errors) {
+        super(message);
+        this.errors = errors;
+    }
+
+    public Map getErrors() {
+        return errors;
     }
 }

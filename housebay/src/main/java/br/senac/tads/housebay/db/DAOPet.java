@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Savepoint;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -219,4 +220,62 @@ public class DAOPet {
         }
         return list;
     }
+    
+    public static void nestedCreatePets(Connection connection, Savepoint savepoint, List<Pet> pets, long id) throws SQLException {
+        String sql = "INSERT INTO pets (nome, descricao, cliente_id, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?, ?)";
+        PreparedStatement statement = null;
+        for(Pet pet : pets) {
+            try {
+                statement = connection.prepareStatement(sql);
+                
+                statement.setString(1, pet.getNome());
+                statement.setString(2, pet.getDescricao());
+                statement.setLong(3, id);
+                statement.setBoolean(4, pet.isAtivo());
+                
+                long now = Calendar.getInstance().getTime().getTime();
+                statement.setTimestamp(5, new Timestamp(now));
+                pet.setCriado(now);
+                statement.setTimestamp(6, new Timestamp(now));
+                pet.setModificado(now);
+                
+                statement.executeUpdate();
+            } catch (SQLException ex) {
+                System.err.println(ex.getMessage());
+                connection.rollback(savepoint);
+            }
+        }
+        if (statement != null) {
+            statement.close();
+        }
+    }
+    
+    public static void nestedUpdatePets(Connection connection, Savepoint savepoint, List<Pet> pets, long id) throws SQLException {
+        String sql = "INSERT INTO pets (nome, descricao, cliente_id, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?, ?)";
+        PreparedStatement statement = null;
+        for(Pet pet : pets) {
+            try {
+                statement = connection.prepareStatement(sql);
+                
+                statement.setString(1, pet.getNome());
+                statement.setString(2, pet.getDescricao());
+                statement.setLong(3, id);
+                statement.setBoolean(4, pet.isAtivo());
+                
+                long now = Calendar.getInstance().getTime().getTime();
+                statement.setTimestamp(5, new Timestamp(now));
+                pet.setCriado(now);
+                statement.setTimestamp(6, new Timestamp(now));
+                pet.setModificado(now);
+                
+                statement.executeUpdate();
+            } catch (SQLException ex) {
+                System.err.println(ex.getMessage());
+                connection.rollback(savepoint);
+            }
+        }
+        if (statement != null) {
+            statement.close();
+        }
+    } 
 }

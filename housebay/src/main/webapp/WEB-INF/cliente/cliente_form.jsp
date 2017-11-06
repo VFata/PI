@@ -27,6 +27,7 @@
         <link rel="stylesheet" href="${resources_url}/css/font-awesome.css" />
         <link rel="stylesheet" href="${resources_url}/css/custom.css" />
         <script type="text/javascript" src="${resources_url}/js/application.js"></script>
+        <script type="text/javascript" src="${resources_url}/js/cliente.js"></script>
     </head>
     <body>
         <div class="columns is-mobile">
@@ -42,7 +43,7 @@
                             <nav class="subtitle is-6 breadcrumb" aria-label="breadcrumbs">
                                 <ul>
                                     <li><a href="${index_url}">Home</a></li>
-                                    <li><a href="${main_url}">Clientess</a></li>
+                                    <li><a href="${main_url}">Clientes</a></li>
                                     <li class="is-active"><a href="#" aria-current="page">Alterar</a></li>
                                     <!-- Incluir novos itens na breadcrumbs, caso necessário -->
                                 </ul>
@@ -145,7 +146,65 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>            
+                            </div>
+                                        
+                            <%-- <h3 class="title is-5">Pets</h3> --%>
+                            
+                            
+                            <fieldset class="fieldset">
+                                
+                                <div class="field is-horizontal">
+                                    <div class="field-label">
+                                        <label class="label">Pets</label>
+                                    </div>
+                                    <div class="field-body">
+                                        <div class="field">
+                                            <div class="control">
+                                                <a class="button is-info" id="add-form-pets">Adicionar Pet</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                                <div id="list-form-pets" class="list-block-parent">
+                                    <c:forEach items="${cliente.pets}" var="pet" varStatus="loop">
+                                        <input type="hidden" name="pet_id_${loop.index}" value ="${pet.id}">
+                                        <div class="list-block">
+                                            <a class="delete "></a>
+                                            <div class="field is-horizontal">
+                                                <div class="field-label is-normal">
+                                                    <label class="label">Nome</label>
+                                                </div>
+                                                <div class="field-body">
+                                                    <div class="field">
+                                                        <div class="control">
+                                                            <input class="input" type="text" name="pet_nome_${loop.index}" placeholder="Nome" value="${pet.nome}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="field is-horizontal">
+                                                <div class="field-label is-normal">
+                                                    <label class="label">Descrição</label>
+                                                </div>
+                                                <div class="field-body">
+                                                    <div class="field">
+                                                        <div class="control">
+                                                            <textarea class="textarea" name="pet_descricao_${loop.index}" placeholder="Descrição">${pet.descricao}</textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </c:forEach>             
+                                </div>
+                            </fieldset>
+                                                
+                                                
+                                                
+                                                
                             <div class="field is-horizontal">
                                 <div class="field-label">
                                     <!-- Left empty for spacing -->
@@ -153,7 +212,7 @@
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control">
-                                            <button class="button is-primary" >
+                                            <button class="button is-success" >
                                                 <c:choose><c:when test="${type=='edit' && cliente != null}">
                                                     Alterar
                                                 </c:when><c:otherwise>
@@ -165,3 +224,9 @@
                                 </div>
                             </div>
                         </form>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </body>
+</html>

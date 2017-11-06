@@ -7,17 +7,17 @@ package br.senac.tads.housebay.controller;
 
 import br.senac.tads.housebay.db.DAOCliente;
 import br.senac.tads.housebay.exception.ClienteException;
+import br.senac.tads.housebay.exception.PetException;
 import br.senac.tads.housebay.model.Cliente;
+import br.senac.tads.housebay.model.Pet;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -133,7 +133,8 @@ public class Clientes extends HttpServlet{
         if (url.equals("/clientes/destroy") && id != null) {
             //Deleta o cliente id=xxx
             Cliente cliente = new Cliente();
-            cliente.setId(Long.parseLong(id));
+            cliente.setId(Long.parseLong(id));           
+            
             if(DAOCliente.delete(cliente)) {
                 if (mensagens == null) {
                     mensagens = new ArrayList();
@@ -150,12 +151,6 @@ public class Clientes extends HttpServlet{
             cliente.setCpf(request.getParameter("cpf"));
             cliente.setEmail(request.getParameter("email"));
             cliente.setTelefone(request.getParameter("telefone"));
-            /*
-            Calendar agora = Calendar.getInstance();
-            cliente.setCriado((GregorianCalendar) agora);
-            cliente.setModificado((GregorianCalendar) agora);
-            cliente.setAtivo(true);
-            */
             
             String dataNascimento = request.getParameter("nascimento");
             SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
@@ -167,13 +162,52 @@ public class Clientes extends HttpServlet{
                 }
             } catch (ParseException ex) {
                 System.err.println(ex.getMessage());
-                //Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
             }
             cliente.setDataNascimento(nasc);
+
+            //String petNome[] = request.getParameterValues("pet_descricao");
+            //String petDescricao[] = request.getParameterValues("pet_descricao"); 
             
             try {
+                Map pets = request.getParameterMap();
+                
+                for(Object par : pets.keySet()) {
+                    if((par instanceof String) && ((String) par).startsWith("pet_id_")) {
+                        String idKey = (String) par;
+                        String nomeKey = "pet_nome_" + idKey.substring(7);
+                        String descKey = "pet_descricao_" + idKey.substring(7);
+                        
+                        Pet pet = new Pet((String) pets.get(nomeKey), (String) pets.get(descKey));
+                        pet.setId(Long.parseLong((String) pets.get(idKey)));
+                        cliente.addPets(pet);
+                    } 
+                }
+                
+                /*
+                if(petNome != null && petDescricao != null) {
+                    if(petNome.length == petDescricao.length) {
+                        for(int i=0; i< petNome.length; i++) {
+                            Pet pet = new Pet(petNome[i], petDescricao[i]);
+                            cliente.addPets(pet);
+                        }
+                    } else {
+                        Map errors = new HashMap();
+                        if(petNome.length < petDescricao.length) {
+                            errors.put(Pet.NOME + "_empty", "Nome vazio.");
+                            throw new PetException("Erro na Validação.", errors);
+                        } else {
+                            errors.put(Pet.DESCRICAO + "_empty", "Descrição vazia.");
+                            throw new PetException("Erro na Validação.", errors);
+                        }
+                    }
+                }
+                */
+                                       
                 ValidateCliente.create(cliente);
-            } catch (ClienteException ex) {
+                for(Pet pet: cliente.getPets()) {
+                    ValidatePet.create(pet);
+                }
+            } catch (ClienteException | PetException ex) {
                 System.out.println("Cliente Exception: " + ex.getMessage());
                 sessao.setAttribute("cliente", cliente);
                 if (erros == null) {
@@ -203,11 +237,7 @@ public class Clientes extends HttpServlet{
             cliente.setCpf(request.getParameter("cpf"));
             cliente.setEmail(request.getParameter("email"));
             cliente.setTelefone(request.getParameter("telefone"));
-            Calendar agora = Calendar.getInstance();
-            //cliente.setCriado((GregorianCalendar) agora);
-            cliente.setModificado((GregorianCalendar) agora);
-            cliente.setAtivo(true);
-            
+                        
             String dataNascimento = request.getParameter("nascimento");
             SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
             GregorianCalendar nasc = null;
@@ -223,6 +253,21 @@ public class Clientes extends HttpServlet{
             cliente.setDataNascimento(nasc);
             
             try {
+                Map pets = request.getParameterMap();
+                
+                for(Object par : pets.keySet()) {
+                    if((par instanceof String) && ((String) par).startsWith("pet_id_")) {
+                        String idKey = (String) par;
+                        String nomeKey = "pet_nome_" + idKey.substring(7);
+                        String descKey = "pet_descricao_" + idKey.substring(7);
+                        
+                        Pet pet = new Pet((String) pets.get(nomeKey), (String) pets.get(descKey));
+                        pet.setId(Long.parseLong((String) pets.get(idKey)));
+                        cliente.addPets(pet);
+                    } 
+                }
+                
+                
                 ValidateCliente.update(cliente);
             } catch (ClienteException ex) {
                 System.out.println("Cliente Exception: " + ex.getMessage());                
