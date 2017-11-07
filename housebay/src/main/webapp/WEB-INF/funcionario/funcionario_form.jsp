@@ -104,8 +104,7 @@
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control">
-                                            <%-- TODO: define css class: input-date  --%>
-                                            <input type="date" name="nascimento" value="${funcionario.dataNascimento}">
+                                            <input class="input" type="date" name="nascimento" value="${funcionario.dataNascimento}">
                                         </div>
                                     </div>
                                 </div>
@@ -129,23 +128,60 @@
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control">
-                                            <input class="input" type="text" name="cpf" placeholder="Cpf" value="${funcionario.cpf}">
+                                            <input class="input" type="text" name="cpf" placeholder="CPF" value="${funcionario.cpf}">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="field is-horizontal">
                                 <div class="field-label is-normal">
-                                    <label class="label">Email</label>
+                                    <label class="label">Cargo</label>
                                 </div>
                                 <div class="field-body">
-                                    <div class="field">
+                                    <div class="field is-narrow">
                                         <div class="control">
-                                            <input class="input" type="text" name="email" placeholder="Email" value="${funcionario.email}">
+                                            <div class="select is-fullwidth">
+                                                <select name="cargo_id">
+                                                    <c:forEach items="${cargos}" var="cargo">
+                                                        <option value="${cargo.id}"><c:out value="${cargo.nome}" /></option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>            
+                            </div>
+                            
+                            <c:if test="${type!='edit' && funcionario == null}">
+                                <fieldset class="fieldset">
+                                    <div class="field is-horizontal">
+                                        <div class="field-label is-normal">
+                                            <label class="label">Email</label>
+                                        </div>
+                                        <div class="field-body">
+                                            <div class="field">
+                                                <div class="control">
+                                                    <input class="input" type="text" name="email" placeholder="Email" value="${funcionario.email}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="field is-horizontal">
+                                        <div class="field-label is-normal">
+                                            <label class="label">Senha</label>
+                                        </div>
+                                        <div class="field-body">
+                                            <div class="field">
+                                                <div class="control">
+                                                    <input class="input" type="password" name="senha" placeholder="Senha" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </c:if>
+                                        
                             <div class="field is-horizontal">
                                 <div class="field-label">
                                     <!-- Left empty for spacing -->

@@ -1,6 +1,5 @@
 package br.senac.tads.housebay.db;
 
-import br.senac.tads.housebay.db.SQLUtils;
 import br.senac.tads.housebay.model.Cargo;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,17 +7,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DAOCargo {
     /*
      * TODO: Change the product to instance of sellable.
      */
-    
+    /*
     public static Long create(Cargo cargo) {
         String sql = "INSERT INTO cargo (id, nome, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?)";
         Long id = null;
@@ -50,12 +44,13 @@ public class DAOCargo {
         }
         return id;
     }
+    */
 
     public static Cargo read(Long id) {
-        String sql = "SELECT id, nome, ativo, criado, modificado FROM cargo WHERE (id=? AND ativo=?)";
+        String sql = "SELECT id, nome, ativo, criado, modificado FROM cargos WHERE (id=? AND ativo=?)";
         Cargo cargo = null;
         try (Connection connection = SQLUtils.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql)) {
+            PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setLong(1, id);
             statement.setBoolean(2, true);
 
@@ -65,6 +60,8 @@ public class DAOCargo {
                     cargo.setId(resultados.getLong("id"));
                     cargo.setNome(resultados.getString("nome"));
                     cargo.setAtivo(resultados.getBoolean("ativo"));
+                    cargo.setCriado(resultados.getTimestamp("criado").getTime());
+                    cargo.setModificado(resultados.getTimestamp("modificado").getTime());
                 }
             }
         } catch (SQLException ex) {
@@ -74,11 +71,12 @@ public class DAOCargo {
     }
 
     public static List<Cargo> search(String query) {
+        //TODO: remove query parameter ?
         String sql;
         if (query != null) {
-            sql = "SELECT id, nome, ativo, criado, modificado FROM cargo WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
+            sql = "SELECT id, nome, ativo, criado, modificado FROM cargos WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
         } else {
-            sql = "SELECT id, nome, ativo, criado, modificado FROM cargo WHERE ativo=?";
+            sql = "SELECT id, nome, ativo, criado, modificado FROM cargos WHERE ativo=?";
         }
         List<Cargo> list = null;
         try (Connection connection = SQLUtils.getConnection();
@@ -97,6 +95,8 @@ public class DAOCargo {
                     cargo.setId(resultados.getLong("id"));
                     cargo.setNome(resultados.getString("nome"));
                     cargo.setAtivo(resultados.getBoolean("ativo"));
+                    cargo.setCriado(resultados.getTimestamp("criado").getTime());
+                    cargo.setModificado(resultados.getTimestamp("modificado").getTime());
                     list.add(cargo);
                 }
             }
@@ -105,7 +105,8 @@ public class DAOCargo {
         }
         return list;
     }
-
+    
+    /*
     public static boolean update(Cargo cargo) {
         if (cargo != null && cargo.getId() != null && cargo.getId() > 0) {
             String sql = "UPDATE cargo SET nome=?, ativo=?, modificado=? WHERE id=?";
@@ -155,4 +156,5 @@ public class DAOCargo {
             return false;
         }
     }
+    */
 }

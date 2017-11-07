@@ -1,15 +1,13 @@
-Cargo.java
-Empresa.java
-Funcionario.java
-Servico.java
-Tipo.java
-Venda.java
-Vendavel.java
+/* TODO
 
-ValidateCargo.java
-ValidateEmpresa.java
-ValidateFuncionario.java
-ValidateServico.java
-ValidateTipo.java
-ValidateVenda.java
-ValidateVendavel.java
+    Empresa.java
+    Servico.java
+    Venda.java
+    Vendavel.java
+
+    ValidateEmpresa.java
+    ValidateServico.java
+    ValidateVenda.java
+    ValidateVendavel.java
+
+*/

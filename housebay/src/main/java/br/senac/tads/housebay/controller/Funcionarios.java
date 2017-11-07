@@ -136,17 +136,21 @@ public class Funcionarios extends HttpServlet{
             //Cria um novo funcionario
             Funcionario funcionario = new Funcionario();
             funcionario.setNome(request.getParameter("nome"));
-            //funcionario.setCargoId(Long.parseLong(request.getParameter("cargoId")));
-            funcionario.setCpf(request.getParameter("cpf"));
-            funcionario.setEmail(request.getParameter("email"));
             funcionario.setTelefone(request.getParameter("telefone"));
+            funcionario.setCpf(request.getParameter("cpf"));
+            funcionario.setCargo(DAOFuncionario.getCargo(Long.parseLong(request.getParameter("cargo_id"))));
+            
+            funcionario.setEmail(request.getParameter("email"));
+            //TODO: handle password / salt
+            
+            /*
             Calendar agora = Calendar.getInstance();
             funcionario.setCriado((GregorianCalendar) agora);
             funcionario.setModificado((GregorianCalendar) agora);
             funcionario.setAtivo(true);
+            */
             
-            
-            String dataNascimento = request.getParameter("dataNascimento");
+            String dataNascimento = request.getParameter("nascimento");
             SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
             GregorianCalendar nasc = new GregorianCalendar();
             try {
@@ -242,6 +246,8 @@ public class Funcionarios extends HttpServlet{
             sessao.removeAttribute("funcionario");
         }
         request.setAttribute("type", "new");
+        request.setAttribute("cargos", DAOFuncionario.getCargoList());
+        
         List mensagens = (List) sessao.getAttribute("mensagem");
         if (mensagens != null) {
             request.setAttribute("notifications", mensagens);
@@ -266,6 +272,7 @@ public class Funcionarios extends HttpServlet{
         }
         request.setAttribute("funcionario", funcionario);
         request.setAttribute("type", "edit");
+        request.setAttribute("cargos", DAOFuncionario.getCargoList());
         
         List mensagens = (List) sessao.getAttribute("mensagem");
         if (mensagens != null) {

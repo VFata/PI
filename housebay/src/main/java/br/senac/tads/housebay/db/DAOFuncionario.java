@@ -1,5 +1,6 @@
 package br.senac.tads.housebay.db;
 
+import br.senac.tads.housebay.model.Cargo;
 import br.senac.tads.housebay.model.Funcionario;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,28 +18,26 @@ import java.util.logging.Logger;
  *
  * @author Diego
  */
-public class DAOFuncionario {
-    /*
-     * TODO: ARRUMAR impede compilação
-     */
-    
+public class DAOFuncionario {    
     public static Long create(Funcionario funcionario) {
-        String sql = "INSERT INTO funcionarios (nome, dataNascimento, telefone, cpf, cargo_id, email, senha, salt, cargo_id, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO funcionarios (nome, data_nascimento, telefone, cpf, cargo_id, email, hash_senha, salt, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Long id = null;
         try (Connection connection = SQLUtils.getConnection()) {
             connection.setAutoCommit(false);
             try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, funcionario.getNome());
-                // statement.setTimestamp(2, funcionario.getDatanascimento().getTime());
+                statement.setTimestamp(2,  new Timestamp(funcionario.getDataNascimento().getTimeInMillis()));
                 statement.setString(3, funcionario.getTelefone());
                 statement.setString(4, funcionario.getCpf());
-                statement.setString(5, funcionario.getEmail());
-                statement.setString(6, funcionario.getSenha());
-                statement.setLong(5, funcionario.getCargoId());
-                statement.setBoolean(7, funcionario.isAtivo());
+                statement.setLong(5, funcionario.getCargo().getId());
+                statement.setString(6, funcionario.getEmail());
+                statement.setString(7, funcionario.getSenha());
+                statement.setString(8, funcionario.getSalt());
+                
+                statement.setBoolean(9, funcionario.isAtivo());
                 Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
-                statement.setTimestamp(8, now);
-                statement.setTimestamp(9, now);
+                statement.setTimestamp(10, now);
+                statement.setTimestamp(11, now);
                 
                 statement.executeUpdate();
                 try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -54,6 +53,8 @@ public class DAOFuncionario {
                 Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
                 return -1l;
             }
+            funcionario.setSalt(null);
+            funcionario.setSenha(null);
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
@@ -61,7 +62,7 @@ public class DAOFuncionario {
     }
 
     public static Funcionario read(Long id) {
-        String sql = "SELECT id, nome, dataNascimento, telefone, cpf, cargo_id, email, ativo FROM funcionarios WHERE (id=? AND ativo=?)";
+        String sql = "SELECT id, nome, data_nascimento, telefone, cpf, cargo_id, email, ativo, criado, modificado FROM funcionarios WHERE (id=? AND ativo=?)";
         Funcionario funcionario = null;
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -73,12 +74,14 @@ public class DAOFuncionario {
                     funcionario = new Funcionario();
                     funcionario.setId(resultados.getLong("id"));
                     funcionario.setNome(resultados.getString("nome"));
-                    //funcionario.setDatanascimento(resultados.getTimestamp());
+                    funcionario.setDataNascimento(resultados.getTimestamp("data_nascimento").getTime());
                     funcionario.setTelefone(resultados.getString("telefone"));
                     funcionario.setCpf(resultados.getString("cpf"));
-                    funcionario.setCargoId(resultados.getLong("cargo"));
+                    funcionario.setCargo(DAOCargo.read(resultados.getLong("cargo_id")));
                     funcionario.setEmail(resultados.getString("email"));
                     funcionario.setAtivo(resultados.getBoolean("ativo"));
+                    funcionario.setCriado(resultados.getTimestamp("criado").getTime());
+                    funcionario.setModificado(resultados.getTimestamp("modificado").getTime());
                 }
             }
         } catch (SQLException ex) {
@@ -90,9 +93,9 @@ public class DAOFuncionario {
     public static List<Funcionario> search(String query) {
         String sql;
         if (query != null) {
-            sql = "SELECT id, nome, dataNascimento, telefone, cpf, cargo_id, email, ativo FROM funcionarios WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
+            sql = "SELECT id, nome, data_nascimento, telefone, cpf, cargo_id, email, ativo, criado, modificado FROM funcionarios WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
         } else {
-            sql = "SELECT id, nome, dataNascimento, telefone, cpf, cargo_id, email, ativo FROM funcionarios WHERE ativo=?";
+            sql = "SELECT id, nome, data_nascimento, telefone, cpf, cargo_id, email, ativo, criado, modificado FROM funcionarios WHERE ativo=?";
         }
         List<Funcionario> list = null;
         try (Connection connection = SQLUtils.getConnection();
@@ -110,12 +113,14 @@ public class DAOFuncionario {
                     Funcionario funcionario = new Funcionario();
                     funcionario.setId(resultados.getLong("id"));
                     funcionario.setNome(resultados.getString("nome"));
-                    // funcionario.setDatanascimento(resultados.getTimestamp("data de nascimento"));
+                    funcionario.setDataNascimento(resultados.getTimestamp("data_nascimento").getTime());
                     funcionario.setTelefone(resultados.getString("telefone"));
                     funcionario.setCpf(resultados.getString("cpf"));
-                    funcionario.setCargoId(resultados.getLong("cargo_id"));
+                    funcionario.setCargo(DAOCargo.read(resultados.getLong("cargo_id")));
                     funcionario.setEmail(resultados.getString("email"));
                     funcionario.setAtivo(resultados.getBoolean("ativo"));
+                    funcionario.setCriado(resultados.getTimestamp("criado").getTime());
+                    funcionario.setModificado(resultados.getTimestamp("modificado").getTime());
                     list.add(funcionario);
                 }
             }
@@ -127,15 +132,15 @@ public class DAOFuncionario {
 
     public static boolean update(Funcionario funcionario) {
         if (funcionario != null && funcionario.getId() != null && funcionario.getId() > 0) {
-            String sql = "UPDATE funcionarios SET nome=?, dataNascimento=?, telefone=?, cpf=?, cargo_id=?, email=?, ativo=?, modificado=? WHERE id=?";
+            String sql = "UPDATE funcionarios SET nome=?, data_nascimento=?, telefone=?, cpf=?, cargo_id=?, email=?, ativo=?, modificado=? WHERE id=?";
             try (Connection connection = SQLUtils.getConnection()) {
                 connection.setAutoCommit(false);
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
                     statement.setString(1, funcionario.getNome());
-                    // statement.setTimestamp(2, funcionario.getDatanascimento());
+                    statement.setTimestamp(2, new Timestamp(funcionario.getDataNascimento().getTimeInMillis()));
                     statement.setString(3, funcionario.getTelefone());
                     statement.setString(4, funcionario.getCpf());
-                    statement.setLong(5, funcionario.getCargoId());
+                    statement.setLong(5, funcionario.getCargo().getId());
                     statement.setString(6, funcionario.getEmail());
                     statement.setBoolean(7, funcionario.isAtivo());
                     Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
@@ -178,5 +183,18 @@ public class DAOFuncionario {
         } else {
             return false;
         }
+    }
+    
+    public static boolean updateSenha(Funcionario funcionario) {
+        //TODO
+        return false;
+    }
+    
+    public static Cargo getCargo(long id) {
+        return DAOCargo.read(id);
+    }
+    
+    public static List<Cargo> getCargoList() {
+        return DAOCargo.search(null);
     }
 }

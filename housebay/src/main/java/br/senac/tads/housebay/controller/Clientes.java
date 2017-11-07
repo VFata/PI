@@ -17,10 +17,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -167,15 +164,19 @@ public class Clientes extends HttpServlet{
             cliente.setDataNascimento(nasc);
             
             try {
-                Map pets = request.getParameterMap();
-                for(Object par : pets.keySet()) {
-                    if((par instanceof String) && ((String) par).startsWith("pet_id_")) {
-                        String idKey = (String) par;
-                        String nomeKey = "pet_nome_" + idKey.substring(7);
-                        String descKey = "pet_descricao_" + idKey.substring(7);
+                Enumeration<String> pets = request.getParameterNames();
+                                
+                while(pets.hasMoreElements()) {
+                    String petKey = pets.nextElement();
+                    if(petKey.startsWith("pet_id_")) {
+                        String nomeKey = "pet_nome_" + petKey.substring(7);
+                        String descKey = "pet_descricao_" + petKey.substring(7);
                         
-                        Pet pet = new Pet(((String[]) pets.get(nomeKey))[0], ((String[]) pets.get(descKey))[0]);
-                        pet.setId(Long.parseLong(((String[]) pets.get(idKey))[0]));
+                        Pet pet = new Pet(request.getParameter(nomeKey), request.getParameter(descKey));
+                        Long petId = Long.parseLong(request.getParameter(petKey));
+                        if (petId > 0) {
+                            pet.setId(petId);
+                        }
                         cliente.addPets(pet);
                     } 
                 }
