@@ -168,9 +168,9 @@
                             
                                 <div id="list-form-pets" class="list-block-parent">
                                     <c:forEach items="${cliente.pets}" var="pet" varStatus="loop">
-                                        <input type="hidden" name="pet_id_${loop.index}" value ="${pet.id}">
                                         <div class="list-block">
                                             <a class="delete "></a>
+                                            <input type="hidden" name="pet_id_${loop.index}" value ="${pet.id}">
                                             <div class="field is-horizontal">
                                                 <div class="field-label is-normal">
                                                     <label class="label">Nome</label>

@@ -75,13 +75,16 @@
                             <strong>Telefone:</strong> <c:out value="${cliente.telefone}" />
                         </p>
                         
-                        <c:if test="not empty cliente.pets" >
+                        <c:if test="${not empty cliente.pets}" >
                             <p>
                                 <strong>Pets:</strong>
                             </p>
                             <div>
                                 <c:forEach items="${cliente.pets}" var="pet">
-                                    <p><c:out value="${pet.nome}" /></p>
+                                    <div class="nested-show">
+                                        <p><strong><c:out value="${pet.nome}:" /></strong></p>
+                                        <p><c:out value="${pet.descricao}" /></p>
+                                    </div>
                                 </c:forEach>
                             </div>
                         </c:if>

@@ -1,6 +1,7 @@
 package br.senac.tads.housebay.db;
 
 import static br.senac.tads.housebay.db.DAOPet.nestedCreatePets;
+import static br.senac.tads.housebay.db.DAOPet.nestedUpdatePets;
 import br.senac.tads.housebay.exception.PetException;
 import br.senac.tads.housebay.model.Cliente;
 import br.senac.tads.housebay.model.Pet;
@@ -80,6 +81,7 @@ public class DAOCliente {
                     cliente.setAtivo(resultados.getBoolean("ativo"));
                     cliente.setCriado(resultados.getTimestamp("criado").getTime());
                     cliente.setModificado(resultados.getTimestamp("modificado").getTime());
+                    cliente.setPets(DAOPet.referencesCliente(cliente.getId()));
                 }
             }
         } catch (SQLException ex) {
@@ -146,10 +148,10 @@ public class DAOCliente {
 
                     statement.execute();
                     
-                    nestedCreatePets(connection, savepoint, cliente.getPets(), cliente.getId());
+                    nestedUpdatePets(connection, savepoint, cliente.getPets(), cliente.getId());
                     
                     connection.commit();
-                } catch (SQLException ex) {
+                } catch (SQLException | PetException ex) {
                     connection.rollback();
                     System.err.println(ex.getMessage());
                     return false;

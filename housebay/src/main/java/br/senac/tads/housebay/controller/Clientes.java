@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -134,9 +135,7 @@ public class Clientes extends HttpServlet{
         
         if (url.equals("/clientes/destroy") && id != null) {
             //Deleta o cliente id=xx
-            Cliente cliente = new Cliente();
-            cliente.setId(Long.parseLong(id));           
-            
+            Cliente cliente = DAOCliente.read(Long.parseLong(id));            
             if(DAOCliente.delete(cliente)) {
                 if (mensagens == null) {
                     mensagens = new ArrayList();
@@ -169,15 +168,6 @@ public class Clientes extends HttpServlet{
             
             try {
                 Map pets = request.getParameterMap();
-                /*
-                Iterator entries = pets.entrySet().iterator();
-                while (entries.hasNext()) {  
-                    Entry thisEntry = (Entry) entries.next();
-                    String par = (String) thisEntry.getKey();
-                    
-                    if(par.startsWith("pet_id_")) {
-                        String idKey = (String) par;
-                */
                 for(Object par : pets.keySet()) {
                     if((par instanceof String) && ((String) par).startsWith("pet_id_")) {
                         String idKey = (String) par;
@@ -240,16 +230,19 @@ public class Clientes extends HttpServlet{
             cliente.setDataNascimento(nasc);
             
             try {
-                Map pets = request.getParameterMap();
-                
-                for(Object par : pets.keySet()) {
-                    if((par instanceof String) && ((String) par).startsWith("pet_id_")) {
-                        String idKey = (String) par;
-                        String nomeKey = "pet_nome_" + idKey.substring(7);
-                        String descKey = "pet_descricao_" + idKey.substring(7);
+                Enumeration<String> pets = request.getParameterNames();
+                                
+                while(pets.hasMoreElements()) {
+                    String petKey = pets.nextElement();
+                    if(petKey.startsWith("pet_id_")) {
+                        String nomeKey = "pet_nome_" + petKey.substring(7);
+                        String descKey = "pet_descricao_" + petKey.substring(7);
                         
-                        Pet pet = new Pet((String) pets.get(nomeKey), (String) pets.get(descKey));
-                        pet.setId(Long.parseLong((String) pets.get(idKey)));
+                        Pet pet = new Pet(request.getParameter(nomeKey), request.getParameter(descKey));
+                        Long petId = Long.parseLong(request.getParameter(petKey));
+                        if (petId > 0) {
+                            pet.setId(petId);
+                        }
                         cliente.addPets(pet);
                     } 
                 }
