@@ -105,7 +105,6 @@
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control">
-                                            <%-- TODO: define css class: input-date  --%>
                                             <input class="input" type="date" name="nascimento"  value="${cliente.inputDataNascimento}">
                                         </div>
                                     </div>

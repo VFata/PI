@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -31,8 +32,8 @@ public class DAOFuncionario {
                 statement.setString(4, funcionario.getCpf());
                 statement.setLong(5, funcionario.getCargo().getId());
                 statement.setString(6, funcionario.getEmail());
-                statement.setString(7, funcionario.getSenha());
-                statement.setString(8, funcionario.getSalt());
+                statement.setString(7, geraSenha(funcionario.getSenha()));
+                //statement.setString(8, funcionario.getSalt());
                 
                 statement.setBoolean(9, funcionario.isAtivo());
                 Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
@@ -188,6 +189,32 @@ public class DAOFuncionario {
     public static boolean updateSenha(Funcionario funcionario) {
         //TODO
         return false;
+    }
+    
+    private static String geraSenha(String senha) {
+        return BCrypt.hashpw(senha, BCrypt.gensalt());
+    }
+    
+    public static boolean autenticar(String email, String senha) {
+        String sql = "SELECT hash_senha FROM funcionarios WHERE (UPPER(email)=UPPER(?) AND ativo=?)";
+        String hashed = null;
+        try (Connection connection = SQLUtils.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, email);
+            statement.setBoolean(2, true);
+
+            try (ResultSet resultados = statement.executeQuery()) {
+                if (resultados.next()) {
+                    hashed = resultados.getString("hash_senha");
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        if (hashed == null) { 
+            return false;
+        }
+        return BCrypt.checkpw(senha, hashed);
     }
     
     public static Cargo getCargo(long id) {

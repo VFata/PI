@@ -10,9 +10,6 @@ import java.sql.SQLException;
 
 public class DAOCargo {
     /*
-     * TODO: Change the product to instance of sellable.
-     */
-    /*
     public static Long create(Cargo cargo) {
         String sql = "INSERT INTO cargo (id, nome, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?)";
         Long id = null;
