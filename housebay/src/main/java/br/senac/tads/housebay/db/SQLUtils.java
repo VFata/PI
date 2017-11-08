@@ -23,7 +23,7 @@ public class SQLUtils {
             properties.put("password", DB_PASSWORD);
             connection = DriverManager.getConnection(DB_URI, properties);
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
         }
         
         return connection;
