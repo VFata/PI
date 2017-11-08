@@ -1,31 +1,43 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package br.senac.tads.housebay.model;
 
 /**
  *
- * @author igor.soliveira11
+ * @author diego
  */
-public class Tipo extends TabelaDB{
+public enum Tipo {
+    PRODUTO(0), SERVICO(1);
     
-    public static final String NOME = "nome";
+    private final int value;
     
-    private String nome;
+    private Tipo (int value) {
+        this.value = value;
+    }
     
-    public Tipo(){
-        super();
+    public int getValue() {
+        return value;
     }
 
-    public Tipo(String nome) {
-        super();
-        this.nome = nome;
+    @Override public String toString() {
+        if (this == PRODUTO) {
+            return "Produto";
+        } else if(this == SERVICO) {
+            return "Serviço";
+        }
+        return null;
     }
 
-    public String getNome() {
-        return nome;
+    public static Tipo getTipo(int tipo) {
+        if (tipo == PRODUTO.getValue()) {
+            return PRODUTO; 
+        } else if (tipo == SERVICO.getValue()) {
+            return SERVICO; 
+        } else {
+            return null;
+        }
     }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }               
-    
 }

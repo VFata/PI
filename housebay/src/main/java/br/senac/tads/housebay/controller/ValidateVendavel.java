@@ -10,7 +10,8 @@ import br.senac.tads.housebay.model.Vendavel;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ValidateVendavel {    
+public class ValidateVendavel {
+    // TODO: check all variables    
     
     private final static String ERRO = "Erro na Validação.";
     
@@ -73,11 +74,7 @@ public class ValidateVendavel {
             //erro += "\nNome vazio.";
             errors.put(Vendavel.NOME + "_empty", "Campo nome vazio.");
         }
-        if (vendavel.getProduto()== null || vendavel.getProduto().equals("")) {
-            //erro += "\nNome vazio.";
-            errors.put(Vendavel.PRODUTO + "_empty", "Campo produto vazio.");
-        }
-        if (vendavel.getTipoId()== null || vendavel.getTipoId().equals("")) {
+        if (vendavel.getTipo()== null) {
             //erro += "\nNome vazio.";
             errors.put(Vendavel.TIPO + "_empty", "Campo tipo vazio.");
         }

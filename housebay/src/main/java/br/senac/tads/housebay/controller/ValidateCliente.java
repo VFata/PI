@@ -94,7 +94,7 @@ public class ValidateCliente {
         }
         if (cliente.getPets()== null || cliente.getPets().equals("")) {
             //erro += "\nDescrição vazia.";
-            errors.put(Cliente.PET_ID + "_empty", "Campo data de nascimento vazio.");
+            errors.put(Cliente.PETS + "_empty", "Campo data de nascimento vazio.");
         }
 
         

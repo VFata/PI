@@ -22,10 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "Produtos", urlPatterns = {"/produtos", "/produtos/new", "/produtos/edit"})
+@WebServlet(name = "Produtos", urlPatterns = {"/produtos", "/produtos/new", "/produtos/create", "/produtos/edit", "/produtos/update", "/produtos/destroy"})
 public class Produtos extends HttpServlet {
-    
-    
     /*  ROTAS:
      *  GET:  /produtos             => Lista de produtos
      *  GET:  /produtos?id=xxx      => Detalhes do produto
@@ -100,11 +98,6 @@ public class Produtos extends HttpServlet {
     /**
      * Handles the HTTP <code>POST</code> method.
      * 
-     * Responde:
-     * /produtos?id=xxx         #deleta o produto id=xxx
-     * /produtos/new            #cria um novo produto
-     * /produtos/edit           #alterar o produto id=xxx
-     * 
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -136,15 +129,14 @@ public class Produtos extends HttpServlet {
         } else if (url.equals("/produtos/create") && id == null) {
             //Cria um novo produto
             Produto produto = new Produto();
-            produto.setProduto(request.getParameter("produto"));
-            produto.setTipoId(Long.parseLong(request.getParameter("tipo")));
-            produto.setValor(Double.parseDouble(request.getParameter("valor")));
-            produto.setCodigoDeBarras(request.getParameter("cofigoDeBarras"));
             
-            Calendar agora = Calendar.getInstance();
-            produto.setCriado((GregorianCalendar) agora);
-            produto.setModificado((GregorianCalendar) agora);
-            produto.setAtivo(true);          
+            produto.setNome(request.getParameter("nome"));
+            produto.setDescricao(request.getParameter("descricao"));
+            produto.setValor(Double.parseDouble(request.getParameter("valor")));
+            
+            produto.setEstoque(Integer.parseInt(request.getParameter("estoque")));
+            produto.setCodigoDeBarras(request.getParameter("barras"));
+            
             
             try {
                 ValidateProduto.create(produto);
@@ -160,7 +152,7 @@ public class Produtos extends HttpServlet {
                 return;
             }
             
-            Long newId = DAOVendavel.create(produto);
+            Long newId = DAOVendavel.createProduto(produto);
             if (newId > 0) {
                 if (mensagens == null) {
                     mensagens = new ArrayList();
@@ -172,15 +164,13 @@ public class Produtos extends HttpServlet {
         } else if (url.equals("/produtos/update") && id != null) {
             //Altera o produto id=xxx            
             Produto produto = new Produto();
-            produto.setProduto(request.getParameter("produto"));
-            produto.setTipoId(Long.parseLong(request.getParameter("tipo")));
+            produto.getId();
+            produto.setNome(request.getParameter("nome"));
+            produto.setDescricao(request.getParameter("descricao"));
             produto.setValor(Double.parseDouble(request.getParameter("valor")));
-            produto.setCodigoDeBarras(request.getParameter("cofigoDeBarras"));
             
-            Calendar agora = Calendar.getInstance();
-            produto.setCriado((GregorianCalendar) agora);
-            produto.setModificado((GregorianCalendar) agora);
-            produto.setAtivo(true);
+            produto.setEstoque(Integer.parseInt(request.getParameter("estoque")));
+            produto.setCodigoDeBarras(request.getParameter("barras"));
             
             try {
                 ValidateProduto.update(produto);
@@ -196,7 +186,7 @@ public class Produtos extends HttpServlet {
                 return;
             }
             
-            if (DAOVendavel.update(produto)) {
+            if (DAOVendavel.updateProduto(produto)) {
                 if (mensagens == null) {
                     mensagens = new ArrayList();
                 }

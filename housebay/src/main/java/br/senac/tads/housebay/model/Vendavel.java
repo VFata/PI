@@ -9,7 +9,7 @@ package br.senac.tads.housebay.model;
  *
  * @author diego
  */
-public class Vendavel extends TabelaDB {
+public abstract class Vendavel extends TabelaDB {
     public final static String NOME = "nome";
     public final static String DESCRICAO = "descricao";
     public final static String VALOR = "valor";
@@ -18,14 +18,11 @@ public class Vendavel extends TabelaDB {
     private String nome;
     private String descricao;
     private double valor;
-    /*
-    private int estoque;
-    private String codigoDeBarras;
-    */
-    private Tipo tipo;
+    private final Tipo tipo;
 
-    public Vendavel() {
+    public Vendavel(Tipo tipo) {
         super();
+        this.tipo = tipo;
     }
 
     public Vendavel(String nome, String descricao, double valor, Tipo tipo) {
@@ -58,8 +55,5 @@ public class Vendavel extends TabelaDB {
 
     public Tipo getTipo() {
         return tipo;
-    }
-    public void setTipo(Tipo tipo) {
-        this.tipo = tipo;
     }
 }

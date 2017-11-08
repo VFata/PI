@@ -22,10 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "Servicos", urlPatterns = {"/servicos", "/servicos/new", "/servicos/edit"})
+@WebServlet(name = "Servicos", urlPatterns = {"/servicos", "/servicos/new", "/servicos/create", "/servicos/edit", "/servicos/update", "/servicos/destroy"})
 public class Servicos extends HttpServlet {
-    
-    
     /*  ROTAS:
      *  GET:  /servicos             => Lista de servicos
      *  GET:  /servicos?id=xxx      => Detalhes do servico
@@ -38,7 +36,7 @@ public class Servicos extends HttpServlet {
      *  Session:
      *  "mensagem"  => Notificações de alterações
      *  "erro"      => Notificações de erros
-     *  "servico"       => Servico com erro (retornar ao formulário)
+     *  "servico"   => Servico com erro (retornar ao formulário)
      */
     
     /**
@@ -67,8 +65,8 @@ public class Servicos extends HttpServlet {
             responseURL = "/WEB-INF/servico/servico_list.jsp";
         } else if (url.equals("/servicos") && id != null) {
             //Detalhes do servico id
-            //BLAME: Servico servico = (Servico) DAOVendavel.read(Long.parseLong(id));
-            //BLAME: request.setAttribute("servico", servico);
+            Servico servico = (Servico) DAOVendavel.read(Long.parseLong(id));
+            request.setAttribute("servico", servico);
             responseURL = "/WEB-INF/servico/servico_show.jsp";
         } else if (url.equals("/servicos/new") && id == null) {
             //Form novo servico
@@ -126,7 +124,7 @@ public class Servicos extends HttpServlet {
             //Deleta o servico id=xxx
             Servico servico = new Servico();
             servico.setId(Long.parseLong(id));
-            /*BLAME: 
+            
             if(DAOVendavel.delete(servico)) {
                 if (mensagens == null) {
                     mensagens = new ArrayList();
@@ -135,20 +133,13 @@ public class Servicos extends HttpServlet {
                 sessao.setAttribute("mensagem", mensagens);
                 response.sendRedirect(request.getContextPath() + "/servicos");
             }
-            */
         } else if (url.equals("/servicos/create") && id == null) {
             //Cria um novo servico
             Servico servico = new Servico();
             servico.setNome(request.getParameter("nome"));
             servico.setDescricao(request.getParameter("descricao"));
             servico.setValor(Double.parseDouble(request.getParameter("valor")));
-            
-            
-            Calendar agora = Calendar.getInstance();
-            servico.setCriado((GregorianCalendar) agora);
-            servico.setModificado((GregorianCalendar) agora);
-            servico.setAtivo(true);          
-            
+                       
             try {
                 ValidateServico.create(servico);
             } catch (ServicoException ex) {
@@ -162,8 +153,7 @@ public class Servicos extends HttpServlet {
                 newForm(request, response, sessao);
                 return;
             }
-            /*BLAME:
-            Long newId = DAOVendavel.create(servico);
+            Long newId = DAOVendavel.createServico(servico);
             if (newId > 0) {
                 if (mensagens == null) {
                     mensagens = new ArrayList();
@@ -172,7 +162,6 @@ public class Servicos extends HttpServlet {
                 sessao.setAttribute("mensagem", mensagens);
                 response.sendRedirect(request.getContextPath() + "/servicos?id=" + newId);
             }
-            */
         } else if (url.equals("/servicos/update") && id != null) {
             //Altera o servico id=xxx            
             Servico servico = new Servico();
@@ -180,12 +169,6 @@ public class Servicos extends HttpServlet {
             servico.setNome(request.getParameter("nome"));
             servico.setDescricao(request.getParameter("descricao"));
             servico.setValor(Double.parseDouble(request.getParameter("valor")));
-
-            
-            Calendar agora = Calendar.getInstance();
-            servico.setCriado((GregorianCalendar) agora);
-            servico.setModificado((GregorianCalendar) agora);
-            servico.setAtivo(true);
             
             try {
                 ValidateServico.update(servico);
@@ -200,8 +183,7 @@ public class Servicos extends HttpServlet {
                 editForm(request, response, sessao, Long.parseLong(id));
                 return;
             }
-            /*BLAME:
-            if (DAOVendavel.update(servico)) {
+            if (DAOVendavel.updateServico(servico)) {
                 if (mensagens == null) {
                     mensagens = new ArrayList();
                 }
@@ -209,7 +191,6 @@ public class Servicos extends HttpServlet {
                 sessao.setAttribute("mensagem", mensagens);
                 response.sendRedirect(request.getContextPath() + "/servicos?id=" + id);
             }
-            */
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
@@ -223,6 +204,7 @@ public class Servicos extends HttpServlet {
             sessao.removeAttribute("servico");
         }
         request.setAttribute("type", "new");
+        
         List mensagens = (List) sessao.getAttribute("mensagem");
         if (mensagens != null) {
             request.setAttribute("notifications", mensagens);
@@ -241,7 +223,7 @@ public class Servicos extends HttpServlet {
         throws ServletException, IOException {
         Servico servico = (Servico) sessao.getAttribute("servico");
         if (servico == null) {
-            //servico = (Servico) DAOVendavel.read(id);
+            servico = (Servico) DAOVendavel.read(id);
         } else {
             sessao.removeAttribute("servico");
         }

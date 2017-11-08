@@ -10,7 +10,8 @@ import br.senac.tads.housebay.model.Servico;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ValidateServico {    
+public class ValidateServico {
+    // TODO: check all variables
     
     private final static String ERRO = "Erro na Validação.";
     
@@ -77,15 +78,11 @@ public class ValidateServico {
             //erro += "\nNome vazio.";
             errors.put(Servico.NOME + "_empty", "Campo nome vazio.");
         }
-        if (servico.getProduto()== null || servico.getProduto().equals("")) {
-            //erro += "\nNome vazio.";
-            errors.put(Servico.PRODUTO + "_empty", "Campo produto vazio.");
-        }
         if (servico.getValor()== 0) {
             //erro += "\nNome vazio.";
             errors.put(Servico.VALOR + "_empty", "Campo valor vazio.");
         }
-        if (servico.getTipoId()!= null && !servico.getProduto().equals("")) {
+        if (servico.getTipo()!= null) {
         } else {
             //erro += "\nNome vazio.";
             errors.put(Servico.TIPO + "_empty", "Campo tipo vazio.");

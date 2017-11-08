@@ -7,7 +7,10 @@ package br.senac.tads.housebay.model;
 public class Servico extends Vendavel {
       
     public Servico  (){
-        super();
+        super(Tipo.SERVICO);
     }
     
+    public Servico(String nome, String descricao, double valor) {
+        super(nome, descricao, valor, Tipo.SERVICO);
+    }
 }

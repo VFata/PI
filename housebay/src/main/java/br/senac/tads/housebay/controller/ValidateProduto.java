@@ -10,7 +10,9 @@ import br.senac.tads.housebay.model.Produto;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ValidateProduto {    
+public class ValidateProduto {
+    // TODO: check all variables
+    
     
     private final static String ERRO = "Erro na Validação.";
     
@@ -73,11 +75,7 @@ public class ValidateProduto {
             //erro += "\nNome vazio.";
             errors.put(Produto.NOME + "_empty", "Campo nome vazio.");
         }
-        if (produto.getProduto()== null || produto.getProduto().equals("")) {
-            //erro += "\nNome vazio.";
-            errors.put(Produto.PRODUTO + "_empty", "Campo produto vazio.");
-        }
-        if (produto.getTipoId()== null || produto.getTipoId().equals("")) {
+        if (produto.getTipo()== null) {
             //erro += "\nNome vazio.";
             errors.put(Produto.TIPO + "_empty", "Campo tipo vazio.");
         }

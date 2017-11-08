@@ -84,12 +84,12 @@
 
                             <div class="field is-horizontal">
                                 <div class="field-label is-normal">
-                                    <label class="label">Produto</label>
+                                    <label class="label">Nome</label>
                                 </div>
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control">
-                                            <input class="input" type="text" name="Produto" placeholder="Produto" value="${produto.produto}">
+                                            <input class="input" type="text" name="nome" placeholder="Produto" value="${produto.produto}">
                                         </div>
                                     </div>
                                 </div>
@@ -97,12 +97,12 @@
 
                             <div class="field is-horizontal">
                                 <div class="field-label is-normal">
-                                    <label class="label">Tipo:</label>
+                                    <label class="label">Descrição</label>
                                 </div>
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control">
-                                            <textarea class="textarea" name="tipo" placeholder="Tipo">${produto.tipo}</textarea>
+                                            <textarea class="textarea" name="descricao" placeholder="Descrição">${pet.descricao}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -120,6 +120,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="field is-horizontal">
                                 <div class="field-label is-normal">
                                     <label class="label">Estoque</label>
@@ -131,7 +132,20 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>            
+                            </div> 
+
+                            <div class="field is-horizontal">
+                                <div class="field-label is-normal">
+                                    <label class="label">Codigo de Barras</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <div class="control">
+                                            <input class="input" type="text" name="barras" placeholder="Estoque" value="${produto.estoque}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>     
                             <div class="field is-horizontal">
                                 <div class="field-label">
                                     <!-- Left empty for spacing -->

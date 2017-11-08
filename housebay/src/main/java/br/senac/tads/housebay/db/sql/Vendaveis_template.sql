@@ -10,12 +10,11 @@ CREATE TABLE vendaveis (
     nome VARCHAR(255) NOT NULL,
     descricao VARCHAR(2048) NOT NULL,
     estoque INTEGER NOT NULL,
-    tipo_id INTEGER NOT NULL,
+    tipo INTEGER NOT NULL,
     valor NUMERIC(16,2) NOT NULL,
     codigo_de_barras VARCHAR(26) NOT NULL,
     ativo SMALLINT,/*BOOLEAN,*/
     criado TIMESTAMP,
     modificado TIMESTAMP,
-    CONSTRAINT references_tipo FOREIGN KEY (tipo_id) REFERENCES tipos (id),
     CONSTRAINT unique_codigo_de_barras UNIQUE (codigo_de_barras)
 );
