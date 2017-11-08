@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-@WebServlet(name = "Funcionarios", urlPatterns = {"/funcionarios", "/funcionarios/new", "/funcionarios/edit"})
+@WebServlet(name = "Funcionarios", urlPatterns = {"/funcionarios", "/funcionarios/new", "/funcionarios/create", "/funcionarios/edit", "/funcionarios/update", "/funcionarios/destroy"})
 public class Funcionarios extends HttpServlet{
     
     /*  ROTAS:
@@ -141,7 +141,7 @@ public class Funcionarios extends HttpServlet{
             funcionario.setCargo(DAOFuncionario.getCargo(Long.parseLong(request.getParameter("cargo_id"))));
             
             funcionario.setEmail(request.getParameter("email"));
-            //TODO: handle password / salt
+            funcionario.setSenha(DAOFuncionario.geraSenha(request.getParameter("senha")));
             
             /*
             Calendar agora = Calendar.getInstance();
@@ -189,25 +189,20 @@ public class Funcionarios extends HttpServlet{
             //Altera o funcionario id=xxx            
             
             Funcionario funcionario = new Funcionario();
+            funcionario.setId(Long.parseLong(id));
             funcionario.setNome(request.getParameter("nome"));
-            //funcionario.setCargoId(Long.parseLong(request.getParameter("cargoId")));
+            funcionario.setCargo(DAOFuncionario.getCargo(Long.parseLong(request.getParameter("cargo_id"))));
             funcionario.setCpf(request.getParameter("cpf"));
-            funcionario.setEmail(request.getParameter("email"));
-            funcionario.setTelefone(request.getParameter("telefone"));
-            Calendar agora = Calendar.getInstance();
-            funcionario.setCriado((GregorianCalendar) agora);
-            funcionario.setModificado((GregorianCalendar) agora);
-            funcionario.setAtivo(true);
+            //funcionario.setEmail(request.getParameter("email"));
+            funcionario.setTelefone(request.getParameter("telefone"));            
             
-            
-            String dataNascimento = request.getParameter("dataNascimento");
+            String dataNascimento = request.getParameter("nascimento");
             SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
             GregorianCalendar nasc = new GregorianCalendar();
             try {
                  nasc.setTime(format.parse(dataNascimento));
-                
             } catch (ParseException ex) {
-                Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+                System.err.println(ex.getMessage());
             }
             funcionario.setDataNascimento(nasc);
             

@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -30,11 +31,11 @@
                 <main class="hero">
                     <div class="hero-head">
                         <div class="container is-fluid">
-                            <h1 class="title is-4">Detales Funcionarios</h1>
+                            <h1 class="title is-4">Detalhes Funcionários</h1>
                             <nav class="subtitle is-6 breadcrumb" aria-label="breadcrumbs">
                                 <ul>
                                     <li><a href="${index_url}">Home</a></li>
-                                    <li><a href="${main_url}">Funcionarioss</a></li>
+                                    <li><a href="${main_url}">Funcionários</a></li>
                                     <li class="is-active"><a href="#" aria-current="page">Detalhes</a></li>
                                     <!-- Incluir novos itens na breadcrumbs, caso necessário -->
                                 </ul>
@@ -62,7 +63,19 @@
                             <strong>Nome:</strong> <c:out value="${funcionario.nome}" />
                         </p>
                         <p>
-                            <strong>Descrição:</strong> <c:out value="${funcionario.descricao}" />
+                            <strong>Data de Nascimento:</strong> <c:out value="${funcionario.formatDataNascimento}" />
+                        </p>
+                        <p>
+                            <strong>Telefone:</strong> <c:out value="${funcionario.telefone}" />
+                        </p>
+                        <p>
+                            <strong>CPF:</strong> <c:out value="${funcionario.cpf}" />
+                        </p>
+                        <p>
+                            <strong>E-mail:</strong> <c:out value="${funcionario.email}" />
+                        </p>
+                        <p>
+                            <strong>Cargo:</strong> <c:out value="${funcionario.cargo.nome}" />
                         </p>
                     </div>
                 </main>

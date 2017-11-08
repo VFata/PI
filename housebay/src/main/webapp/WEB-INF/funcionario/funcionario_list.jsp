@@ -78,8 +78,8 @@
                                 <tr>
                                     <th>Nome</th>
                                     <th>Telefone</th>
-                                    <th>Email</th>
-                                     <th>Ações</th>
+                                    <th>E-mail</th>
+                                    <th colspan="3">Ações</th>
                                     
                                 </tr>
                             </thead>

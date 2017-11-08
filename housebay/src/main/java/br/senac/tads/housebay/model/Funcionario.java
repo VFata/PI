@@ -14,7 +14,6 @@ public class Funcionario extends TabelaDB {
     public final static String EMAIL = "email";
     public final static String CARGO = "cargo";
     public final static String SENHA = "senha";
-    public final static String SALT = "salt";
     
     private String nome;
     private GregorianCalendar dataNascimento;
@@ -22,7 +21,6 @@ public class Funcionario extends TabelaDB {
     private String cpf;
     private String email;
     private String senha;
-    private String salt;
     private Cargo cargo;
 
     public Funcionario() {
@@ -89,13 +87,6 @@ public class Funcionario extends TabelaDB {
     }
     public void setSenha(String senha) {
         this.senha = senha;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-    public void setSalt(String salt) {
-        this.salt = salt;
     }
 
     public Cargo getCargo() {

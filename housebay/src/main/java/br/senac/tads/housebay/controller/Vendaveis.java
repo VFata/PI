@@ -120,7 +120,7 @@ public class Vendaveis extends HttpServlet {
         //System.out.println("DEBUG: post method");
 
         response.setContentType("text/html;charset=UTF-8");
-        
+        /*
         if (url.equals("/vendaveis/destroy") && id != null) {
             //Deleta o vendavel id=xxx
             Vendavel vendavel = new Vendavel();
@@ -199,7 +199,8 @@ public class Vendaveis extends HttpServlet {
             }
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
-        }    
+        }
+        */
     }
     
     private void newForm(HttpServletRequest request, HttpServletResponse response, HttpSession sessao)

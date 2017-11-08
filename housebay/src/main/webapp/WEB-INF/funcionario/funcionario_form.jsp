@@ -38,21 +38,21 @@
                     <div class=hero-head">
                         <div class="container is-fluid">
                         <c:choose><c:when test="${type=='edit' && funcionario != null}">
-                            <h1 class="title is-4">Alterar Funcionarios</h1>
+                            <h1 class="title is-4">Alterar Funcionário</h1>
                             <nav class="subtitle is-6 breadcrumb" aria-label="breadcrumbs">
                                 <ul>
                                     <li><a href="${index_url}">Home</a></li>
-                                    <li><a href="${main_url}">Funcionarioss</a></li>
+                                    <li><a href="${main_url}">Funcionários</a></li>
                                     <li class="is-active"><a href="#" aria-current="page">Alterar</a></li>
                                     <!-- Incluir novos itens na breadcrumbs, caso necessário -->
                                 </ul>
                             </nav>
                         </c:when><c:otherwise>
-                            <h1 class="title is-4">Novo Cliente</h1>
+                            <h1 class="title is-4">Novo Funcionário</h1>
                             <nav class="subtitle is-6 breadcrumb" aria-label="breadcrumbs">
                                 <ul>
                                     <li><a href="${index_url}">Home</a></li>
-                                    <li><a href="${main_url}">Funcionarios</a></li>
+                                    <li><a href="${main_url}">Funcionários</a></li>
                                     <li class="is-active"><a href="#" aria-current="page">Novo</a></li>
                                     <!-- Incluir novos itens na breadcrumbs, caso necessário -->
                                 </ul>
@@ -104,7 +104,7 @@
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control">
-                                            <input class="input" type="date" name="nascimento" value="${funcionario.dataNascimento}">
+                                            <input class="input" type="date" name="nascimento" value="${funcionario.inputDataNascimento}">
                                         </div>
                                     </div>
                                 </div>
@@ -152,11 +152,11 @@
                                 </div>
                             </div>
                             
-                            <c:if test="${type!='edit' && funcionario == null}">
+                            <c:if test="${type != 'edit'}">
                                 <fieldset class="fieldset">
                                     <div class="field is-horizontal">
                                         <div class="field-label is-normal">
-                                            <label class="label">Email</label>
+                                            <label class="label">E-mail</label>
                                         </div>
                                         <div class="field-body">
                                             <div class="field">

@@ -10,7 +10,6 @@ CREATE TABLE funcionarios (
     cpf VARCHAR(15) NOT NULL,
     email VARCHAR(255) NOT NULL,
     hash_senha VARCHAR(255) NOT NULL,
-    salt VARCHAR(255) NOT NULL,
     cargo_id INTEGER,
     ativo BOOLEAN,
     criado TIMESTAMP,

@@ -68,12 +68,12 @@ public class ValidateServico {
     
     private static Map geraMensagem(Servico servico) {
         Map errors = new HashMap(); 
-        
+        /*
         if (servico.getServico()== null || servico.getServico().equals("")) {
             //erro += "\nNome vazio.";
             errors.put(Servico.PRODUTO + "_empty", "Nome vazio.");
         }
-
+        */
         
         return errors;
     }

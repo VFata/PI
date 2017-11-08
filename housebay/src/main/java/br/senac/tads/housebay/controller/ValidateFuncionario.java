@@ -22,6 +22,14 @@ public class ValidateFuncionario {private final static String ERRO = "Erro na Va
             //erro += "\nFuncionario nulo.";
             errors.put(Funcionario.class.getCanonicalName() + "_empty", "Funcionario nulo.");
         } else {
+            if (funcionario.getEmail()== null || funcionario.getEmail().equals("")) {
+                //erro += "\nNome vazio.";
+                errors.put(Funcionario.EMAIL + "_empty", "Nome vazio.");
+            }
+            if (funcionario.getSenha()== null || funcionario.getSenha().equals("")) {
+                //erro += "\nNome vazio.";
+                errors.put(Funcionario.SENHA + "_empty", "Nome vazio.");
+            }
             //erro = geraMensagem(funcionario, erro);
             errors.putAll(geraMensagem(funcionario));
         }
@@ -79,18 +87,6 @@ public class ValidateFuncionario {private final static String ERRO = "Erro na Va
         if (funcionario.getDataNascimento()== null || funcionario.getDataNascimento().equals("")) {
             //erro += "\nNome vazio.";
             errors.put(Funcionario.DATA_NASCIMENTO + "_empty", "Nome vazio.");
-        }
-        if (funcionario.getEmail()== null || funcionario.getEmail().equals("")) {
-            //erro += "\nNome vazio.";
-            errors.put(Funcionario.EMAIL + "_empty", "Nome vazio.");
-        }
-        if (funcionario.getSalt()== null) {
-            //erro += "\nNome vazio.";
-            errors.put(Funcionario.SALT + "_empty", "Nome vazio.");
-        }
-        if (funcionario.getSenha()== null || funcionario.getSenha().equals("")) {
-            //erro += "\nNome vazio.";
-            errors.put(Funcionario.SENHA + "_empty", "Nome vazio.");
         }
         if (funcionario.getTelefone()== null || funcionario.getTelefone().equals("")) {
             //erro += "\nNome vazio.";

@@ -69,11 +69,12 @@ public class ValidateEmpresa {
     private static Map geraMensagem(Empresa empresa) {
         Map errors = new HashMap(); 
         
+        /*
         if (empresa.getEmpresa()== null || empresa.getEmpresa().equals("")) {
             //erro += "\nNome vazio.";
             errors.put(Empresa.PRODUTO + "_empty", "Nome vazio.");
         }
-
+        */
         
         return errors;
     }

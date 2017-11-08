@@ -226,7 +226,6 @@ public class Clientes extends HttpServlet{
                 }
             } catch (ParseException ex) {
                 System.err.println(ex.getMessage());
-                //Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
             }
             cliente.setDataNascimento(nasc);
             

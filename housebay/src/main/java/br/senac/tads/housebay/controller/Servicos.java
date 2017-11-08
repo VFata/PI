@@ -58,7 +58,7 @@ public class Servicos extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         String responseURL;
-        
+        /*
         if (url.equals("/servicos") && id == null) {
             //Lista servicos
             String query = request.getParameter("q");
@@ -95,6 +95,7 @@ public class Servicos extends HttpServlet {
         }
         RequestDispatcher dispatcher = request.getRequestDispatcher(responseURL);
         dispatcher.forward(request, response);
+        */
     }
 
     /**
@@ -120,7 +121,7 @@ public class Servicos extends HttpServlet {
         //System.out.println("DEBUG: post method");
 
         response.setContentType("text/html;charset=UTF-8");
-        
+        /*
         if (url.equals("/servicos/destroy") && id != null) {
             //Deleta o servico id=xxx
             Servico servico = new Servico();
@@ -207,7 +208,8 @@ public class Servicos extends HttpServlet {
             }
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
-        }    
+        }
+        */
     }
     
     private void newForm(HttpServletRequest request, HttpServletResponse response, HttpSession sessao)
@@ -236,7 +238,7 @@ public class Servicos extends HttpServlet {
         throws ServletException, IOException {
         Servico servico = (Servico) sessao.getAttribute("servico");
         if (servico == null) {
-            servico = (Servico) DAOVendavel.read(id);
+            //servico = (Servico) DAOVendavel.read(id);
         } else {
             sessao.removeAttribute("servico");
         }

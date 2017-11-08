@@ -21,7 +21,7 @@ import org.mindrot.jbcrypt.BCrypt;
  */
 public class DAOFuncionario {    
     public static Long create(Funcionario funcionario) {
-        String sql = "INSERT INTO funcionarios (nome, data_nascimento, telefone, cpf, cargo_id, email, hash_senha, salt, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO funcionarios (nome, data_nascimento, telefone, cpf, cargo_id, email, hash_senha, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Long id = null;
         try (Connection connection = SQLUtils.getConnection()) {
             connection.setAutoCommit(false);
@@ -32,13 +32,12 @@ public class DAOFuncionario {
                 statement.setString(4, funcionario.getCpf());
                 statement.setLong(5, funcionario.getCargo().getId());
                 statement.setString(6, funcionario.getEmail());
-                statement.setString(7, geraSenha(funcionario.getSenha()));
-                //statement.setString(8, funcionario.getSalt());
+                statement.setString(7, funcionario.getSenha());
                 
-                statement.setBoolean(9, funcionario.isAtivo());
+                statement.setBoolean(8, funcionario.isAtivo());
                 Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
+                statement.setTimestamp(9, now);
                 statement.setTimestamp(10, now);
-                statement.setTimestamp(11, now);
                 
                 statement.executeUpdate();
                 try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -54,7 +53,6 @@ public class DAOFuncionario {
                 Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
                 return -1l;
             }
-            funcionario.setSalt(null);
             funcionario.setSenha(null);
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -133,7 +131,7 @@ public class DAOFuncionario {
 
     public static boolean update(Funcionario funcionario) {
         if (funcionario != null && funcionario.getId() != null && funcionario.getId() > 0) {
-            String sql = "UPDATE funcionarios SET nome=?, data_nascimento=?, telefone=?, cpf=?, cargo_id=?, email=?, ativo=?, modificado=? WHERE id=?";
+            String sql = "UPDATE funcionarios SET nome=?, data_nascimento=?, telefone=?, cpf=?, cargo_id=?, ativo=?, modificado=? WHERE id=?";
             try (Connection connection = SQLUtils.getConnection()) {
                 connection.setAutoCommit(false);
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -142,11 +140,10 @@ public class DAOFuncionario {
                     statement.setString(3, funcionario.getTelefone());
                     statement.setString(4, funcionario.getCpf());
                     statement.setLong(5, funcionario.getCargo().getId());
-                    statement.setString(6, funcionario.getEmail());
-                    statement.setBoolean(7, funcionario.isAtivo());
+                    statement.setBoolean(6, funcionario.isAtivo());
                     Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
-                    statement.setTimestamp(8, now);
-                    statement.setLong(9, funcionario.getId());
+                    statement.setTimestamp(7, now);
+                    statement.setLong(8, funcionario.getId());
 
                     statement.execute();
                     connection.commit();
@@ -191,7 +188,7 @@ public class DAOFuncionario {
         return false;
     }
     
-    private static String geraSenha(String senha) {
+    public static String geraSenha(String senha) {
         return BCrypt.hashpw(senha, BCrypt.gensalt());
     }
     

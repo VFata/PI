@@ -68,12 +68,12 @@ public class ValidateVendavel {
     
     private static Map geraMensagem(Vendavel vendavel) {
         Map errors = new HashMap(); 
-        
+        /*
         if (vendavel.getVendavel()== null || vendavel.getVendavel().equals("")) {
             //erro += "\nNome vazio.";
             errors.put(Vendavel.PRODUTO + "_empty", "Nome vazio.");
         }
-
+        */
         
         return errors;
     }
