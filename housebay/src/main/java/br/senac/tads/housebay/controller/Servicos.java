@@ -67,8 +67,8 @@ public class Servicos extends HttpServlet {
             responseURL = "/WEB-INF/servico/servico_list.jsp";
         } else if (url.equals("/servicos") && id != null) {
             //Detalhes do servico id
-            Servico servico = (Servico) DAOVendavel.read(Long.parseLong(id));
-            request.setAttribute("servico", servico);
+            //BLAME: Servico servico = (Servico) DAOVendavel.read(Long.parseLong(id));
+            //BLAME: request.setAttribute("servico", servico);
             responseURL = "/WEB-INF/servico/servico_show.jsp";
         } else if (url.equals("/servicos/new") && id == null) {
             //Form novo servico
@@ -126,6 +126,7 @@ public class Servicos extends HttpServlet {
             //Deleta o servico id=xxx
             Servico servico = new Servico();
             servico.setId(Long.parseLong(id));
+            /*BLAME: 
             if(DAOVendavel.delete(servico)) {
                 if (mensagens == null) {
                     mensagens = new ArrayList();
@@ -134,6 +135,7 @@ public class Servicos extends HttpServlet {
                 sessao.setAttribute("mensagem", mensagens);
                 response.sendRedirect(request.getContextPath() + "/servicos");
             }
+            */
         } else if (url.equals("/servicos/create") && id == null) {
             //Cria um novo servico
             Servico servico = new Servico();
@@ -160,7 +162,7 @@ public class Servicos extends HttpServlet {
                 newForm(request, response, sessao);
                 return;
             }
-            
+            /*BLAME:
             Long newId = DAOVendavel.create(servico);
             if (newId > 0) {
                 if (mensagens == null) {
@@ -170,6 +172,7 @@ public class Servicos extends HttpServlet {
                 sessao.setAttribute("mensagem", mensagens);
                 response.sendRedirect(request.getContextPath() + "/servicos?id=" + newId);
             }
+            */
         } else if (url.equals("/servicos/update") && id != null) {
             //Altera o servico id=xxx            
             Servico servico = new Servico();
@@ -197,7 +200,7 @@ public class Servicos extends HttpServlet {
                 editForm(request, response, sessao, Long.parseLong(id));
                 return;
             }
-            
+            /*BLAME:
             if (DAOVendavel.update(servico)) {
                 if (mensagens == null) {
                     mensagens = new ArrayList();
@@ -206,6 +209,7 @@ public class Servicos extends HttpServlet {
                 sessao.setAttribute("mensagem", mensagens);
                 response.sendRedirect(request.getContextPath() + "/servicos?id=" + id);
             }
+            */
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }

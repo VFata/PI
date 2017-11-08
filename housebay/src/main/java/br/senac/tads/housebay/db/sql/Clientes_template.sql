@@ -9,7 +9,7 @@ CREATE TABLE clientes (
     telefone VARCHAR(15) NOT NULL,
     cpf VARCHAR(15) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    ativo BOOLEAN,
+    ativo SMALLINT, /*BOOLEAN*/
     criado TIMESTAMP,
     modificado TIMESTAMP,
     CONSTRAINT unique_cpf UNIQUE (cpf)

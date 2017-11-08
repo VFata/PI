@@ -13,7 +13,7 @@ CREATE TABLE vendaveis (
     tipo_id INTEGER NOT NULL,
     valor NUMERIC(16,2) NOT NULL,
     codigo_de_barras VARCHAR(26) NOT NULL,
-    ativo BOOLEAN,
+    ativo SMALLINT,/*BOOLEAN,*/
     criado TIMESTAMP,
     modificado TIMESTAMP,
     CONSTRAINT references_tipo FOREIGN KEY (tipo_id) REFERENCES tipos (id),

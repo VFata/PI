@@ -21,7 +21,7 @@
                         <i class="fa fa-credit-card" aria-hidden="true"></i>
                         <span class="is-hidden-touch">&nbsp;Vendas</span>
                         <span class="tooltip tag is-black is-hidden-desktop">Vendas</span>
-                    </a>     
+                    </a>
                     <a href="${base}pets" class="has-tooltip">
                         <i class="fa fa-paw" aria-hidden="true"></i>
                         <span class="is-hidden-touch">&nbsp;Pets</span>
@@ -31,13 +31,13 @@
                         <i class="fa fa-users" aria-hidden="true"></i>
                         <span class="is-hidden-touch">&nbsp;Funcionarios</span>
                         <span class="tooltip tag is-black is-hidden-desktop">Funcionarios</span>
-                    </a>    
-                  
+                    </a>
+
                     <a href="${base}relatorios" class="has-tooltip">
                         <i class="fa fa-bar-chart" aria-hidden="true"></i>
                         <span class="is-hidden-touch">&nbsp;Relatorios</span>
                         <span class="tooltip tag is-black is-hidden-desktop">Relatorios</span>
-                    </a>     
+                    </a>
                         <a href="${base}produtos" class="has-tooltip">
                         <i class="fa fa-archive" aria-hidden="true"></i>
                         <span class="is-hidden-touch">&nbsp;Produtos</span>
@@ -47,7 +47,7 @@
                         <i class="fa fa-cogs" aria-hidden="true"></i>
                         <span class="is-hidden-touch">&nbsp;Serviços</span>
                         <span class="tooltip tag is-black is-hidden-desktop">Serviços</span>
-                    </a>   
+                    </a>
                 </li>
                 <!-- Novos itens de menu devem ser inseridos aqui -->
             </ul>

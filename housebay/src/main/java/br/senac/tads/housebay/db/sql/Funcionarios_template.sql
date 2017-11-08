@@ -11,7 +11,7 @@ CREATE TABLE funcionarios (
     email VARCHAR(255) NOT NULL,
     hash_senha VARCHAR(255) NOT NULL,
     cargo_id INTEGER,
-    ativo BOOLEAN,
+    ativo SMALLINT, /*BOOLEAN,*/
     criado TIMESTAMP,
     modificado TIMESTAMP,
     CONSTRAINT references_cargo FOREIGN KEY (cargo_id) REFERENCES cargos (id),

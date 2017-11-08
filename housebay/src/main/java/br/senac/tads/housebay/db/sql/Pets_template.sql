@@ -7,7 +7,7 @@ CREATE TABLE pets (
     nome VARCHAR(255) NOT NULL,
     descricao VARCHAR(2048) NOT NULL,
     cliente_id INTEGER NOT NULL ,
-    ativo BOOLEAN,
+    ativo SMALLINT, /*BOOLEAN,*/
     criado TIMESTAMP,
     modificado TIMESTAMP,
     CONSTRAINT references_cliente FOREIGN KEY (cliente_id) REFERENCES clientes (id)
