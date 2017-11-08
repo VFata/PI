@@ -1,6 +1,7 @@
 package br.senac.tads.housebay.db;
 
 import br.senac.tads.housebay.model.Produto;
+import br.senac.tads.housebay.model.Tipo;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
@@ -27,7 +28,7 @@ public class DAOVendavel {
                 statement.setString(1, produto.getNome());
                 statement.setString(2, produto.getDescricao());
                 statement.setInt(3, produto.getEstoque());
-                statement.setLong(4, produto.getTipoId());
+                statement.setLong(4, produto.getTipo().getId());
                 statement.setDouble(5, produto.getValor()) ;
                 statement.setString(6, produto.getCodigoDeBarras());
                 statement.setBoolean(7, produto.isAtivo());
@@ -70,7 +71,7 @@ public class DAOVendavel {
                     produto.setNome(resultados.getString("nome"));
                     produto.setDescricao(resultados.getString("descricao"));
                     produto.setEstoque(resultados.getInt("estoque"));
-                    produto.setTipoId(resultados.getLong("tipo_id"));
+                    produto.setTipo(getTipo(resultados.getLong("tipo_id")));
                     produto.setValor(resultados.getDouble("valor"));
                     produto.setCodigoDeBarras(resultados.getString("codigoDeBarras"));
                     produto.setAtivo(resultados.getBoolean("ativo"));
@@ -107,7 +108,7 @@ public class DAOVendavel {
                     produto.setNome(resultados.getString("nome"));
                     produto.setDescricao(resultados.getString("descricao"));
                     produto.setEstoque(resultados.getInt("estoque"));
-                    produto.setTipoId(resultados.getLong("tipo_id"));
+                    produto.setTipo(getTipo(resultados.getLong("tipo_id")));
                     produto.setValor(resultados.getDouble("valor"));
                     produto.setCodigoDeBarras(resultados.getString("codigoDeBarras"));
                     produto.setAtivo(resultados.getBoolean("ativo"));
@@ -126,13 +127,13 @@ public class DAOVendavel {
             try (Connection connection = SQLUtils.getConnection()) {
                 connection.setAutoCommit(false);
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setString(1, produto.getNome());
-                statement.setString(2, produto.getDescricao());
-                statement.setInt(3, produto.getEstoque());
-                statement.setLong(4, produto.getTipoId());
-                statement.setDouble(5, produto.getValor());
-                statement.setString(6, produto.getCodigoDeBarras());
-                statement.setBoolean(7, produto.isAtivo());
+                    statement.setString(1, produto.getNome());
+                    statement.setString(2, produto.getDescricao());
+                    statement.setInt(3, produto.getEstoque());
+                    statement.setLong(4, produto.getTipo().getId());
+                    statement.setDouble(5, produto.getValor());
+                    statement.setString(6, produto.getCodigoDeBarras());
+                    statement.setBoolean(7, produto.isAtivo());
                     Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
                     statement.setTimestamp(8, now);
                     statement.setLong(9, produto.getId());
@@ -173,5 +174,14 @@ public class DAOVendavel {
         } else {
             return false;
         }
+    }
+    
+    
+    public static Tipo getTipo(long id) {
+        return DAOTipo.read(id);
+    }
+    
+    public static List<Tipo> getTipoList() {
+        return DAOTipo.search(null);
     }
 }
