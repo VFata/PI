@@ -68,12 +68,27 @@ public class ValidateVendavel {
     
     private static Map geraMensagem(Vendavel vendavel) {
         Map errors = new HashMap(); 
-        /*
-        if (vendavel.getVendavel()== null || vendavel.getVendavel().equals("")) {
+        
+        if (vendavel.getNome()== null || vendavel.getNome().equals("")) {
             //erro += "\nNome vazio.";
-            errors.put(Vendavel.PRODUTO + "_empty", "Nome vazio.");
+            errors.put(Vendavel.NOME + "_empty", "Campo nome vazio.");
         }
-        */
+        if (vendavel.getProduto()== null || vendavel.getProduto().equals("")) {
+            //erro += "\nNome vazio.";
+            errors.put(Vendavel.PRODUTO + "_empty", "Campo produto vazio.");
+        }
+        if (vendavel.getTipoId()== null || vendavel.getTipoId().equals("")) {
+            //erro += "\nNome vazio.";
+            errors.put(Vendavel.TIPO + "_empty", "Campo tipo vazio.");
+        }
+        if (vendavel.getValor()== 0) {
+            //erro += "\nNome vazio.";
+            errors.put(Vendavel.VALOR + "_empty", "Campo valor vazio.");
+        }
+        if (vendavel.getDescricao()== null || vendavel.getDescricao().equals("")) {
+            //erro += "\nNome vazio.";
+            errors.put(Vendavel.DESCRICAO + "_empty", "Campo descrição vazio.");
+        }      
         
         return errors;
     }

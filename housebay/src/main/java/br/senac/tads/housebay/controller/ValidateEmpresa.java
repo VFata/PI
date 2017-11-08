@@ -69,12 +69,14 @@ public class ValidateEmpresa {
     private static Map geraMensagem(Empresa empresa) {
         Map errors = new HashMap(); 
         
-        /*
-        if (empresa.getEmpresa()== null || empresa.getEmpresa().equals("")) {
+        if (empresa.getNome()== null || empresa.getNome().equals("")) {
             //erro += "\nNome vazio.";
-            errors.put(Empresa.PRODUTO + "_empty", "Nome vazio.");
+            errors.put(Empresa.NOME + "_empty", "Campo nome vazio.");
         }
-        */
+        if (empresa.getCnpj()== null || empresa.getCnpj().equals("")) {
+            //erro += "\nNome vazio.";
+            errors.put(Empresa.CNPJ + "_empty", "Campo cnpj vazio.");
+        }
         
         return errors;
     }

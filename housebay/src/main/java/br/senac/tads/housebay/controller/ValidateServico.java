@@ -68,12 +68,29 @@ public class ValidateServico {
     
     private static Map geraMensagem(Servico servico) {
         Map errors = new HashMap(); 
-        /*
-        if (servico.getServico()== null || servico.getServico().equals("")) {
+        
+        if (servico.getDescricao()== null || servico.getDescricao().equals("")) {
             //erro += "\nNome vazio.";
-            errors.put(Servico.PRODUTO + "_empty", "Nome vazio.");
+            errors.put(Servico.DESCRICAO + "_empty", "Campo descrição Vazio");
         }
-        */
+        if (servico.getNome()== null || servico.getNome().equals("")) {
+            //erro += "\nNome vazio.";
+            errors.put(Servico.NOME + "_empty", "Campo nome vazio.");
+        }
+        if (servico.getProduto()== null || servico.getProduto().equals("")) {
+            //erro += "\nNome vazio.";
+            errors.put(Servico.PRODUTO + "_empty", "Campo produto vazio.");
+        }
+        if (servico.getValor()== 0) {
+            //erro += "\nNome vazio.";
+            errors.put(Servico.VALOR + "_empty", "Campo valor vazio.");
+        }
+        if (servico.getTipoId()!= null && !servico.getProduto().equals("")) {
+        } else {
+            //erro += "\nNome vazio.";
+            errors.put(Servico.TIPO + "_empty", "Campo tipo vazio.");
+        }
+
         
         return errors;
     }

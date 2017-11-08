@@ -58,10 +58,13 @@ public class ValidatePet {
         Map errors = new HashMap(); 
         
         if (pet.getNome() == null || pet.getNome().equals("")) {
-            errors.put(Pet.NOME + "_empty", "Nome vazio.");
+            errors.put(Pet.NOME + "_empty", "Campo nome vazio.");
         }
         if (pet.getDescricao() == null || pet.getDescricao().equals("")) {
-            errors.put(Pet.DESCRICAO + "_empty", "Descrição vazia.");
+            errors.put(Pet.DESCRICAO + "_empty", "Campo descrição vazia.");
+        }
+        if (pet.getClienteId()== null || pet.getClienteId().equals("")) {
+            errors.put(Pet.CLIENTE_ID + "_empty", "Campo cliente vazia.");
         }
         
         return errors;

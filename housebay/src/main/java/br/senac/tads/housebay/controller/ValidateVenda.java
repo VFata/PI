@@ -68,12 +68,12 @@ public class ValidateVenda {
     
     private static Map geraMensagem(Venda venda) {
         Map errors = new HashMap(); 
-        /*
-        if (venda.getVenda()== null || venda.getVenda().equals("")) {
-            //erro += "\nNome vazio.";
-            errors.put(Venda.PRODUTO + "_empty", "Nome vazio.");
-        }
-        */
+
+//        if (venda.get()== null || venda.getEmpresaId().equals("")) {
+//            //erro += "\nNome vazio.";
+//            errors.put(Venda.EMPRESA_ID + "_empty", "Nome vazio.");
+//        }
+  
         
         return errors;
     }

@@ -9,10 +9,28 @@ import java.util.Map;
 
 /**
  *
+<<<<<<< HEAD
+ * @author diego.matsuki
+ */
+public class CargoException extends Exception {
+
+    private final Map errors;
+    
+    public CargoException(String message, Map errors) {
+        super(message);
+        this.errors = errors;
+    }
+
+    public Map getErrors() {
+        return errors;
+    }
+    
+=======
  * @author Diego
  */
 public class CargoException extends BaseException {
     public CargoException(String message, Map errors) {
         super(message, errors);
     }
+>>>>>>> origin/master
 }

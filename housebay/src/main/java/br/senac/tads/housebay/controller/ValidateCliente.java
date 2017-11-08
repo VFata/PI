@@ -74,26 +74,29 @@ public class ValidateCliente {
         
         if (cliente.getNome() == null || cliente.getNome().equals("")) {
             //erro += "\nNome vazio.";
-            errors.put(Cliente.NOME + "_empty", "Nome vazio.");
+            errors.put(Cliente.NOME + "_empty", "Campo nome vazio.");
         }
         if (cliente.getEmail()== null || cliente.getEmail().equals("")) {
             //erro += "\nDescrição vazia.";
-            errors.put(Cliente.EMAIL + "_empty", "Descrição vazia.");
+            errors.put(Cliente.EMAIL + "_empty", "Campo email vazio.");
         }
         if (cliente.getTelefone()== null || cliente.getTelefone().equals("")) {
             //erro += "\nDescrição vazia.";
-            errors.put(Cliente.TELEFONE + "_empty", "Descrição vazia.");
+            errors.put(Cliente.TELEFONE + "_empty", "Campo telefone vazio.");
         }
         if (cliente.getCpf()== null || cliente.getCpf().equals("")) {
             //erro += "\nDescrição vazia.";
-            errors.put(Cliente.CPF + "_empty", "Descrição vazia.");
+            errors.put(Cliente.CPF + "_empty", "Campo cpf vazio.");
         }
         if (cliente.getDataNascimento()== null || cliente.getDataNascimento().equals("")) {
             //erro += "\nDescrição vazia.";
-            errors.put(Cliente.DATA_NASCIMENTO + "_empty", "Descrição vazia.");
+            errors.put(Cliente.DATA_NASCIMENTO + "_empty", "Campo data de nascimento vazio.");
+        }
+        if (cliente.getPets()== null || cliente.getPets().equals("")) {
+            //erro += "\nDescrição vazia.";
+            errors.put(Cliente.PET_ID + "_empty", "Campo data de nascimento vazio.");
         }
 
-        
         
         return errors;
     }

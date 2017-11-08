@@ -78,19 +78,27 @@ public class ValidateFuncionario {private final static String ERRO = "Erro na Va
         
         if (funcionario.getNome() == null || funcionario.getNome().equals("")) {
             //erro += "\nNome vazio.";
-            errors.put(Funcionario.NOME + "_empty", "Nome vazio.");
+            errors.put(Funcionario.NOME + "_empty", "Campo nome vazio.");
         }
         if (funcionario.getCpf()== null || funcionario.getCpf().equals("")) {
             //erro += "\nNome vazio.";
-            errors.put(Funcionario.CPF + "_empty", "Nome vazio.");
+            errors.put(Funcionario.CPF + "_empty", "Campo cpf vazio.");
         }
         if (funcionario.getDataNascimento()== null || funcionario.getDataNascimento().equals("")) {
             //erro += "\nNome vazio.";
-            errors.put(Funcionario.DATA_NASCIMENTO + "_empty", "Nome vazio.");
+            errors.put(Funcionario.DATA_NASCIMENTO + "_empty", "Campo data de nascimento vazio.");
         }
         if (funcionario.getTelefone()== null || funcionario.getTelefone().equals("")) {
             //erro += "\nNome vazio.";
-            errors.put(Funcionario.TELEFONE + "_empty", "Nome vazio.");
+            errors.put(Funcionario.TELEFONE + "_empty", "campo telefone vazio.");
+        }
+        if (funcionario.getEmail()== null || funcionario.getEmail().equals("")) {
+            //erro += "\nNome vazio.";
+            errors.put(Funcionario.EMAIL + "_empty", "campo email vazio.");
+        }
+        if (funcionario.getSenha()== null || funcionario.getSenha().equals("")) {
+            //erro += "\nNome vazio.";
+            errors.put(Funcionario.SENHA + "_empty", "campo senha vazio.");
         }
 
         

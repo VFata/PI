@@ -69,10 +69,27 @@ public class ValidateProduto {
     private static Map geraMensagem(Produto produto) {
         Map errors = new HashMap(); 
         
+        if (produto.getNome()== null || produto.getNome().equals("")) {
+            //erro += "\nNome vazio.";
+            errors.put(Produto.NOME + "_empty", "Campo nome vazio.");
+        }
         if (produto.getProduto()== null || produto.getProduto().equals("")) {
             //erro += "\nNome vazio.";
-            errors.put(Produto.PRODUTO + "_empty", "Nome vazio.");
+            errors.put(Produto.PRODUTO + "_empty", "Campo produto vazio.");
         }
+        if (produto.getTipoId()== null || produto.getTipoId().equals("")) {
+            //erro += "\nNome vazio.";
+            errors.put(Produto.TIPO + "_empty", "Campo tipo vazio.");
+        }
+        if (produto.getEstoque()== 0) {
+            //erro += "\nNome vazio.";
+            errors.put(Produto.ESTOQUE + "_empty", "Campo estoque vazio.");
+        }
+        if (produto.getDescricao()== null || produto.getDescricao().equals("")) {
+            //erro += "\nNome vazio.";
+            errors.put(Produto.DESCRICAO + "_empty", "Campo descrição vazio.");
+        }
+
 
         
         return errors;

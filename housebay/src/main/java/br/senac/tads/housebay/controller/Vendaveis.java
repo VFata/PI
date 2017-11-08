@@ -7,6 +7,7 @@ package br.senac.tads.housebay.controller;
 
 import br.senac.tads.housebay.db.DAOVendavel;
 import br.senac.tads.housebay.exception.VendavelException;
+import br.senac.tads.housebay.model.Produto;
 import br.senac.tads.housebay.model.Vendavel;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -120,12 +121,12 @@ public class Vendaveis extends HttpServlet {
         //System.out.println("DEBUG: post method");
 
         response.setContentType("text/html;charset=UTF-8");
-        /*
+        
         if (url.equals("/vendaveis/destroy") && id != null) {
             //Deleta o vendavel id=xxx
             Vendavel vendavel = new Vendavel();
             vendavel.setId(Long.parseLong(id));
-            if(DAOVendavel.delete(vendavel)) {
+            if(DAOVendavel.delete((Produto) vendavel)) {
                 if (mensagens == null) {
                     mensagens = new ArrayList();
                 }
@@ -135,7 +136,12 @@ public class Vendaveis extends HttpServlet {
             }
         } else if (url.equals("/vendaveis/create") && id == null) {
             //Cria um novo vendavel
-            Vendavel vendavel = new Vendavel();
+            Vendavel vendavel = new Vendavel();            
+            vendavel.setNome(request.getParameter("nome"));
+            vendavel.setProduto(request.getParameter("produto"));
+            vendavel.setDescricao(request.getParameter("descricao"));
+            vendavel.setValor(Double.parseDouble(request.getParameter("valor")));
+            vendavel.setTipoId(Long.parseLong(request.getParameter("tipo")));
 
             
             Calendar agora = Calendar.getInstance();
@@ -157,7 +163,7 @@ public class Vendaveis extends HttpServlet {
                 return;
             }
             
-            Long newId = DAOVendavel.create(vendavel);
+            Long newId = DAOVendavel.create((Produto) vendavel);
             if (newId > 0) {
                 if (mensagens == null) {
                     mensagens = new ArrayList();
@@ -169,6 +175,12 @@ public class Vendaveis extends HttpServlet {
         } else if (url.equals("/vendaveis/update") && id != null) {
             //Altera o vendavel id=xxx            
             Vendavel vendavel = new Vendavel();
+            vendavel.setId(Long.parseLong(id));
+            vendavel.setNome(request.getParameter("nome"));
+            vendavel.setProduto(request.getParameter("produto"));
+            vendavel.setDescricao(request.getParameter("descricao"));
+            vendavel.setValor(Double.parseDouble(request.getParameter("valor")));
+            vendavel.setTipoId(Long.parseLong(request.getParameter("tipo")));
             
             Calendar agora = Calendar.getInstance();
             vendavel.setCriado((GregorianCalendar) agora);
@@ -189,7 +201,7 @@ public class Vendaveis extends HttpServlet {
                 return;
             }
             
-            if (DAOVendavel.update(vendavel)) {
+            if (DAOVendavel.update((Produto) vendavel)) {
                 if (mensagens == null) {
                     mensagens = new ArrayList();
                 }
@@ -200,7 +212,7 @@ public class Vendaveis extends HttpServlet {
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
-        */
+        
     }
     
     private void newForm(HttpServletRequest request, HttpServletResponse response, HttpSession sessao)
