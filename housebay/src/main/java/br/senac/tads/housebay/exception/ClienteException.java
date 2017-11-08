@@ -11,7 +11,7 @@ import java.util.Map;
  *
  * @author Tron
  */
-public class ClienteException extends MultiException {
+public class ClienteException extends BaseException {
     public ClienteException(String message, Map errors) {
         super(message, errors);
     }

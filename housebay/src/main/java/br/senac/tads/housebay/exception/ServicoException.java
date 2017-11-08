@@ -11,7 +11,7 @@ import java.util.Map;
  *
  * @author Tron
  */
-public class ServicoException extends MultiException {
+public class ServicoException extends BaseException {
     public ServicoException(String message, Map errors) {
         super(message, errors);
     }

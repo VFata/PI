@@ -11,17 +11,8 @@ import java.util.Map;
  *
  * @author Tron
  */
-public class FuncionarioException extends Exception{
-    
-    private final Map errors;
-    
+public class FuncionarioException extends BaseException {
     public FuncionarioException(String message, Map errors) {
-        super(message);
-        this.errors = errors;
-    }
-
-    public Map getErrors() {
-        return errors;
-    }
-    
+        super(message, errors);
+    }    
 }

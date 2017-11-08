@@ -11,7 +11,7 @@ import java.util.Map;
  *
  * @author diego.matsuki
  */
-public class PetException extends MultiException {    
+public class PetException extends BaseException {    
     public PetException(String message, Map errors) {
         super(message, errors);
     }

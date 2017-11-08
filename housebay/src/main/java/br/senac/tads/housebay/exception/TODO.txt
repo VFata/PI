@@ -1,4 +1,0 @@
-CargoException
-EmpresaException
-ServicoException
-VendaException

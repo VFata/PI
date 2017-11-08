@@ -11,10 +11,10 @@ import java.util.Map;
  *
  * @author Diego
  */
-public class MultiException extends Exception { 
+public abstract class BaseException extends Exception { 
    private final Map errors;
     
-    public MultiException(String message, Map errors) {
+    public BaseException(String message, Map errors) {
         super(message);
         this.errors = errors;
     }

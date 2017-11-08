@@ -9,10 +9,10 @@ import java.util.Map;
 
 /**
  *
- * @author diego.matsuki
+ * @author Diego
  */
-public class VendaException extends BaseException {
-    public VendaException(String message, Map errors) {
+public class CargoException extends BaseException {
+    public CargoException(String message, Map errors) {
         super(message, errors);
     }
 }

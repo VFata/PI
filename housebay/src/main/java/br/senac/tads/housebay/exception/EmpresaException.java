@@ -11,7 +11,7 @@ import java.util.Map;
  *
  * @author Tron
  */
-public class EmpresaException extends MultiException {
+public class EmpresaException extends BaseException {
     public EmpresaException(String message, Map errors) {
         super(message, errors);
     }

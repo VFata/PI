@@ -11,17 +11,8 @@ import java.util.Map;
  *
  * @author diego.matsuki
  */
-public class VendavelException extends Exception {
-
-    private final Map errors;
-    
+public class VendavelException extends BaseException {
     public VendavelException(String message, Map errors) {
-        super(message);
-        this.errors = errors;
+        super(message, errors);
     }
-
-    public Map getErrors() {
-        return errors;
-    }
-    
 }
