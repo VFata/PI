@@ -88,11 +88,11 @@ public class ValidateCliente {
             //erro += "\nDescrição vazia.";
             errors.put(Cliente.CPF + "_empty", "Campo cpf vazio.");
         }
-        if (cliente.getDataNascimento()== null || cliente.getDataNascimento().equals("")) {
+        if (cliente.getDataNascimento()== null) {
             //erro += "\nDescrição vazia.";
             errors.put(Cliente.DATA_NASCIMENTO + "_empty", "Campo data de nascimento vazio.");
         }
-        if (cliente.getPets()== null || cliente.getPets().equals("")) {
+        if (cliente.getPets()== null) {
             //erro += "\nDescrição vazia.";
             errors.put(Cliente.PETS + "_empty", "Campo data de nascimento vazio.");
         }

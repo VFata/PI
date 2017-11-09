@@ -9,6 +9,6 @@ CREATE TABLE empresas (
     ativo BOOLEAN,
     criado TIMESTAMP,
     modificado TIMESTAMP,
-    CONSTRAINT unique_nome UNIQUE (nome),
-    CONSTRAINT unique_cnpj UNIQUE (cnpj)
+    CONSTRAINT unique_empresas_nome UNIQUE (nome),
+    CONSTRAINT unique_empresas_cnpj UNIQUE (cnpj)
 );

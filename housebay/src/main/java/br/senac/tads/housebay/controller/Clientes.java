@@ -56,11 +56,13 @@ public class Clientes extends HttpServlet{
      */
     @Override protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        
         String url = request.getServletPath();
         String id = request.getParameter("id");
         HttpSession sessao = request.getSession();
 
-        response.setContentType("text/html;charset=UTF-8");
+        //response.setContentType("text/html;charset=UTF-8");
         
         String responseURL;
         
@@ -121,6 +123,8 @@ public class Clientes extends HttpServlet{
      */
     @Override protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        
         String url = request.getServletPath();
         String id = request.getParameter("id");
         HttpSession sessao = request.getSession();
@@ -128,7 +132,7 @@ public class Clientes extends HttpServlet{
         HashMap erros = (HashMap) sessao.getAttribute("erro");
         //System.out.println("DEBUG: post method");
 
-        response.setContentType("text/html;charset=UTF-8");
+        //response.setContentType("text/html;charset=UTF-8");
         
         if (url.equals("/clientes/destroy") && id != null) {
             //Deleta o cliente id=xx

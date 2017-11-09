@@ -1,7 +1,5 @@
 package br.senac.tads.housebay.db;
 
-import br.senac.tads.housebay.db.SQLUtils;
-import br.senac.tads.housebay.db.SQLUtils;
 import br.senac.tads.housebay.model.Empresa;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +19,7 @@ public class DAOEmpresa {
      */
     
     public static Long create(Empresa empresa) {
-        String sql = "INSERT INTO empresa (nome, cnpj, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO empresas (nome, cnpj, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?)";
         Long id = null;
         try (Connection connection = SQLUtils.getConnection()) {
             connection.setAutoCommit(false);
@@ -54,7 +52,7 @@ public class DAOEmpresa {
     }
 
     public static Empresa read(Long id) {
-        String sql = "SELECT id, nome, cnpj, ativo, criado, modificado FROM empresa WHERE (id=? AND ativo=?)";
+        String sql = "SELECT id, nome, cnpj, ativo, criado, modificado FROM empresas WHERE (id=? AND ativo=?)";
         Empresa empresa = null;
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -79,9 +77,9 @@ public class DAOEmpresa {
     public static List<Empresa> search(String query) {
         String sql;
         if (query != null) {
-            sql = "SELECT id, nome, cnpj, ativo, criado, modificado FROM empresa WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
+            sql = "SELECT id, nome, cnpj, ativo, criado, modificado FROM empresas WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
         } else {
-            sql = "SELECT id, nome, cnpj, ativo, criado, modificado FROM empresa WHERE ativo=?";
+            sql = "SELECT id, nome, cnpj, ativo, criado, modificado FROM empresas WHERE ativo=?";
         }
         List<Empresa> list = null;
         try (Connection connection = SQLUtils.getConnection();
@@ -112,7 +110,7 @@ public class DAOEmpresa {
 
     public static boolean update(Empresa empresa) {
         if (empresa != null && empresa.getId() != null && empresa.getId() > 0) {
-            String sql = "UPDATE empresa SET nome=?, cnpj=?, ativo=?, modificado=? WHERE id=?";
+            String sql = "UPDATE empresas SET nome=?, cnpj=?, ativo=?, modificado=? WHERE id=?";
             try (Connection connection = SQLUtils.getConnection()) {
                 connection.setAutoCommit(false);
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -142,7 +140,7 @@ public class DAOEmpresa {
 
     public static boolean delete(Empresa empresa) {
         if (empresa != null && empresa.getId() != null && empresa.getId() > 0) {
-            String sql = "UPDATE empresa SET ativo=?, modificado=? WHERE id=?";
+            String sql = "UPDATE empresas SET ativo=?, modificado=? WHERE id=?";
             try (Connection connection = SQLUtils.getConnection()) {
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
                     statement.setBoolean(1, !empresa.isAtivo());

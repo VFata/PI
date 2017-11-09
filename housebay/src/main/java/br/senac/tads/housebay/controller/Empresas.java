@@ -22,16 +22,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "Empresas", urlPatterns = {"/empresas", "/empresas/new", "/empresas/edit"})
+@WebServlet(name = "Empresas", urlPatterns = {"/empresas", "/empresas/new", "/empresas/create", "/empresas/edit", "/empresas/update", "/empresas/destroy"})
 public class Empresas extends HttpServlet {
     
     
     /*  ROTAS:
      *  GET:  /empresas             => Lista de empresas
-     *  GET:  /empresas?id=xxx      => Detalhes do empresa
+     *  GET:  /empresas?id=xx       => Detalhes do empresa
      *  GET:  /empresas/new         => Formulário para criar
      *  POST: /empresas/create      => Cria empresa
-     *  GET:  /empresas/edit?id=xxx => Formulário para alterar
+     *  GET:  /empresas/edit?id=xx  => Formulário para alterar
      *  POST: /empresas/update      => Altera empresa
      *  POST: /empresas/destroy     => Apaga empresa
      *
@@ -51,6 +51,8 @@ public class Empresas extends HttpServlet {
      */
     @Override protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        
         String url = request.getServletPath();
         String id = request.getParameter("id");
         HttpSession sessao = request.getSession();
@@ -101,9 +103,9 @@ public class Empresas extends HttpServlet {
      * Handles the HTTP <code>POST</code> method.
      * 
      * Responde:
-     * /empresas?id=xxx         #deleta o empresa id=xxx
+     * /empresas?id=xx          #deleta o empresa id=xx
      * /empresas/new            #cria um novo empresa
-     * /empresas/edit           #alterar o empresa id=xxx
+     * /empresas/edit           #alterar o empresa id=xx
      * 
      * @param request servlet request
      * @param response servlet response
@@ -112,6 +114,8 @@ public class Empresas extends HttpServlet {
      */
     @Override protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        
         String url = request.getServletPath();
         String id = request.getParameter("id");
         HttpSession sessao = request.getSession();
@@ -122,7 +126,7 @@ public class Empresas extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         if (url.equals("/empresas/destroy") && id != null) {
-            //Deleta o empresa id=xxx
+            //Deleta o empresa id=xx
             Empresa empresa = new Empresa();
             empresa.setId(Long.parseLong(id));
             if(DAOEmpresa.delete(empresa)) {
@@ -139,11 +143,12 @@ public class Empresas extends HttpServlet {
             empresa.setNome(request.getParameter("nome"));
             empresa.setCnpj(request.getParameter("cnpj"));
 
+            /*
             Calendar agora = Calendar.getInstance();
             empresa.setCriado((GregorianCalendar) agora);
             empresa.setModificado((GregorianCalendar) agora);
             empresa.setAtivo(true);          
-            
+            */
             try {
                 ValidateEmpresa.create(empresa);
             } catch (EmpresaException ex) {
@@ -157,7 +162,6 @@ public class Empresas extends HttpServlet {
                 newForm(request, response, sessao);
                 return;
             }
-            
             Long newId = DAOEmpresa.create(empresa);
             if (newId > 0) {
                 if (mensagens == null) {
@@ -168,17 +172,17 @@ public class Empresas extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/empresas?id=" + newId);
             }
         } else if (url.equals("/empresas/update") && id != null) {
-            //Altera o empresa id=xxx            
+            //Altera o empresa id=xx            
             Empresa empresa = new Empresa();
             empresa.setId(Long.parseLong(id));
             empresa.setNome(request.getParameter("nome"));
             empresa.setCnpj(request.getParameter("cnpj"));
-            
+            /*
             Calendar agora = Calendar.getInstance();
             empresa.setCriado((GregorianCalendar) agora);
             empresa.setModificado((GregorianCalendar) agora);
             empresa.setAtivo(true);
-            
+            */
             try {
                 ValidateEmpresa.update(empresa);
             } catch (EmpresaException ex) {
@@ -192,7 +196,6 @@ public class Empresas extends HttpServlet {
                 editForm(request, response, sessao, Long.parseLong(id));
                 return;
             }
-            
             if (DAOEmpresa.update(empresa)) {
                 if (mensagens == null) {
                     mensagens = new ArrayList();

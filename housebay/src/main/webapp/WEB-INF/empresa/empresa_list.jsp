@@ -1,7 +1,7 @@
-﻿<%-- 
-    Document   : cliente_list
-    Created on : 26/10/2017, 19:42:35
-    Author     : diego.matsuki
+<%-- 
+    Document   : empresa_list
+    Created on : Oct 5, 2017, 2:24:49 AM
+    Author     : Diego
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -9,14 +9,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
-        <title>Lista de Clientes</title>
+        <meta charset="UTF-8">        
+        <title>Lista de Empresas</title>
         <c:url var="index_url" value="/" />
         <c:url var="resources_url" value="/resources" />
-        <c:url var="main_url" value="/clientes" />
-        <c:url var="new_url" value="/clientes/new" />
-        <c:url var="edit_url" value="/clientes/edit" />
-        <c:url var="destroy_url" value="/clientes/destroy" />
+        <c:url var="main_url" value="/empresas" />
+        <c:url var="new_url" value="/empresas/new" />
+        <c:url var="edit_url" value="/empresas/edit" />
+        <c:url var="destroy_url" value="/empresas/destroy" />
         
         <link rel="stylesheet" href="${resources_url}/css/bulma.css" />
         <link rel="stylesheet" href="${resources_url}/css/font-awesome.css" />
@@ -25,17 +25,19 @@
     </head>
     <body>
         <div class="columns is-mobile">
-            <c:import page="/WEB-INF/vertical_menu.jsp" />
+            <!-- Inclui menu vertical -->
+            <c:import url="/WEB-INF/vertical_menu.jsp" />
             
             <div class="column is-11-touch is-9-desktop is-9-widescreen is-10-fullhd ">
                 <main class="hero">
                     <div class="hero-head">
                         <div class="container is-fluid">
-                            <h1 class="title is-4">Lista de Clientes</h1>
+                            <h1 class="title is-4">Lista de Empresas</h1>
                             <nav class="subtitle is-6 breadcrumb" aria-label="breadcrumbs">
                                 <ul>
                                     <li><a href="${index_url}">Home</a></li>
-                                    <li class="is-active"><a href="#" aria-current="page">Clientes</a></li>
+                                    <li class="is-active"><a href="#" aria-current="page">Empresas</a></li>
+                                    <!-- Incluir novos itens na breadcrumbs, caso necessário -->
                                 </ul>
                             </nav>
                         </div>
@@ -57,17 +59,23 @@
                         </c:forEach>
                                                 
                         <form action="" method="get" class="field is-grouped">
-                            <p class="control is-expanded">
-                                <input name="q" class="input" type="text" placeholder="Pesquisar Cliente">
+                            
+                            <p class="control is-expanded has-icons-left">
+                                <input name="q" class="input" type="text" placeholder="Pesquisar Empresa">
+                                <span class="icon is-small is-left">
+                                    <i class="fa fa-search"></i>
+                                </span>
                             </p>
+
                             <p class="control">
-                                <button class="button is-light">
+                                <button class="button is-info">
                                     Pesquisar
                                 </button>
                             </p>
                             
+                            
                             <p class="control">
-                                <a class="button is-success" href="${new_url}">Novo Cliente</a>
+                                <a class="button is-success" href="${new_url}">Novo Empresa</a>
                             </p>
                         </form>
 
@@ -75,33 +83,31 @@
                             <thead>
                                 <tr>
                                     <th>Nome</th>
-                                    <th>Telefone</th>
-                                    <th>Email</th>
-                                     <th>Ações</th>
-                                    
+                                    <th>CNPJ</th>
+                                    <th>Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach items="${clientes}" var="cliente">
+                                <c:forEach items="${empresas}" var="empresa">
                                     <tr>
-                                        <td><c:out value="${cliente.nome}" /></td>
-                                        <td><c:out value="${cliente.telefone}" /></td>
-                                        <td><c:out value="${cliente.email}" /></td>
+                                        <td><c:out value="${empresa.nome}" /></td>
+                                        <td><c:out value="${empresa.cnpj}" /></td>
                                         <td>
-                                            <a class="button is-info is-outlined" href='${main_url}?id=${cliente.id}'>
+                                            <a class="button is-info is-outlined" href='${main_url}?id=${empresa.id}'>
                                                 <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;
                                                 Detalhes
                                             </a>
 
-                                            <a class="button is-warning is-outlined" href='${edit_url}?id=${cliente.id}'>
+                                            <a class="button is-warning is-outlined" href='${edit_url}?id=${empresa.id}'>
                                                 <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;
                                                 Alterar
                                             </a>
 
-                                            <form class="delete-action" action="${destroy_url}?id=${cliente.id}" method="post" confirm="Tem certeza?">
+                                            <form class="delete-action" action="${destroy_url}" method="post" confirm="Tem certeza?">
+                                                <input type="hidden" name="id" value="${empresa.id}" />
                                                 <button class="button is-danger is-outlined send">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;
-                                                    Apagar    
+                                                    Apagar
                                                 </button>
                                             </form>
                                         </td>
@@ -117,4 +123,3 @@
 
     </body>
 </html>
-

@@ -1,21 +1,22 @@
-<%-- 
+﻿<%-- 
     Document   : cliente_form
     Created on : 26/10/2017, 19:42:03
     Author     : diego.matsuki
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
+        <meta charset="UTF-8" />
         <!-- Título da página -->
-    <c:choose><c:when test="${type=='edit' && cliente != null}">
-        <title>Alterar Cliente</title>
-    </c:when><c:otherwise>
-        <title>Novo Cliente</title>
-    </c:otherwise></c:choose>
+        <c:choose><c:when test="${type=='edit' && cliente != null}">
+          <title>Alterar Cliente</title>
+        </c:when><c:otherwise>
+          <title>Novo Cliente</title>
+        </c:otherwise></c:choose>
         
         <c:url var="index_url" value="/" />
         <c:url var="resources_url" value="/resources" />
@@ -31,7 +32,6 @@
     </head>
     <body>
         <div class="columns is-mobile">
-            <!-- Inclui menu vertical -->
             <c:import url="/WEB-INF/vertical_menu.jsp" />
         
             <div class="column is-11-touch is-9-desktop is-9-widescreen is-10-fullhd ">
@@ -146,10 +146,7 @@
                                     </div>
                                 </div>
                             </div>
-                                        
-                            <%-- <h3 class="title is-5">Pets</h3> --%>
-                            
-                            
+
                             <fieldset class="fieldset">
                                 
                                 <div class="field is-horizontal">

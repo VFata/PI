@@ -44,6 +44,9 @@ public class ValidatePet {
             if (pet.getId() == null || pet.getId() <= 0 ) {
                 errors.put(Pet.ID + "_empty", "ID vazio.");
             }
+            if (pet.getClienteId()== null || pet.getClienteId().equals("")) {
+                errors.put(Pet.CLIENTE_ID + "_empty", "Campo cliente vazia.");
+            }
             errors.putAll(geraMensagem(pet));
         }
         
@@ -62,9 +65,6 @@ public class ValidatePet {
         }
         if (pet.getDescricao() == null || pet.getDescricao().equals("")) {
             errors.put(Pet.DESCRICAO + "_empty", "Campo descrição vazia.");
-        }
-        if (pet.getClienteId()== null || pet.getClienteId().equals("")) {
-            errors.put(Pet.CLIENTE_ID + "_empty", "Campo cliente vazia.");
         }
         
         return errors;
