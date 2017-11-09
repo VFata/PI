@@ -10,8 +10,6 @@ import br.senac.tads.housebay.exception.ServicoException;
 import br.senac.tads.housebay.model.Servico;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -24,6 +22,8 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "Servicos", urlPatterns = {"/servicos", "/servicos/new", "/servicos/create", "/servicos/edit", "/servicos/update", "/servicos/destroy"})
 public class Servicos extends HttpServlet {
+    //TODO: copiar e adaptar de Produtos
+    
     /*  ROTAS:
      *  GET:  /servicos             => Lista de servicos
      *  GET:  /servicos?id=xxx      => Detalhes do servico

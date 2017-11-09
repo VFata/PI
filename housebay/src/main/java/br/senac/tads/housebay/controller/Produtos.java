@@ -10,8 +10,6 @@ import br.senac.tads.housebay.exception.ProdutoException;
 import br.senac.tads.housebay.model.Produto;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -60,12 +58,12 @@ public class Produtos extends HttpServlet {
         if (url.equals("/produtos") && id == null) {
             //Lista produtos
             String query = request.getParameter("q");
-            List produtos = DAOVendavel.search(query);
+            List produtos = DAOVendavel.searchProduto(query);
             request.setAttribute("produtos", produtos);
             responseURL = "/WEB-INF/produto/produto_list.jsp";
         } else if (url.equals("/produtos") && id != null) {
             //Detalhes do produto id
-            Produto produto = (Produto) DAOVendavel.read(Long.parseLong(id));
+            Produto produto = DAOVendavel.readProduto(Long.parseLong(id));
             request.setAttribute("produto", produto);
             responseURL = "/WEB-INF/produto/produto_show.jsp";
         } else if (url.equals("/produtos/new") && id == null) {
@@ -164,7 +162,7 @@ public class Produtos extends HttpServlet {
         } else if (url.equals("/produtos/update") && id != null) {
             //Altera o produto id=xxx            
             Produto produto = new Produto();
-            produto.getId();
+            produto.setId(Long.parseLong(id));
             produto.setNome(request.getParameter("nome"));
             produto.setDescricao(request.getParameter("descricao"));
             produto.setValor(Double.parseDouble(request.getParameter("valor")));
@@ -225,7 +223,7 @@ public class Produtos extends HttpServlet {
         throws ServletException, IOException {
         Produto produto = (Produto) sessao.getAttribute("produto");
         if (produto == null) {
-            produto = (Produto) DAOVendavel.read(id);
+            produto = DAOVendavel.readProduto(id);
         } else {
             sessao.removeAttribute("produto");
         }

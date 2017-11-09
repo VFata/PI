@@ -31,7 +31,7 @@
                 <main class="hero">
                     <div class="hero-head">
                         <div class="container is-fluid">
-                            <h1 class="title is-4">Detales Pet</h1>
+                            <h1 class="title is-4">Detalhes Pet</h1>
                             <nav class="subtitle is-6 breadcrumb" aria-label="breadcrumbs">
                                 <ul>
                                     <li><a href="${index_url}">Home</a></li>
@@ -57,8 +57,7 @@
                                 <p><c:out value="${note.value}" /></p>
                             </div>
                         </c:forEach>
-
-                        <!-- DEBUG-id: <c:out value="${pet.id}" /> -->
+                        
                         <p>
                             <strong>Nome:</strong> <c:out value="${pet.nome}" />
                         </p>

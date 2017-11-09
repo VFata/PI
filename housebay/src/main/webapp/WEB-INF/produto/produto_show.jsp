@@ -14,9 +14,9 @@
         <title>Detalhes Produto</title>
         <c:url var="index_url" value="/" />
         <c:url var="resources_url" value="/resources" />
-        <c:url var="main_url" value="/produto" />
-        <c:url var="new_url" value="/produto/new" />
-        <c:url var="edit_url" value="/produto/edit" />
+        <c:url var="main_url" value="/produtos" />
+        <c:url var="new_url" value="/produtos/new" />
+        <c:url var="edit_url" value="/produtos/edit" />
         
         <link rel="stylesheet" href="${resources_url}/css/bulma.css" />
         <link rel="stylesheet" href="${resources_url}/css/font-awesome.css" />
@@ -36,7 +36,7 @@
                             <nav class="subtitle is-6 breadcrumb" aria-label="breadcrumbs">
                                 <ul>
                                     <li><a href="${index_url}">Home</a></li>
-                                    <li><a href="${main_url}">Produto</a></li>
+                                    <li><a href="${main_url}">Produtos</a></li>
                                     <li class="is-active"><a href="#" aria-current="page">Detalhes</a></li>
                                     <!-- Incluir novos itens na breadcrumbs, caso necessário -->
                                 </ul>
@@ -58,15 +58,22 @@
                                 <p><c:out value="${note.value}" /></p>
                             </div>
                         </c:forEach>
-
-                        <!-- DEBUG-id: <c:out value="${produto.id}" /> -->
+                        
                         <p>
                             <strong>Nome:</strong> <c:out value="${produto.nome}" />
                         </p>
                         <p>
-                            <strong>Tipo:</strong> <c:out value="${produto.tipo}" />
+                            <strong>Descrição:</strong> <c:out value="${produto.descricao}" />
                         </p>
-                        
+                        <p>
+                            <strong>Código de Barras:</strong> <c:out value="${produto.codigoDeBarras}" />
+                        </p>
+                        <p>
+                            <strong>Valor:</strong> <c:out value="${produto.formatValor}" />
+                        </p>
+                        <p>
+                            <strong>Estoque:</strong> <c:out value="${produto.estoque}" />
+                        </p>
                     </div>
                 </main>
             </div>

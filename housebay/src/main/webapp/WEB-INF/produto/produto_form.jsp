@@ -4,7 +4,6 @@
     Author     : Vinicius
 --%>
 
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -47,7 +46,7 @@
                             <nav class="subtitle is-6 breadcrumb" aria-label="breadcrumbs">
                                 <ul>
                                     <li><a href="${index_url}">Home</a></li>
-                                    <li><a href="${main_url}">Produto</a></li>
+                                    <li><a href="${main_url}">Produtos</a></li>
                                     <li class="is-active"><a href="#" aria-current="page">Alterar</a></li>
                                     <!-- Incluir novos itens na breadcrumbs, caso necessário -->
                                 </ul>
@@ -76,10 +75,10 @@
                         </c:forEach>
                         
                         <c:choose><c:when test="${type=='edit' && produto != null}">
-                            <form action="${edit_url}" method="post">
+                            <form action="${update_url}" method="post">
                                 <input type="hidden" name="id" value="${produto.id}" />
                         </c:when><c:otherwise>
-                            <form action="${new_url}" method="post">
+                            <form action="${create_url}" method="post">
                         </c:otherwise></c:choose>
 
                             <div class="field is-horizontal">
@@ -89,7 +88,7 @@
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control">
-                                            <input class="input" type="text" name="nome" placeholder="Produto" value="${produto.produto}">
+                                            <input class="input" type="text" name="nome" placeholder="Nome" value="${produto.nome}">
                                         </div>
                                     </div>
                                 </div>
@@ -102,7 +101,7 @@
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control">
-                                            <textarea class="textarea" name="descricao" placeholder="Descrição">${pet.descricao}</textarea>
+                                            <textarea class="textarea" name="descricao" placeholder="Descrição">${produto.descricao}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -136,12 +135,12 @@
 
                             <div class="field is-horizontal">
                                 <div class="field-label is-normal">
-                                    <label class="label">Codigo de Barras</label>
+                                    <label class="label">Código de Barras</label>
                                 </div>
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control">
-                                            <input class="input" type="text" name="barras" placeholder="Estoque" value="${produto.estoque}">
+                                            <input class="input" type="text" name="barras" placeholder="Código de Barras" value="${produto.codigoDeBarras}">
                                         </div>
                                     </div>
                                 </div>

@@ -78,10 +78,9 @@
                             <thead>
                                 <tr>
                                     <th>Nome</th>
-                                    <th>Tipo</th>
-                                    <th> Valor</th>
-                                    <th> Estoque</th>
-                                     <th>Ações</th>
+                                    <th>Valor</th>
+                                    <th>Estoque</th>
+                                    <th colspan="3">Ações</th>
                                     
                                 </tr>
                             </thead>
@@ -89,8 +88,7 @@
                                 <c:forEach items="${produtos}" var="produto">
                                     <tr>
                                         <td><c:out value="${produto.nome}" /></td>
-                                        <td><c:out value="${produto.tipo}" /></td>
-                                        <td><c:out value="${produto.valor}" /></td>
+                                        <td><c:out value="${produto.formatValor}" /></td>
                                         <td><c:out value="${produto.estoque}" /></td>
                                         <td>
                                             <a class="button is-info is-outlined" href='${main_url}?id=${produto.id}'>
