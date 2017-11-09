@@ -8,11 +8,11 @@
  * Created: 25/10/2017
  */
 
-CREATE TABLE vendas(
+CREATE TABLE vendas (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     cliente_id INTEGER,
     empresa_id INTEGER,
-    ativo BOOLEAN,
+    ativo SMALLINT, /*BOOLEAN,*/
     criado TIMESTAMP,
     modificado TIMESTAMP,
     CONSTRAINT references_cliente FOREIGN KEY (cliente_id) REFERENCES clientes (id),

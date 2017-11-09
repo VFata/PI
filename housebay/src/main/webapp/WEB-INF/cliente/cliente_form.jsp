@@ -156,7 +156,7 @@
                                     <div class="field-body">
                                         <div class="field">
                                             <div class="control">
-                                                <a class="button is-info" id="add-form-pets">Adicionar Pet</a>
+                                                <button type="button" class="button is-info" id="add-form-pets">Adicionar Pet</button>
                                             </div>
                                         </div>
                                     </div>
@@ -197,10 +197,7 @@
                                     </c:forEach>             
                                 </div>
                             </fieldset>
-                                                
-                                                
-                                                
-                                                
+
                             <div class="field is-horizontal">
                                 <div class="field-label">
                                     <!-- Left empty for spacing -->

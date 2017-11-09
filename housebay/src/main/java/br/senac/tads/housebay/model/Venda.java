@@ -1,6 +1,7 @@
 package br.senac.tads.housebay.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -8,86 +9,84 @@ import java.util.ArrayList;
  */
 public class Venda extends TabelaDB {
 
-    public static final String CLIENTE_ID = "cliente id";
-    public static final String PRODUTO_ID = "produto id";
-    public static final String EMPRESA_ID = "empresa id";
-    public static final String LIST = "list";
+    public static final String CLIENTE = "cliente";
+    public static final String EMPRESA = "empresa";
+    public static final String CARRINHO = "carrinho";
     
-    private long clienteId;
-    private long produtoId;
-    private long empresaId;
-    private ArrayList<relacao> list = new ArrayList();
+    private Cliente cliente;
+    private Empresa empresa;
+    private List<Relacao> carrinho;
 
     public Venda() {
         super();
+        this.carrinho = new ArrayList();
     }
 
-    public Venda(long cliente_id, long produto_id, long empresa_id) {
-        super();
-        this.clienteId = cliente_id;
-        this.produtoId = produto_id;
-        this.empresaId = empresa_id;
+    public Venda(Cliente cliente, Empresa empresa) {
+        this.cliente = cliente;
+        this.empresa = empresa;
+        this.carrinho = new ArrayList();
     }
 
-    public long getClienteId() {
-        return clienteId;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setClienteId(long clienteId) {
-        this.clienteId = clienteId;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
-    public long getProdutoId() {
-        return produtoId;
+    public Empresa getEmpresa() {
+        return empresa;
     }
 
-    public void setProdutoId(long produtoId) {
-        this.produtoId = produtoId;
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
-
-    public long getEmpresaId() {
-        return empresaId;
-    }
-
-    public void setEmpresaId(long empresId) {
-        this.empresaId = empresId;
-    }
-
     
+    public List<Relacao> getCarrinho() {
+        return carrinho;
+    }
+    public void setCarrinho(List<Relacao> carrinho) {
+        this.carrinho = carrinho;
+    }
+    public void addCarrinho(Relacao relacao) {
+        carrinho.add(relacao);
+    }
     
-    public ArrayList<relacao> getList() {
-        return list;
-    }
-
-    public void setList(ArrayList<relacao> list) {
-        this.list = list;
-    }
-
-    private class relacao {
-
-        private long vendavelId;
+    public static class Relacao {
+        private Vendavel vendavel;
         private int quantidade;
+        private double valorTotal;
 
-        public relacao(long vendavelId, int quantidade) {
-            this.vendavelId = vendavelId;
+        public Relacao() {
+        }
+        
+        public Relacao(Vendavel vendavel, int quantidade, double valorTotal) {
+            this.vendavel = vendavel;
             this.quantidade = quantidade;
+            this.valorTotal = valorTotal;
         }
 
-        public long getVendavelId() {
-            return vendavelId;
+        public Vendavel getVendavel() {
+            return vendavel;
         }
-
-        public void setVendavelId(long vendavelId) {
-            this.vendavelId = vendavelId;
+        public void setVendavel(Vendavel vendavel) {
+            this.vendavel = vendavel;
         }
-
+        
         public int getQuantidade() {
             return quantidade;
         }
-
         public void setQuantidade(int quantidade) {
             this.quantidade = quantidade;
         }
-    }
 
+        public double getValorTotal() {
+            return valorTotal;
+        }
+        public void setValorTotal(double valorTotal) {
+            this.valorTotal = valorTotal;
+        }
+    }
 }

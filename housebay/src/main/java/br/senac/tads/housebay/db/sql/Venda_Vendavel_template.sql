@@ -10,6 +10,7 @@
 CREATE TABLE venda_vendaveis(
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     quantidade INTEGER NOT NULL,
+    valor_total NUMERIC(16,2) NOT NULL, 
     venda_id INTEGER NOT NULL,
     vendavel_id INTEGER NOT NULL,
     ativo BOOLEAN,
