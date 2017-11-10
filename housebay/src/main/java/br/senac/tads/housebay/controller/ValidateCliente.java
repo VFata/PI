@@ -88,7 +88,7 @@ public class ValidateCliente {
             errors.put(Cliente.TELEFONE + "_empty", "Erro campo telefone");
         }
         
-        if (cliente.getCpf()== null || cliente.getCpf().equals("") || cliente.getCpf().length() == 14) {
+        if (cliente.getCpf()== null || cliente.getCpf().equals("") || cliente.getCpf().length() >= 14) {
             //erro += "\nDescrição vazia.";
             errors.put(Cliente.CPF + "_empty", "Erro campo CPF");
         }
