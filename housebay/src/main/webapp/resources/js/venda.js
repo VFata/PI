@@ -38,8 +38,33 @@ window.addEventListener("DOMContentLoaded", function () {
 function adicionaVendavel (el) {
     el.addEventListener('click', (evt) => {
         evt.preventDefault();
-
         
+        let carrinho = document.querySelector("#carrinho");
+        
+        let id = el.getAttribute("produto-id");
+        let nome = el.getAttribute("produto-nome");
+        let valor = el.getAttribute("produto-valor");
+        let fvalor = el.getAttribute("produto-fvalor");
+        
+
+
+        `<tr id="relacao_linha_${id}">
+            <td>Osso</td>
+            <td>${fvalor}</td>
+            <td>
+                <div class="field">
+                    <div class="control">
+                        <input class="input" type="number" name="relacao_qtd_${id}" placeholder="Quantidade">
+                        <input class="input" type="hidden" value="${valor}">
+                    </div>
+                </div>
+            </td>
+            <td id="relacao_total_${id}">0</td>
+            <td>
+                <input type="hidden" name="relacao_id_${id}" value="${id}">
+                <a class="delete"></a>
+            </td>
+        </tr>`
     });
 }
 
@@ -139,6 +164,7 @@ function getProdutos(query) {
                 a.setAttribute("produto-id", prod.id);
                 a.setAttribute("produto-nome", prod.nome);
                 a.setAttribute("produto-valor", prod.valor);
+                a.setAttribute("produto-fvalor", prod.formatValor);
                 //selecionaCliente(a);
                 //a.appendChild(i);
                 a.textContent = "Selecionar";
