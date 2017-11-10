@@ -27,10 +27,21 @@ window.addEventListener("DOMContentLoaded", function () {
         getClientes(document.querySelector("input[name=cliente-q]").value);
     });
     
+    document.querySelector("#search-produto").addEventListener('click', (evt) => {
+        evt.preventDefault();
+                
+        getProdutos(document.querySelector("input[name=produto-q]").value);
+    });
     
 });
 
+function adicionaVendavel (el) {
+    el.addEventListener('click', (evt) => {
+        evt.preventDefault();
 
+        
+    });
+}
 
 function selecionaCliente(el) {
     el.addEventListener('click', (evt) => {
@@ -42,19 +53,19 @@ function selecionaCliente(el) {
 }
 
 function getClientes(query) {
-    let http = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     let url = "/housebay/vendasJson/cliente";
     let params = `q=${query}`;
-    http.open("POST", url, true);
+    xhr.open("POST", url, true);
 
     //Send the proper header information along with the request
-    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-    http.onreadystatechange = function() {//Call a function when the state changes.
-        if(http.readyState === 4 && http.status === 200) {
+    xhr.onreadystatechange = function() {//Call a function when the state changes.
+        if(xhr.readyState === 4 && xhr.status === 200) {
             let tbody = document.querySelector('#cliente-table tbody');
             tbody.innerHTML = '';
-            let clientes = JSON.parse(http.responseText);
+            let clientes = JSON.parse(xhr.responseText);
 
             clientes.forEach( cli => {
                 let td1 = document.createElement('td');
@@ -66,16 +77,17 @@ function getClientes(query) {
                 let td3 = document.createElement('td');
                 td3.textContent = cli.email;
 
-                let i = document.createElement('i');
-                i.classList.add("fa", "fa-check");
+                //let i = document.createElement('i');
+                //i.classList.add("fa", "fa-check");
 
                 let a = document.createElement('a');
                 a.classList.add("button", "is-success", "is-outlined", "get-cliente");
                 a.setAttribute("cliente-id", cli.id);
                 a.setAttribute("cliente-nome", cli.nome);
                 selecionaCliente(a);
-                a.appendChild(i);
+                //a.appendChild(i);
                 a.textContent = "Selecionar";
+                a.insertAdjacentHTML('afterbegin', '<i class="fa fa-check" aria-hidden="true"></i>&nbsp;');
 
                 let td4 = document.createElement('td');
                 td4.appendChild(a);
@@ -91,5 +103,60 @@ function getClientes(query) {
 
         }
     };    
-    http.send(params);
+    xhr.send(params);
+}
+
+function getProdutos(query) {
+    let xhr = new XMLHttpRequest();
+    let url = "/housebay/vendasJson/produto";
+    let params = `q=${query}`;
+    xhr.open("POST", url, true);
+
+    //Send the proper header information along with the request
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhr.onreadystatechange = function() {//Call a function when the state changes.
+        if(xhr.readyState === 4 && xhr.status === 200) {
+            let tbody = document.querySelector('#produto-table tbody');
+            tbody.innerHTML = '';
+            let produtos = JSON.parse(xhr.responseText);
+
+            produtos.forEach( prod => {
+                let td1 = document.createElement('td');
+                td1.textContent = prod.nome;
+
+                let td2 = document.createElement('td');
+                td2.textContent = prod.formatValor;
+
+                let td3 = document.createElement('td');
+                td3.textContent = prod.estoque;
+
+                //let i = document.createElement('i');
+                //i.classList.add("fa", "fa-check");
+
+                let a = document.createElement('a');
+                a.classList.add("button", "is-success", "is-outlined", "get-cliente");
+                a.setAttribute("produto-id", prod.id);
+                a.setAttribute("produto-nome", prod.nome);
+                a.setAttribute("produto-valor", prod.valor);
+                //selecionaCliente(a);
+                //a.appendChild(i);
+                a.textContent = "Selecionar";
+                a.insertAdjacentHTML('afterbegin', '<i class="fa fa-check" aria-hidden="true"></i>&nbsp;');
+
+                let td4 = document.createElement('td');
+                td4.appendChild(a);
+
+                let tr = document.createElement('tr');
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                tr.appendChild(td3);
+                tr.appendChild(td4);
+
+                tbody.appendChild(tr);
+            });
+
+        }
+    };    
+    xhr.send(params);
 }

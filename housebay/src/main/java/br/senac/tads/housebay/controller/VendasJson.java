@@ -68,7 +68,7 @@ public class VendasJson extends HttpServlet {
                     builder.append("{\"id\": \"").append(produtos.get(i).getId())
                             .append("\",\"nome\": \"").append(produtos.get(i).getNome())
                             .append("\",\"valor\": \"").append(produtos.get(i).getValor())
-                            .append("\",\"format-valor\": \"").append(produtos.get(i).getFormatValor())
+                            .append("\",\"formatValor\": \"").append(produtos.get(i).getFormatValor())
                             .append("\",\"estoque\": \"").append(produtos.get(i).getEstoque())
                             .append("\"}");
                     if (i != produtos.size()-1) {

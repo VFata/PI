@@ -3,8 +3,6 @@
     Created on : 27/10/2017, 21:41:09
     Author     : vinicius.fsilv11
 --%>
-
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -98,22 +96,7 @@
                                                 <th>Ações</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <c:forEach items="${clientes}" var="cliente">
-                                                <tr>
-                                                    <td><c:out value="${cliente.nome}" /></td>
-                                                    <td><c:out value="${cliente.telefone}" /></td>
-                                                    <td><c:out value="${cliente.email}" /></td>
-                                                    <td>
-                                                        <a class="button is-success is-outlined get-cliente" 
-                                                           cliente-id="${cliente.id}" cliente-nome="${cliente.nome}" >
-                                                            <i class="fa fa-check" aria-hidden="true"></i>&nbsp;
-                                                            Selecionar
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
-                                        </tbody>
+                                        <tbody></tbody>
                                     </table>                  
                                     
                                 </div>
@@ -134,18 +117,20 @@
                                     </a>
                                 </div>
                                 <div class="droppanel-content">
-                                    <form action="" method="get" class="field is-grouped">
+                                    <!--<form action="" method="get" class="field is-grouped">-->
+                                    <div class="field is-grouped">
                                         <span class="control is-expanded">
                                             <input name="produto-q" class="input" type="text" placeholder="Pesquisar Produto">
                                         </span>
                                         <span class="control">
-                                            <button class="button is-light">
+                                            <button id="search-produto" class="button is-light">
                                                 Pesquisar
                                             </button>
                                         </span>
-                                    </form>
+                                    </div>
+                                    <!--</form>-->
 
-                                    <table class="table is-hoverable is-fullwidth">
+                                    <table class="table is-hoverable is-fullwidth" id="produto-table">
                                         <thead>
                                             <tr>
                                                 <th>Nome</th>
@@ -154,21 +139,7 @@
                                                 <th>Ações</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <c:forEach items="${produtos}" var="produto">
-                                                <tr>
-                                                    <td><c:out value="${produto.nome}" /></td>
-                                                    <td><c:out value="${produto.formatValor}" /></td>
-                                                    <td><c:out value="${produto.estoque}" /></td>
-                                                    <td>
-                                                        <a class="button is-info is-outlined" produto-id="${produto.id}" produto-nome="${produto.nome}" >
-                                                            <i class="fa fa-check" aria-hidden="true"></i>&nbsp;
-                                                            Selecionar
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
-                                        </tbody>
+                                        <tbody></tbody>
                                     </table>
                                 </div>
                             </div>
@@ -185,16 +156,46 @@
                                     </a>
                                 </div>
                                 <div class="droppanel-content">
-                                    <p>Tabela de produtos</p>
+                                    <p>Tabela de serviços</p>
                                 </div>
                             </div>
                         </div>
                         
                         <form action="${new_url}" method="post">
                             <input type="hidden" name="cliente" value="${venda.cliente.id}">
-                            <div id="is-hidden carrinho">
-                                
-                            </div>
+                            
+                            <table class="table is-hoverable is-fullwidth" id="carrinho">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Valor</th>
+                                        <th>Quantidade</th>
+                                        <th>Total</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr id="relacao_linha_1">
+                                        <td>Osso</td>
+                                        <td>R$ 13</td>
+                                        <td>
+                                            <div class="field">
+                                                <div class="control">
+                                                    <input class="input" type="number" name="relacao_qtd_1" placeholder="Quantidade">
+                                                    <input class="input" type="hidden" value="13">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td id="relacao_total_1">R$132132</td>
+                                        <td>
+                                            <input type="hidden" name="relacao_id_1" value="1">
+                                            <a class="delete"></a>
+                                        </td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                            
                             
                             <div class="field is-horizontal">
                                 <div class="field-label is-normal">
