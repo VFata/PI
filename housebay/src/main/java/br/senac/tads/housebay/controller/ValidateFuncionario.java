@@ -83,18 +83,19 @@ public class ValidateFuncionario {private final static String ERRO = "Erro na Va
             //erro += "\nNome vazio.";
             errors.put(Funcionario.NOME + "_empty", "Campo nome vazio.");
         }
-        if (funcionario.getCpf()== null || funcionario.getCpf().equals("") || funcionario.getCpf().length() <= 14) {
+        if (funcionario.getCpf()== null || funcionario.getCpf().equals("") || funcionario.getCpf().length() != 14) {
             //erro += "\nNome vazio.";
             errors.put(Funcionario.CPF + "_empty", "Erro campo CPF.");
         }
         
         GregorianCalendar date = new GregorianCalendar();
-        if (funcionario.getDataNascimento()== null || date.get(Calendar.YEAR) - funcionario.getDataNascimento().get(Calendar.YEAR) == 120) {
+        if (funcionario.getDataNascimento()== null || date.get(Calendar.YEAR) - funcionario.getDataNascimento().get(Calendar.YEAR) >= 120 && date.get(Calendar.YEAR) - funcionario.getDataNascimento().get(Calendar.YEAR) <= 16) {
             //erro += "\nNome vazio.";
             errors.put(Funcionario.DATA_NASCIMENTO + "_empty", "Erro campo data nascimento.");
+            
         }        
         
-        if (funcionario.getTelefone()== null || funcionario.getTelefone().equals("") || funcionario.getTelefone().length() <= 14 && funcionario.getTelefone().length() >= 8 ) {
+        if (funcionario.getTelefone()== null || funcionario.getTelefone().equals("") || funcionario.getTelefone().length() >= 14 && funcionario.getTelefone().length() <= 8 ) {
             //erro += "\nNome vazio.";
             errors.put(Funcionario.TELEFONE + "_empty", "Erro campo telefone.");
         }
