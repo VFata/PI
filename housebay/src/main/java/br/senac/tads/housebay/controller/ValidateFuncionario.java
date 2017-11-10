@@ -89,13 +89,13 @@ public class ValidateFuncionario {private final static String ERRO = "Erro na Va
         }
         
         GregorianCalendar date = new GregorianCalendar();
-        if (funcionario.getDataNascimento()== null || date.get(Calendar.YEAR) - funcionario.getDataNascimento().get(Calendar.YEAR) >= 120 || date.get(Calendar.YEAR) - funcionario.getDataNascimento().get(Calendar.YEAR) < 16) {
+        if (funcionario.getDataNascimento()== null || date.get(Calendar.YEAR) - funcionario.getDataNascimento().get(Calendar.YEAR) >= 120 && date.get(Calendar.YEAR) - funcionario.getDataNascimento().get(Calendar.YEAR) < 16) {
             //erro += "\nNome vazio.";
             errors.put(Funcionario.DATA_NASCIMENTO + "_empty", "Erro campo data nascimento.");
             
         }        
         
-        if (funcionario.getTelefone()== null || funcionario.getTelefone().equals("") || funcionario.getTelefone().length() >= 14 || funcionario.getTelefone().length() <= 8 ) {
+        if (funcionario.getTelefone()== null || funcionario.getTelefone().equals("") || funcionario.getTelefone().length() >= 14 && funcionario.getTelefone().length() <= 8 ) {
             //erro += "\nNome vazio.";
             errors.put(Funcionario.TELEFONE + "_empty", "Erro campo telefone.");
         }

@@ -83,7 +83,7 @@ public class ValidateCliente {
             //erro += "\nDescrição vazia.";
             errors.put(Cliente.EMAIL + "_empty", "Campo email vazio.");
         }
-        if (cliente.getTelefone()== null || cliente.getTelefone().equals("") || cliente.getTelefone().length() >= 14 || cliente.getTelefone().length() <= 8) {
+        if (cliente.getTelefone()== null || cliente.getTelefone().equals("") || cliente.getTelefone().length() >= 14 && cliente.getTelefone().length() <= 8) {
             //erro += "\nDescrição vazia.";
             errors.put(Cliente.TELEFONE + "_empty", "Erro campo telefone");
         }
@@ -94,7 +94,7 @@ public class ValidateCliente {
         }
         
         GregorianCalendar data = new GregorianCalendar();   
-        if (cliente.getDataNascimento()== null || (data.get(Calendar.YEAR) - cliente.getDataNascimento().get(Calendar.YEAR)) >= 120 || (data.get(Calendar.YEAR) - cliente.getDataNascimento().get(Calendar.YEAR)) < 16 ) {
+        if (cliente.getDataNascimento()== null || data.get(Calendar.YEAR) - cliente.getDataNascimento().get(Calendar.YEAR) >= 120 && data.get(Calendar.YEAR) - cliente.getDataNascimento().get(Calendar.YEAR) < 16 ) {
             //erro += "\nDescrição vazia.";
             errors.put(Cliente.DATA_NASCIMENTO + "_empty", "Erro campo data nascimento.");
         }

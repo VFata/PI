@@ -83,6 +83,10 @@
                                     <div class="nested-show">
                                         <p><strong><c:out value="${pet.nome}:" /></strong></p>
                                         <p><c:out value="${pet.descricao}" /></p>
+                                        <a class="button is-warning is-outlined" href='${edit_url}?id=${pet.id}'>
+                                                <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;
+                                                Alterar
+                                            </a>
                                     </div>
                                 </c:forEach>
                             </div>

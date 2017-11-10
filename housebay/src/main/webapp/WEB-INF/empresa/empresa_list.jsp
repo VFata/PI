@@ -75,7 +75,7 @@
                             
                             
                             <p class="control">
-                                <a class="button is-success" href="${new_url}">Novo Empresa</a>
+                                <a class="button is-success" href="${new_url}">Nova Empresa</a>
                             </p>
                         </form>
 
