@@ -1,4 +1,4 @@
-﻿<%-- 
+<%-- 
     Document   : cliente_list
     Created on : 26/10/2017, 19:42:35
     Author     : diego.matsuki
@@ -25,7 +25,7 @@
     </head>
     <body>
         <div class="columns is-mobile">
-            <c:import page="/WEB-INF/vertical_menu.jsp" />
+            <jsp:include page="/WEB-INF/vertical_menu.jsp" />
             
             <div class="column is-11-touch is-9-desktop is-9-widescreen is-10-fullhd ">
                 <main class="hero">
@@ -117,4 +117,3 @@
 
     </body>
 </html>
-

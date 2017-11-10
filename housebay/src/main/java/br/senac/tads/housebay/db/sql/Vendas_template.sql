@@ -15,6 +15,6 @@ CREATE TABLE vendas (
     ativo SMALLINT, /*BOOLEAN,*/
     criado TIMESTAMP,
     modificado TIMESTAMP,
-    CONSTRAINT references_cliente FOREIGN KEY (cliente_id) REFERENCES clientes (id),
+    CONSTRAINT references_vendas_cliente FOREIGN KEY (cliente_id) REFERENCES clientes (id),
     CONSTRAINT references_empresa FOREIGN KEY (empresa_id) REFERENCES empresas (id)
 );
