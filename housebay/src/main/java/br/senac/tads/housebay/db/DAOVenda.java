@@ -4,6 +4,7 @@ import br.senac.tads.housebay.db.SQLUtils;
 import br.senac.tads.housebay.model.Cliente;
 import br.senac.tads.housebay.model.Empresa;
 import br.senac.tads.housebay.model.Pet;
+import br.senac.tads.housebay.model.Produto;
 import br.senac.tads.housebay.model.Venda;
 import br.senac.tads.housebay.model.Vendavel;
 import java.util.ArrayList;
@@ -172,14 +173,23 @@ public class DAOVenda {
     }
     */
     
+    public static List<Cliente> getClienteList(String query) {
+        return DAOCliente.search(query);
+    }    
     public static Cliente getCliente(Long id) {
         return DAOCliente.read(id);
     }
-    
+
+    public static List<Empresa> getEmpresaList(String query) {
+        return DAOEmpresa.search(query);
+    }    
     public static Empresa getEmpresa(Long id) {
         return DAOEmpresa.read(id);
     }
     
+    public static List<Produto> getProdutoList(String query) {
+        return DAOVendavel.searchProduto(query);
+    }    
     public static Vendavel getVendavel(Long id) {
         return DAOVendavel.read(id);
     }

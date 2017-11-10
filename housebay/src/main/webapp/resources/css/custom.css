@@ -86,3 +86,42 @@
     margin-left: 30px;
     margin-top: 15px;
 }
+
+.droppanel {
+  /*display: flex;
+  /*position: relative;
+  vertical-align: top;*/
+}
+.droppanel-trigger {
+    display: block;
+}
+
+.droppanel.is-active .droppanel-content {
+    display: block;
+}
+
+.droppanel-content {
+    display: none;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(10, 10, 10, 0.1);
+    margin-top: 0.5rem;
+}
+
+.droppanel-footer {
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(10, 10, 10, 0.1);
+    margin-top: 0.5rem;
+}
+
+.droppanel-trigger a {
+    display: flex;
+    align-content: space-between;
+}
+.droppanel-trigger a *:first-child {
+    display: inline-block;
+    flex-grow: 1;
+}
+.droppanel-trigger a *:last-child {
+    display: inline-block;
+    flex-shrink: 0;
+}

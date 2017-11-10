@@ -75,6 +75,7 @@ public class Vendas extends HttpServlet {
             responseURL = "/WEB-INF/venda/venda_show.jsp";
         } else if (url.equals("/vendas/new") && id == null) {
             //Form novo venda
+            sessao.setAttribute("venda", parseForm(request));
             newForm(request, response, sessao);
             return;
         } /*else if (url.equals("/vendas/edit") && id != null) {
@@ -139,14 +140,21 @@ public class Vendas extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/vendas");
             }
         } else*/
-        if (url.equals("/vendas/create") && id == null) {
+        if (url.equals("/vendas/new/") && id == null) {
+            //Form novo venda
+            sessao.setAttribute("venda", parseForm(request));
+            newForm(request, response, sessao);
+            return;
+        } else if (url.equals("/vendas/create") && id == null) {
             //Cria um novo venda
+            /*
             Venda venda = new Venda();
             venda.setCliente(DAOVenda.getCliente(Long.parseLong(request.getParameter("cliente"))));
             venda.setEmpresa(DAOVenda.getEmpresa(Long.parseLong(request.getParameter("empresa"))));
-            
+            */
+            Venda venda = null;
             try {
-            
+                /*
                 Enumeration<String> vendaveis = request.getParameterNames();
 
                 while(vendaveis.hasMoreElements()) {
@@ -165,7 +173,8 @@ public class Vendas extends HttpServlet {
                         }
                     } 
                 }
-
+                */
+                venda = parseForm(request);
                 ValidateVenda.create(venda);
             } catch (VendaException ex) {
                 System.out.println("Venda Exception: " + ex.getMessage());
@@ -229,6 +238,32 @@ public class Vendas extends HttpServlet {
         }    
     }
     
+    private Venda parseForm(HttpServletRequest request) {
+        Venda venda = new Venda();
+        if (request.getParameter("cliente") != null) {
+            venda.setCliente(DAOVenda.getCliente(Long.parseLong(request.getParameter("cliente"))));
+        }
+        if (request.getParameter("empresa") != null) {
+            venda.setEmpresa(DAOVenda.getEmpresa(Long.parseLong(request.getParameter("empresa"))));
+        }
+
+        Enumeration<String> parametros = request.getParameterNames();
+
+        while(parametros.hasMoreElements()) {
+            String vendKey = parametros.nextElement();
+            if(vendKey.startsWith("relacao_id_")) {
+                String qtdKey = "relacao_qtd_" + vendKey.substring(11);
+                int qtd = Integer.parseInt(request.getParameter(qtdKey));
+
+                Vendavel vendavel = DAOVenda.getVendavel(Long.parseLong(request.getParameter(vendKey)));
+                if(vendavel != null) {
+                    venda.addCarrinho(new Venda.Relacao(vendavel, qtd, vendavel.getValor()*qtd));
+                } 
+            } 
+        }
+        return venda;
+    }
+    
     private void newForm(HttpServletRequest request, HttpServletResponse response, HttpSession sessao)
         throws ServletException, IOException {
         Venda venda = (Venda) sessao.getAttribute("venda");
@@ -236,6 +271,16 @@ public class Vendas extends HttpServlet {
             request.setAttribute("venda", venda);
             sessao.removeAttribute("venda");
         }
+        
+        String clienteQ = request.getParameter("cliente-q");
+        request.setAttribute("clientes", DAOVenda.getClienteList(clienteQ));
+        /*Produto
+        String clienteQ = request.getParameter("cliente-q");
+        request.setAttribute("clientes", DAOVenda.getClienteList(clienteQ));
+        */
+        
+        request.setAttribute("empresas", DAOVenda.getEmpresaList(null));
+        
         request.setAttribute("type", "new");
         List mensagens = (List) sessao.getAttribute("mensagem");
         if (mensagens != null) {
