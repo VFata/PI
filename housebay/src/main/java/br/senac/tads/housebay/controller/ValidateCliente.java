@@ -94,7 +94,7 @@ public class ValidateCliente {
         }
         
         GregorianCalendar data = new GregorianCalendar();   
-        if (cliente.getDataNascimento()== null || data.get(Calendar.YEAR) - cliente.getDataNascimento().get(Calendar.YEAR) >= 120 && data.get(Calendar.YEAR) - cliente.getDataNascimento().get(Calendar.YEAR) <= 16 ) {
+        if (cliente.getDataNascimento()== null || data.get(Calendar.YEAR) - cliente.getDataNascimento().get(Calendar.YEAR) >= 120 && data.get(Calendar.YEAR) - cliente.getDataNascimento().get(Calendar.YEAR) < 16 ) {
             //erro += "\nDescrição vazia.";
             errors.put(Cliente.DATA_NASCIMENTO + "_empty", "Erro campo data nascimento.");
         }
