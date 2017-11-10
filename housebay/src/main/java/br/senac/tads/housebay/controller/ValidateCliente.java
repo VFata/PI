@@ -79,7 +79,7 @@ public class ValidateCliente {
             //erro += "\nNome vazio.";
             errors.put(Cliente.NOME + "_empty", "Campo nome vazio.");
         }
-        if (cliente.getEmail()== null || cliente.getEmail().equals("")) {
+        if (cliente.getEmail()== null || cliente.getEmail().equals("") || !cliente.getEmail().contains("@")) {
             //erro += "\nDescrição vazia.";
             errors.put(Cliente.EMAIL + "_empty", "Campo email vazio.");
         }
