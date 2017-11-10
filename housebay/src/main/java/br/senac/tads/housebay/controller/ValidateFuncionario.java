@@ -99,9 +99,9 @@ public class ValidateFuncionario {private final static String ERRO = "Erro na Va
             //erro += "\nNome vazio.";
             errors.put(Funcionario.TELEFONE + "_empty", "Erro campo telefone.");
         }
-        if (funcionario.getEmail()== null || funcionario.getEmail().equals("")) {
+        if (funcionario.getEmail()== null || funcionario.getEmail().equals("") || !funcionario.getEmail().contentEquals("@")) {
             //erro += "\nNome vazio.";
-            errors.put(Funcionario.EMAIL + "_empty", "campo email vazio.");
+            errors.put(Funcionario.EMAIL + "_empty", "Erro Campo email");
         }
         if (funcionario.getSenha()== null || funcionario.getSenha().equals("") || funcionario.getSenha().length() <= 8) {
             //erro += "\nNome vazio.";
