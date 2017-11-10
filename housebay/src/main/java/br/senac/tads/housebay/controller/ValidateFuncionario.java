@@ -94,7 +94,7 @@ public class ValidateFuncionario {private final static String ERRO = "Erro na Va
             errors.put(Funcionario.DATA_NASCIMENTO + "_empty", "Erro campo data nascimento.");
         }        
         
-        if (funcionario.getTelefone()== null || funcionario.getTelefone().equals("") || funcionario.getTelefone().length() <= 14 || funcionario.getTelefone().length() >= 8 ) {
+        if (funcionario.getTelefone()== null || funcionario.getTelefone().equals("") || funcionario.getTelefone().length() <= 14 && funcionario.getTelefone().length() >= 8 ) {
             //erro += "\nNome vazio.";
             errors.put(Funcionario.TELEFONE + "_empty", "Erro campo telefone.");
         }
