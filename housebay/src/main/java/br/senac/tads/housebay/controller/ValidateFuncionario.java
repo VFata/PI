@@ -83,7 +83,7 @@ public class ValidateFuncionario {private final static String ERRO = "Erro na Va
             //erro += "\nNome vazio.";
             errors.put(Funcionario.NOME + "_empty", "Campo nome vazio.");
         }
-        if (funcionario.getCpf()== null || funcionario.getCpf().equals("") || funcionario.getCpf().length() == 14) {
+        if (funcionario.getCpf()== null || funcionario.getCpf().equals("") || funcionario.getCpf().length() <= 14) {
             //erro += "\nNome vazio.";
             errors.put(Funcionario.CPF + "_empty", "Erro campo CPF.");
         }
