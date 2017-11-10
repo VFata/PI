@@ -192,10 +192,8 @@
                                             <a class="delete"></a>
                                         </td>
                                     </tr>
-                                    
                                 </tbody>
                             </table>
-                            
                             
                             <div class="field is-horizontal">
                                 <div class="field-label is-normal">

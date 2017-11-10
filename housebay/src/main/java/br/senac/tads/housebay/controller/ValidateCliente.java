@@ -83,24 +83,25 @@ public class ValidateCliente {
             //erro += "\nDescrição vazia.";
             errors.put(Cliente.EMAIL + "_empty", "Campo email vazio.");
         }
-        if (cliente.getTelefone()== null || cliente.getTelefone().equals("") || cliente.getTelefone().length() <= 14 || cliente.getTelefone().length() >= 8) {
+        if (cliente.getTelefone()== null || cliente.getTelefone().equals("") || cliente.getTelefone().length() <= 14 && cliente.getTelefone().length() >= 8) {
             //erro += "\nDescrição vazia.";
-            errors.put(Cliente.TELEFONE + "_empty", "Campo telefone vazio.");
+            errors.put(Cliente.TELEFONE + "_empty", "Erro campo telefone");
         }
-        if (cliente.getCpf()== null || cliente.getCpf().equals("") || cliente.getCpf().length() == 14) {
+        
+        if (cliente.getCpf()== null || cliente.getCpf().equals("") || cliente.getCpf().length() >= 14) {
             //erro += "\nDescrição vazia.";
-            errors.put(Cliente.CPF + "_empty", "Campo cpf vazio.");
+            errors.put(Cliente.CPF + "_empty", "Erro campo CPF");
         }
         
         GregorianCalendar data = new GregorianCalendar();   
         if (cliente.getDataNascimento()== null || data.get(Calendar.YEAR) - cliente.getDataNascimento().get(Calendar.YEAR) <= 120 ) {
             //erro += "\nDescrição vazia.";
-            errors.put(Cliente.DATA_NASCIMENTO + "_empty", "Campo data de nascimento vazio.");
+            errors.put(Cliente.DATA_NASCIMENTO + "_empty", "Erro campo data nascimento.");
         }
         
         if (cliente.getPets()== null) {
             //erro += "\nDescrição vazia.";
-            errors.put(Cliente.PETS + "_empty", "Campo data de nascimento vazio.");
+            errors.put(Cliente.PETS + "_empty", "Campo Pets vazio");
         }
 
         

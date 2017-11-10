@@ -7,8 +7,11 @@ package br.senac.tads.housebay.controller;
 
 import br.senac.tads.housebay.exception.FuncionarioException;
 import br.senac.tads.housebay.model.Funcionario;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
+import sun.util.calendar.Gregorian;
 
 
 public class ValidateFuncionario {private final static String ERRO = "Erro na Validação.";
@@ -80,25 +83,28 @@ public class ValidateFuncionario {private final static String ERRO = "Erro na Va
             //erro += "\nNome vazio.";
             errors.put(Funcionario.NOME + "_empty", "Campo nome vazio.");
         }
-        if (funcionario.getCpf()== null || funcionario.getCpf().equals("")) {
+        if (funcionario.getCpf()== null || funcionario.getCpf().equals("") || funcionario.getCpf().length() == 14) {
             //erro += "\nNome vazio.";
-            errors.put(Funcionario.CPF + "_empty", "Campo cpf vazio.");
+            errors.put(Funcionario.CPF + "_empty", "Erro campo CPF.");
         }
-        if (funcionario.getDataNascimento()== null || funcionario.getDataNascimento().equals("")) {
+        
+        GregorianCalendar date = new GregorianCalendar();
+        if (funcionario.getDataNascimento()== null || date.get(Calendar.YEAR) - funcionario.getDataNascimento().get(Calendar.YEAR) == 120) {
             //erro += "\nNome vazio.";
-            errors.put(Funcionario.DATA_NASCIMENTO + "_empty", "Campo data de nascimento vazio.");
-        }
-        if (funcionario.getTelefone()== null || funcionario.getTelefone().equals("")) {
+            errors.put(Funcionario.DATA_NASCIMENTO + "_empty", "Erro campo data nascimento.");
+        }        
+        
+        if (funcionario.getTelefone()== null || funcionario.getTelefone().equals("") || funcionario.getTelefone().length() <= 14 && funcionario.getTelefone().length() >= 8 ) {
             //erro += "\nNome vazio.";
-            errors.put(Funcionario.TELEFONE + "_empty", "campo telefone vazio.");
+            errors.put(Funcionario.TELEFONE + "_empty", "Erro campo telefone.");
         }
         if (funcionario.getEmail()== null || funcionario.getEmail().equals("")) {
             //erro += "\nNome vazio.";
             errors.put(Funcionario.EMAIL + "_empty", "campo email vazio.");
         }
-        if (funcionario.getSenha()== null || funcionario.getSenha().equals("")) {
+        if (funcionario.getSenha()== null || funcionario.getSenha().equals("") || funcionario.getSenha().length() <= 8) {
             //erro += "\nNome vazio.";
-            errors.put(Funcionario.SENHA + "_empty", "campo senha vazio.");
+            errors.put(Funcionario.SENHA + "_empty", "Erro campo senha.");
         }
 
         
