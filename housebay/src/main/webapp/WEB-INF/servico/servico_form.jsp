@@ -22,9 +22,9 @@
         
         <c:url var="index_url" value="/" />
         <c:url var="resources_url" value="/resources" />
-        <c:url var="main_url" value="/servico" />
-        <c:url var="create_url" value="/servico/create" />
-        <c:url var="update_url" value="/servico/update" />
+        <c:url var="main_url" value="/servicos" />
+        <c:url var="create_url" value="/servicos/create" />
+        <c:url var="update_url" value="/servicos/update" />
         
         <link rel="stylesheet" href="${resources_url}/css/bulma.css" />
         <link rel="stylesheet" href="${resources_url}/css/font-awesome.css" />
@@ -76,20 +76,20 @@
                         </c:forEach>
                         
                         <c:choose><c:when test="${type=='edit' && servico != null}">
-                            <form action="${edit_url}" method="post">
+                            <form action="${update_url}" method="post">
                                 <input type="hidden" name="id" value="${servico.id}" />
                         </c:when><c:otherwise>
-                            <form action="${new_url}" method="post">
+                            <form action="${create_url}" method="post">
                         </c:otherwise></c:choose>
 
                             <div class="field is-horizontal">
                                 <div class="field-label is-normal">
-                                    <label class="label">Serviço</label>
+                                    <label class="label">Nome</label>
                                 </div>
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control">
-                                            <input class="input" type="text" name="Serviço" placeholder="Serviço" value="${servico.servico}">
+                                            <input class="input" type="text" name="nome" placeholder="Nome" value="${servico.nome}">
                                         </div>
                                     </div>
                                 </div>
@@ -97,12 +97,12 @@
 
                             <div class="field is-horizontal">
                                 <div class="field-label is-normal">
-                                    <label class="label">Tipo:</label>
+                                    <label class="label">Descrição:</label>
                                 </div>
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control">
-                                            <textarea class="textarea" name="tipo" placeholder="Tipo">${servico.tipo}</textarea>
+                                            <textarea class="textarea" name="descricao" placeholder="Descricao">${servico.descricao}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -120,18 +120,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="field is-horizontal">
-                                <div class="field-label is-normal">
-                                    <label class="label">Estoque</label>
-                                </div>
-                                <div class="field-body">
-                                    <div class="field">
-                                        <div class="control">
-                                            <input class="input" type="text" name="estoque" placeholder="Estoque" value="${servico.estoque}">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>            
+                                        
                             <div class="field is-horizontal">
                                 <div class="field-label">
                                     <!-- Left empty for spacing -->

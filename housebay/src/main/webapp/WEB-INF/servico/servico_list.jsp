@@ -103,8 +103,10 @@
 
                                             <form class="delete-action" action="${destroy_url}?id=${servico.id}" method="post" confirm="Tem certeza?">
                                                 <button class="button is-danger is-outlined send">
-                                                    <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;
-                                                    Apagar    
+                                                    <span class="icon">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                    </span>
+                                                    <span> Apagar</span>    
                                                 </button>
                                             </form>
                                         </td>

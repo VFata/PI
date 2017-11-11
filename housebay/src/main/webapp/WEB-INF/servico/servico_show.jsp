@@ -63,7 +63,10 @@
                             <strong>Nome:</strong> <c:out value="${servico.nome}" />
                         </p>
                         <p>
-                            <strong>Tipo:</strong> <c:out value="${servico.tipo}" />
+                            <strong>Descrição:</strong> <c:out value="${servico.descricao}" />
+                        </p>
+                        <p>
+                            <strong>Valor:</strong> <c:out value="${servico.valor}" />
                         </p>
                         
                     </div>
