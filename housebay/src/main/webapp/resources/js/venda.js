@@ -46,25 +46,25 @@ function adicionaVendavel (el) {
         let valor = el.getAttribute("produto-valor");
         let fvalor = el.getAttribute("produto-fvalor");
         
-
-
-        `<tr id="relacao_linha_${id}">
+        let gambi = `<tr id="relacao_linha_${id}">
             <td>Osso</td>
             <td>${fvalor}</td>
             <td>
                 <div class="field">
                     <div class="control">
-                        <input class="input" type="number" name="relacao_qtd_${id}" placeholder="Quantidade">
+                        <input class="input" type="number" name="relacao_qtd_${id}" placeholder="Quantidade" value="1">
                         <input class="input" type="hidden" value="${valor}">
                     </div>
                 </div>
             </td>
-            <td id="relacao_total_${id}">0</td>
+            <td id="relacao_total_${id}">${fvalor}</td>
             <td>
                 <input type="hidden" name="relacao_id_${id}" value="${id}">
                 <a class="delete"></a>
             </td>
         </tr>`
+        
+        carrinho.insertAdjacentHTML('beforeend', gambi);
     });
 }
 
@@ -165,8 +165,7 @@ function getProdutos(query) {
                 a.setAttribute("produto-nome", prod.nome);
                 a.setAttribute("produto-valor", prod.valor);
                 a.setAttribute("produto-fvalor", prod.formatValor);
-                //selecionaCliente(a);
-                //a.appendChild(i);
+                adicionaVendavel(a);
                 a.textContent = "Selecionar";
                 a.insertAdjacentHTML('afterbegin', '<i class="fa fa-check" aria-hidden="true"></i>&nbsp;');
 
