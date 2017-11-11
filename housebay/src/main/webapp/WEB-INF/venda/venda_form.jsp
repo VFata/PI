@@ -156,7 +156,29 @@
                                     </a>
                                 </div>
                                 <div class="droppanel-content">
-                                    <p>Tabela de serviços</p>
+                                   <div class="field is-grouped">
+                                        <span class="control is-expanded">
+                                            <input name="produto-q" class="input" type="text" placeholder="Pesquisar Serviço">
+                                        </span>
+                                        <span class="control">
+                                            <button id="search-produto" class="button is-light">
+                                                Pesquisar
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <!--</form>-->
+
+                                    <table class="table is-hoverable is-fullwidth" id="produto-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Nome</th>
+                                                <th>Valor</th>
+                                                <th>Estoque</th>
+                                                <th>Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>

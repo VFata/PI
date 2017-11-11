@@ -55,13 +55,13 @@
                                 <p><c:out value="${note.value}" /></p>
                             </div>
                         </c:forEach>
-                                                
+                        <a href="../produto/produto_form.jsp"></a>
                         <form action="" method="get" class="field is-grouped">
                             <p class="control is-expanded">
                                 <input name="q" class="input" type="text" placeholder="Pesquisar Cliente">
                             </p>
                             <p class="control">
-                                <button class="button is-light">
+                                <button class="button is-info">
                                     Pesquisar
                                 </button>
                             </p>

@@ -83,7 +83,7 @@
                         </c:when><c:otherwise>
                             <form action="${create_url}" method="post">
                         </c:otherwise></c:choose>
-
+                                <input type ="hidden" name="cliente_id" value="${pet.cliente.id}"/>        
                             <div class="field is-horizontal">
                                 <div class="field-label is-normal">
                                     <label class="label">Nome</label>

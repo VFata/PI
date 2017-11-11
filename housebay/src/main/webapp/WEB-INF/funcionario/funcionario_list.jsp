@@ -63,7 +63,7 @@
                                 <input name="q" class="input" type="text" placeholder="Pesquisar Funcionário">
                             </p>
                             <p class="control">
-                                <button class="button is-light">
+                                <button class="button is-info">
                                     Pesquisar
                                 </button>
                             </p>

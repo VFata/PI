@@ -149,6 +149,7 @@ public class Pets extends HttpServlet {
             Pet pet = new Pet();
             pet.setNome(request.getParameter("nome"));
             pet.setDescricao(request.getParameter("descricao"));
+            pet.setClienteId(Long.parseLong(request.getParameter("cliente_id")));
             Long newId;
             try {
                 ValidatePet.create(pet);
@@ -181,7 +182,7 @@ public class Pets extends HttpServlet {
             pet.setNome(request.getParameter("nome"));
             pet.setDescricao(request.getParameter("descricao"));
             pet.setAtivo(true);
-            
+            pet.setClienteId(Long.parseLong(request.getParameter("cliente_id")));
             boolean update;
             try {
                 ValidatePet.update(pet);
