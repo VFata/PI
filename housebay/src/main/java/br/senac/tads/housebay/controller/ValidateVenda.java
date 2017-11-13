@@ -79,7 +79,7 @@ public class ValidateVenda {
             errors.put(Venda.EMPRESA + "_empty", "Campo empresa vazio");
         }
         
-  
+        
         
         return errors;
     }

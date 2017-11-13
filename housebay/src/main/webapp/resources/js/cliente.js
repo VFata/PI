@@ -41,7 +41,7 @@ window.addEventListener("DOMContentLoaded", function () {
         div.innerHTML = petForm;
         let del = document.createElement('a');
         del.classList.add('delete');
-        div.insertAdjacentElement('afterbegin' ,del);
+        div.insertAdjacentElement('afterbegin', del);
         listParent.appendChild(div);
         
         div.querySelector(".delete").addEventListener('click', () => {

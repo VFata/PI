@@ -183,7 +183,7 @@
                             </div>
                         </div>
                         
-                        <form action="${new_url}" method="post">
+                        <form action="${create_url}" method="post">
                             <input type="hidden" name="cliente" value="${venda.cliente.id}">
                             
                             <table class="table is-hoverable is-fullwidth" id="carrinho">
@@ -197,6 +197,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%--
                                     <tr id="relacao_linha_1">
                                         <td>Osso</td>
                                         <td>R$ 13</td>
@@ -214,6 +215,7 @@
                                             <a class="delete"></a>
                                         </td>
                                     </tr>
+                                    --%>
                                 </tbody>
                             </table>
                             

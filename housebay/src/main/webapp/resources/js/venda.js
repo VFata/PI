@@ -11,14 +11,6 @@ window.addEventListener("DOMContentLoaded", function () {
     
     [... document.querySelectorAll(".get-cliente")].forEach( a => {
         selecionaCliente(a);
-        /*
-        a.addEventListener('click', (evt) => {
-            evt.preventDefault();
-            
-            document.querySelector("#selected-cliente").textContent = a.getAttribute("cliente-nome"); 
-            document.querySelector("input[name=cliente]").value = a.getAttribute("cliente-id");
-        });
-        */
     });
     
     document.querySelector("#search-cliente").addEventListener('click', (evt) => {
@@ -44,27 +36,49 @@ function adicionaVendavel (el) {
         let id = el.getAttribute("produto-id");
         let nome = el.getAttribute("produto-nome");
         let valor = el.getAttribute("produto-valor");
-        let fvalor = el.getAttribute("produto-fvalor");
+        let estoque = el.getAttribute("produto-estoque");
         
-        let gambi = `<tr id="relacao_linha_${id}">
-            <td>Osso</td>
-            <td>${fvalor}</td>
-            <td>
-                <div class="field">
-                    <div class="control">
-                        <input class="input" type="number" name="relacao_qtd_${id}" placeholder="Quantidade" value="1">
-                        <input class="input" type="hidden" value="${valor}">
+        if (document.querySelector(`#relacao_linha_${id}`)) {
+            alert("Produto já inserido!");
+        } else {
+            let gambi = `<td>${nome}</td>
+                <td>${formatDinheiro(valor)}</td>
+                <td>
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="number" name="relacao_qtd_${id}" placeholder="Quantidade" value="1" min="1" max="${estoque}" >
+                            <input class="input" type="hidden" value="${valor}">
+                        </div>
                     </div>
-                </div>
-            </td>
-            <td id="relacao_total_${id}">${fvalor}</td>
-            <td>
-                <input type="hidden" name="relacao_id_${id}" value="${id}">
-                <a class="delete"></a>
-            </td>
-        </tr>`
-        
-        carrinho.insertAdjacentHTML('beforeend', gambi);
+                </td>
+                <td id="relacao_total_${id}">${formatDinheiro(valor)}</td>`;
+            
+            let tr = document.createElement('tr');
+            tr.id = `relacao_linha_${id}`; 
+            tr.insertAdjacentHTML('beforeend', gambi);
+            
+            let input = document.createElement('input');
+            input.classList.add("input");
+            input.setAttribute("type", "hidden");
+            input.setAttribute("name", `relacao_id_${id}`);
+            input.setAttribute("value", id);
+            
+            let del = document.createElement('a');
+            del.classList.add('delete');
+            del.addEventListener('click', (evt) => {
+                evt.preventDefault();
+                
+               tr.parentNode.removeChild(tr);
+            });
+            
+            
+            let deleteTd = document.createElement('td');
+            deleteTd.appendChild(input);
+            deleteTd.appendChild(del);
+            
+            tr.appendChild(deleteTd);
+            carrinho.appendChild(tr);
+        }
     });
 }
 
@@ -101,9 +115,6 @@ function getClientes(query) {
 
                 let td3 = document.createElement('td');
                 td3.textContent = cli.email;
-
-                //let i = document.createElement('i');
-                //i.classList.add("fa", "fa-check");
 
                 let a = document.createElement('a');
                 a.classList.add("button", "is-success", "is-outlined", "get-cliente");
@@ -156,15 +167,12 @@ function getProdutos(query) {
                 let td3 = document.createElement('td');
                 td3.textContent = prod.estoque;
 
-                //let i = document.createElement('i');
-                //i.classList.add("fa", "fa-check");
-
                 let a = document.createElement('a');
                 a.classList.add("button", "is-success", "is-outlined", "get-cliente");
                 a.setAttribute("produto-id", prod.id);
                 a.setAttribute("produto-nome", prod.nome);
                 a.setAttribute("produto-valor", prod.valor);
-                a.setAttribute("produto-fvalor", prod.formatValor);
+                a.setAttribute("produto-estoque", prod.estoque);
                 adicionaVendavel(a);
                 a.textContent = "Selecionar";
                 a.insertAdjacentHTML('afterbegin', '<i class="fa fa-check" aria-hidden="true"></i>&nbsp;');
@@ -184,4 +192,11 @@ function getProdutos(query) {
         }
     };    
     xhr.send(params);
+}
+
+function formatDinheiro(n) {   
+    return Number(n).toLocaleString('pt-br', {
+        style: 'currency',
+        currency: 'BRL'
+    });
 }

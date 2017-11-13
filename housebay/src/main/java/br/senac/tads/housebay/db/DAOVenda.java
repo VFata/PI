@@ -87,9 +87,9 @@ public class DAOVenda {
     public static List<Venda> search(String query) {
         String sql;
         if (query != null) {
-            sql = "SELECT id, cliente_id, empresa_id, ativo, criado, modificado FROM venda WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
+            sql = "SELECT id, cliente_id, empresa_id, ativo, criado, modificado FROM vendas WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
         } else {
-            sql = "SELECT id, cliente_id, empresa_id, ativo, criado, modificado FROM venda WHERE ativo=?";
+            sql = "SELECT id, cliente_id, empresa_id, ativo, criado, modificado FROM vendas WHERE ativo=?";
         }
         List<Venda> list = null;
         try (Connection connection = SQLUtils.getConnection();

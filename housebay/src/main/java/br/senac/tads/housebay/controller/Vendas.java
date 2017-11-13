@@ -140,12 +140,7 @@ public class Vendas extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/vendas");
             }
         } else*/
-        if (url.equals("/vendas/new/") && id == null) {
-            //Form novo venda
-            sessao.setAttribute("venda", parseForm(request));
-            newForm(request, response, sessao);
-            return;
-        } else if (url.equals("/vendas/create") && id == null) {
+         if (url.equals("/vendas/create") && id == null) {
             //Cria um novo venda
             /*
             Venda venda = new Venda();
@@ -252,14 +247,15 @@ public class Vendas extends HttpServlet {
         while(parametros.hasMoreElements()) {
             String vendKey = parametros.nextElement();
             if(vendKey.startsWith("relacao_id_")) {
+                System.err.println("Relacao: " + vendKey);
                 String qtdKey = "relacao_qtd_" + vendKey.substring(11);
                 int qtd = Integer.parseInt(request.getParameter(qtdKey));
 
                 Vendavel vendavel = DAOVenda.getVendavel(Long.parseLong(request.getParameter(vendKey)));
                 if(vendavel != null) {
                     venda.addCarrinho(new Venda.Relacao(vendavel, qtd, vendavel.getValor()*qtd));
-                } 
-            } 
+                }
+            }
         }
         return venda;
     }
@@ -271,7 +267,7 @@ public class Vendas extends HttpServlet {
             request.setAttribute("venda", venda);
             sessao.removeAttribute("venda");
         }
-        
+        /*
         String clienteQ = request.getParameter("cliente-q");
         request.setAttribute("clientes", DAOVenda.getClienteList(clienteQ));
         /*Produto
