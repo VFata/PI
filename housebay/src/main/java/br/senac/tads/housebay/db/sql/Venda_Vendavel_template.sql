@@ -13,7 +13,7 @@ CREATE TABLE venda_vendaveis(
     valor_total NUMERIC(16,2) NOT NULL, 
     venda_id INTEGER NOT NULL,
     vendavel_id INTEGER NOT NULL,
-    ativo BOOLEAN,
+    ativo SMALLINT, /*BOOLEAN,*/
     criado TIMESTAMP,
     modificado TIMESTAMP,
     CONSTRAINT references_venda FOREIGN KEY (venda_id) REFERENCES vendas (id),

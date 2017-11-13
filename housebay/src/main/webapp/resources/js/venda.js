@@ -53,29 +53,57 @@ function adicionaVendavel (el) {
                 </td>
                 <td id="relacao_total_${id}">${formatDinheiro(valor)}</td>`;
             
-            let tr = document.createElement('tr');
-            tr.id = `relacao_linha_${id}`; 
-            tr.insertAdjacentHTML('beforeend', gambi);
+            let nomeTd = document.createElement('td');
+            nomeTd.textContent = nome;
             
-            let input = document.createElement('input');
-            input.classList.add("input");
-            input.setAttribute("type", "hidden");
-            input.setAttribute("name", `relacao_id_${id}`);
-            input.setAttribute("value", id);
+            let valorTd = document.createElement('td');
+            valorTd.textContent = formatDinheiro(valor);
+            
+            let qtdInput = document.createElement('input');
+            qtdInput.classList.add('input');
+            qtdInput.type = 'number';
+            qtdInput.name = `relacao_qtd_${id}`;
+            qtdInput.value = 1;
+            qtdInput.min = 1;
+            qtdInput.max = estoque;
+            qtdInput.setAttribute("prod-valor", valor);
+            qtdInput.addEventListener('change', ()=> {
+                totalTd.textContent = (formatDinheiro(qtdInput.value * qtdInput.getAttribute("prod-valor")));
+            });
+            
+            let div = document.createElement('div');
+            div.classList.add('field');
+            div.appendChild(qtdInput);
+            
+            let qtdTd = document.createElement('td');
+            qtdTd.appendChild(div);
+    
+            let totalTd = document.createElement('td');
+            totalTd.textContent = (formatDinheiro(qtdInput.value * qtdInput.getAttribute("prod-valor")));
+    
+            let idInput = document.createElement('input');
+            idInput.classList.add("input");
+            idInput.setAttribute("type", "hidden");
+            idInput.setAttribute("name", `relacao_id_${id}`);
+            idInput.setAttribute("value", id);
             
             let del = document.createElement('a');
             del.classList.add('delete');
             del.addEventListener('click', (evt) => {
                 evt.preventDefault();
-                
-               tr.parentNode.removeChild(tr);
+                tr.parentNode.removeChild(tr);
             });
             
-            
             let deleteTd = document.createElement('td');
-            deleteTd.appendChild(input);
+            deleteTd.appendChild(idInput);
             deleteTd.appendChild(del);
             
+            let tr = document.createElement('tr');
+            tr.id = `relacao_linha_${id}`; 
+            tr.appendChild(nomeTd);
+            tr.appendChild(valorTd);
+            tr.appendChild(qtdTd);
+            tr.appendChild(totalTd);
             tr.appendChild(deleteTd);
             carrinho.appendChild(tr);
         }
