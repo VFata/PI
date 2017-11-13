@@ -8,7 +8,7 @@ CREATE TABLE cargos (
     ativo SMALLINT, /*BOOLEAN,*/
     criado TIMESTAMP,
     modificado TIMESTAMP,
-    CONSTRAINT unique_nome UNIQUE (nome)
+    CONSTRAINT unique_cargos_nome UNIQUE (nome)
 );
 
 INSERT INTO cargos (nome, ativo, criado, modificado) VALUES ('Gerente', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);

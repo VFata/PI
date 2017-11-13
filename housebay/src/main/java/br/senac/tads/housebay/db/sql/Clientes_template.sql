@@ -12,5 +12,5 @@ CREATE TABLE clientes (
     ativo SMALLINT, /*BOOLEAN*/
     criado TIMESTAMP,
     modificado TIMESTAMP,
-    CONSTRAINT unique_cpf UNIQUE (cpf)
+    CONSTRAINT unique_clientes_cpf UNIQUE (cpf)
 );

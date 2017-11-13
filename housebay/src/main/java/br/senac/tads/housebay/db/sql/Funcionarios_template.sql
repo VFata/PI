@@ -15,6 +15,6 @@ CREATE TABLE funcionarios (
     criado TIMESTAMP,
     modificado TIMESTAMP,
     CONSTRAINT references_cargo FOREIGN KEY (cargo_id) REFERENCES cargos (id),
-    CONSTRAINT unique_func_cpf UNIQUE (cpf),
-    CONSTRAINT unique_email UNIQUE (email)
+    CONSTRAINT unique_funcionarios_cpf UNIQUE (cpf),
+    CONSTRAINT unique_funcionarios_email UNIQUE (email)
 );
