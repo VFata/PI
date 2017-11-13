@@ -31,7 +31,7 @@
                 <main class="hero">
                     <div class="hero-head">
                         <div class="container is-fluid">
-                            <h1 class="title is-4">Detales Clientes</h1>
+                            <h1 class="title is-4">Detalhes Clientes</h1>
                             <nav class="subtitle is-6 breadcrumb" aria-label="breadcrumbs">
                                 <ul>
                                     <li><a href="${index_url}">Home</a></li>
@@ -80,13 +80,22 @@
                             </p>
                             <div>
                                 <c:forEach items="${cliente.pets}" var="pet">
-                                    <div class="nested-show">
-                                        <p><strong><c:out value="${pet.nome}:" /></strong></p>
-                                        <p><c:out value="${pet.descricao}" /></p>
-                                        <a class="button is-warning is-outlined" href='${edit_url}?id=${pet.id}'>
-                                                <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;
-                                                Alterar
-                                            </a>
+                                    <div class="nested-show level">
+                                        <div class="level-left">
+                                            <div class="level-item">
+                                                <div>
+                                                    <p><strong><c:out value="${pet.nome}:" /></strong></p>
+                                                    <p><c:out value="${pet.descricao}" /></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="level-right">
+                                            <div class="level-item">
+                                                <a class="button is-warning is-outlined" href='${edit_url}?id=${pet.id}'>
+                                                    <span class="icon"><i class="fa fa-pencil" aria-hidden="true"></i></span> Alterar
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </c:forEach>
                             </div>
