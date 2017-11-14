@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Savepoint;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -406,6 +407,28 @@ public class DAOVendavel {
                 System.err.println(ex.getMessage());
                 return false;
             }
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public static boolean atualizaEstoqueVenda(Connection connection, Savepoint savepoint, Produto vendavel, int qtdVendida) throws SQLException {
+        if (vendavel != null && vendavel.getId() != null && vendavel.getId() > 0) {
+            String sql = "UPDATE vendaveis SET estoque=?, modificado=? WHERE id=?";
+            
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, vendavel.getEstoque() - qtdVendida);
+                Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
+                statement.setTimestamp(2, now);
+                statement.setLong(3, vendavel.getId());
+                statement.executeUpdate();
+                vendavel.setEstoque(vendavel.getEstoque() - qtdVendida);
+            } catch (SQLException ex) {
+                System.err.println(ex.getMessage());
+                connection.rollback(savepoint);
+            }
+
             return true;
         } else {
             return false;

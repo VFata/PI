@@ -1,10 +1,10 @@
 package br.senac.tads.housebay.db;
 
-import br.senac.tads.housebay.db.SQLUtils;
 import br.senac.tads.housebay.model.Cliente;
 import br.senac.tads.housebay.model.Empresa;
-import br.senac.tads.housebay.model.Pet;
 import br.senac.tads.housebay.model.Produto;
+import br.senac.tads.housebay.model.Servico;
+import br.senac.tads.housebay.model.Tipo;
 import br.senac.tads.housebay.model.Venda;
 import br.senac.tads.housebay.model.Vendavel;
 import java.util.ArrayList;
@@ -192,6 +192,12 @@ public class DAOVenda {
     }    
     public static Vendavel getVendavel(Long id) {
         return DAOVendavel.read(id);
+    }    
+    public static Produto getProduto(Long id) {
+        return DAOVendavel.readProduto(id);
+    }
+    public static Servico getServico(Long id) {
+        return DAOVendavel.readServico(id);
     }
     
     public static List<Venda.Relacao> referencesCliente(long venda_id) {
@@ -238,13 +244,22 @@ public class DAOVenda {
                 statement.setTimestamp(7, new Timestamp(now));
                 
                 statement.executeUpdate();
+                
+                if (relacao.getVendavel().getTipo() == Tipo.PRODUTO) {
+                    nestedAtulizaEstoque(connection, savepoint, relacao);
+                }
             } catch (SQLException ex) {
                 System.err.println(ex.getMessage());
                 connection.rollback(savepoint);
+            } finally {
+                if (statement != null) {
+                    statement.close();
+                }
             }
         }
-        if (statement != null) {
-            statement.close();
-        }
+    }
+    
+    private static void nestedAtulizaEstoque(Connection connection, Savepoint savepoint, Venda.Relacao relacoes) throws SQLException {
+        DAOVendavel.atualizaEstoqueVenda(connection, savepoint, (Produto) relacoes.getVendavel(), relacoes.getQuantidade());        
     }
 }

@@ -235,10 +235,10 @@ public class Vendas extends HttpServlet {
     
     private Venda parseForm(HttpServletRequest request) {
         Venda venda = new Venda();
-        if (request.getParameter("cliente") != null) {
+        if (request.getParameter("cliente") != null && !request.getParameter("cliente").equals("")) {
             venda.setCliente(DAOVenda.getCliente(Long.parseLong(request.getParameter("cliente"))));
         }
-        if (request.getParameter("empresa") != null) {
+        if (request.getParameter("empresa") != null && !request.getParameter("empresa").equals("")) {
             venda.setEmpresa(DAOVenda.getEmpresa(Long.parseLong(request.getParameter("empresa"))));
         }
 

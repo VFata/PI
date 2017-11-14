@@ -25,13 +25,14 @@ window.addEventListener("DOMContentLoaded", function () {
         getProdutos(document.querySelector("input[name=produto-q]").value);
     });
     
+    atualizaTotal();
 });
 
-function adicionaVendavel (el) {
+function adicionaVendavel(el) {
     el.addEventListener('click', (evt) => {
         evt.preventDefault();
         
-        let carrinho = document.querySelector("#carrinho");
+        let carrinho = document.querySelector("#carrinho tbody");
         
         let id = el.getAttribute("produto-id");
         let nome = el.getAttribute("produto-nome");
@@ -69,6 +70,7 @@ function adicionaVendavel (el) {
             qtdInput.setAttribute("prod-valor", valor);
             qtdInput.addEventListener('change', ()=> {
                 totalTd.textContent = (formatDinheiro(qtdInput.value * qtdInput.getAttribute("prod-valor")));
+                atualizaTotal();
             });
             
             let div = document.createElement('div');
@@ -92,6 +94,7 @@ function adicionaVendavel (el) {
             del.addEventListener('click', (evt) => {
                 evt.preventDefault();
                 tr.parentNode.removeChild(tr);
+                atualizaTotal();
             });
             
             let deleteTd = document.createElement('td');
@@ -107,6 +110,7 @@ function adicionaVendavel (el) {
             tr.appendChild(deleteTd);
             carrinho.appendChild(tr);
         }
+        atualizaTotal();
     });
 }
 
@@ -221,6 +225,20 @@ function getProdutos(query) {
     };    
     xhr.send(params);
 }
+
+
+function atualizaTotal() {
+    let carrinho = document.querySelector("#carrinho tbody");
+    let total = [... carrinho.children]
+            .map(e => { 
+                let q = e.querySelector("input[prod-valor]"); 
+                return q.value * q.getAttribute("prod-valor"); 
+            })
+            .reduce((s,e) => s+e, 0);
+
+    document.querySelector("#valorTotal").textContent = formatDinheiro(total);
+}
+
 
 function formatDinheiro(n) {   
     return Number(n).toLocaleString('pt-br', {

@@ -217,6 +217,13 @@
                                     </tr>
                                     --%>
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th colspan="3">Valor Total</th>
+                                        <th id="valorTotal">R$0,00</th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
                             </table>
                             
                             <div class="field is-horizontal">

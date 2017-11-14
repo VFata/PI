@@ -80,7 +80,7 @@
                                     <th>Nome</th>
                                     <th>Valor</th>
                                     <th>Estoque</th>
-                                    <th colspan="3">Ações</th>
+                                    <th colspan="2">Ações</th>
                                     
                                 </tr>
                             </thead>
@@ -91,22 +91,22 @@
                                         <td><c:out value="${produto.formatValor}" /></td>
                                         <td><c:out value="${produto.estoque}" /></td>
                                         <td>
-                                            <a class="button is-info is-outlined" href='${main_url}?id=${produto.id}'>
-                                                <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;
-                                                Detalhes
-                                            </a>
-
-                                            <a class="button is-warning is-outlined" href='${edit_url}?id=${produto.id}'>
-                                                <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;
-                                                Alterar
-                                            </a>
-
-                                            <form class="delete-action" action="${destroy_url}?id=${produto.id}" method="post" confirm="Tem certeza?">
-                                                <button class="button is-danger is-outlined send">
-                                                    <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;
-                                                    Apagar    
-                                                </button>
-                                            </form>
+                                            <div class="buttons">
+                                                <a class="button is-info is-outlined" href='${main_url}?id=${produto.id}'>
+                                                    <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;
+                                                    Detalhes
+                                                </a>
+                                                <a class="button is-warning is-outlined" href='${edit_url}?id=${produto.id}'>
+                                                    <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;
+                                                    Alterar
+                                                </a>
+                                                <form class="delete-action" action="${destroy_url}?id=${produto.id}" method="post" confirm="Tem certeza?">
+                                                    <button class="button is-danger is-outlined send">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;
+                                                        Apagar    
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 </c:forEach>
