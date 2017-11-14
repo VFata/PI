@@ -27,7 +27,7 @@
     <body>
         <div class="columns is-mobile">
             <!-- Inclui menu vertical -->
-            <jsp:include page="/WEB-INF/vertical_menu.jsp" />
+            <c:import url="/WEB-INF/vertical_menu.jsp" />
             
             <div class="column is-11-touch is-9-desktop is-9-widescreen is-10-fullhd ">
                 <main class="hero">
@@ -61,7 +61,7 @@
                                                 
                         <form action="" method="get" class="field is-grouped">
                             <p class="control is-expanded">
-                                <input name="q" class="input" type="text" placeholder="Pesquisar Produto">
+                                <input name="q" class="input" type="text" placeholder="Pesquisar Venda">
                             </p>
                             <p class="control">
                                 <button class="button is-info">
@@ -70,44 +70,33 @@
                             </p>
                             
                             <p class="control">
-                                <a class="button is-success" href="${new_url}">Novo Produto</a>
+                                <a class="button is-success" href="${new_url}">Nova Venda</a>
                             </p>
                         </form>
 
                         <table class="table is-hoverable is-fullwidth">
                             <thead>
                                 <tr>
-                                    <th>Nome</th>
-                                    <th>Tipo</th>
-                                    <th> Valor</th>
-                                     <th>Ações</th>
+                                    <th>Cliente</th>
+                                    <th>Empresa</th>
+                                    <th>Quantidade</th>
+                                    <th>Valor Total</th>
+                                    <th>Ações</th>
                                     
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach items="${vendas}" var="servico">
+                                <c:forEach items="${vendas}" var="venda">
                                     <tr>
-                                        <td><c:out value="${produto.nome}" /></td>
-                                        <td><c:out value="${produto.tipo}" /></td>
-                                        <td><c:out value="${produto.valor}" /></td>
-                                        
+                                        <td><c:out value="${venda.cliente.nome}" /></td>
+                                        <td><c:out value="${venda.empresa.nome}" /></td>
+                                        <td><c:out value="${venda.quantidade}" /></td>
+                                        <td><c:out value="${venda.formatValorTotal}" /></td>
                                         <td>
                                             <a class="button is-info is-outlined" href='${main_url}?id=${venda.id}'>
                                                 <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;
                                                 Detalhes
                                             </a>
-
-                                            <a class="button is-warning is-outlined" href='${edit_url}?id=${venda.id}'>
-                                                <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;
-                                                Alterar
-                                            </a>
-
-                                            <form class="delete-action" action="${destroy_url}?id=${venda.id}" method="post" confirm="Tem certeza?">
-                                                <button class="button is-danger is-outlined send">
-                                                    <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;
-                                                    Apagar    
-                                                </button>
-                                            </form>
                                         </td>
                                     </tr>
                                 </c:forEach>

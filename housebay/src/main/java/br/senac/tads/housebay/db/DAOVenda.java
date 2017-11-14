@@ -75,7 +75,7 @@ public class DAOVenda {
                     venda.setAtivo(resultados.getBoolean("ativo"));
                     venda.setCriado(resultados.getTimestamp("criado").getTime());
                     venda.setModificado(resultados.getTimestamp("modificado").getTime());
-                    venda.setCarrinho(referencesCliente(venda.getId()));
+                    venda.setCarrinho(referencesVendaveis(venda.getId()));
                 }
             }
         } catch (SQLException ex) {
@@ -106,11 +106,12 @@ public class DAOVenda {
                 while (resultados.next()) {
                     Venda venda = new Venda();
                     venda.setId(resultados.getLong("id"));
-                    venda.setCliente( getCliente(resultados.getLong("cliente_id")));
-                    venda.setEmpresa( getEmpresa(resultados.getLong("empresa_id")));
+                    venda.setCliente(getCliente(resultados.getLong("cliente_id")));
+                    venda.setEmpresa(getEmpresa(resultados.getLong("empresa_id")));
                     venda.setAtivo(resultados.getBoolean("ativo"));
                     venda.setCriado(resultados.getTimestamp("criado").getTime());
                     venda.setModificado(resultados.getTimestamp("modificado").getTime());
+                    venda.setCarrinho(referencesVendaveis(venda.getId()));
                     list.add(venda);
                 }
             }
@@ -200,7 +201,7 @@ public class DAOVenda {
         return DAOVendavel.readServico(id);
     }
     
-    public static List<Venda.Relacao> referencesCliente(long venda_id) {
+    public static List<Venda.Relacao> referencesVendaveis(long venda_id) {
         String sql = "SELECT id, venda_id, vendavel_id, quantidade, valor_total, ativo FROM venda_vendaveis WHERE (venda_id=? AND ativo=?)";
         List<Venda.Relacao> list = null;
         try (Connection connection = SQLUtils.getConnection();

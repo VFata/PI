@@ -1,5 +1,7 @@
 package br.senac.tads.housebay.model;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +56,31 @@ public class Venda extends TabelaDB {
         carrinho.add(relacao);
     }
     
+    public int getQuantidade() {
+        int quantidade = 0;
+        for (Relacao rel : this.carrinho) {
+            quantidade += rel.getQuantidade();
+        }
+        return quantidade;
+    }
+    
+    public int getValorTotal() {
+        int valor = 0;
+        for (Relacao rel : this.carrinho) {
+            valor += rel.getValorTotal();
+        }
+        return valor;
+    }
+    
+    public String getFormatValorTotal() {
+        DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols();
+        decimalFormatSymbols.setDecimalSeparator(',');
+        decimalFormatSymbols.setGroupingSeparator('.');
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00", decimalFormatSymbols);
+        return "R$" + decimalFormat.format(getValorTotal());
+    }
+    
+    
     public static class Relacao {
         private Vendavel vendavel;
         private int quantidade;
@@ -87,6 +114,13 @@ public class Venda extends TabelaDB {
         }
         public void setValorTotal(double valorTotal) {
             this.valorTotal = valorTotal;
+        }
+        public String getFormatValorTotal() {
+            DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols();
+            decimalFormatSymbols.setDecimalSeparator(',');
+            decimalFormatSymbols.setGroupingSeparator('.');
+            DecimalFormat decimalFormat = new DecimalFormat("#,##0.00", decimalFormatSymbols);
+            return "R$" + decimalFormat.format(getValorTotal());
         }
     }
 }

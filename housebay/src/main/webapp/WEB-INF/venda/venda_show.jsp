@@ -57,15 +57,42 @@
                                 <p><c:out value="${note.value}" /></p>
                             </div>
                         </c:forEach>
-
-                        <!-- DEBUG-id: <c:out value="${vendas.id}" /> -->
                         <p>
-                            <strong>Nome:</strong> <c:out value="${vendas.nome}" />
+                            <strong>Empresa:</strong> <c:out value="${venda.empresa.nome}" />
                         </p>
                         <p>
-                            <strong>Tipo:</strong> <c:out value="${vendas.tipo}" />
+                            <strong>Cliente:</strong> <c:out value="${venda.cliente.nome}" />
                         </p>
                         
+                        
+                        <table class="table is-hoverable is-fullwidth" id="carrinho">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Valor</th>
+                                    <th>Quantidade</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach items="${venda.carrinho}" var="v">
+                                    <tr>
+                                        <td>
+                                            <c:out value="${v.vendavel.nome}" />
+                                        </td>
+                                        <td>
+                                            <c:out value="${v.vendavel.formatValor}" />
+                                        </td>
+                                        <td>
+                                            <c:out value="${v.quantidade}" />
+                                        </td>
+                                        <td>
+                                            <c:out value="${v.formatValorTotal}" />
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
                     </div>
                 </main>
             </div>
