@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.senac.tads.housebay.controller;
+package br.senac.tads.housebay.controller.validate;
 
 import br.senac.tads.housebay.exception.FuncionarioException;
 import br.senac.tads.housebay.model.Funcionario;
@@ -11,11 +11,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
-import sun.util.calendar.Gregorian;
-
 
 public class ValidateFuncionario {private final static String ERRO = "Erro na Validação.";
-    
+    //TODO REFAZER TODOS OS VALIDADORES 
     
     public static boolean create(Funcionario funcionario) 
             throws FuncionarioException {
@@ -25,14 +23,15 @@ public class ValidateFuncionario {private final static String ERRO = "Erro na Va
             //erro += "\nFuncionario nulo.";
             errors.put(Funcionario.class.getCanonicalName() + "_empty", "Funcionario nulo.");
         } else {
-            if (funcionario.getEmail()== null || funcionario.getEmail().equals("")) {
+            if (funcionario.getEmail()== null || funcionario.getEmail().equals("") /*|| !funcionario.getEmail().contentEquals("@")*/) {
                 //erro += "\nNome vazio.";
-                errors.put(Funcionario.EMAIL + "_empty", "Nome vazio.");
+                errors.put(Funcionario.EMAIL + "_empty", "Erro Campo email");
             }
-            if (funcionario.getSenha()== null || funcionario.getSenha().equals("")) {
+            if (funcionario.getSenha()== null || funcionario.getSenha().equals("") || funcionario.getSenha().length() <= 8) {
                 //erro += "\nNome vazio.";
-                errors.put(Funcionario.SENHA + "_empty", "Nome vazio.");
+                errors.put(Funcionario.SENHA + "_empty", "Erro campo senha.");
             }
+            
             //erro = geraMensagem(funcionario, erro);
             errors.putAll(geraMensagem(funcionario));
         }
@@ -60,6 +59,7 @@ public class ValidateFuncionario {private final static String ERRO = "Erro na Va
                 //erro += "\nId vazio.";
                 errors.put(Funcionario.ID + "_empty", "ID vazio.");
             }
+            
             //erro = geraMensagem(funcionario, erro);
             errors.putAll(geraMensagem(funcionario));
         }
@@ -98,14 +98,6 @@ public class ValidateFuncionario {private final static String ERRO = "Erro na Va
         if (funcionario.getTelefone()== null || funcionario.getTelefone().equals("") || funcionario.getTelefone().length() >= 14 || funcionario.getTelefone().length() <= 8 ) {
             //erro += "\nNome vazio.";
             errors.put(Funcionario.TELEFONE + "_empty", "Erro campo telefone.");
-        }
-        if (funcionario.getEmail()== null || funcionario.getEmail().equals("") || !funcionario.getEmail().contentEquals("@")) {
-            //erro += "\nNome vazio.";
-            errors.put(Funcionario.EMAIL + "_empty", "Erro Campo email");
-        }
-        if (funcionario.getSenha()== null || funcionario.getSenha().equals("") || funcionario.getSenha().length() <= 8) {
-            //erro += "\nNome vazio.";
-            errors.put(Funcionario.SENHA + "_empty", "Erro campo senha.");
         }
 
         

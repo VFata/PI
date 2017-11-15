@@ -1,7 +1,9 @@
 package br.senac.tads.housebay.controller;
 
+import br.senac.tads.housebay.controller.validate.ValidateFuncionario;
 import br.senac.tads.housebay.db.DAOFuncionario;
 import br.senac.tads.housebay.exception.FuncionarioException;
+import br.senac.tads.housebay.model.Cargo2;
 import br.senac.tads.housebay.model.Funcionario;
 import java.io.IOException;
 import java.text.ParseException;
@@ -110,6 +112,8 @@ public class Funcionarios extends HttpServlet{
      */
     @Override protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        
         String url = request.getServletPath();
         String id = request.getParameter("id");
         HttpSession sessao = request.getSession();
@@ -117,7 +121,7 @@ public class Funcionarios extends HttpServlet{
         HashMap erros = (HashMap) sessao.getAttribute("erro");
         //System.out.println("DEBUG: post method");
 
-        response.setContentType("text/html;charset=UTF-8");
+        //response.setContentType("text/html;charset=UTF-8");
         
         if (url.equals("/funcionarios/destroy") && id != null) {
             //Deleta o funcionario id=xxx
@@ -137,7 +141,7 @@ public class Funcionarios extends HttpServlet{
             funcionario.setNome(request.getParameter("nome"));
             funcionario.setTelefone(request.getParameter("telefone"));
             funcionario.setCpf(request.getParameter("cpf"));
-            funcionario.setCargo(DAOFuncionario.getCargo(Long.parseLong(request.getParameter("cargo_id"))));
+            funcionario.setCargo(Cargo2.getCargo(Integer.parseInt(request.getParameter("cargo"))));
             
             funcionario.setEmail(request.getParameter("email"));
             funcionario.setSenha(DAOFuncionario.geraSenha(request.getParameter("senha")));
@@ -190,7 +194,7 @@ public class Funcionarios extends HttpServlet{
             Funcionario funcionario = new Funcionario();
             funcionario.setId(Long.parseLong(id));
             funcionario.setNome(request.getParameter("nome"));
-            funcionario.setCargo(DAOFuncionario.getCargo(Long.parseLong(request.getParameter("cargo_id"))));
+            funcionario.setCargo(Cargo2.getCargo(Integer.parseInt(request.getParameter("cargo"))));
             funcionario.setCpf(request.getParameter("cpf"));
             //funcionario.setEmail(request.getParameter("email"));
             funcionario.setTelefone(request.getParameter("telefone"));            

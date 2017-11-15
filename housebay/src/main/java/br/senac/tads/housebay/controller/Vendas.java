@@ -5,6 +5,7 @@
  */
 package br.senac.tads.housebay.controller;
 
+import br.senac.tads.housebay.controller.validate.ValidateVenda;
 import br.senac.tads.housebay.db.DAOVenda;
 import br.senac.tads.housebay.exception.VendaException;
 import br.senac.tads.housebay.model.Venda;

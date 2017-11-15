@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.senac.tads.housebay.controller;
+package br.senac.tads.housebay.controller.validate;
 
 import br.senac.tads.housebay.exception.ProdutoException;
 import br.senac.tads.housebay.model.Produto;

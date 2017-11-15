@@ -1,6 +1,6 @@
 package br.senac.tads.housebay.db;
 
-import br.senac.tads.housebay.model.Cargo;
+import br.senac.tads.housebay.model.Cargo2;
 import br.senac.tads.housebay.model.Funcionario;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import org.mindrot.jbcrypt.BCrypt;
  */
 public class DAOFuncionario {    
     public static Long create(Funcionario funcionario) {
-        String sql = "INSERT INTO funcionarios (nome, data_nascimento, telefone, cpf, cargo_id, email, hash_senha, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO funcionarios (nome, data_nascimento, telefone, cpf, cargo, email, hash_senha, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Long id = null;
         try (Connection connection = SQLUtils.getConnection()) {
             connection.setAutoCommit(false);
@@ -30,7 +30,7 @@ public class DAOFuncionario {
                 statement.setTimestamp(2,  new Timestamp(funcionario.getDataNascimento().getTimeInMillis()));
                 statement.setString(3, funcionario.getTelefone());
                 statement.setString(4, funcionario.getCpf());
-                statement.setLong(5, funcionario.getCargo().getId());
+                statement.setInt(5, funcionario.getCargo().getValue());
                 statement.setString(6, funcionario.getEmail());
                 statement.setString(7, funcionario.getSenha());
                 
@@ -61,7 +61,7 @@ public class DAOFuncionario {
     }
 
     public static Funcionario read(Long id) {
-        String sql = "SELECT id, nome, data_nascimento, telefone, cpf, cargo_id, email, ativo, criado, modificado FROM funcionarios WHERE (id=? AND ativo=?)";
+        String sql = "SELECT id, nome, data_nascimento, telefone, cpf, cargo, email, ativo, criado, modificado FROM funcionarios WHERE (id=? AND ativo=?)";
         Funcionario funcionario = null;
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -76,7 +76,7 @@ public class DAOFuncionario {
                     funcionario.setDataNascimento(resultados.getTimestamp("data_nascimento").getTime());
                     funcionario.setTelefone(resultados.getString("telefone"));
                     funcionario.setCpf(resultados.getString("cpf"));
-                    funcionario.setCargo(DAOCargo.read(resultados.getLong("cargo_id")));
+                    funcionario.setCargo(Cargo2.getCargo(resultados.getInt("cargo")));
                     funcionario.setEmail(resultados.getString("email"));
                     funcionario.setAtivo(resultados.getBoolean("ativo"));
                     funcionario.setCriado(resultados.getTimestamp("criado").getTime());
@@ -92,9 +92,9 @@ public class DAOFuncionario {
     public static List<Funcionario> search(String query) {
         String sql;
         if (query != null) {
-            sql = "SELECT id, nome, data_nascimento, telefone, cpf, cargo_id, email, ativo, criado, modificado FROM funcionarios WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
+            sql = "SELECT id, nome, data_nascimento, telefone, cpf, cargo, email, ativo, criado, modificado FROM funcionarios WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
         } else {
-            sql = "SELECT id, nome, data_nascimento, telefone, cpf, cargo_id, email, ativo, criado, modificado FROM funcionarios WHERE ativo=?";
+            sql = "SELECT id, nome, data_nascimento, telefone, cpf, cargo, email, ativo, criado, modificado FROM funcionarios WHERE ativo=?";
         }
         List<Funcionario> list = null;
         try (Connection connection = SQLUtils.getConnection();
@@ -115,7 +115,7 @@ public class DAOFuncionario {
                     funcionario.setDataNascimento(resultados.getTimestamp("data_nascimento").getTime());
                     funcionario.setTelefone(resultados.getString("telefone"));
                     funcionario.setCpf(resultados.getString("cpf"));
-                    funcionario.setCargo(DAOCargo.read(resultados.getLong("cargo_id")));
+                    funcionario.setCargo(Cargo2.getCargo(resultados.getInt("cargo")));
                     funcionario.setEmail(resultados.getString("email"));
                     funcionario.setAtivo(resultados.getBoolean("ativo"));
                     funcionario.setCriado(resultados.getTimestamp("criado").getTime());
@@ -131,7 +131,7 @@ public class DAOFuncionario {
 
     public static boolean update(Funcionario funcionario) {
         if (funcionario != null && funcionario.getId() != null && funcionario.getId() > 0) {
-            String sql = "UPDATE funcionarios SET nome=?, data_nascimento=?, telefone=?, cpf=?, cargo_id=?, ativo=?, modificado=? WHERE id=?";
+            String sql = "UPDATE funcionarios SET nome=?, data_nascimento=?, telefone=?, cpf=?, cargo=?, ativo=?, modificado=? WHERE id=?";
             try (Connection connection = SQLUtils.getConnection()) {
                 connection.setAutoCommit(false);
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -139,7 +139,7 @@ public class DAOFuncionario {
                     statement.setTimestamp(2, new Timestamp(funcionario.getDataNascimento().getTimeInMillis()));
                     statement.setString(3, funcionario.getTelefone());
                     statement.setString(4, funcionario.getCpf());
-                    statement.setLong(5, funcionario.getCargo().getId());
+                    statement.setInt(5, funcionario.getCargo().getValue());
                     statement.setBoolean(6, funcionario.isAtivo());
                     Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
                     statement.setTimestamp(7, now);
@@ -192,8 +192,9 @@ public class DAOFuncionario {
         return BCrypt.hashpw(senha, BCrypt.gensalt());
     }
     
-    public static boolean autenticar(String email, String senha) {
-        String sql = "SELECT hash_senha FROM funcionarios WHERE (UPPER(email)=UPPER(?) AND ativo=?)";
+    public static Funcionario autenticar(String email, String senha) {
+        String sql = "SELECT id, hash_senha FROM funcionarios WHERE (UPPER(email)=UPPER(?) AND ativo=?)";
+        long id = -1;
         String hashed = null;
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -202,23 +203,29 @@ public class DAOFuncionario {
 
             try (ResultSet resultados = statement.executeQuery()) {
                 if (resultados.next()) {
+                    id = resultados.getLong("id");
                     hashed = resultados.getString("hash_senha");
                 }
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        if (hashed == null) { 
-            return false;
+        
+        if (hashed == null || id == -1) { 
+            return null;
+        } else if (BCrypt.checkpw(senha, hashed)) {
+            return read(id);
+        } else {
+            return null;
         }
-        return BCrypt.checkpw(senha, hashed);
     }
     
+    /*
     public static Cargo getCargo(long id) {
         return DAOCargo.read(id);
     }
-    
-    public static List<Cargo> getCargoList() {
-        return DAOCargo.search(null);
+    */
+    public static Cargo2[] getCargoList() {
+        return Cargo2.values();
     }
 }

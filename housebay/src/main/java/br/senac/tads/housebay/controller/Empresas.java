@@ -5,6 +5,7 @@
  */
 package br.senac.tads.housebay.controller;
 
+import br.senac.tads.housebay.controller.validate.ValidateEmpresa;
 import br.senac.tads.housebay.db.DAOEmpresa;
 import br.senac.tads.housebay.exception.EmpresaException;
 import br.senac.tads.housebay.model.Empresa;

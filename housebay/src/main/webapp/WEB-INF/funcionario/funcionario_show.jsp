@@ -75,7 +75,7 @@
                             <strong>E-mail:</strong> <c:out value="${funcionario.email}" />
                         </p>
                         <p>
-                            <strong>Cargo:</strong> <c:out value="${funcionario.cargo.nome}" />
+                            <strong>Cargo:</strong> <c:out value="${funcionario.cargo}" />
                         </p>
                     </div>
                 </main>

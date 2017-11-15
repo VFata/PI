@@ -141,9 +141,9 @@
                                     <div class="field is-narrow">
                                         <div class="control">
                                             <div class="select is-fullwidth">
-                                                <select name="cargo_id">
+                                                <select name="cargo">
                                                     <c:forEach items="${cargos}" var="cargo">
-                                                        <option value="${cargo.id}"><c:out value="${cargo.nome}" /></option>
+                                                        <option value="${cargo.value}"><c:out value="${cargo}" /></option>
                                                     </c:forEach>
                                                 </select>
                                             </div>

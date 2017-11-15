@@ -5,6 +5,8 @@
  */
 package br.senac.tads.housebay.controller;
 
+import br.senac.tads.housebay.controller.validate.ValidateCliente;
+import br.senac.tads.housebay.controller.validate.ValidatePet;
 import br.senac.tads.housebay.db.DAOCliente;
 import br.senac.tads.housebay.exception.ClienteException;
 import br.senac.tads.housebay.exception.PetException;

@@ -30,7 +30,8 @@ public enum Tipo {
         }
         return null;
     }
-
+    
+    /*
     public static Tipo getTipo(int tipo) {
         if (tipo == PRODUTO.getValue()) {
             return PRODUTO; 
@@ -40,4 +41,5 @@ public enum Tipo {
             return null;
         }
     }
+    */
 }

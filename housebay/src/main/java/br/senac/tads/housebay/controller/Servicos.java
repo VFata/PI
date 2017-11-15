@@ -5,6 +5,7 @@
  */
 package br.senac.tads.housebay.controller;
 
+import br.senac.tads.housebay.controller.validate.ValidateServico;
 import br.senac.tads.housebay.db.DAOVendavel;
 import br.senac.tads.housebay.exception.ServicoException;
 import br.senac.tads.housebay.model.Servico;

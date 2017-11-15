@@ -21,7 +21,7 @@ public class Funcionario extends TabelaDB {
     private String cpf;
     private String email;
     private String senha;
-    private Cargo cargo;
+    private Cargo2 cargo;
 
     public Funcionario() {
         super();
@@ -89,10 +89,10 @@ public class Funcionario extends TabelaDB {
         this.senha = senha;
     }
 
-    public Cargo getCargo() {
+    public Cargo2 getCargo() {
         return cargo;
     }
-    public void setCargo(Cargo cargo) {
+    public void setCargo(Cargo2 cargo) {
         this.cargo = cargo;
     }
 }

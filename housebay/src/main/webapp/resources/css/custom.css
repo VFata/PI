@@ -130,3 +130,11 @@
     display: inline-block;
     flex-shrink: 0;
 }
+
+
+.login-logo {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: -20px;
+    display: inline-block;
+}
