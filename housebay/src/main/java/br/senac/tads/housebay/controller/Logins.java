@@ -6,7 +6,7 @@
 package br.senac.tads.housebay.controller;
 
 import br.senac.tads.housebay.db.Login;
-import br.senac.tads.housebay.model.Cargo2;
+import br.senac.tads.housebay.model.Cargo;
 import br.senac.tads.housebay.model.Funcionario;
 import java.io.IOException;
 import java.util.ArrayList;

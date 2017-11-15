@@ -9,12 +9,12 @@ package br.senac.tads.housebay.model;
  *
  * @author Diego
  */
-public enum Cargo2 {
+public enum Cargo {
     GERENTE(1), VENDEDOR(2), SUPORTE(3), TI(4);
     
     private final int value;
     
-    private Cargo2 (int value) {
+    private Cargo (int value) {
         this.value = value;
     }
     
@@ -38,7 +38,7 @@ public enum Cargo2 {
         }
     }
     
-    public static Cargo2 getCargo(int value) {
+    public static Cargo getCargo(int value) {
         switch(value) {
             case(1):
                 return GERENTE;

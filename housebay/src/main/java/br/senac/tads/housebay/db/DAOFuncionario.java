@@ -1,6 +1,6 @@
 package br.senac.tads.housebay.db;
 
-import br.senac.tads.housebay.model.Cargo2;
+import br.senac.tads.housebay.model.Cargo;
 import br.senac.tads.housebay.model.Funcionario;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +76,7 @@ public class DAOFuncionario {
                     funcionario.setDataNascimento(resultados.getTimestamp("data_nascimento").getTime());
                     funcionario.setTelefone(resultados.getString("telefone"));
                     funcionario.setCpf(resultados.getString("cpf"));
-                    funcionario.setCargo(Cargo2.getCargo(resultados.getInt("cargo")));
+                    funcionario.setCargo(Cargo.getCargo(resultados.getInt("cargo")));
                     funcionario.setEmail(resultados.getString("email"));
                     funcionario.setAtivo(resultados.getBoolean("ativo"));
                     funcionario.setCriado(resultados.getTimestamp("criado").getTime());
@@ -115,7 +115,7 @@ public class DAOFuncionario {
                     funcionario.setDataNascimento(resultados.getTimestamp("data_nascimento").getTime());
                     funcionario.setTelefone(resultados.getString("telefone"));
                     funcionario.setCpf(resultados.getString("cpf"));
-                    funcionario.setCargo(Cargo2.getCargo(resultados.getInt("cargo")));
+                    funcionario.setCargo(Cargo.getCargo(resultados.getInt("cargo")));
                     funcionario.setEmail(resultados.getString("email"));
                     funcionario.setAtivo(resultados.getBoolean("ativo"));
                     funcionario.setCriado(resultados.getTimestamp("criado").getTime());
@@ -225,7 +225,7 @@ public class DAOFuncionario {
         return DAOCargo.read(id);
     }
     */
-    public static Cargo2[] getCargoList() {
-        return Cargo2.values();
+    public static Cargo[] getCargoList() {
+        return Cargo.values();
     }
 }
