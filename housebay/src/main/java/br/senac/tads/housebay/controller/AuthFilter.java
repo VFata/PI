@@ -68,6 +68,8 @@ public class AuthFilter implements Filter {
         
         String url = httpRequest.getServletPath();
         HttpSession session = httpRequest.getSession();
+        
+        /* desabilita auth */
         Funcionario funcionario = (Funcionario) session.getAttribute("user");
         if (funcionario != null) {
             if(!ACESSO.get(funcionario.getCargo()).contains(url)) {
@@ -79,7 +81,7 @@ public class AuthFilter implements Filter {
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/logout");
             return;
         }
-        
+        /**/
         chain.doFilter(request, response);
         doAfterProcessing(httpRequest, httpResponse);
     }
