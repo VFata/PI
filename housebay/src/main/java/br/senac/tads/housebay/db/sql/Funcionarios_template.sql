@@ -19,6 +19,7 @@ CREATE TABLE funcionarios (
     CONSTRAINT unique_funcionarios_email UNIQUE (email)
 );
 
+/* Senha: "senhasenha" */
 
 INSERT INTO HOUSEBAY.FUNCIONARIOS (NOME, DATA_NASCIMENTO, TELEFONE, CPF, EMAIL, HASH_SENHA, CARGO, ATIVO, CRIADO, MODIFICADO) 
 	VALUES ('Direta', '1970-01-01 00:01:00.0', '98765-4321', '123.456.789-20', 'dir@astec.com', '$2a$10$FBfNKSOw1zAQVpT6Ooqwj.yEuRVdtYVpdlhFuSishQL6Dzo/MdGkK', 1, 1, '2017-11-15 22:59:22.42', '2017-11-15 22:59:22.42');
