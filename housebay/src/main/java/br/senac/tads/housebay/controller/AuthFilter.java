@@ -5,7 +5,14 @@
  */
 package br.senac.tads.housebay.controller;
 
+import br.senac.tads.housebay.model.Cargo;
+import br.senac.tads.housebay.model.Funcionario;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -23,19 +30,20 @@ import javax.servlet.http.HttpSession;
  * @author Diego
  */
 @WebFilter(filterName = "AuthFilter", 
-        urlPatterns = {"/clientes/*", "/funcionarios/*"}, 
+        urlPatterns = {"/clientes/*", "/empresas/*", "/funcionarios/*", "/pets/*", "/produtos/*", "/servicos", "/vendas/*", "/vendasJson/*" }, 
         dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD}
 )
 public class AuthFilter implements Filter {
-    private static final boolean debug = false;
-    
+    //private static final boolean debug = false;
+    private static final Map<Cargo, List> ACESSO = generate();
+        
     public AuthFilter() {
     }
     
     private void doBeforeProcessing(HttpServletRequest request, HttpServletResponse response)
         throws IOException, ServletException {
         request.setCharacterEncoding("UTF-8");
-        //response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
     }    
     
     private void doAfterProcessing(HttpServletRequest request, HttpServletResponse response)
@@ -57,9 +65,20 @@ public class AuthFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         
         doBeforeProcessing(httpRequest, httpResponse);
-                
+        
+        String url = httpRequest.getServletPath();
         HttpSession session = httpRequest.getSession();
-        //Funcionario funcionario = (Funcionario) session.getAttribute("lala");
+        Funcionario funcionario = (Funcionario) session.getAttribute("user");
+        if (funcionario != null) {
+            if(!ACESSO.get(funcionario.getCargo()).contains(url)) {
+                session.setAttribute("mensagem", Arrays.asList("Acesso negado!"));
+                httpResponse.sendRedirect(httpRequest.getContextPath() + ACESSO.get(funcionario.getCargo()).get(0));
+                return;
+            }
+        } else {
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/logout");
+            return;
+        }
         
         chain.doFilter(request, response);
         doAfterProcessing(httpRequest, httpResponse);
@@ -68,4 +87,34 @@ public class AuthFilter implements Filter {
     @Override public void destroy() {}
 
     @Override public void init(FilterConfig filterConfig) {}
+    
+    private static Map<Cargo, List> generate() {
+        Map map = new HashMap();
+        
+        map.put(Cargo.DIRETORIA , Arrays.asList(
+                "/empresas", "/empresas/new", "/empresas/create", "/empresas/edit", "/empresas/update", "/empresas/destroy", 
+                "/relatorios", /*TODO: RELATORIOS*/
+                "/produtos", "/produtos/new", "/produtos/create", "/produtos/edit", "/produtos/update", "/produtos/destroy", 
+                "/servicos", "/servicos/new", "/servicos/create", "/servicos/edit", "/servicos/update", "/servicos/destroy"
+        ));
+        
+        map.put(Cargo.BACKOFFICE , Arrays.asList(
+                "/produtos", "/produtos/new", "/produtos/create", "/produtos/edit", "/produtos/update", "/produtos/destroy", 
+                "/servicos", "/servicos/new", "/servicos/create", "/servicos/edit", "/servicos/update", "/servicos/destroy",
+                "/relatorios" /*TODO: RELATORIOS*/
+        ));
+        
+        map.put(Cargo.VENDEDOR , Arrays.asList(
+                "/clientes", "/clientes/new", "/clientes/create", "/clientes/edit", "/clientes/update", "/clientes/destroy",
+                "/pets", "/pets/new", "/pets/create", "/pets/edit", "/pets/update", "/pets/destroy", 
+                "/vendas", "/vendas/new", "/vendas/create", 
+                "/vendasJson/cliente", "/vendasJson/produto"
+        ));
+        
+        map.put(Cargo.SUPORTE , Arrays.asList(
+                "/funcionarios", "/funcionarios/new", "/funcionarios/create", "/funcionarios/edit", "/funcionarios/update", "/funcionarios/destroy"
+        ));
+        
+        return map;
+    }
 }

@@ -10,7 +10,7 @@ package br.senac.tads.housebay.model;
  * @author Diego
  */
 public enum Cargo {
-    GERENTE(1), VENDEDOR(2), SUPORTE(3), TI(4);
+    DIRETORIA(1), VENDEDOR(2), SUPORTE(3), BACKOFFICE(4);
     
     private final int value;
     
@@ -25,14 +25,14 @@ public enum Cargo {
     @Override public String toString() {
         if (null == this) return null; 
         else switch (this) {
-            case GERENTE:
-                return "Gerente";
+            case DIRETORIA:
+                return "Diretoria";
             case VENDEDOR:
                 return "Vendedor";
             case SUPORTE:
                 return "Suporte";
-            case TI:
-                return "TI";
+            case BACKOFFICE:
+                return "BackOffice";
             default:
                 return null;
         }
@@ -41,13 +41,13 @@ public enum Cargo {
     public static Cargo getCargo(int value) {
         switch(value) {
             case(1):
-                return GERENTE;
+                return DIRETORIA;
             case(2):
                 return VENDEDOR;
             case(3):
                 return SUPORTE;
             case(4):
-                return TI;
+                return BACKOFFICE;
             default:
                 return null;
         }

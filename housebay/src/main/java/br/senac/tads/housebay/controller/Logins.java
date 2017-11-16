@@ -5,7 +5,7 @@
  */
 package br.senac.tads.housebay.controller;
 
-import br.senac.tads.housebay.db.Login;
+import br.senac.tads.housebay.db.LoginUtils;
 import br.senac.tads.housebay.model.Cargo;
 import br.senac.tads.housebay.model.Funcionario;
 import java.io.IOException;
@@ -79,13 +79,13 @@ public class Logins extends HttpServlet {
         List mensagens = (List) session.getAttribute("mensagem");
         HashMap erros = (HashMap) session.getAttribute("erro");
         
-        Funcionario user = Login.autenticar(request.getParameter("email"), request.getParameter("senha"));
+        Funcionario user = LoginUtils.autenticar(request.getParameter("email"), request.getParameter("senha"));
         if (user != null) {
             session.setAttribute("user", user);
             if (null == user.getCargo()) {
                 authError(request, response, session, erros);
             } else switch (user.getCargo()) {
-                case GERENTE:
+                case DIRETORIA:
                     if (mensagens == null) {
                         mensagens = new ArrayList();
                     }
@@ -109,7 +109,7 @@ public class Logins extends HttpServlet {
                     session.setAttribute("mensagem", mensagens);
                     response.sendRedirect(request.getContextPath() + "/vendas");
                     break;
-                case TI:
+                case BACKOFFICE:
                     if (mensagens == null) {
                         mensagens = new ArrayList();
                     }
