@@ -52,6 +52,9 @@ public class Logins extends HttpServlet {
             
             response.sendRedirect(request.getContextPath() + "/login");
             return;
+        } else if (session.getAttribute("user") != null) {
+            response.sendRedirect(request.getContextPath() + "/home");
+            return;
         }
         
         List mensagens = (List) session.getAttribute("mensagem");

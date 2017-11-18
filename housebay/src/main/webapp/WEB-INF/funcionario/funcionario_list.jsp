@@ -30,7 +30,7 @@
                             <h1 class="title is-4">Lista de Funcionários</h1>
                             <nav class="subtitle is-6 breadcrumb" aria-label="breadcrumbs">
                                 <ul>
-                                    <li><a href="${index_url}">Home</a></li>
+                                    <li><a href="${index_url}home">Home</a></li>
                                     <li class="is-active"><a href="#" aria-current="page">Funcionários</a></li>
                                 </ul>
                             </nav>

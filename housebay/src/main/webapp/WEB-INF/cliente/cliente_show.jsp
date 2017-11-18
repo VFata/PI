@@ -16,6 +16,7 @@
         <c:url var="main_url" value="/clientes" />
         <c:url var="new_url" value="/clientes/new" />
         <c:url var="edit_url" value="/clientes/edit" />
+        <c:url var="edit_pet_url" value="/pets/edit" />
         
         <c:import url="/WEB-INF/_head.jsp" />
     </head>
@@ -30,7 +31,7 @@
                             <h1 class="title is-4">Detalhes Clientes</h1>
                             <nav class="subtitle is-6 breadcrumb" aria-label="breadcrumbs">
                                 <ul>
-                                    <li><a href="${index_url}">Home</a></li>
+                                    <li><a href="${index_url}home">Home</a></li>
                                     <li><a href="${main_url}">Clientes</a></li>
                                     <li class="is-active"><a href="#" aria-current="page">Detalhes</a></li>
                                     <!-- Incluir novos itens na breadcrumbs, caso necessário -->
@@ -87,8 +88,9 @@
                                         </div>
                                         <div class="level-right">
                                             <div class="level-item">
-                                                <a class="button is-warning is-outlined" href='${edit_url}?id=${pet.id}'>
-                                                    <span class="icon"><i class="fa fa-pencil" aria-hidden="true"></i></span> Alterar
+                                                <a class="button is-warning is-outlined" href='${edit_pet_url}?id=${pet.id}'>
+                                                    <span class="icon"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                                                    <span>Alterar</span>
                                                 </a>
                                             </div>
                                         </div>

@@ -24,7 +24,7 @@
                             <h1 class="title is-4">Home</h1>
                             <nav class="subtitle is-6 breadcrumb" aria-label="breadcrumbs">
                                 <ul>
-                                    <li><a href="#" aria-current="page">Home</a></li>
+                                    <li class="is-active"><a href="#" aria-current="page">Home</a></li>
                                 </ul>
                             </nav>
                         </div>

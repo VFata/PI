@@ -35,7 +35,7 @@
                             <h1 class="title is-4">Alterar Funcionário</h1>
                             <nav class="subtitle is-6 breadcrumb" aria-label="breadcrumbs">
                                 <ul>
-                                    <li><a href="${index_url}">Home</a></li>
+                                    <li><a href="${index_url}home">Home</a></li>
                                     <li><a href="${main_url}">Funcionários</a></li>
                                     <li class="is-active"><a href="#" aria-current="page">Alterar</a></li>
                                     <!-- Incluir novos itens na breadcrumbs, caso necessário -->
@@ -45,7 +45,7 @@
                             <h1 class="title is-4">Novo Funcionário</h1>
                             <nav class="subtitle is-6 breadcrumb" aria-label="breadcrumbs">
                                 <ul>
-                                    <li><a href="${index_url}">Home</a></li>
+                                    <li><a href="${index_url}home">Home</a></li>
                                     <li><a href="${main_url}">Funcionários</a></li>
                                     <li class="is-active"><a href="#" aria-current="page">Novo</a></li>
                                     <!-- Incluir novos itens na breadcrumbs, caso necessário -->

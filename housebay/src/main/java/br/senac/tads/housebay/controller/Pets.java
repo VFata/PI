@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Diego
  */
-@WebServlet(name = "Pets", urlPatterns = {"/pets", "/pets/new", "/pets/create", "/pets/edit", "/pets/update", "/pets/destroy"})
+@WebServlet(name = "Pets", urlPatterns = {/*"/pets", "/pets/new", "/pets/create",*/ "/pets/edit", "/pets/update" /*, "/pets/destroy"*/})
 public class Pets extends HttpServlet {
     /*  ROTAS:
      *  GET:  /pets             => Lista de pets
@@ -47,16 +47,12 @@ public class Pets extends HttpServlet {
      */
     @Override protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //request.setCharacterEncoding("UTF-8");
-        
         String url = request.getServletPath();
         String id = request.getParameter("id");
         HttpSession sessao = request.getSession();
         
-        //response.setContentType("text/html;charset=UTF-8");
-        
-        String responseURL;
-        
+        //String responseURL;
+        /*
         if (url.equals("/pets") && id == null) {
             //Lista pets
             String query = request.getParameter("q");
@@ -72,7 +68,8 @@ public class Pets extends HttpServlet {
             //Form novo pet
             newForm(request, response, sessao);
             return;
-        } else if (url.equals("/pets/edit") && id != null) {
+        } else*/ 
+        if (url.equals("/pets/edit") && id != null) {
             //Form alterar pet
             editForm(request, response, sessao, Long.parseLong(id));
             return;
@@ -80,7 +77,7 @@ public class Pets extends HttpServlet {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
-        
+        /*
         List mensagens = (List) sessao.getAttribute("mensagem");
         if (mensagens != null) {
             request.setAttribute("notifications", mensagens);
@@ -93,6 +90,7 @@ public class Pets extends HttpServlet {
         }
         RequestDispatcher dispatcher = request.getRequestDispatcher(responseURL);
         dispatcher.forward(request, response);
+        */
     }
 
     /**
@@ -110,17 +108,13 @@ public class Pets extends HttpServlet {
      */
     @Override protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        
         String url = request.getServletPath();
         String id = request.getParameter("id");
         HttpSession sessao = request.getSession();
         List mensagens = (List) sessao.getAttribute("mensagem");
         HashMap erros = (HashMap) sessao.getAttribute("erro");
-        //System.out.println("DEBUG: post method");
-
-        response.setContentType("text/html;charset=UTF-8");
         
+        /*
         if (url.equals("/pets/destroy") && id != null) {
             //Deleta o pet id=xxx
             Pet pet = new Pet();
@@ -176,7 +170,8 @@ public class Pets extends HttpServlet {
                 sessao.setAttribute("mensagem", mensagens);
                 response.sendRedirect(request.getContextPath() + "/pets?id=" + newId);
             }
-        } else if (url.equals("/pets/update") && id != null) {
+        } else*/ 
+        if (url.equals("/pets/update") && id != null) {
             //Altera o pet id=xxx            
             Pet pet = new Pet();
             pet.setId(Long.parseLong(id));
@@ -207,13 +202,14 @@ public class Pets extends HttpServlet {
                 }
                 mensagens.add("Pet alterado com sucesso.");
                 sessao.setAttribute("mensagem", mensagens);
-                response.sendRedirect(request.getContextPath() + "/pets?id=" + id);
+                response.sendRedirect(request.getContextPath() + "/clientes?id=" + pet.getClienteId());
             }
         } else {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }    
     }
     
+    /*
     private void newForm(HttpServletRequest request, HttpServletResponse response, HttpSession sessao)
         throws ServletException, IOException {
         Pet pet = (Pet) sessao.getAttribute("pet");
@@ -235,6 +231,7 @@ public class Pets extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/pet/pet_form.jsp");
         dispatcher.forward(request, response);
     }
+    */
     
     private void editForm(HttpServletRequest request, HttpServletResponse response, HttpSession sessao, Long id)
         throws ServletException, IOException {
