@@ -1,0 +1,20 @@
+Relatórios
+
+Vendas
+
+
+Qnt de Produtos vendidos / Valor arrecadado com produtos
+
+Qnt de serviços prestados / valor arrecadado com serviços
+
+Média de vendas por dia / média arrecadado por dia
+
+Produto mais vendido / Serviço mais prestado
+
+TOTAL ARRECADADO NO PERIODO
+
+
+
+
+
+
