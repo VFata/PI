@@ -10,22 +10,18 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Detalhes Funcionarios</title>
+        <title>Detalhes Funcionários</title>
+        
         <c:url var="index_url" value="/" />
-        <c:url var="resources_url" value="/resources" />
         <c:url var="main_url" value="/funcionarios" />
         <c:url var="new_url" value="/funcionarios/new" />
         <c:url var="edit_url" value="/funcionarios/edit" />
         
-        <link rel="stylesheet" href="${resources_url}/css/bulma.css" />
-        <link rel="stylesheet" href="${resources_url}/css/font-awesome.css" />
-        <link rel="stylesheet" href="${resources_url}/css/custom.css" />
-        <script type="text/javascript" src="${resources_url}/js/application.js"></script>
+        <c:import url="/WEB-INF/_head.jsp" />
     </head>
     <body>
         <div class="columns is-mobile">
-            <!-- Inclui menu vertical -->
-            <c:import url="/WEB-INF/vertical_menu.jsp" />
+            <c:import url="/WEB-INF/_vertical_menu.jsp" />
             
             <div class="column is-11-touch is-9-desktop is-9-widescreen is-10-fullhd ">
                 <main class="hero">
@@ -37,7 +33,6 @@
                                     <li><a href="${index_url}">Home</a></li>
                                     <li><a href="${main_url}">Funcionários</a></li>
                                     <li class="is-active"><a href="#" aria-current="page">Detalhes</a></li>
-                                    <!-- Incluir novos itens na breadcrumbs, caso necessário -->
                                 </ul>
                             </nav>
                         </div>
@@ -57,8 +52,7 @@
                                 <p><c:out value="${note.value}" /></p>
                             </div>
                         </c:forEach>
-
-                        <!-- DEBUG-id: <c:out value="${funcionario.id}" /> -->
+                        
                         <p>
                             <strong>Nome:</strong> <c:out value="${funcionario.nome}" />
                         </p>
@@ -72,10 +66,10 @@
                             <strong>CPF:</strong> <c:out value="${funcionario.cpf}" />
                         </p>
                         <p>
-                            <strong>E-mail:</strong> <c:out value="${funcionario.email}" />
+                            <strong>Cargo:</strong> <c:out value="${funcionario.cargo}" />
                         </p>
                         <p>
-                            <strong>Cargo:</strong> <c:out value="${funcionario.cargo}" />
+                            <strong>E-mail:</strong> <c:out value="${funcionario.email}" />
                         </p>
                     </div>
                 </main>

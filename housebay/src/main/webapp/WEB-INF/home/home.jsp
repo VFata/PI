@@ -12,17 +12,10 @@
         <meta charset="UTF-8">        
         <title>Astec Home</title>
         <c:url var="index_url" value="/" />
-        <c:url var="resources_url" value="/resources" />
-
-        <link rel="stylesheet" href="${resources_url}/css/bulma.css" />
-        <link rel="stylesheet" href="${resources_url}/css/font-awesome.css" />
-        <link rel="stylesheet" href="${resources_url}/css/custom.css" />
-        <script type="text/javascript" src="${resources_url}/js/application.js"></script>
-    </head>
+        <c:import url="/WEB-INF/_head.jsp" />
     <body>
         <div class="columns is-mobile">
-            <!-- Inclui menu vertical -->
-            <c:import url="/WEB-INF/vertical_menu.jsp" />
+            <c:import url="/WEB-INF/_vertical_menu.jsp" />
             
             <div class="column is-11-touch is-9-desktop is-9-widescreen is-10-fullhd ">
                 <main class="hero">

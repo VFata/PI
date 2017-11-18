@@ -8,7 +8,6 @@ package br.senac.tads.housebay.controller;
 import br.senac.tads.housebay.model.Cargo;
 import br.senac.tads.housebay.model.Funcionario;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;

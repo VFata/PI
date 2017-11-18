@@ -6,15 +6,11 @@
 package br.senac.tads.housebay.controller;
 
 import br.senac.tads.housebay.db.LoginUtils;
-import br.senac.tads.housebay.model.Cargo;
 import br.senac.tads.housebay.model.Funcionario;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,6 +42,16 @@ public class Logins extends HttpServlet {
         
         if(request.getServletPath().equals("/logout")) {
             session.removeAttribute("user");
+            
+            List mensagens = (List) session.getAttribute("mensagem");
+            if (mensagens == null) {
+                mensagens = new ArrayList();
+            }
+            mensagens.add("Logout efetuado com sucesso.");
+            session.setAttribute("mensagem", mensagens);
+            
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
         }
         
         List mensagens = (List) session.getAttribute("mensagem");

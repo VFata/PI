@@ -39,16 +39,6 @@
                     </li>
                 </c:if>
 
-                <c:if test="${sessionScope.user.cargo.value == 2}">    
-                    <li>        
-                        <a href="${base}pets" class="has-tooltip">
-                            <i class="fa fa-paw" aria-hidden="true"></i>
-                            <span class="is-hidden-touch">&nbsp;Pets</span>
-                            <span class="tooltip tag is-black is-hidden-desktop">Pets</span>
-                        </a>
-                    </li>
-                </c:if>
-
                 <c:if test="${sessionScope.user.cargo.value == 3}">
                     <li>
                         <a href="${base}funcionarios" class="has-tooltip">

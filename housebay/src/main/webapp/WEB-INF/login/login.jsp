@@ -13,13 +13,9 @@
         <meta charset="UTF-8">
         <title>Login</title>
         <c:url var="index_url" value="/" />
-        <c:url var="resources_url" value="/resources" />
         <c:url var="main_url" value="/login" />
 
-        <link rel="stylesheet" href="${resources_url}/css/bulma.css" />
-        <link rel="stylesheet" href="${resources_url}/css/font-awesome.css" />
-        <link rel="stylesheet" href="${resources_url}/css/custom.css" />
-        <script type="text/javascript" src="${resources_url}/js/application.js"></script>
+        <c:import url="/WEB-INF/_head.jsp" />
     </head>
     <body>
         <section class="hero is-light is-fullheight">

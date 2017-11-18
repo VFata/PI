@@ -10,27 +10,20 @@
     
     <head>
         <meta charset="UTF-8">
-        
-        <!-- Título da página -->
         <title>Nova Venda</title>
     
         <c:url var="index_url" value="/" />
-        <c:url var="resources_url" value="/resources" />
         <c:url var="main_url" value="/vendas" />
         <c:url var="create_url" value="/vendas/create" />
         <c:url var="update_url" value="/vendas/update" />
         
-        <link rel="stylesheet" href="${resources_url}/css/bulma.css" />
-        <link rel="stylesheet" href="${resources_url}/css/font-awesome.css" />
-        <link rel="stylesheet" href="${resources_url}/css/custom.css" />
-        <script type="text/javascript" src="${resources_url}/js/application.js"></script>
-        <script type="text/javascript" src="${resources_url}/js/venda.js"></script>
+        <c:import url="/WEB-INF/_head.jsp" />
+        <script type="text/javascript" src="${index_url}resources/js/venda.js"></script>
     </head>
     
     <body>
         <div class="columns is-mobile">
-            <!-- Inclui menu vertical -->
-            <jsp:include page="/WEB-INF/vertical_menu.jsp" />
+            <c:import url="/WEB-INF/_vertical_menu.jsp" />
         
             <div class="column is-11-touch is-9-desktop is-9-widescreen is-10-fullhd ">
                 <main class="hero">
@@ -73,8 +66,6 @@
                                     </a>
                                 </div>
                                 <div class="droppanel-content">
-
-                                    <!--form action="" method="get" class="field is-grouped" -->
                                     <div class="field is-grouped">
                                         <span class="control is-expanded">
                                             <input name="cliente-q" class="input" type="text" placeholder="Pesquisar Cliente">
@@ -85,7 +76,6 @@
                                             </button>
                                         </span>
                                     </div>
-                                    <!-- /form -->
 
                                     <table class="table is-hoverable is-fullwidth" id="cliente-table">
                                         <thead>
@@ -117,7 +107,6 @@
                                     </a>
                                 </div>
                                 <div class="droppanel-content">
-                                    <!--<form action="" method="get" class="field is-grouped">-->
                                     <div class="field is-grouped">
                                         <span class="control is-expanded">
                                             <input name="produto-q" class="input" type="text" placeholder="Pesquisar Produto">
@@ -128,7 +117,6 @@
                                             </button>
                                         </span>
                                     </div>
-                                    <!--</form>-->
 
                                     <table class="table is-hoverable is-fullwidth" id="produto-table">
                                         <thead>
@@ -166,7 +154,6 @@
                                             </button>
                                         </span>
                                     </div>
-                                    <!--</form>-->
 
                                     <table class="table is-hoverable is-fullwidth" id="produto-table">
                                         <thead>
@@ -197,25 +184,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <%--
-                                    <tr id="relacao_linha_1">
-                                        <td>Osso</td>
-                                        <td>R$ 13</td>
-                                        <td>
-                                            <div class="field">
-                                                <div class="control">
-                                                    <input class="input" type="number" name="relacao_qtd_1" placeholder="Quantidade">
-                                                    <input class="input" type="hidden" value="13">
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td id="relacao_total_1">R$132132</td>
-                                        <td>
-                                            <input type="hidden" name="relacao_id_1" value="1">
-                                            <a class="delete"></a>
-                                        </td>
-                                    </tr>
-                                    --%>
                                 </tbody>
                                 <tfoot>
                                     <tr>

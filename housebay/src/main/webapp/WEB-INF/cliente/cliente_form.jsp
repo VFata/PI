@@ -11,7 +11,6 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <!-- Título da página -->
         <c:choose><c:when test="${type=='edit' && cliente != null}">
           <title>Alterar Cliente</title>
         </c:when><c:otherwise>
@@ -19,20 +18,16 @@
         </c:otherwise></c:choose>
         
         <c:url var="index_url" value="/" />
-        <c:url var="resources_url" value="/resources" />
         <c:url var="main_url" value="/clientes" />
         <c:url var="create_url" value="/clientes/create" />
         <c:url var="update_url" value="/clientes/update" />
         
-        <link rel="stylesheet" href="${resources_url}/css/bulma.css" />
-        <link rel="stylesheet" href="${resources_url}/css/font-awesome.css" />
-        <link rel="stylesheet" href="${resources_url}/css/custom.css" />
-        <script type="text/javascript" src="${resources_url}/js/application.js"></script>
-        <script type="text/javascript" src="${resources_url}/js/cliente.js"></script>
+        <c:import url="/WEB-INF/_head.jsp" />
+        <script type="text/javascript" src="${index_url}resources/js/cliente.js"></script>
     </head>
     <body>
         <div class="columns is-mobile">
-            <c:import url="/WEB-INF/vertical_menu.jsp"/>
+            <c:import url="/WEB-INF/_vertical_menu.jsp"/>
         
             <div class="column is-11-touch is-9-desktop is-9-widescreen is-10-fullhd ">
                 <main class="hero">

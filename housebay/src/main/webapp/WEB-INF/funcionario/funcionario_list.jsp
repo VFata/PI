@@ -9,24 +9,19 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        
         <title>Lista de Funcionários</title>
+        
         <c:url var="index_url" value="/" />
-        <c:url var="resources_url" value="/resources" />
         <c:url var="main_url" value="/funcionarios" />
         <c:url var="new_url" value="/funcionarios/new" />
         <c:url var="edit_url" value="/funcionarios/edit" />
         <c:url var="destroy_url" value="/funcionarios/destroy" />
         
-        <link rel="stylesheet" href="${resources_url}/css/bulma.css" />
-        <link rel="stylesheet" href="${resources_url}/css/font-awesome.css" />
-        <link rel="stylesheet" href="${resources_url}/css/custom.css" />
-        <script type="text/javascript" src="${resources_url}/js/application.js"></script>
+        <c:import url="/WEB-INF/_head.jsp" />
     </head>
     <body>
         <div class="columns is-mobile">
-            <!-- Inclui menu vertical -->
-            <jsp:include page="/WEB-INF/vertical_menu.jsp" />
+            <c:import url="/WEB-INF/_vertical_menu.jsp" />
             
             <div class="column is-11-touch is-9-desktop is-9-widescreen is-10-fullhd ">
                 <main class="hero">
@@ -37,7 +32,6 @@
                                 <ul>
                                     <li><a href="${index_url}">Home</a></li>
                                     <li class="is-active"><a href="#" aria-current="page">Funcionários</a></li>
-                                    <!-- Incluir novos itens na breadcrumbs, caso necessário -->
                                 </ul>
                             </nav>
                         </div>

@@ -11,21 +11,17 @@
     <head>
         <meta charset="UTF-8">
         <title>Detalhes Vendas</title>
+        
         <c:url var="index_url" value="/" />
-        <c:url var="resources_url" value="/resources" />
         <c:url var="main_url" value="/vendas" />
         <c:url var="new_url" value="/vendas/new" />
         <c:url var="edit_url" value="/vendas/edit" />
-        
-        <link rel="stylesheet" href="${resources_url}/css/bulma.css" />
-        <link rel="stylesheet" href="${resources_url}/css/font-awesome.css" />
-        <link rel="stylesheet" href="${resources_url}/css/custom.css" />
-        <script type="text/javascript" src="${resources_url}/js/application.js"></script>
+
+        <c:import url="/WEB-INF/_head.jsp" />
     </head>
     <body>
         <div class="columns is-mobile">
-            <!-- Inclui menu vertical -->
-            <jsp:include page="/WEB-INF/vertical_menu.jsp" />
+            <c:import url="/WEB-INF/_vertical_menu.jsp" />
             
             <div class="column is-11-touch is-9-desktop is-9-widescreen is-10-fullhd ">
                 <main class="hero">
@@ -37,26 +33,25 @@
                                     <li><a href="${index_url}">Home</a></li>
                                     <li><a href="${main_url}">Vendas</a></li>
                                     <li class="is-active"><a href="#" aria-current="page">Detalhes</a></li>
-                                    <!-- Incluir novos itens na breadcrumbs, caso necessário -->
                                 </ul>
                             </nav>
                         </div>
                     </div>
                     
                     <div class="hero-body">
-                        <c:forEach items="${notifications}" var="note">
-                            <div class="notification">
-                                <button class="delete"></button>
-                                <p><c:out value="${note}" /></p>
-                            </div>
-                        </c:forEach>
-                        
-                        <c:forEach items="${errors}" var="note">
-                            <div class="notification is-danger">
-                                <button class="delete"></button>
-                                <p><c:out value="${note.value}" /></p>
-                            </div>
-                        </c:forEach>
+                      <c:forEach items="${notifications}" var="note">
+                        <div class="notification">
+                            <button class="delete"></button>
+                            <p><c:out value="${note}" /></p>
+                        </div>
+                      </c:forEach>
+
+                      <c:forEach items="${errors}" var="note">
+                        <div class="notification is-danger">
+                            <button class="delete"></button>
+                            <p><c:out value="${note.value}" /></p>
+                        </div>
+                      </c:forEach>
                         <p>
                             <strong>Empresa:</strong> <c:out value="${venda.empresa.nome}" />
                         </p>
@@ -75,22 +70,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach items="${venda.carrinho}" var="v">
-                                    <tr>
-                                        <td>
-                                            <c:out value="${v.vendavel.nome}" />
-                                        </td>
-                                        <td>
-                                            <c:out value="${v.vendavel.formatValor}" />
-                                        </td>
-                                        <td>
-                                            <c:out value="${v.quantidade}" />
-                                        </td>
-                                        <td>
-                                            <c:out value="${v.formatValorTotal}" />
-                                        </td>
-                                    </tr>
-                                </c:forEach>
+                              <c:forEach items="${venda.carrinho}" var="v">
+                                <tr>
+                                    <td>
+                                        <c:out value="${v.vendavel.nome}" />
+                                    </td>
+                                    <td>
+                                        <c:out value="${v.vendavel.formatValor}" />
+                                    </td>
+                                    <td>
+                                        <c:out value="${v.quantidade}" />
+                                    </td>
+                                    <td>
+                                        <c:out value="${v.formatValorTotal}" />
+                                    </td>
+                                </tr>
+                              </c:forEach>
                             </tbody>
                         </table>
                     </div>

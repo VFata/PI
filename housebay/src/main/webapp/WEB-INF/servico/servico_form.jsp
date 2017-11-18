@@ -9,33 +9,25 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-    
     <head>
         <meta charset="UTF-8">
-        
-        <!-- Título da página -->
-    <c:choose><c:when test="${type=='edit' && servico != null}">
+      <c:choose><c:when test="${type=='edit' && servico != null}">
         <title>Alterar Serviço</title>
-    </c:when><c:otherwise>
+      </c:when><c:otherwise>
         <title>Novo Serviço</title>
-    </c:otherwise></c:choose>
+      </c:otherwise></c:choose>
         
         <c:url var="index_url" value="/" />
-        <c:url var="resources_url" value="/resources" />
         <c:url var="main_url" value="/servicos" />
         <c:url var="create_url" value="/servicos/create" />
         <c:url var="update_url" value="/servicos/update" />
         
-        <link rel="stylesheet" href="${resources_url}/css/bulma.css" />
-        <link rel="stylesheet" href="${resources_url}/css/font-awesome.css" />
-        <link rel="stylesheet" href="${resources_url}/css/custom.css" />
-        <script type="text/javascript" src="${resources_url}/js/application.js"></script>
+        <c:import url="/WEB-INF/_head.jsp" />
     </head>
     
     <body>
         <div class="columns is-mobile">
-            <!-- Inclui menu vertical -->
-            <jsp:include page="/WEB-INF/vertical_menu.jsp" />
+            <c:import url="/WEB-INF/_vertical_menu.jsp" />
         
             <div class="column is-11-touch is-9-desktop is-9-widescreen is-10-fullhd ">
                 <main class="hero">
@@ -49,7 +41,6 @@
                                     <li><a href="${index_url}">Home</a></li>
                                     <li><a href="${main_url}">Serviço</a></li>
                                     <li class="is-active"><a href="#" aria-current="page">Alterar</a></li>
-                                    <!-- Incluir novos itens na breadcrumbs, caso necessário -->
                                 </ul>
                             </nav>
                         </c:when><c:otherwise>
@@ -59,7 +50,6 @@
                                     <li><a href="${index_url}">Home</a></li>
                                     <li><a href="${main_url}">Serviços</a></li>
                                     <li class="is-active"><a href="#" aria-current="page">Novo</a></li>
-                                    <!-- Incluir novos itens na breadcrumbs, caso necessário -->
                                 </ul>
                             </nav>
                         </c:otherwise></c:choose>
