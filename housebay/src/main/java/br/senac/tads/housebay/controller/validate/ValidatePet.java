@@ -61,10 +61,10 @@ public class ValidatePet {
         Map errors = new HashMap(); 
         
         if (pet.getNome() == null || pet.getNome().equals("")) {
-            errors.put(Pet.NOME + "_empty", "Campo nome vazio.");
+            errors.put(Pet.NOME + "_empty", "O campo nome PET esta vazio.");
         }
         if (pet.getDescricao() == null || pet.getDescricao().equals("")) {
-            errors.put(Pet.DESCRICAO + "_empty", "Campo descrição vazia.");
+            errors.put(Pet.DESCRICAO + "_empty", "O campo descrição PET esta vazio");
         }
         
         return errors;
