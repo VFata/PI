@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="${resources_url}/css/bulma.css" />
         <link rel="stylesheet" href="${resources_url}/css/font-awesome.css" />
         <link rel="stylesheet" href="${resources_url}/css/custom.css" />
+        <script type="text/javascript" src="${resources_url}/js/application.js"></script>
     </head>
     <body>
         <section class="hero is-light is-fullheight">

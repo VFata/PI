@@ -30,7 +30,7 @@ import javax.servlet.http.HttpSession;
  * @author Diego
  */
 @WebFilter(filterName = "AuthFilter", 
-        urlPatterns = {"/clientes/*", "/empresas/*", "/funcionarios/*", "/pets/*", "/produtos/*", "/servicos", "/vendas/*", "/vendasJson/*" }, 
+        urlPatterns = {"/home/*", "/clientes/*", "/empresas/*", "/funcionarios/*", "/pets/*", "/produtos/*", "/servicos", "/vendas/*", "/vendasJson/*" }, 
         dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD}
 )
 public class AuthFilter implements Filter {
@@ -74,7 +74,7 @@ public class AuthFilter implements Filter {
         if (funcionario != null) {
             if(!ACESSO.get(funcionario.getCargo()).contains(url)) {
                 session.setAttribute("mensagem", Arrays.asList("Acesso negado!"));
-                httpResponse.sendRedirect(httpRequest.getContextPath() + ACESSO.get(funcionario.getCargo()).get(0));
+                httpResponse.sendRedirect(httpRequest.getContextPath() + "/home");
                 return;
             }
         } else {
@@ -93,27 +93,27 @@ public class AuthFilter implements Filter {
     private static Map<Cargo, List> generate() {
         Map map = new HashMap();
         
-        map.put(Cargo.DIRETORIA , Arrays.asList(
+        map.put(Cargo.DIRETORIA , Arrays.asList("/home",
                 "/empresas", "/empresas/new", "/empresas/create", "/empresas/edit", "/empresas/update", "/empresas/destroy", 
                 "/relatorios", /*TODO: RELATORIOS*/
                 "/produtos", "/produtos/new", "/produtos/create", "/produtos/edit", "/produtos/update", "/produtos/destroy", 
                 "/servicos", "/servicos/new", "/servicos/create", "/servicos/edit", "/servicos/update", "/servicos/destroy"
         ));
         
-        map.put(Cargo.BACKOFFICE , Arrays.asList(
+        map.put(Cargo.BACKOFFICE , Arrays.asList("/home",
                 "/produtos", "/produtos/new", "/produtos/create", "/produtos/edit", "/produtos/update", "/produtos/destroy", 
                 "/servicos", "/servicos/new", "/servicos/create", "/servicos/edit", "/servicos/update", "/servicos/destroy",
                 "/relatorios" /*TODO: RELATORIOS*/
         ));
         
-        map.put(Cargo.VENDEDOR , Arrays.asList(
+        map.put(Cargo.VENDEDOR , Arrays.asList("/home",
                 "/clientes", "/clientes/new", "/clientes/create", "/clientes/edit", "/clientes/update", "/clientes/destroy",
                 "/pets", "/pets/new", "/pets/create", "/pets/edit", "/pets/update", "/pets/destroy", 
                 "/vendas", "/vendas/new", "/vendas/create", 
                 "/vendasJson/cliente", "/vendasJson/produto"
         ));
         
-        map.put(Cargo.SUPORTE , Arrays.asList(
+        map.put(Cargo.SUPORTE , Arrays.asList("/home",
                 "/funcionarios", "/funcionarios/new", "/funcionarios/create", "/funcionarios/edit", "/funcionarios/update", "/funcionarios/destroy"
         ));
         

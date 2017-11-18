@@ -88,7 +88,7 @@
                                 <c:forEach items="${servicos}" var="servico">
                                     <tr>
                                         <td><c:out value="${servico.nome}" /></td>
-                                        <td><c:out value="${servico.valor}" /></td>
+                                        <td><c:out value="${servico.formatValor}" /></td>
                                         
                                         <td>
                                             <a class="button is-info is-outlined" href='${main_url}?id=${servico.id}'>

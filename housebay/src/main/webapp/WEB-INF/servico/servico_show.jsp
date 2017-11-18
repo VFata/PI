@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Detalhes Produto</title>
+        <title>Detalhes Serviço</title>
         <c:url var="index_url" value="/" />
         <c:url var="resources_url" value="/resources" />
         <c:url var="main_url" value="/servicos" />
@@ -31,11 +31,11 @@
                 <main class="hero">
                     <div class="hero-head">
                         <div class="container is-fluid">
-                            <h1 class="title is-4">Detalhes Produto</h1>
+                            <h1 class="title is-4">Detalhes Serviço</h1>
                             <nav class="subtitle is-6 breadcrumb" aria-label="breadcrumbs">
                                 <ul>
                                     <li><a href="${index_url}">Home</a></li>
-                                    <li><a href="${main_url}">Produto</a></li>
+                                    <li><a href="${main_url}">Serviço</a></li>
                                     <li class="is-active"><a href="#" aria-current="page">Detalhes</a></li>
                                     <!-- Incluir novos itens na breadcrumbs, caso necessário -->
                                 </ul>
@@ -66,7 +66,7 @@
                             <strong>Descrição:</strong> <c:out value="${servico.descricao}" />
                         </p>
                         <p>
-                            <strong>Valor:</strong> <c:out value="${servico.valor}" />
+                            <strong>Valor:</strong> <c:out value="${servico.formatValor}" />
                         </p>
                         
                     </div>

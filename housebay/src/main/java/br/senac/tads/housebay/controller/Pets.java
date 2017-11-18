@@ -47,13 +47,13 @@ public class Pets extends HttpServlet {
      */
     @Override protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
+        //request.setCharacterEncoding("UTF-8");
         
         String url = request.getServletPath();
         String id = request.getParameter("id");
         HttpSession sessao = request.getSession();
         
-        response.setContentType("text/html;charset=UTF-8");
+        //response.setContentType("text/html;charset=UTF-8");
         
         String responseURL;
         

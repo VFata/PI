@@ -80,7 +80,7 @@
                                     <th>Nome</th>
                                     <th>Valor</th>
                                     <th>Estoque</th>
-                                    <th colspan="2">Ações</th>
+                                    <th colspan="3">Ações</th>
                                     
                                 </tr>
                             </thead>

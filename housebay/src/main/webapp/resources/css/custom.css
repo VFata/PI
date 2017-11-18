@@ -25,6 +25,11 @@
     border-right: 2px solid whitesmoke ;
 }
 
+.column.is-dark {
+    background-color: #363636;
+    color: whitesmoke;
+}
+
 .tooltip {
     display: inline;
     visibility: hidden;
@@ -131,10 +136,11 @@
     flex-shrink: 0;
 }
 
+.hero-head h1.title.is-4 {
+    margin-top: 1rem;
+}
 
-.login-logo {
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: -20px;
-    display: inline-block;
+
+.gallery .tile {
+    align-items: center;
 }

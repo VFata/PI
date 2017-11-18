@@ -77,65 +77,44 @@ public class Logins extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         List mensagens = (List) session.getAttribute("mensagem");
-        HashMap erros = (HashMap) session.getAttribute("erro");
         
         Funcionario user = LoginUtils.autenticar(request.getParameter("email"), request.getParameter("senha"));
         if (user != null) {
             session.setAttribute("user", user);
             if (null == user.getCargo()) {
-                authError(request, response, session, erros);
-            } else switch (user.getCargo()) {
-                case DIRETORIA:
-                    if (mensagens == null) {
-                        mensagens = new ArrayList();
-                    }
-                    mensagens.add("Login efetuado com sucesso.");
-                    session.setAttribute("mensagem", mensagens);
-                    response.sendRedirect(request.getContextPath() + "/empresas");
-                    break;
-                case SUPORTE:
-                    if (mensagens == null) {
-                        mensagens = new ArrayList();
-                    }
-                    mensagens.add("Login efetuado com sucesso.");
-                    session.setAttribute("mensagem", mensagens);
-                    response.sendRedirect(request.getContextPath() + "/produtos");
-                    break;
-                case VENDEDOR:
-                    if (mensagens == null) {
-                        mensagens = new ArrayList();
-                    }
-                    mensagens.add("Login efetuado com sucesso.");
-                    session.setAttribute("mensagem", mensagens);
-                    response.sendRedirect(request.getContextPath() + "/vendas");
-                    break;
-                case BACKOFFICE:
-                    if (mensagens == null) {
-                        mensagens = new ArrayList();
-                    }
-                    mensagens.add("Login efetuado com sucesso.");
-                    session.setAttribute("mensagem", mensagens);
-                    response.sendRedirect(request.getContextPath() + "/funcionarios");
-                    break;
-                default:
-                    session.removeAttribute("user");
-                    authError(request, response, session, erros);
-                    break;
+                authError(request, response);
+            } else {
+                if (mensagens == null) {
+                    mensagens = new ArrayList();
+                }
+                mensagens.add("Login efetuado com sucesso.");
+                session.setAttribute("mensagem", mensagens);
+                response.sendRedirect(request.getContextPath() + "/home");
             }
         } else {
-            authError(request, response, session, erros);
+            authError(request, response);
         }
     }
 
-    private void authError(HttpServletRequest request, HttpServletResponse response, HttpSession session, Map erros) throws IOException {
-        session.setAttribute("email", request.getParameter("email"));
+    private void authError(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+        
+        List mensagens = (List) session.getAttribute("mensagem");
+        if (mensagens != null) {
+            request.setAttribute("notifications", mensagens);
+            session.removeAttribute("mensagem");
+        }
+        
+        HashMap erros = (HashMap) session.getAttribute("erro");
         if (erros == null) {
             erros = new HashMap();
         }
-        erros.put("autenticacao", "E-mail ou Senha incorretos!");
-        session.setAttribute("erro", erros);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/login.jsp");
+        erros.put("autenticacao", "Desculpe, seu e-mail ou senha está incorreto!");
+        request.setAttribute("errors", erros);
+        session.removeAttribute("erro");
+        
         try {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/login.jsp");
             dispatcher.forward(request, response);
         } catch (ServletException | IOException ex) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);

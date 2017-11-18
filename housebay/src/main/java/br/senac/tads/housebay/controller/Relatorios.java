@@ -6,7 +6,7 @@
 package br.senac.tads.housebay.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,6 +30,10 @@ public class Relatorios extends HttpServlet {
     @Override protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/relatorio/relatorio_form.jsp");
+        dispatcher.forward(request, response);
     }
 
     /**
@@ -43,5 +47,9 @@ public class Relatorios extends HttpServlet {
     @Override protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/relatorio/relatorio_result.jsp");
+        dispatcher.forward(request, response);
     }
 }
