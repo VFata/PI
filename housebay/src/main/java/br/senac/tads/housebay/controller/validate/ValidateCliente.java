@@ -13,6 +13,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import sun.util.calendar.Gregorian;
 
 
@@ -77,26 +79,59 @@ public class ValidateCliente {
         
         if (cliente.getNome() == null || cliente.getNome().equals("")) {
             //erro += "\nNome vazio.";
-            errors.put(Cliente.NOME + "_empty", "Campo nome vazio.");
-        }
-        if (cliente.getEmail()== null || cliente.getEmail().equals("") || !cliente.getEmail().contains("@")) {
-            //erro += "\nDescrição vazia.";
-            errors.put(Cliente.EMAIL + "_empty", "Campo email vazio.");
-        }
-        if (cliente.getTelefone()== null || cliente.getTelefone().equals("") || cliente.getTelefone().length() >= 14 || cliente.getTelefone().length() <= 8) {
-            //erro += "\nDescrição vazia.";
-            errors.put(Cliente.TELEFONE + "_empty", "Erro campo telefone");
+            errors.put(Cliente.NOME + "_empty", "O campo nome esta vazio.");
         }
         
-        if (cliente.getCpf()== null || cliente.getCpf().equals("") || cliente.getCpf().length() != 14) {
+        
+        
+        Pattern email = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+        Matcher m = email.matcher(cliente.getEmail());  
+        if (cliente.getEmail()== null || cliente.getEmail().equals("")) {
             //erro += "\nDescrição vazia.";
-            errors.put(Cliente.CPF + "_empty", "Erro campo CPF");
+            errors.put(Cliente.EMAIL + "_empty", "O campo email esta vazio.");
+        }else if(!m.find()){  
+            errors.put(Cliente.EMAIL + "_empty", "O campo email esta incorreto.");            
+        }
+        
+        
+        
+        
+        
+        if (cliente.getTelefone()== null || cliente.getTelefone().equals("")) {
+            //erro += "\nDescrição vazia.";
+            errors.put(Cliente.TELEFONE + "_empty", "O campo telefone esta vazio");
+        }else if(cliente.getTelefone().length() >= 14){
+            
+            errors.put(Cliente.TELEFONE + "_empty", "O campo telefone deve conter ate 14 caracteres.");
+            
+        }else if(cliente.getTelefone().length() <= 8){
+            
+            errors.put(Cliente.TELEFONE + "_empty", "O campo telefone deve conter no minimo 8 caracteres.");
+            
+        }
+        
+        if (cliente.getCpf()== null || cliente.getCpf().equals("")) {
+            //erro += "\nDescrição vazia.";
+            errors.put(Cliente.CPF + "_empty", "O campo CPF esta Vazio.");
+            
+        }else if(cliente.getCpf().length() != 14){
+            
+            errors.put(Cliente.CPF + "_empty", "O campo CPF esta incorreto.");
+            
         }
         
         GregorianCalendar data = new GregorianCalendar();   
-        if (cliente.getDataNascimento()== null || (data.get(Calendar.YEAR) - cliente.getDataNascimento().get(Calendar.YEAR)) >= 120 || (data.get(Calendar.YEAR) - cliente.getDataNascimento().get(Calendar.YEAR)) < 16 ) {
+        if (cliente.getDataNascimento()== null) {
             //erro += "\nDescrição vazia.";
             errors.put(Cliente.DATA_NASCIMENTO + "_empty", "Erro campo data nascimento.");
+            
+        }else if((data.get(Calendar.YEAR) - cliente.getDataNascimento().get(Calendar.YEAR)) >= 120){
+            
+            errors.put(Cliente.DATA_NASCIMENTO + "_empty", "Idade limite alcançado");
+            
+        }else if((data.get(Calendar.YEAR) - cliente.getDataNascimento().get(Calendar.YEAR)) < 16){
+            
+            errors.put(Cliente.DATA_NASCIMENTO + "_empty", "A Idade minima é de 16 anos");
         }
         
         if (cliente.getPets()== null) {
