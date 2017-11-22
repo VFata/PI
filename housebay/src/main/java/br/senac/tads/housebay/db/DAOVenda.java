@@ -188,15 +188,20 @@ public class DAOVenda {
         return DAOEmpresa.read(id);
     }
     
-    public static List<Produto> getProdutoList(String query) {
-        return DAOVendavel.searchProduto(query);
-    }    
     public static Vendavel getVendavel(Long id) {
         return DAOVendavel.read(id);
-    }    
+    }
+    
+    public static List<Produto> getProdutoList(String query) {
+        return DAOVendavel.searchProduto(query);
+    }
     public static Produto getProduto(Long id) {
         return DAOVendavel.readProduto(id);
     }
+    
+    public static List<Servico> getServicoList(String query) {
+        return DAOVendavel.searchServico(query);
+    }    
     public static Servico getServico(Long id) {
         return DAOVendavel.readServico(id);
     }

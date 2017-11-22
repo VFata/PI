@@ -1,3 +1,5 @@
+/* global undefine */
+
 window.addEventListener("DOMContentLoaded", function () {
     [... document.querySelectorAll(".droppanel")].forEach( dp => {
         [... dp.querySelectorAll(".droppanel-trigger button, .droppanel-trigger a")].forEach( trigger => {
@@ -25,6 +27,12 @@ window.addEventListener("DOMContentLoaded", function () {
         getProdutos(document.querySelector("input[name=produto-q]").value);
     });
     
+    document.querySelector("#search-servico").addEventListener('click', (evt) => {
+        evt.preventDefault();
+                
+        getServicos(document.querySelector("input[name=servico-q]").value);
+    });
+    
     atualizaTotal();
 });
 
@@ -42,6 +50,7 @@ function adicionaVendavel(el) {
         if (document.querySelector(`#relacao_linha_${id}`)) {
             alert("Produto já inserido!");
         } else {
+            /*
             let gambi = `<td>${nome}</td>
                 <td>${formatDinheiro(valor)}</td>
                 <td>
@@ -53,7 +62,8 @@ function adicionaVendavel(el) {
                     </div>
                 </td>
                 <td id="relacao_total_${id}">${formatDinheiro(valor)}</td>`;
-            
+            */
+           
             let nomeTd = document.createElement('td');
             nomeTd.textContent = nome;
             
@@ -66,7 +76,9 @@ function adicionaVendavel(el) {
             qtdInput.name = `relacao_qtd_${id}`;
             qtdInput.value = 1;
             qtdInput.min = 1;
-            qtdInput.max = estoque;
+            if (estoque != undefined) {
+                qtdInput.max = estoque;
+            }
             qtdInput.setAttribute("prod-valor", valor);
             qtdInput.addEventListener('change', ()=> {
                 totalTd.textContent = (formatDinheiro(qtdInput.value * qtdInput.getAttribute("prod-valor")));
@@ -125,7 +137,7 @@ function selecionaCliente(el) {
 
 function getClientes(query) {
     let xhr = new XMLHttpRequest();
-    let url = "/housebay/vendasJson/cliente";
+    let url = "/housebay/vendasJson/clientes";
     let params = `q=${query}`;
     xhr.open("POST", url, true);
 
@@ -176,7 +188,7 @@ function getClientes(query) {
 
 function getProdutos(query) {
     let xhr = new XMLHttpRequest();
-    let url = "/housebay/vendasJson/produto";
+    let url = "/housebay/vendasJson/produtos";
     let params = `q=${query}`;
     xhr.open("POST", url, true);
 
@@ -226,6 +238,58 @@ function getProdutos(query) {
     xhr.send(params);
 }
 
+function getServicos(query) {
+    let xhr = new XMLHttpRequest();
+    let url = "/housebay/vendasJson/servicos";
+    let params = `q=${query}`;
+    xhr.open("POST", url, true);
+
+    //Send the proper header information along with the request
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhr.onreadystatechange = function() {
+        if(xhr.readyState === 4 && xhr.status === 200) {
+            let tbody = document.querySelector('#servico-table tbody');
+            tbody.innerHTML = '';
+            let produtos = JSON.parse(xhr.responseText);
+
+            produtos.forEach( prod => {
+                let td1 = document.createElement('td');
+                td1.textContent = prod.nome;
+
+                let td2 = document.createElement('td');
+                td2.textContent = prod.formatValor;
+
+                let td3 = document.createElement('td');
+                td3.textContent = prod.estoque;
+
+                let a = document.createElement('a');
+                a.classList.add("button", "is-success", "is-outlined", "get-cliente");
+                a.setAttribute("produto-id", prod.id);
+                a.setAttribute("produto-nome", prod.nome);
+                a.setAttribute("produto-valor", prod.valor);
+                adicionaVendavel(a);
+                a.textContent = "Selecionar";
+                a.insertAdjacentHTML('afterbegin', '<i class="fa fa-check" aria-hidden="true"></i>&nbsp;');
+
+                let td4 = document.createElement('td');
+                td4.appendChild(a);
+
+                let tr = document.createElement('tr');
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                tr.appendChild(td3);
+                tr.appendChild(td4);
+
+                tbody.appendChild(tr);
+            });
+
+        }
+    };    
+    xhr.send(params);
+}
+
+
 
 function atualizaTotal() {
     let carrinho = document.querySelector("#carrinho tbody");
@@ -238,7 +302,6 @@ function atualizaTotal() {
 
     document.querySelector("#valorTotal").textContent = formatDinheiro(total);
 }
-
 
 function formatDinheiro(n) {   
     return Number(n).toLocaleString('pt-br', {

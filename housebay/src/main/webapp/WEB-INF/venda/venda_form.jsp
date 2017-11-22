@@ -56,7 +56,7 @@
                         </c:forEach>
                         
                         <div class="box">
-                            <div class="droppanel is-active">
+                            <div class="droppanel">
                                 <div class="droppanel-trigger">
                                     <a>
                                         <span>Cliente</span>
@@ -146,16 +146,16 @@
                                 <div class="droppanel-content">
                                    <div class="field is-grouped">
                                         <span class="control is-expanded">
-                                            <input name="produto-q" class="input" type="text" placeholder="Pesquisar Serviço">
+                                            <input name="servico-q" class="input" type="text" placeholder="Pesquisar Serviço">
                                         </span>
                                         <span class="control">
-                                            <button id="search-produto" class="button is-light">
+                                            <button id="search-servico" class="button is-light">
                                                 Pesquisar
                                             </button>
                                         </span>
                                     </div>
 
-                                    <table class="table is-hoverable is-fullwidth" id="produto-table">
+                                    <table class="table is-hoverable is-fullwidth" id="servico-table">
                                         <thead>
                                             <tr>
                                                 <th>Nome</th>
@@ -183,8 +183,7 @@
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                </tbody>
+                                <tbody></tbody>
                                 <tfoot>
                                     <tr>
                                         <th colspan="3">Valor Total</th>

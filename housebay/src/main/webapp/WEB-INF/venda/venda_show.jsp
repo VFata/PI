@@ -59,6 +59,7 @@
                             <strong>Cliente:</strong> <c:out value="${venda.cliente.nome}" />
                         </p>
                         
+                        <br>
                         
                         <table class="table is-hoverable is-fullwidth" id="carrinho">
                             <thead>
@@ -87,6 +88,12 @@
                                 </tr>
                               </c:forEach>
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="3">Valor Total</th>
+                                    <th id="valorTotal"><c:out value="${venda.formatValorTotal}" /></th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </main>
