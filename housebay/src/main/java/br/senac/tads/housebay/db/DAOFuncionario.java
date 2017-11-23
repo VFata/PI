@@ -183,9 +183,30 @@ public class DAOFuncionario {
         }
     }
     
-    public static boolean updateSenha(Funcionario funcionario) {
-        //TODO
-        return false;
+    public static boolean updateSenha(Funcionario funcionario, String senha) {
+        if (funcionario != null && funcionario.getId() != null && funcionario.getId() > 0) {
+            String sql = "UPDATE funcionarios SET hash_senha=? WHERE id=?";
+            try (Connection connection = SQLUtils.getConnection()) {
+                connection.setAutoCommit(false);
+                try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                    statement.setString(1, geraSenha(senha));
+                    statement.setLong(2, funcionario.getId());
+
+                    statement.execute();
+                    connection.commit();
+                } catch (SQLException ex) {
+                    connection.rollback();
+                    System.err.println(ex.getMessage());
+                    return false;
+                }
+            } catch (SQLException ex) {
+                System.err.println(ex.getMessage());
+                return false;
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
     
     public static String geraSenha(String senha) {

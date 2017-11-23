@@ -10,4 +10,8 @@ public class LoginUtils {
     public static Funcionario autenticar(String email, String senha) {
         return DAOFuncionario.autenticar(email, senha);
     }
+    
+    public static boolean updateSenha(Funcionario user, String novaSenha){
+        return DAOFuncionario.updateSenha(user, novaSenha);
+    }
 }

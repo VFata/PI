@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Diego
  */
-@WebServlet(name = "Login", urlPatterns = {"/index.html", "/login", "/logout"})
+@WebServlet(name = "Login", urlPatterns = {"/index.html", "/login", "/logout", "/password"})
 public class Logins extends HttpServlet {
 
     /**
@@ -39,8 +39,13 @@ public class Logins extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+        String forwardURL = "/WEB-INF/login/login.jsp";
         
-        if(request.getServletPath().equals("/logout")) {
+        if(request.getServletPath().equals("/password")) {
+            Funcionario user = (Funcionario) session.getAttribute("user");
+            request.setAttribute("email", user.getEmail() );
+            forwardURL = "/WEB-INF/login/password.jsp";
+        } else if(request.getServletPath().equals("/logout")) {
             session.removeAttribute("user");
             
             List mensagens = (List) session.getAttribute("mensagem");
@@ -68,7 +73,7 @@ public class Logins extends HttpServlet {
             session.removeAttribute("erro");
         }
         
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/login.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
         dispatcher.forward(request, response);
     }
 
@@ -87,22 +92,38 @@ public class Logins extends HttpServlet {
         HttpSession session = request.getSession();
         List mensagens = (List) session.getAttribute("mensagem");
         
-        Funcionario user = LoginUtils.autenticar(request.getParameter("email"), request.getParameter("senha"));
-        if (user != null) {
-            session.setAttribute("user", user);
-            if (null == user.getCargo()) {
-                authError(request, response);
-            } else {
+        if(request.getServletPath().equals("/login")) {
+            Funcionario user = LoginUtils.autenticar(request.getParameter("email"), request.getParameter("senha"));
+            if (user != null) {
+                session.setAttribute("user", user);
                 if (mensagens == null) {
                     mensagens = new ArrayList();
                 }
                 mensagens.add("Login efetuado com sucesso.");
                 session.setAttribute("mensagem", mensagens);
                 response.sendRedirect(request.getContextPath() + "/home");
+
+            } else {
+                authError(request, response);
+            }
+        } else if(request.getServletPath().equals("/password") && session.getAttribute("user") != null) {
+            Funcionario sessionUser = (Funcionario) session.getAttribute("user");
+            Funcionario user = LoginUtils.autenticar(sessionUser.getEmail(), request.getParameter("senha"));
+            if (user != null) {
+                LoginUtils.updateSenha(user, request.getParameter("nova-senha"));
+                if (mensagens == null) {
+                    mensagens = new ArrayList();
+                }
+                mensagens.add("Senha modificada com sucesso.");
+                session.setAttribute("mensagem", mensagens);
+                response.sendRedirect(request.getContextPath() + "/home");
+            } else {
+                updateError(request, response);
             }
         } else {
-            authError(request, response);
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
+            
     }
 
     private void authError(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -117,10 +138,11 @@ public class Logins extends HttpServlet {
         HashMap erros = (HashMap) session.getAttribute("erro");
         if (erros == null) {
             erros = new HashMap();
+        } else {
+            session.removeAttribute("erro");
         }
         erros.put("autenticacao", "Desculpe, seu e-mail ou senha está incorreto!");
         request.setAttribute("errors", erros);
-        session.removeAttribute("erro");
         
         try {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/login.jsp");
@@ -129,5 +151,33 @@ public class Logins extends HttpServlet {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
-
+    
+    private void updateError(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+        
+        Funcionario user = (Funcionario) session.getAttribute("user");
+        request.setAttribute("email", user.getEmail() );
+        
+        List mensagens = (List) session.getAttribute("mensagem");
+        if (mensagens != null) {
+            request.setAttribute("notifications", mensagens);
+            session.removeAttribute("mensagem");
+        }
+        
+        HashMap erros = (HashMap) session.getAttribute("erro");
+        if (erros == null) {
+            erros = new HashMap();
+        } else {
+            session.removeAttribute("erro");
+        }
+        erros.put("autenticacao", "Desculpe, sua senha está incorreta!");
+        request.setAttribute("errors", erros);
+        
+        try {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/password.jsp");
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException ex) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+        }
+    }
 }

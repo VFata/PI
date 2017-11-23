@@ -29,7 +29,7 @@ import javax.servlet.http.HttpSession;
  * @author Diego
  */
 @WebFilter(filterName = "AuthFilter", 
-        urlPatterns = {"/home/*", "/clientes/*", "/empresas/*", "/funcionarios/*", "/pets/*", "/produtos/*", "/servicos", "/vendas/*", "/vendasJson/*" }, 
+        urlPatterns = {"/home/*", "/clientes/*", "/empresas/*", "/funcionarios/*", "/pets/*", "/produtos/*", "/servicos", "/vendas/*", "/vendasJson/*", "/password" }, 
         dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD}
 )
 public class AuthFilter implements Filter {
@@ -92,27 +92,27 @@ public class AuthFilter implements Filter {
     private static Map<Cargo, List> generate() {
         Map map = new HashMap();
         
-        map.put(Cargo.DIRETORIA , Arrays.asList("/home",
+        map.put(Cargo.DIRETORIA , Arrays.asList("/home", "/password", 
                 "/empresas", "/empresas/new", "/empresas/create", "/empresas/edit", "/empresas/update", "/empresas/destroy", 
                 "/relatorios", /*TODO: RELATORIOS*/
                 "/produtos", "/produtos/new", "/produtos/create", "/produtos/edit", "/produtos/update", "/produtos/destroy", 
                 "/servicos", "/servicos/new", "/servicos/create", "/servicos/edit", "/servicos/update", "/servicos/destroy"
         ));
         
-        map.put(Cargo.BACKOFFICE , Arrays.asList("/home",
+        map.put(Cargo.BACKOFFICE , Arrays.asList("/home", "/password", 
                 "/produtos", "/produtos/new", "/produtos/create", "/produtos/edit", "/produtos/update", "/produtos/destroy", 
                 "/servicos", "/servicos/new", "/servicos/create", "/servicos/edit", "/servicos/update", "/servicos/destroy",
                 "/relatorios" /*TODO: RELATORIOS*/
         ));
         
-        map.put(Cargo.VENDEDOR , Arrays.asList("/home",
+        map.put(Cargo.VENDEDOR , Arrays.asList("/home", "/password", 
                 "/clientes", "/clientes/new", "/clientes/create", "/clientes/edit", "/clientes/update", "/clientes/destroy",
                 "/pets", "/pets/new", "/pets/create", "/pets/edit", "/pets/update", "/pets/destroy", 
                 "/vendas", "/vendas/new", "/vendas/create", 
                 "/vendasJson/cliente", "/vendasJson/produto"
         ));
         
-        map.put(Cargo.SUPORTE , Arrays.asList("/home",
+        map.put(Cargo.SUPORTE , Arrays.asList("/home", "/password", 
                 "/funcionarios", "/funcionarios/new", "/funcionarios/create", "/funcionarios/edit", "/funcionarios/update", "/funcionarios/destroy"
         ));
         

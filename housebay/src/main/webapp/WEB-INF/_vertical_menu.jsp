@@ -43,8 +43,8 @@
                     <li>
                         <a href="${base}funcionarios" class="has-tooltip">
                             <i class="fa fa-users" aria-hidden="true"></i>
-                            <span class="is-hidden-touch">&nbsp;Funcionarios</span>
-                            <span class="tooltip tag is-black is-hidden-desktop">Funcionarios</span>
+                            <span class="is-hidden-touch">&nbsp;Funcionários</span>
+                            <span class="tooltip tag is-black is-hidden-desktop">Funcionários</span>
                         </a>
                     </li>
                 </c:if>
@@ -83,11 +83,19 @@
                     <li>
                         <a href="${base}relatorios" class="has-tooltip">
                             <i class="fa fa-bar-chart" aria-hidden="true"></i>
-                            <span class="is-hidden-touch">&nbsp;Relatorios</span>
-                            <span class="tooltip tag is-black is-hidden-desktop">Relatorios</span>
+                            <span class="is-hidden-touch">&nbsp;Relatórios</span>
+                            <span class="tooltip tag is-black is-hidden-desktop">Relatórios</span>
                         </a>
                     </li>
                 </c:if>
+
+                <li>
+                    <a href="${base}password" class="has-tooltip">
+                        <i class="fa  fa-key" aria-hidden="true"></i>
+                        <span class="is-hidden-touch">&nbsp;Alterar Senha</span>
+                        <span class="tooltip tag is-black is-hidden-desktop">Alterar Senha</span>
+                    </a>
+                </li>
 
                 <li>
                     <a href="${base}logout" class="has-tooltip">
