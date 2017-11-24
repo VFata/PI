@@ -46,6 +46,69 @@
                             </div>
                         </c:forEach>
                         
+                        <form action="${index_url}relatorios" method="post">
+
+                            <div class="field is-horizontal">
+                                <div class="field-label is-normal">
+                                    <label class="label">Tipo</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field is-narrow">
+                                        <div class="control">
+                                            <div class="select is-fullwidth">
+                                                <select name="tipo">
+                                                    <c:forEach items="${tipos}" var="tipo">
+                                                        <option value="${tipo.value}"><c:out value="${tipo}" /></option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="field is-horizontal">
+                                <div class="field-label is-normal">
+                                    <label class="label">Inicio</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <div class="control">
+                                            <input class="input" type="date" name="inicio" >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                        
+                            <div class="field is-horizontal">
+                                <div class="field-label is-normal">
+                                    <label class="label">Fim</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <div class="control">
+                                            <input class="input" type="date" name="fim" >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="field is-horizontal">
+                                <div class="field-label">
+                                    <!-- Left empty for spacing -->
+                                </div>
+                                <div class="field">
+                                    <div class="field">
+                                        <div class="control">
+                                            <button class="button is-primary" >
+                                                Gerar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                         
                     </div>
                 </main>

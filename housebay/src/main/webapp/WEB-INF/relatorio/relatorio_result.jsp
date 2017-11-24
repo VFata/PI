@@ -48,6 +48,38 @@
                             </div>
                         </c:forEach>
                         
+                        <table class="table is-hoverable is-fullwidth">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Quantidade</th>
+                                    <th>Total</th>
+                                    <th>Qtd média</th>
+                                    <th>Valor média</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              <c:forEach items="${relatorio}" var="map">
+                                <tr>
+                                    <td>
+                                        <c:out value="${map['nome']}" />
+                                    </td>
+                                    <td>
+                                        <c:out value="${map['quantidade']}" />
+                                    </td>
+                                    <td>
+                                        <c:out value="${map['total']}" />
+                                    </td>
+                                    <td>
+                                        <c:out value="${map['avgqtd']}" />
+                                    </td>
+                                    <td>
+                                        <c:out value="${map['avgtotal']}" />
+                                    </td>
+                                </tr>
+                              </c:forEach>
+                            </tbody>
+                        </table>
                         
                     </div>
                 </main>

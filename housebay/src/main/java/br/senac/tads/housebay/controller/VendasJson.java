@@ -79,16 +79,16 @@ public class VendasJson extends HttpServlet {
                 builder.append("]");
                 out.println(builder.toString());
             } else if (url.equals("/vendasJson/servicos")) {
-                List<Servico> produtos = DAOVenda.getServicoList(query);
+                List<Servico> servicos = DAOVenda.getServicoList(query);
 
                 StringBuilder builder = new StringBuilder("[");
-                for (int i = 0; i < produtos.size(); i++) {
-                    builder.append("{\"id\": \"").append(produtos.get(i).getId())
-                            .append("\",\"nome\": \"").append(produtos.get(i).getNome())
-                            .append("\",\"valor\": \"").append(produtos.get(i).getValor())
-                            .append("\",\"formatValor\": \"").append(produtos.get(i).getFormatValor())
+                for (int i = 0; i < servicos.size(); i++) {
+                    builder.append("{\"id\": \"").append(servicos.get(i).getId())
+                            .append("\",\"nome\": \"").append(servicos.get(i).getNome())
+                            .append("\",\"valor\": \"").append(servicos.get(i).getValor())
+                            .append("\",\"formatValor\": \"").append(servicos.get(i).getFormatValor())
                             .append("\"}");
-                    if (i != produtos.size()-1) {
+                    if (i != servicos.size()-1) {
                         builder.append(",");
                     }
                 }

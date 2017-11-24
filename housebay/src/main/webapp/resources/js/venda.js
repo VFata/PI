@@ -142,7 +142,7 @@ function getClientes(query) {
     xhr.open("POST", url, true);
 
     //Send the proper header information along with the request
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
 
     xhr.onreadystatechange = function() {//Call a function when the state changes.
         if(xhr.readyState === 4 && xhr.status === 200) {
@@ -165,7 +165,6 @@ function getClientes(query) {
                 a.setAttribute("cliente-id", cli.id);
                 a.setAttribute("cliente-nome", cli.nome);
                 selecionaCliente(a);
-                //a.appendChild(i);
                 a.textContent = "Selecionar";
                 a.insertAdjacentHTML('afterbegin', '<i class="fa fa-check" aria-hidden="true"></i>&nbsp;');
 
@@ -193,7 +192,7 @@ function getProdutos(query) {
     xhr.open("POST", url, true);
 
     //Send the proper header information along with the request
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
 
     xhr.onreadystatechange = function() {//Call a function when the state changes.
         if(xhr.readyState === 4 && xhr.status === 200) {
@@ -243,9 +242,10 @@ function getServicos(query) {
     let url = "/housebay/vendasJson/servicos";
     let params = `q=${query}`;
     xhr.open("POST", url, true);
+    
 
     //Send the proper header information along with the request
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
 
     xhr.onreadystatechange = function() {
         if(xhr.readyState === 4 && xhr.status === 200) {
@@ -283,13 +283,10 @@ function getServicos(query) {
 
                 tbody.appendChild(tr);
             });
-
         }
     };    
     xhr.send(params);
 }
-
-
 
 function atualizaTotal() {
     let carrinho = document.querySelector("#carrinho tbody");

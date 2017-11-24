@@ -29,7 +29,7 @@ import javax.servlet.http.HttpSession;
  * @author Diego
  */
 @WebFilter(filterName = "AuthFilter", 
-        urlPatterns = {"/home/*", "/clientes/*", "/empresas/*", "/funcionarios/*", "/pets/*", "/produtos/*", "/servicos", "/vendas/*", "/vendasJson/*", "/password" }, 
+        urlPatterns = {"/home/*", "/clientes/*", "/empresas/*", "/funcionarios/*", "/pets/*", "/produtos/*", "/servicos", "/vendas/*", "/vendasJson/*", "/relatorios", "/password" }, 
         dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD}
 )
 public class AuthFilter implements Filter {

@@ -27,7 +27,7 @@
         
             <div class="column is-11-touch is-9-desktop is-9-widescreen is-10-fullhd ">
                 <main class="hero">
-                    <div class=hero-head">
+                    <div class="hero-head">
                         <div class="container is-fluid">
                             <h1 class="title is-4">Nova Venda</h1>
                             <nav class="subtitle is-6 breadcrumb" aria-label="breadcrumbs">

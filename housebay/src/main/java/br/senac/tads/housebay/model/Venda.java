@@ -64,8 +64,8 @@ public class Venda extends TabelaDB {
         return quantidade;
     }
     
-    public int getValorTotal() {
-        int valor = 0;
+    public double getValorTotal() {
+        double valor = 0;
         for (Relacao rel : this.carrinho) {
             valor += rel.getValorTotal();
         }
