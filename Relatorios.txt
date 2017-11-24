@@ -1,19 +1,42 @@
-Relatórios
-
 Vendas
 
 
 Qnt de Produtos vendidos / Valor arrecadado com produtos
 
-Qnt de serviços prestados / valor arrecadado com serviços
-
-Média de vendas por dia / média arrecadado por dia
-
-Produto mais vendido / Serviço mais prestado
-
-TOTAL ARRECADADO NO PERIODO
+Qnt de serviÃ§os prestados / valor arrecadado com serviÃ§os
 
 
+SELECT DISTINCT
+    vendaveis.nome AS "Nome",
+    SUM(venda_vendaveis.quantidade) AS "Quantidade",
+    SUM(venda_vendaveis.valor_total) AS "Valor Arrecadado por Produto"
+FROM
+    venda_vendaveis,
+    vendaveis
+	
+WHERE
+    venda_vendaveis.vendavel_id = vendaveis.id
+    AND vendaveis.tipo = 0
+
+GROUP BY
+    vendaveis.nome
+	
+UNION ALL
+
+SELECT DISTINCT
+    vendaveis.nome AS "Nome",
+    SUM(venda_vendaveis.quantidade) AS "Quantidade",
+    SUM(venda_vendaveis.valor_total) AS "Valor Arrecadado por ServiÃ§o"
+FROM
+    venda_vendaveis,
+    vendaveis
+	
+WHERE
+    venda_vendaveis.vendavel_id = vendaveis.id
+    AND vendaveis.tipo = 1
+
+GROUP BY
+    vendaveis.nome
 
 
 
