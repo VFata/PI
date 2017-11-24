@@ -77,7 +77,8 @@ public class AuthFilter implements Filter {
                 return;
             }
         } else {
-            httpResponse.sendRedirect(httpRequest.getContextPath() + "/logout");
+            session.setAttribute("mensagem", Arrays.asList("Acesso negado!"));
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
             return;
         }
         /**/
