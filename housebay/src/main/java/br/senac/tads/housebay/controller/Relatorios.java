@@ -38,11 +38,12 @@ public class Relatorios extends HttpServlet {
      */
     @Override protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         HttpSession session = request.getSession();
         
         request.setAttribute("tipos", RelatorioUtils.getTipoList());
         
-        List mensagens = (List) session.getAttribute("mensagem");
+        List<String> mensagens = (List<String>) session.getAttribute("mensagem");
         if (mensagens != null) {
             request.setAttribute("notifications", mensagens);
             session.removeAttribute("mensagem");
@@ -52,7 +53,6 @@ public class Relatorios extends HttpServlet {
             request.setAttribute("errors", erros);
             session.removeAttribute("erro");
         }
-        
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/relatorio/relatorio_form.jsp");
         dispatcher.forward(request, response);
     }
@@ -71,7 +71,7 @@ public class Relatorios extends HttpServlet {
         
         int tipo = Integer.parseInt(request.getParameter("tipo"));
         
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         
         String strInicio = request.getParameter("inicio");
         GregorianCalendar inicio = new GregorianCalendar();
@@ -98,7 +98,7 @@ public class Relatorios extends HttpServlet {
         if (!inicio.before(fim)) {
             request.setAttribute("tipos", RelatorioUtils.getTipoList());
             
-            List mensagens = (List) session.getAttribute("mensagem");
+            List<String> mensagens = (List<String>) session.getAttribute("mensagem");
             if (mensagens != null) {
                 request.setAttribute("notifications", mensagens);
                 session.removeAttribute("mensagem");
@@ -128,19 +128,17 @@ public class Relatorios extends HttpServlet {
             map.put("avgtotal", String.format("%1$,.2f", total));
         }
         
-        
         request.setAttribute("relatorio", result);
         
         List mensagens = (List) session.getAttribute("mensagem");
         if (mensagens == null) {
             mensagens = new ArrayList();
         }
-        mensagens.add("Relatório entre " + strInicio + " e " + strFim + ".");
-        mensagens.add("Relatório entre " + format.format(inicio.getTime()) + " e " + format.format(fim.getTime()) + ".");
-        if (mensagens != null) {
-            request.setAttribute("notifications", mensagens);
-            session.removeAttribute("mensagem");
-        }
+        //mensagens.add("Relatório entre " + strInicio + " e " + strFim + ".");
+        //mensagens.add("Relatório entre " + format.format(inicio.getTime()) + " e " + format.format(fim.getTime()) + ".");
+        request.setAttribute("notifications", mensagens);
+        session.removeAttribute("mensagem");
+        
         HashMap erros = (HashMap) session.getAttribute("erro");
         if (erros != null) {
             request.setAttribute("errors", erros);

@@ -15,6 +15,6 @@ CREATE TABLE vendaveis (
     codigo_de_barras VARCHAR(26) NOT NULL,
     ativo SMALLINT,/*BOOLEAN,*/
     criado TIMESTAMP,
-    modificado TIMESTAMP,
-    CONSTRAINT unique_vendaveis_codigo_de_barras UNIQUE (codigo_de_barras)
+    modificado TIMESTAMP/*
+    CONSTRAINT unique_vendaveis_codigo_de_barras UNIQUE (codigo_de_barras)*/ 
 );

@@ -14,6 +14,7 @@
         <c:url var="index_url" value="/" />
         <c:url var="main_url" value="/relatorios" />
         <c:import url="/WEB-INF/_head.jsp" />
+    </head>
     <body>
         <div class="columns is-mobile">
             <c:import url="/WEB-INF/_vertical_menu.jsp" />

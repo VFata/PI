@@ -5,7 +5,6 @@
  */
 package br.senac.tads.housebay.db;
 
-import br.senac.tads.housebay.model.Produto;
 import br.senac.tads.housebay.model.Tipo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
