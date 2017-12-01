@@ -110,7 +110,7 @@ public class AuthFilter implements Filter {
                 "/clientes", "/clientes/new", "/clientes/create", "/clientes/edit", "/clientes/update", "/clientes/destroy",
                 "/pets", "/pets/new", "/pets/create", "/pets/edit", "/pets/update", "/pets/destroy", 
                 "/vendas", "/vendas/new", "/vendas/create", 
-                "/vendasJson/cliente", "/vendasJson/produto"
+                "/vendasJson/clientes", "/vendasJson/produtos", "/vendasJson/servicos"
         ));
         
         map.put(Cargo.SUPORTE , Arrays.asList("/home", "/password", 
