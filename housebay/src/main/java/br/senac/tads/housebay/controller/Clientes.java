@@ -157,7 +157,7 @@ public class Clientes extends HttpServlet{
             cliente.setTelefone(request.getParameter("telefone"));
             
             String dataNascimento = request.getParameter("nascimento");
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             GregorianCalendar nasc = null;
             try {
                 if (dataNascimento != null) {
@@ -223,7 +223,7 @@ public class Clientes extends HttpServlet{
             cliente.setTelefone(request.getParameter("telefone"));
                         
             String dataNascimento = request.getParameter("nascimento");
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             GregorianCalendar nasc = null;
             try {
                 if (dataNascimento != null) {

@@ -154,7 +154,7 @@ public class Funcionarios extends HttpServlet{
             */
             
             String dataNascimento = request.getParameter("nascimento");
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             GregorianCalendar nasc = new GregorianCalendar();
             try {
                  nasc.setTime(format.parse(dataNascimento));
@@ -200,7 +200,7 @@ public class Funcionarios extends HttpServlet{
             funcionario.setTelefone(request.getParameter("telefone"));            
             
             String dataNascimento = request.getParameter("nascimento");
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             GregorianCalendar nasc = new GregorianCalendar();
             try {
                  nasc.setTime(format.parse(dataNascimento));
