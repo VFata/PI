@@ -59,7 +59,7 @@ public class Produtos extends HttpServlet {
         if (url.equals("/produtos") && id == null) {
             //Lista produtos
             String query = request.getParameter("q");
-            List produtos = DAOVendavel.searchProduto(query);
+            List<Produto> produtos = DAOVendavel.searchProduto(query);
             request.setAttribute("produtos", produtos);
             responseURL = "/WEB-INF/produto/produto_list.jsp";
         } else if (url.equals("/produtos") && id != null) {
@@ -80,7 +80,7 @@ public class Produtos extends HttpServlet {
             return;
         }
         
-        List mensagens = (List) sessao.getAttribute("mensagem");
+        List<String> mensagens = (List<String>) sessao.getAttribute("mensagem");
         if (mensagens != null) {
             request.setAttribute("notifications", mensagens);
             sessao.removeAttribute("mensagem");
@@ -107,7 +107,7 @@ public class Produtos extends HttpServlet {
         String url = request.getServletPath();
         String id = request.getParameter("id");
         HttpSession sessao = request.getSession();
-        List mensagens = (List) sessao.getAttribute("mensagem");
+        List<String> mensagens = (List<String>) sessao.getAttribute("mensagem");
         HashMap erros = (HashMap) sessao.getAttribute("erro");
         //System.out.println("DEBUG: post method");
 
@@ -206,7 +206,7 @@ public class Produtos extends HttpServlet {
             sessao.removeAttribute("produto");
         }
         request.setAttribute("type", "new");
-        List mensagens = (List) sessao.getAttribute("mensagem");
+        List<String> mensagens = (List<String>) sessao.getAttribute("mensagem");
         if (mensagens != null) {
             request.setAttribute("notifications", mensagens);
             sessao.removeAttribute("mensagem");
@@ -231,7 +231,7 @@ public class Produtos extends HttpServlet {
         request.setAttribute("produto", produto);
         request.setAttribute("type", "edit");
         
-        List mensagens = (List) sessao.getAttribute("mensagem");
+        List<String> mensagens = (List<String>) sessao.getAttribute("mensagem");
         if (mensagens != null) {
             request.setAttribute("notifications", mensagens);
             sessao.removeAttribute("mensagem");

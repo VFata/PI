@@ -6,8 +6,6 @@
 package br.senac.tads.housebay.controller.validate;
 
 import br.senac.tads.housebay.exception.ClienteException;
-import br.senac.tads.housebay.exception.ClienteException;
-import br.senac.tads.housebay.model.Cliente;
 import br.senac.tads.housebay.model.Cliente;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -15,7 +13,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import sun.util.calendar.Gregorian;
 
 
 public class ValidateCliente {
