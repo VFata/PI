@@ -23,6 +23,7 @@ import java.util.logging.Logger;
  * @author Diego
  */
 public class DAOCliente {
+
     public static Long create(Cliente cliente) {
         String sql = "INSERT INTO clientes (nome, data_nascimento, telefone, cpf, email, ativo, criado, modificado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         Long id = null;
@@ -39,7 +40,7 @@ public class DAOCliente {
                 Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
                 statement.setTimestamp(7, now);
                 statement.setTimestamp(8, now);
-                
+
                 statement.executeUpdate();
                 try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
@@ -48,7 +49,7 @@ public class DAOCliente {
                     }
                 }
                 nestedCreatePets(connection, savepoint, cliente.getPets(), id);
-                
+
                 connection.commit();
             } catch (SQLException ex) {
                 connection.rollback(savepoint);
@@ -90,6 +91,26 @@ public class DAOCliente {
         return cliente;
     }
 
+    public static boolean validaCPF(String cpf) {
+        String sql = "SELECT cpf FROM clientes WHERE (cpf=?)";
+        try (Connection connection = SQLUtils.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1,cpf);
+
+            try (ResultSet resultados = statement.executeQuery()) {
+                if (resultados.next()) {
+                    return true;
+                }
+                else{
+                    return false;
+                    }
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return false;
+    }
+
     public static List<Cliente> search(String query) {
         String sql;
         if (query != null) {
@@ -101,7 +122,7 @@ public class DAOCliente {
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             if (query != null) {
-                statement.setString(1, "%"+query.trim()+"%");
+                statement.setString(1, "%" + query.trim() + "%");
                 statement.setBoolean(2, true);
             } else {
                 statement.setBoolean(1, true);
@@ -147,9 +168,9 @@ public class DAOCliente {
                     statement.setLong(8, cliente.getId());
 
                     statement.execute();
-                    
+
                     nestedUpdatePets(connection, savepoint, cliente.getPets(), cliente.getId());
-                    
+
                     connection.commit();
                 } catch (SQLException | PetException ex) {
                     connection.rollback();
@@ -171,9 +192,9 @@ public class DAOCliente {
             String sql = "UPDATE clientes SET ativo=?, modificado=? WHERE id=?";
             try (Connection connection = SQLUtils.getConnection()) {
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                    for(Pet pet: cliente.getPets()) {
+                    for (Pet pet : cliente.getPets()) {
                         DAOPet.delete(pet);
-                    }                   
+                    }
                     statement.setBoolean(1, !cliente.isAtivo());
                     Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
                     statement.setTimestamp(2, now);
@@ -192,4 +213,3 @@ public class DAOCliente {
         }
     }
 }
-

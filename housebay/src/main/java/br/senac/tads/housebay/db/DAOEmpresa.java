@@ -73,6 +73,47 @@ public class DAOEmpresa {
         }
         return empresa;
     }
+    
+    public static boolean validaNome (String nome) {
+        String sql = "SELECT nome FROM empresas WHERE (nome=?)";
+        try (Connection connection = SQLUtils.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1,nome);
+
+            try (ResultSet resultados = statement.executeQuery()) {
+                if (resultados.next()) {
+                    return true;
+                }
+                else{
+                    return false;
+                    }
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return false;
+    }
+    
+        public static boolean validaCNPJ (String cnpj) {
+        String sql = "SELECT cnpj FROM empresas WHERE (cnpj=?)";
+        try (Connection connection = SQLUtils.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1,cnpj);
+
+            try (ResultSet resultados = statement.executeQuery()) {
+                if (resultados.next()) {
+                    return true;
+                }
+                else{
+                    return false;
+                    }
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return false;
+    }
+    
 
     public static List<Empresa> search(String query) {
         String sql;
