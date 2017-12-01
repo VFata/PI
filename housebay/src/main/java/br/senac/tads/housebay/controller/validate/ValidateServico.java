@@ -72,20 +72,20 @@ public class ValidateServico {
         
         if (servico.getDescricao()== null || servico.getDescricao().equals("")) {
             //erro += "\nNome vazio.";
-            errors.put(Servico.DESCRICAO + "_empty", "Campo descrição Vazio");
+            errors.put(Servico.DESCRICAO + "_empty", "O campo descrição esta Vazio");
         }
         if (servico.getNome()== null || servico.getNome().equals("")) {
             //erro += "\nNome vazio.";
-            errors.put(Servico.NOME + "_empty", "Campo nome vazio.");
+            errors.put(Servico.NOME + "_empty", "O campo nome esta vazio.");
         }
         if (servico.getValor()== 0) {
             //erro += "\nNome vazio.";
-            errors.put(Servico.VALOR + "_empty", "Campo valor vazio.");
+            errors.put(Servico.VALOR + "_empty", "O campo valor esta vazio.");
         }
         if (servico.getTipo()!= null) {
         } else {
             //erro += "\nNome vazio.";
-            errors.put(Servico.TIPO + "_empty", "Campo tipo vazio.");
+            errors.put(Servico.TIPO + "_empty", "O campo tipo esta vazio.");
         }
 
         

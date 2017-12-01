@@ -71,14 +71,16 @@ public class ValidateVenda {
 
         if (venda.getCliente()== null) {
             //erro += "\nNome vazio.";
-            errors.put(Venda.CLIENTE + "_empty", "Campo cliente vazio.");
-        }
-        
+            errors.put(Venda.CLIENTE + "_empty", "O campo cliente esta vazio.");
+        }        
         if (venda.getEmpresa()== null) {
             //erro += "\nNome vazio.";
-            errors.put(Venda.EMPRESA + "_empty", "Campo empresa vazio");
+            errors.put(Venda.EMPRESA + "_empty", "O campo empresa esta vazio");
         }
-        
+        if (venda.getCarrinho().isEmpty()) {
+            //erro += "\nNome vazio.";
+            errors.put(Venda.CARRINHO + "_empty", "O carrinho de venda esta vazio");
+        }
         
         
         return errors;

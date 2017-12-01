@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -73,22 +73,29 @@ public class ValidateProduto {
         
         if (produto.getNome()== null || produto.getNome().equals("")) {
             //erro += "\nNome vazio.";
-            errors.put(Produto.NOME + "_empty", "Campo nome vazio.");
+            errors.put(Produto.NOME + "_empty", "O campo nome vazio.");
         }
         if (produto.getTipo()== null) {
             //erro += "\nNome vazio.";
-            errors.put(Produto.TIPO + "_empty", "Campo tipo vazio.");
+            errors.put(Produto.TIPO + "_empty", "O campo tipo vazio.");
         }
         if (produto.getEstoque()== 0) {
             //erro += "\nNome vazio.";
-            errors.put(Produto.ESTOQUE + "_empty", "Campo estoque vazio.");
+            errors.put(Produto.ESTOQUE + "_empty", "O campo estoque vazio.");
         }
         if (produto.getDescricao()== null || produto.getDescricao().equals("")) {
             //erro += "\nNome vazio.";
-            errors.put(Produto.DESCRICAO + "_empty", "Campo descrição vazio.");
+            errors.put(Produto.DESCRICAO + "_empty", "O campo descrição vazio.");
         }
-
-
+        if (produto.getCodigoDeBarras()== null || produto.getCodigoDeBarras().equals("")) {
+            //erro += "\nNome vazio.";
+            errors.put(Produto.CODIGO_DE_BARRAS + "_empty", "O campo Codigo de Barras esta vazio.");
+        }
+        if (produto.getValor()== 0) {
+            //erro += "\nNome vazio.";
+            errors.put(Produto.VALOR + "_empty", "O campo valor esta vazio.");
+        }
+        
         
         return errors;
     }
