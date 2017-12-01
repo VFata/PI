@@ -88,6 +88,46 @@ public class DAOFuncionario {
         }
         return funcionario;
     }
+    
+    public static boolean validaCPF(String cpf) {
+        String sql = "SELECT cpf FROM funcionarios WHERE (cpf=?)";
+        try (Connection connection = SQLUtils.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1,cpf);
+
+            try (ResultSet resultados = statement.executeQuery()) {
+                if (resultados.next()) {
+                    return true;
+                }
+                else{
+                    return false;
+                    }
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return false;
+    }
+    
+    public static boolean validaEmail(String email) {
+        String sql = "SELECT email FROM funcionarios WHERE (email=?)";
+        try (Connection connection = SQLUtils.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1,email);
+
+            try (ResultSet resultados = statement.executeQuery()) {
+                if (resultados.next()) {
+                    return true;
+                }
+                else{
+                    return false;
+                    }
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return false;
+    }
 
     public static List<Funcionario> search(String query) {
         String sql;
