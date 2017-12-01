@@ -107,6 +107,9 @@ public class ValidateCliente {
             
         }
         
+        
+        
+        
         if (cliente.getCpf()== null || cliente.getCpf().equals("")) {
             //erro += "\nDescrição vazia.";
             errors.put(Cliente.CPF + "_empty", "O campo CPF esta Vazio.");
@@ -116,6 +119,9 @@ public class ValidateCliente {
             errors.put(Cliente.CPF + "_empty", "O campo CPF esta incorreto.");
             
         }
+        
+        
+        
         
         GregorianCalendar data = new GregorianCalendar();   
         if (cliente.getDataNascimento()== null) {

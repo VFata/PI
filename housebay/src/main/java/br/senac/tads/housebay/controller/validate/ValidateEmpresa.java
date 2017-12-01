@@ -71,12 +71,15 @@ public class ValidateEmpresa {
         
         if (empresa.getNome()== null || empresa.getNome().equals("")) {
             //erro += "\nNome vazio.";
-            errors.put(Empresa.NOME + "_empty", "Campo nome vazio.");
+            errors.put(Empresa.NOME + "_empty", "O campo nome vazio.");
         }
         if (empresa.getCnpj()== null || empresa.getCnpj().equals("") || empresa.getCnpj().length() != 19) {
             //erro += "\nNome vazio.";
-            errors.put(Empresa.CNPJ + "_empty", "Erro campo CNPJ");
+            errors.put(Empresa.CNPJ + "_empty", "O campo cnpj esta vazio");
         }
+        
+        
+        
         
         return errors;
     }
