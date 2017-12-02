@@ -54,7 +54,7 @@ public class Cliente extends TabelaDB {
         return dataNascimento;
     }
     public String getInputDataNascimento() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(this.dataNascimento.getTime());
     }
     public String getFormatDataNascimento() {
