@@ -74,9 +74,11 @@ public class ValidateEmpresa {
             //erro += "\nNome vazio.";
             errors.put(Empresa.NOME + "_empty", "O campo nome vazio.");
         }
-        if (empresa.getCnpj()== null || empresa.getCnpj().equals("") || empresa.getCnpj().length() != 19) {
+        if (empresa.getCnpj()== null || empresa.getCnpj().equals("")) {
             //erro += "\nNome vazio.";
             errors.put(Empresa.CNPJ + "_empty", "O campo cnpj esta vazio.");
+        }else if(empresa.getCnpj().length() != 19){
+            errors.put(Empresa.CNPJ + "_empty", "Campo com CNPJ invalido.");
         }else if(DAOEmpresa.validaCNPJ(empresa.getCnpj())){
             
             errors.put(Empresa.CNPJ + "_empty", "CNPF existente no sistema.");
