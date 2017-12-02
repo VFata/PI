@@ -77,7 +77,7 @@ public class ValidateEmpresa {
         if (empresa.getCnpj()== null || empresa.getCnpj().equals("")) {
             //erro += "\nNome vazio.";
             errors.put(Empresa.CNPJ + "_empty", "O campo cnpj esta vazio.");
-        }else if(empresa.getCnpj().length() != 19){
+        }else if(empresa.getCnpj().length() != 18){
             errors.put(Empresa.CNPJ + "_empty", "Campo com CNPJ invalido.");
         }else if(DAOEmpresa.validaCNPJ(empresa.getCnpj())){
             
