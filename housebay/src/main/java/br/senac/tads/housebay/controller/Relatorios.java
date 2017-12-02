@@ -123,11 +123,11 @@ public class Relatorios extends HttpServlet {
         for(Map map : result) {
             Double qtd = ( ((Long) map.get("quantidade")) / ((Long) map.get("dias")).doubleValue());
             map.put("avgqtd", String.format("%1$,.2f", qtd));
-            
+
             Double total = ( ((Double) map.get("total")) / ((Long) map.get("dias")).doubleValue());
             map.put("avgtotal", String.format("%1$,.2f", total));
         }
-        
+
         request.setAttribute("relatorio", result);
         
         List mensagens = (List) session.getAttribute("mensagem");
