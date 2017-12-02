@@ -5,6 +5,7 @@
  */
 package br.senac.tads.housebay.controller.validate;
 
+import br.senac.tads.housebay.db.DAOEmpresa;
 import br.senac.tads.housebay.exception.EmpresaException;
 import br.senac.tads.housebay.model.Empresa;
 import java.util.HashMap;
@@ -75,7 +76,10 @@ public class ValidateEmpresa {
         }
         if (empresa.getCnpj()== null || empresa.getCnpj().equals("") || empresa.getCnpj().length() != 19) {
             //erro += "\nNome vazio.";
-            errors.put(Empresa.CNPJ + "_empty", "O campo cnpj esta vazio");
+            errors.put(Empresa.CNPJ + "_empty", "O campo cnpj esta vazio.");
+        }else if(DAOEmpresa.validaCNPJ(empresa.getCnpj())){
+            
+            errors.put(Empresa.CNPJ + "_empty", "CNPF existente no sistema.");
         }
         
         

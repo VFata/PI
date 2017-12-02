@@ -79,7 +79,7 @@ public class ValidateProduto {
             //erro += "\nNome vazio.";
             errors.put(Produto.TIPO + "_empty", "O campo tipo vazio.");
         }
-        if (produto.getEstoque()== 0) {
+        if (produto.getEstoque()<= 0) {
             //erro += "\nNome vazio.";
             errors.put(Produto.ESTOQUE + "_empty", "O campo estoque vazio.");
         }

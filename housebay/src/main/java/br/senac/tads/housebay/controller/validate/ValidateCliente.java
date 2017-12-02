@@ -5,6 +5,7 @@
  */
 package br.senac.tads.housebay.controller.validate;
 
+import br.senac.tads.housebay.db.DAOCliente;
 import br.senac.tads.housebay.exception.ClienteException;
 import br.senac.tads.housebay.model.Cliente;
 import java.util.Calendar;
@@ -118,7 +119,13 @@ public class ValidateCliente {
             
             errors.put(Cliente.CPF + "_empty", "O campo CPF esta incorreto.");
             
+        }else if(DAOCliente.validaCPF(cliente.getCpf())){
+            
+            errors.put(Cliente.CPF + "_empty", "CPF existente no sistema");
+            
         }
+        
+        
         
         
         

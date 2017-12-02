@@ -5,6 +5,7 @@
  */
 package br.senac.tads.housebay.controller.validate;
 
+import br.senac.tads.housebay.db.DAOFuncionario;
 import br.senac.tads.housebay.exception.FuncionarioException;
 import br.senac.tads.housebay.model.Funcionario;
 import java.util.Calendar;
@@ -101,6 +102,9 @@ public class ValidateFuncionario {private final static String ERRO = "Erro na Va
             errors.put(Funcionario.CPF + "_empty", "O campo CPF esta Vario.");
         }else if(funcionario.getCpf().length() != 14){
             errors.put(Funcionario.CPF + "_empty", "O campo CPF esta incorreto."); 
+        }else if(DAOFuncionario.validaCPF(funcionario.getCpf())){
+            errors.put(Funcionario.CPF + "_empty", "CPF existente no sistema.");
+            
         }
         
         GregorianCalendar date = new GregorianCalendar();
