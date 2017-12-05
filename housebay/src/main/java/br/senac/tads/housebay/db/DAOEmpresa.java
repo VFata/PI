@@ -94,24 +94,23 @@ public class DAOEmpresa {
         return false;
     }
     
-        public static boolean validaCNPJ (String cnpj) {
-        String sql = "SELECT cnpj FROM empresas WHERE (cnpj=?)";
+        public static long validaCNPJ (String cnpj) {
+        String sql = "SELECT id FROM empresas WHERE (cnpj=?)";
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1,cnpj);
 
             try (ResultSet resultados = statement.executeQuery()) {
                 if (resultados.next()) {
-                    return true;
+                    return resultados.getLong("id");
+                } else{
+                    return 0;
                 }
-                else{
-                    return false;
-                    }
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        return false;
+        return 0;
     }
     
 

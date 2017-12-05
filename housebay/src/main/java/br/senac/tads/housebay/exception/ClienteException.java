@@ -5,14 +5,14 @@
  */
 package br.senac.tads.housebay.exception;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  *
  * @author Tron
  */
 public class ClienteException extends BaseException {
-    public ClienteException(String message, Map errors) {
+    public ClienteException(String message, List errors) {
         super(message, errors);
     }
 }

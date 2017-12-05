@@ -8,84 +8,68 @@ package br.senac.tads.housebay.controller.validate;
 import br.senac.tads.housebay.db.DAOEmpresa;
 import br.senac.tads.housebay.exception.EmpresaException;
 import br.senac.tads.housebay.model.Empresa;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ValidateEmpresa {    
-    
+public class ValidateEmpresa {
     private final static String ERRO = "Erro na Validação.";
-    
     
     public static boolean create(Empresa empresa) 
             throws EmpresaException {
-        Map errors = new HashMap();
+        List<String> errors = new ArrayList();
         
         if (empresa == null) {
-            //erro += "\nEmpresa nulo.";
-            errors.put(Empresa.class.getCanonicalName() + "_empty", "Empresa nulo.");
+            errors.add("Empresa nulo.");
         } else {
-            //erro = geraMensagem(empresa, erro);
-            errors.putAll(geraMensagem(empresa));
+            if(DAOEmpresa.validaCNPJ(empresa.getCnpj()) != 0){
+                errors.add("CNPJ existente no sistema.");
+            }
+            errors.addAll(geraMensagem(empresa));
         }
+        
         if (!errors.isEmpty()) {
             throw new EmpresaException(ERRO, errors);
         }
-        /*
-        if (!erro.equals(ERRO)) {
-            throw new EmpresaException(erro);
-        }
-        */
         
         return true;
     }
     
     public static boolean update(Empresa empresa) 
             throws EmpresaException {
-        Map errors = new HashMap();
+        List<String> errors = new ArrayList();
         
         if (empresa == null) {
-            //erro += "\nEmpresa nulo.";
-            errors.put(Empresa.class.getCanonicalName() + "_empty", "Empresa nulo.");
+            errors.add("Empresa nulo.");
         } else {
             if (empresa.getId() == null || empresa.getId() <= 0 ) {
-                //erro += "\nId vazio.";
-                errors.put(Empresa.ID + "_empty", "ID vazio.");
+                errors.add("ID vazio.");
             }
-            //erro = geraMensagem(empresa, erro);
-            errors.putAll(geraMensagem(empresa));
+            if(DAOEmpresa.validaCNPJ(empresa.getCnpj()) != 0 &&
+                    DAOEmpresa.validaCNPJ(empresa.getCnpj()) != empresa.getId()){
+                errors.add("CNPJ existente no sistema.");
+            }
+            errors.addAll(geraMensagem(empresa));
         }
         
         if (!errors.isEmpty()) {
             throw new EmpresaException(ERRO, errors);
         }
-        /*
-        if (!erro.equals(ERRO)) {
-            throw new EmpresaException(erro);
-        }
-        */
         
         return true;
     }
     
-    private static Map geraMensagem(Empresa empresa) {
-        Map errors = new HashMap(); 
+    private static List<String> geraMensagem(Empresa empresa) {
+        List<String> errors = new ArrayList();
         
         if (empresa.getNome()== null || empresa.getNome().equals("")) {
-            //erro += "\nNome vazio.";
-            errors.put(Empresa.NOME + "_empty", "O campo nome vazio.");
+            errors.add("O campo nome vazio.");
         }
+        
         if (empresa.getCnpj()== null || empresa.getCnpj().equals("")) {
-            //erro += "\nNome vazio.";
-            errors.put(Empresa.CNPJ + "_empty", "O campo cnpj esta vazio.");
-        }else if(empresa.getCnpj().length() != 18){
-            errors.put(Empresa.CNPJ + "_empty", "Campo com CNPJ invalido.");
-        }else if(DAOEmpresa.validaCNPJ(empresa.getCnpj())){
-            
-            errors.put(Empresa.CNPJ + "_empty", "CNPF existente no sistema.");
+            errors.add("O campo cnpj esta vazio.");
+        } else if(empresa.getCnpj().length() != 18){
+            errors.add("Campo com CNPJ invalido.");
         }
-        
-        
-        
         
         return errors;
     }

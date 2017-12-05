@@ -120,59 +120,6 @@ public class DAOVenda {
         }
         return list;
     }
-
-    /*
-    public static boolean update(Venda venda) {
-        if (venda != null && venda.getId() != null && venda.getId() > 0) {
-            String sql = "UPDATE venda SET id=?, cliente_id=?, empresa_id=?, ativo=?, modificado=? WHERE id=?";
-            try (Connection connection = SQLUtils.getConnection()) {
-                connection.setAutoCommit(false);
-                try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setLong(1, venda.getClienteId());
-                statement.setLong(2, venda.getEmpresaId());
-                statement.setBoolean(3, venda.isAtivo());
-                    Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
-                    statement.setTimestamp(4, now);
-                    statement.setLong(5, venda.getId());
-
-                    statement.execute();
-                    connection.commit();
-                } catch (SQLException ex) {
-                    connection.rollback();
-                    System.err.println(ex.getMessage());
-                    return false;
-                }
-            } catch (SQLException ex) {
-                System.err.println(ex.getMessage());
-                return false;
-            }
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public static boolean delete(Venda venda) {
-        if (venda != null && venda.getId() != null && venda.getId() > 0) {
-            String sql = "UPDATE venda SET ativo=?, modificado=? WHERE id=?";
-            try (Connection connection = SQLUtils.getConnection()) {
-                try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                    statement.setBoolean(1, !venda.isAtivo());
-                    Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
-                    statement.setTimestamp(2, now);
-                    statement.setLong(3, venda.getId());
-                    statement.execute();
-                }
-            } catch (SQLException ex) {
-                System.err.println(ex.getMessage());
-                return false;
-            }
-            return true;
-        } else {
-            return false;
-        }
-    }
-    */
     
     public static List<Cliente> getClienteList(String query) {
         return DAOCliente.search(query);

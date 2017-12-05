@@ -30,16 +30,4 @@ public enum Tipo {
         }
         return null;
     }
-    
-    /*
-    public static Tipo getTipo(int tipo) {
-        if (tipo == PRODUTO.getValue()) {
-            return PRODUTO; 
-        } else if (tipo == SERVICO.getValue()) {
-            return SERVICO; 
-        } else {
-            return null;
-        }
-    }
-    */
 }

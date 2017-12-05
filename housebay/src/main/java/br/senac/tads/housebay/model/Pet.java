@@ -4,8 +4,7 @@ package br.senac.tads.housebay.model;
  *
  * @author Diego
  */
-public class Pet 
-        extends TabelaDB {
+public class Pet extends TabelaDB {
     public static final String NOME = "nome";
     public final static String DESCRICAO = "descricao";
     public final static String CLIENTE_ID = "cliente id";

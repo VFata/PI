@@ -11,7 +11,7 @@ import java.util.List;
  * @author Igor
  */
 
-//Classe relacionada com a tabela Clientes do Banco de Dados...
+//Classe relacionada com a tabela Clientes do Banco de Dados
 public class Cliente extends TabelaDB {
     public final static String NOME = "nome";
     public final static String DATA_NASCIMENTO = "data nascimento";

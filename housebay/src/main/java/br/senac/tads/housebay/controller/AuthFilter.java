@@ -72,12 +72,12 @@ public class AuthFilter implements Filter {
         Funcionario funcionario = (Funcionario) session.getAttribute("user");
         if (funcionario != null) {
             if(!ACESSO.get(funcionario.getCargo()).contains(url)) {
-                session.setAttribute("mensagem", Arrays.asList("Acesso negado!"));
+                session.setAttribute("errors", Arrays.asList("Acesso negado!"));
                 httpResponse.sendRedirect(httpRequest.getContextPath() + "/home");
                 return;
             }
         } else {
-            session.setAttribute("mensagem", Arrays.asList("Acesso negado!"));
+            session.setAttribute("errors", Arrays.asList("Acesso negado!"));
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
             return;
         }
@@ -93,24 +93,21 @@ public class AuthFilter implements Filter {
     private static Map<Cargo, List> generate() {
         Map map = new HashMap();
         
-        map.put(Cargo.DIRETORIA , Arrays.asList("/home", "/password", 
-                "/empresas", "/empresas/new", "/empresas/create", "/empresas/edit", "/empresas/update", "/empresas/destroy", 
-                "/relatorios", /*TODO: RELATORIOS*/
+        map.put(Cargo.DIRETORIA , Arrays.asList("/home", "/password", "/relatorios",
+                "/empresas", "/empresas/new", "/empresas/create", "/empresas/edit", "/empresas/update", "/empresas/destroy",  
                 "/produtos", "/produtos/new", "/produtos/create", "/produtos/edit", "/produtos/update", "/produtos/destroy", 
                 "/servicos", "/servicos/new", "/servicos/create", "/servicos/edit", "/servicos/update", "/servicos/destroy"
         ));
         
-        map.put(Cargo.BACKOFFICE , Arrays.asList("/home", "/password", 
+        map.put(Cargo.BACKOFFICE , Arrays.asList("/home", "/password", "/relatorios",
                 "/produtos", "/produtos/new", "/produtos/create", "/produtos/edit", "/produtos/update", "/produtos/destroy", 
-                "/servicos", "/servicos/new", "/servicos/create", "/servicos/edit", "/servicos/update", "/servicos/destroy",
-                "/relatorios" /*TODO: RELATORIOS*/
+                "/servicos", "/servicos/new", "/servicos/create", "/servicos/edit", "/servicos/update", "/servicos/destroy"
         ));
         
         map.put(Cargo.VENDEDOR , Arrays.asList("/home", "/password", 
                 "/clientes", "/clientes/new", "/clientes/create", "/clientes/edit", "/clientes/update", "/clientes/destroy",
-                "/pets", "/pets/new", "/pets/create", "/pets/edit", "/pets/update", "/pets/destroy", 
-                "/vendas", "/vendas/new", "/vendas/create", 
-                "/vendasJson/clientes", "/vendasJson/produtos", "/vendasJson/servicos"
+                /*"/pets", "/pets/new", "/pets/create",*/ "/pets/edit", "/pets/update", /*"/pets/destroy",*/
+                "/vendas", "/vendas/new", "/vendas/create", "/vendasJson/clientes", "/vendasJson/produtos", "/vendasJson/servicos"
         ));
         
         map.put(Cargo.SUPORTE , Arrays.asList("/home", "/password", 

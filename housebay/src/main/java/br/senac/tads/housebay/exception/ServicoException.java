@@ -5,14 +5,14 @@
  */
 package br.senac.tads.housebay.exception;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  *
  * @author Tron
  */
 public class ServicoException extends BaseException {
-    public ServicoException(String message, Map errors) {
+    public ServicoException(String message, List errors) {
         super(message, errors);
     }
 }

@@ -91,24 +91,23 @@ public class DAOCliente {
         return cliente;
     }
 
-    public static boolean validaCPF(String cpf) {
-        String sql = "SELECT cpf FROM clientes WHERE (cpf=?)";
+    public static long validaCPF(String cpf) {
+        String sql = "SELECT id FROM clientes WHERE (cpf=?)";
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1,cpf);
 
             try (ResultSet resultados = statement.executeQuery()) {
                 if (resultados.next()) {
-                    return true;
+                    return resultados.getLong("id");
+                } else {
+                    return 0;
                 }
-                else{
-                    return false;
-                    }
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        return false;
+        return 0;
     }
 
     public static List<Cliente> search(String query) {

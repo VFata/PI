@@ -6,7 +6,6 @@
 package br.senac.tads.housebay.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,7 +39,7 @@ public class Homepage extends HttpServlet {
             request.setAttribute("notifications", mensagens);
             session.removeAttribute("mensagem");
         }
-        HashMap erros = (HashMap) session.getAttribute("erro");
+        List erros = (List) session.getAttribute("erro");
         if (erros != null) {
             request.setAttribute("errors", erros);
             session.removeAttribute("erro");

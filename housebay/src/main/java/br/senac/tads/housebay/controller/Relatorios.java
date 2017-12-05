@@ -11,7 +11,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.RequestDispatcher;
@@ -48,7 +47,7 @@ public class Relatorios extends HttpServlet {
             request.setAttribute("notifications", mensagens);
             session.removeAttribute("mensagem");
         }
-        HashMap erros = (HashMap) session.getAttribute("erro");
+        List erros = (List) session.getAttribute("erro");
         if (erros != null) {
             request.setAttribute("errors", erros);
             session.removeAttribute("erro");
@@ -103,14 +102,14 @@ public class Relatorios extends HttpServlet {
                 request.setAttribute("notifications", mensagens);
                 session.removeAttribute("mensagem");
             }
-            HashMap erros = (HashMap) session.getAttribute("erro");
+            List erros = (List) session.getAttribute("erro");
             
             if (erros != null) {
                 session.removeAttribute("erro");
             } else {
-                erros = new HashMap();
+                erros = new ArrayList();
             }
-            erros.put("Data", "Data inicio não é anterior à data fim.");
+            erros.add("Data inicio não é anterior à data fim.");
 
             request.setAttribute("errors", erros);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/relatorio/relatorio_form.jsp");
@@ -139,7 +138,7 @@ public class Relatorios extends HttpServlet {
         request.setAttribute("notifications", mensagens);
         session.removeAttribute("mensagem");
         
-        HashMap erros = (HashMap) session.getAttribute("erro");
+        List erros = (List) session.getAttribute("erro");
         if (erros != null) {
             request.setAttribute("errors", erros);
             session.removeAttribute("erro");

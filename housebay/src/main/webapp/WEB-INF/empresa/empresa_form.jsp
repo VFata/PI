@@ -66,7 +66,7 @@
                         <c:forEach items="${errors}" var="note">
                             <div class="notification is-danger">
                                 <button class="delete"></button>
-                                <p><c:out value="${note.value}" /></p>
+                                <p><c:out value="${note}" /></p>
                             </div>
                         </c:forEach>
                         
@@ -94,7 +94,7 @@
                                 </div>
                                 <div class="field-body">
                                     <div class="field"><div class="control">
-                                        <input class="input" name="cnpj" placeholder="CNPJ" value="${empresa.cnpj}">
+                                            <input class="input" name="cnpj" placeholder="XX.XXX.XXX/YYYY-ZZ" value="${empresa.cnpj}">
                                     </div></div>
                                 </div>
                             </div>

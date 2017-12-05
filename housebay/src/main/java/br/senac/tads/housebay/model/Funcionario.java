@@ -1,10 +1,9 @@
 package br.senac.tads.housebay.model;
 
-//Classe relacionada com a tabela Funcionario do Banco de Dados...
-
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
+//Classe relacionada com a tabela Funcionario do Banco de Dados
 public class Funcionario extends TabelaDB {
     
     public final static String NOME = "nome";

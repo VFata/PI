@@ -10,7 +10,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -88,7 +87,7 @@ public class Funcionarios extends HttpServlet{
             request.setAttribute("notifications", mensagens);
             sessao.removeAttribute("mensagem");
         }
-        HashMap erros = (HashMap) sessao.getAttribute("erro");
+        List erros = (List) sessao.getAttribute("erro");
         if (erros != null) {
             request.setAttribute("errors", erros);
             sessao.removeAttribute("erro");
@@ -118,7 +117,7 @@ public class Funcionarios extends HttpServlet{
         String id = request.getParameter("id");
         HttpSession sessao = request.getSession();
         List mensagens = (List) sessao.getAttribute("mensagem");
-        HashMap erros = (HashMap) sessao.getAttribute("erro");
+        List erros = (List) sessao.getAttribute("erro");
         //System.out.println("DEBUG: post method");
 
         //response.setContentType("text/html;charset=UTF-8");
@@ -171,9 +170,9 @@ public class Funcionarios extends HttpServlet{
                 System.out.println("Funcionario Exception: " + ex.getMessage());
                 sessao.setAttribute("funcionario", funcionario);
                 if (erros == null) {
-                    erros = new HashMap();
+                    erros = new ArrayList();
                 }
-                erros.putAll(ex.getErrors());
+                erros.addAll(ex.getErrors());
                 sessao.setAttribute("erro", erros);
                 newForm(request, response, sessao);
                 return;
@@ -215,9 +214,9 @@ public class Funcionarios extends HttpServlet{
                 System.out.println("Funcionario Exception: " + ex.getMessage());                
                 sessao.setAttribute("funcionario", funcionario);
                 if (erros == null) {
-                    erros = new HashMap();
+                    erros = new ArrayList();
                 }
-                erros.putAll(ex.getErrors());
+                erros.addAll(ex.getErrors());
                 sessao.setAttribute("erro", erros);
                 editForm(request, response, sessao, Long.parseLong(id));
                 return;
@@ -251,7 +250,7 @@ public class Funcionarios extends HttpServlet{
             request.setAttribute("notifications", mensagens);
             sessao.removeAttribute("mensagem");
         }
-        HashMap erros = (HashMap) sessao.getAttribute("erro");
+        List erros = (List) sessao.getAttribute("erro");
         if (erros != null) {
             request.setAttribute("errors", erros);
             sessao.removeAttribute("erro");
@@ -277,7 +276,7 @@ public class Funcionarios extends HttpServlet{
             request.setAttribute("notifications", mensagens);
             sessao.removeAttribute("mensagem");
         }
-        HashMap erros = (HashMap) sessao.getAttribute("erro");
+        List erros = (List) sessao.getAttribute("erro");
         if (erros != null) {
             request.setAttribute("errors", erros);
             sessao.removeAttribute("erro");

@@ -5,7 +5,6 @@
  */
 package br.senac.tads.housebay.model;
 
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**

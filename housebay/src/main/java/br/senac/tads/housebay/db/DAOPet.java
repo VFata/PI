@@ -47,12 +47,14 @@ public class DAOPet {
                 connection.commit();
             } catch (SQLException ex) {
                 connection.rollback();
-                //System.err.println(ex.getMessage());
-                pet.setId(-1l);
-                Map erros = new HashMap();
-                erros.put("SQLException", "SQL Exception");
                 System.err.println(ex.getMessage());
-                throw new PetException(ex.getMessage(), erros);
+                return -1l;
+                //System.err.println(ex.getMessage());
+                //pet.setId(-1l);
+                //Map erros = new HashMap();
+                //erros.put("SQLException", "SQL Exception");
+                //System.err.println(ex.getMessage());
+                //throw new PetException(ex.getMessage(), erros);
                 //Logger.getLogger(DAOPet.class.getName()).log(Level.SEVERE, null, ex);
                 //return -1l;
             }
@@ -144,11 +146,14 @@ public class DAOPet {
                     connection.commit();
                 } catch (SQLException ex) {
                     connection.rollback();
-                    Map erros = new HashMap();
-                    erros.put("SQLException", "SQL Exception");
-                    System.err.println(ex.getMessage());
-                    throw new PetException(ex.getMessage(), erros);
+                    //Map erros = new HashMap();
+                    //erros.put("SQLException", "SQL Exception");
+                    //System.err.println(ex.getMessage());
+                    //throw new PetException(ex.getMessage(), erros);
                     //return false;
+                    connection.rollback();
+                    System.err.println(ex.getMessage());
+                    return false;
                 }
             } catch (SQLException ex) {
                 System.err.println(ex.getMessage());
@@ -175,10 +180,13 @@ public class DAOPet {
                 }
             } catch (SQLException ex) {
                 //return false;
-                Map erros = new HashMap();
-                erros.put("SQLException", "SQL Exception");
+                //Map erros = new HashMap();
+                //erros.put("SQLException", "SQL Exception");
+                //System.err.println(ex.getMessage());
+                //throw new PetException(ex.getMessage(), erros);
+                
                 System.err.println(ex.getMessage());
-                throw new PetException(ex.getMessage(), erros);
+                return false;
             }
             return true;
         } else {

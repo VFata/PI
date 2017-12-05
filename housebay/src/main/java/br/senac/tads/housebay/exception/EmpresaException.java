@@ -5,14 +5,14 @@
  */
 package br.senac.tads.housebay.exception;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  *
  * @author Tron
  */
 public class EmpresaException extends BaseException {
-    public EmpresaException(String message, Map errors) {
+    public EmpresaException(String message, List errors) {
         super(message, errors);
     }
 }

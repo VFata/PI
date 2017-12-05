@@ -89,44 +89,43 @@ public class DAOFuncionario {
         return funcionario;
     }
     
-    public static boolean validaCPF(String cpf) {
-        String sql = "SELECT cpf FROM funcionarios WHERE (cpf=?)";
+    public static long validaCPF(String cpf) {
+        String sql = "SELECT id FROM funcionarios WHERE (cpf=?)";
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1,cpf);
 
             try (ResultSet resultados = statement.executeQuery()) {
                 if (resultados.next()) {
-                    return true;
+                    return resultados.getLong("id");
+                } else {
+                    return 0;
                 }
-                else{
-                    return false;
-                    }
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        return false;
+        return 0;
     }
     
-    public static boolean validaEmail(String email) {
-        String sql = "SELECT email FROM funcionarios WHERE (email=?)";
+    public static long validaEmail(String email) {
+        String sql = "SELECT id FROM funcionarios WHERE (email=?)";
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1,email);
 
             try (ResultSet resultados = statement.executeQuery()) {
                 if (resultados.next()) {
-                    return true;
+                    return resultados.getLong("id");
                 }
                 else{
-                    return false;
+                    return 0;
                     }
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        return false;
+        return 0;
     }
 
     public static List<Funcionario> search(String query) {
@@ -281,11 +280,6 @@ public class DAOFuncionario {
         }
     }
     
-    /*
-    public static Cargo getCargo(long id) {
-        return DAOCargo.read(id);
-    }
-    */
     public static Cargo[] getCargoList() {
         return Cargo.values();
     }

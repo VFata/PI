@@ -9,7 +9,6 @@ import br.senac.tads.housebay.db.LoginUtils;
 import br.senac.tads.housebay.model.Funcionario;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -67,7 +66,7 @@ public class Logins extends HttpServlet {
             request.setAttribute("notifications", mensagens);
             session.removeAttribute("mensagem");
         }
-        HashMap erros = (HashMap) session.getAttribute("erro");
+        List erros = (List) session.getAttribute("erro");
         if (erros != null) {
             request.setAttribute("errors", erros);
             session.removeAttribute("erro");
@@ -99,7 +98,7 @@ public class Logins extends HttpServlet {
                 if (mensagens == null) {
                     mensagens = new ArrayList();
                 }
-                mensagens.add("Login efetuado com sucesso.");
+                mensagens.add("Seja bem-vindo ao sistema Astec.");
                 session.setAttribute("mensagem", mensagens);
                 response.sendRedirect(request.getContextPath() + "/home");
 
@@ -135,13 +134,13 @@ public class Logins extends HttpServlet {
             session.removeAttribute("mensagem");
         }
         
-        HashMap erros = (HashMap) session.getAttribute("erro");
+        List erros = (List) session.getAttribute("erro");
         if (erros == null) {
-            erros = new HashMap();
+            erros = new ArrayList();
         } else {
             session.removeAttribute("erro");
         }
-        erros.put("autenticacao", "Desculpe, seu e-mail ou senha está incorreto!");
+        erros.add("Desculpe, seu e-mail ou senha está incorreto!");
         request.setAttribute("errors", erros);
         
         try {
@@ -164,13 +163,13 @@ public class Logins extends HttpServlet {
             session.removeAttribute("mensagem");
         }
         
-        HashMap erros = (HashMap) session.getAttribute("erro");
+        List erros = (List) session.getAttribute("erro");
         if (erros == null) {
-            erros = new HashMap();
+            erros = new ArrayList();
         } else {
             session.removeAttribute("erro");
         }
-        erros.put("autenticacao", "Desculpe, sua senha está incorreta!");
+        erros.add("Desculpe, sua senha está incorreta!");
         request.setAttribute("errors", erros);
         
         try {

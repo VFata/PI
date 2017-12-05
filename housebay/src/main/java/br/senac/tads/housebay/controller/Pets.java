@@ -6,7 +6,6 @@ import br.senac.tads.housebay.exception.PetException;
 import br.senac.tads.housebay.model.Pet;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -112,7 +111,7 @@ public class Pets extends HttpServlet {
         String id = request.getParameter("id");
         HttpSession sessao = request.getSession();
         List mensagens = (List) sessao.getAttribute("mensagem");
-        HashMap erros = (HashMap) sessao.getAttribute("erro");
+        List erros = (List) sessao.getAttribute("erro");
         
         /*
         if (url.equals("/pets/destroy") && id != null) {
@@ -188,9 +187,9 @@ public class Pets extends HttpServlet {
                 System.out.println("Pet Exception: " + ex.getMessage());                
                 sessao.setAttribute("pet", pet);
                 if (erros == null) {
-                    erros = new HashMap();
+                    erros = new ArrayList();
                 }
-                erros.putAll(ex.getErrors());
+                erros.addAll(ex.getErrors());
                 sessao.setAttribute("erro", erros);
                 editForm(request, response, sessao, Long.parseLong(id));
                 return;
@@ -249,7 +248,7 @@ public class Pets extends HttpServlet {
             request.setAttribute("notifications", mensagens);
             sessao.removeAttribute("mensagem");
         }
-        HashMap erros = (HashMap) sessao.getAttribute("erro");
+        List erros = (List) sessao.getAttribute("erro");
         if (erros != null) {
             request.setAttribute("errors", erros);
             sessao.removeAttribute("erro");

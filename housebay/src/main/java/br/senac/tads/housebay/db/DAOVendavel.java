@@ -133,7 +133,7 @@ public class DAOVendavel {
         return vendavel;
     }
     
-        public static boolean validaCodigoDeBarras (String codigoDeBarras) {
+    public static long validaCodigoDeBarras (String codigoDeBarras) {
         String sql = "SELECT codigo_de_barras FROM vendaveis WHERE (codigo_de_barras=?)";
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -141,16 +141,15 @@ public class DAOVendavel {
 
             try (ResultSet resultados = statement.executeQuery()) {
                 if (resultados.next()) {
-                    return true;
+                    return resultados.getLong("id");
+                } else {
+                    return 0;
                 }
-                else{
-                    return false;
-                    }
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        return false;
+        return 0;
     }
     
     public static Produto readProduto(Long id) {

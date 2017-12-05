@@ -51,7 +51,7 @@
                         <c:forEach items="${errors}" var="note">
                             <div class="notification is-danger">
                                 <button class="delete"></button>
-                                <p><c:out value="${note.value}" /></p>
+                                <p><c:out value="${note}" /></p>
                             </div>
                         </c:forEach>
 

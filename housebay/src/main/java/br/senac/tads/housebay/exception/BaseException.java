@@ -5,21 +5,21 @@
  */
 package br.senac.tads.housebay.exception;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  *
  * @author Diego
  */
 public abstract class BaseException extends Exception { 
-   private final Map errors;
+    private final List errors;
     
-    public BaseException(String message, Map errors) {
+    public BaseException(String message, List errors) {
         super(message);
         this.errors = errors;
     }
 
-    public Map getErrors() {
+    public List getErrors() {
         return errors;
     }
 }

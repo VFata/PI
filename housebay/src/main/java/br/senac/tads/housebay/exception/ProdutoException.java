@@ -5,14 +5,14 @@
  */
 package br.senac.tads.housebay.exception;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  *
  * @author diego.matsuki
  */
 public class ProdutoException extends BaseException {
-    public ProdutoException(String message, Map errors) {
+    public ProdutoException(String message, List errors) {
         super(message, errors);
     }
 }

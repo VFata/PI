@@ -65,6 +65,13 @@
                             </div>
                         </c:forEach>
                         
+                        <c:forEach items="${errors}" var="note">
+                            <div class="notification is-danger">
+                                <button class="delete"></button>
+                                <p><c:out value="${note}" /></p>
+                            </div>
+                        </c:forEach>
+                        
                         <c:choose><c:when test="${type=='edit' && servico != null}">
                             <form action="${update_url}" method="post">
                                 <input type="hidden" name="id" value="${servico.id}" />

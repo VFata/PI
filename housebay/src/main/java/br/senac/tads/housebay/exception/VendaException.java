@@ -5,14 +5,14 @@
  */
 package br.senac.tads.housebay.exception;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  *
  * @author diego.matsuki
  */
 public class VendaException extends BaseException {
-    public VendaException(String message, Map errors) {
+    public VendaException(String message, List errors) {
         super(message, errors);
     }
 }
