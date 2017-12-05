@@ -87,7 +87,9 @@ public class DAOVenda {
     public static List<Venda> search(String query) {
         String sql;
         if (query != null) {
-            sql = "SELECT id, cliente_id, empresa_id, ativo, criado, modificado FROM vendas WHERE (UPPER(nome) LIKE UPPER(?) AND ativo=?)";
+            sql = "SELECT vendas.id, cliente_id, clientes.nome, empresa_id, vendas.ativo, vendas.criado, vendas.modificado "
+                    + "FROM vendas INNER JOIN clientes ON clientes.id = vendas.cliente_id "
+                    + "WHERE UPPER(clientes.nome) LIKE UPPER(?) AND vendas.ativo=?";
         } else {
             sql = "SELECT id, cliente_id, empresa_id, ativo, criado, modificado FROM vendas WHERE ativo=?";
         }

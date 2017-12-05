@@ -10,11 +10,11 @@
 
 CREATE TABLE vendas (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
-    cliente_id INTEGER,
-    empresa_id INTEGER,
-    ativo SMALLINT, /*BOOLEAN,*/
-    criado TIMESTAMP,
-    modificado TIMESTAMP,
+    cliente_id INTEGER NOT NULL,
+    empresa_id INTEGER NOT NULL,
+    ativo SMALLINT NOT NULL,
+    criado TIMESTAMP NOT NULL,
+    modificado TIMESTAMP NOT NULL,
     CONSTRAINT references_vendas_cliente FOREIGN KEY (cliente_id) REFERENCES clientes (id),
     CONSTRAINT references_vendas_empresa FOREIGN KEY (empresa_id) REFERENCES empresas (id)
 );

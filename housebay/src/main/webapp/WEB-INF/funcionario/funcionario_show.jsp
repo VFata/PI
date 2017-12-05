@@ -69,6 +69,9 @@
                             <strong>Cargo:</strong> <c:out value="${funcionario.cargo}" />
                         </p>
                         <p>
+                            <strong>Empresa:</strong> <c:out value="${funcionario.empresa.nome}" />
+                        </p>
+                        <p>
                             <strong>E-mail:</strong> <c:out value="${funcionario.email}" />
                         </p>
                     </div>

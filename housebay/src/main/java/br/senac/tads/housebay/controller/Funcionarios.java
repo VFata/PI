@@ -2,6 +2,7 @@ package br.senac.tads.housebay.controller;
 
 import br.senac.tads.housebay.controller.validate.ValidateFuncionario;
 import br.senac.tads.housebay.db.DAOFuncionario;
+import static br.senac.tads.housebay.db.DAOFuncionario.getEmpresa;
 import br.senac.tads.housebay.exception.FuncionarioException;
 import br.senac.tads.housebay.model.Cargo;
 import br.senac.tads.housebay.model.Funcionario;
@@ -111,8 +112,6 @@ public class Funcionarios extends HttpServlet{
      */
     @Override protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
         String url = request.getServletPath();
         String id = request.getParameter("id");
         HttpSession sessao = request.getSession();
@@ -141,6 +140,7 @@ public class Funcionarios extends HttpServlet{
             funcionario.setTelefone(request.getParameter("telefone"));
             funcionario.setCpf(request.getParameter("cpf"));
             funcionario.setCargo(Cargo.getCargo(Integer.parseInt(request.getParameter("cargo"))));
+            funcionario.setEmpresa(getEmpresa(Long.parseLong(request.getParameter("empresa"))));
             
             funcionario.setEmail(request.getParameter("email"));
             funcionario.setSenha(DAOFuncionario.geraSenha(request.getParameter("senha")));
@@ -188,15 +188,14 @@ public class Funcionarios extends HttpServlet{
                 response.sendRedirect(request.getContextPath() + "/funcionarios?id=" + newId);
             }
         } else if (url.equals("/funcionarios/update") && id != null) {
-            //Altera o funcionario id=xxx            
-            
+            //Altera o funcionario id=xxx
             Funcionario funcionario = new Funcionario();
             funcionario.setId(Long.parseLong(id));
             funcionario.setNome(request.getParameter("nome"));
             funcionario.setCargo(Cargo.getCargo(Integer.parseInt(request.getParameter("cargo"))));
+            funcionario.setEmpresa(getEmpresa(Long.parseLong(request.getParameter("empresa"))));
             funcionario.setCpf(request.getParameter("cpf"));
-            //funcionario.setEmail(request.getParameter("email"));
-            funcionario.setTelefone(request.getParameter("telefone"));            
+            funcionario.setTelefone(request.getParameter("telefone"));
             
             String dataNascimento = request.getParameter("nascimento");
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -244,6 +243,7 @@ public class Funcionarios extends HttpServlet{
         }
         request.setAttribute("type", "new");
         request.setAttribute("cargos", DAOFuncionario.getCargoList());
+        request.setAttribute("empresas", DAOFuncionario.getEmpresaList());
         
         List mensagens = (List) sessao.getAttribute("mensagem");
         if (mensagens != null) {
@@ -270,6 +270,7 @@ public class Funcionarios extends HttpServlet{
         request.setAttribute("funcionario", funcionario);
         request.setAttribute("type", "edit");
         request.setAttribute("cargos", DAOFuncionario.getCargoList());
+        request.setAttribute("empresas", DAOFuncionario.getEmpresaList());
         
         List mensagens = (List) sessao.getAttribute("mensagem");
         if (mensagens != null) {

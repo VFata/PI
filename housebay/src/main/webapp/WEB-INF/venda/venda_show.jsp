@@ -52,6 +52,7 @@
                             <p><c:out value="${note}" /></p>
                         </div>
                       </c:forEach>
+                        
                         <p>
                             <strong>Empresa:</strong> <c:out value="${venda.empresa.nome}" />
                         </p>

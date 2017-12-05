@@ -172,6 +172,7 @@
                         
                         <form action="${create_url}" method="post">
                             <input type="hidden" name="cliente" value="${venda.cliente.id}">
+                            <input type="hidden" name="empresa" value="${sessionScope.user.empresa.id}">
                             
                             <table class="table is-hoverable is-fullwidth" id="carrinho">
                                 <thead>
@@ -192,25 +193,6 @@
                                     </tr>
                                 </tfoot>
                             </table>
-                            
-                            <div class="field is-horizontal">
-                                <div class="field-label is-normal">
-                                    <label class="label">Empresa</label>
-                                </div>
-                                <div class="field-body">
-                                    <div class="field">
-                                        <div class="control">
-                                            <span class="select">
-                                                <select name="empresa">
-                                                    <c:forEach items="${empresas}" var="empresa" >
-                                                        <option  value="${empresa.id}"><c:out value="${empresa.nome}" /></option>
-                                                    </c:forEach>
-                                                </select>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
                             <div class="field is-horizontal">
                                 <div class="field-label">

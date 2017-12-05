@@ -9,8 +9,8 @@ CREATE TABLE clientes (
     telefone VARCHAR(15) NOT NULL,
     cpf VARCHAR(15) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    ativo SMALLINT, /*BOOLEAN*/
-    criado TIMESTAMP,
-    modificado TIMESTAMP,
+    ativo SMALLINT NOT NULL,
+    criado TIMESTAMP NOT NULL,
+    modificado TIMESTAMP NOT NULL,
     CONSTRAINT unique_clientes_cpf UNIQUE (cpf)
 );

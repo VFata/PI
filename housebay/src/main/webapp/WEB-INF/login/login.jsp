@@ -18,7 +18,7 @@
         <c:import url="/WEB-INF/_head.jsp" />
     </head>
     <body>
-        <section class="hero is-light is-fullheight">
+        <section class="hero is-white is-fullheight">
             <div class="hero-body">
                 <div class="container">
                     

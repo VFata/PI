@@ -5,7 +5,7 @@ import java.util.GregorianCalendar;
 
 //Classe relacionada com a tabela Funcionario do Banco de Dados
 public class Funcionario extends TabelaDB {
-    
+    /*
     public final static String NOME = "nome";
     public final static String DATA_NASCIMENTO = "data nascimento";
     public final static String TELEFONE = "telefone";
@@ -13,6 +13,7 @@ public class Funcionario extends TabelaDB {
     public final static String EMAIL = "email";
     public final static String CARGO = "cargo";
     public final static String SENHA = "senha";
+    */
     
     private String nome;
     private GregorianCalendar dataNascimento;
@@ -21,6 +22,7 @@ public class Funcionario extends TabelaDB {
     private String email;
     private String senha;
     private Cargo cargo;
+    private Empresa empresa;
 
     public Funcionario() {
         super();
@@ -94,4 +96,13 @@ public class Funcionario extends TabelaDB {
     public void setCargo(Cargo cargo) {
         this.cargo = cargo;
     }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
+    
+    
 }

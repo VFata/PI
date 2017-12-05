@@ -42,11 +42,13 @@ public class AuthFilter implements Filter {
     private void doBeforeProcessing(HttpServletRequest request, HttpServletResponse response)
         throws IOException, ServletException {
         request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
+        // response.setContentType("text/html;charset=UTF-8");
     }    
     
     private void doAfterProcessing(HttpServletRequest request, HttpServletResponse response)
         throws IOException, ServletException {
+        // request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
     }
 
     /**
