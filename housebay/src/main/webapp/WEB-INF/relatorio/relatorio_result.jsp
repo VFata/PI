@@ -54,9 +54,9 @@
                                 <tr>
                                     <th>Nome</th>
                                     <th>Quantidade</th>
-                                    <th>Total</th>
-                                    <th>Qtd média</th>
-                                    <th>Valor média</th>
+                                    <th>Valor Total</th>
+                                    <th>Qtd média diária</th>
+                                    <th>Valor média diária</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -69,7 +69,7 @@
                                         <c:out value="${map['quantidade']}" />
                                     </td>
                                     <td>
-                                        <c:out value="${map['total']}" />
+                                        <c:out value="${map['ftotal']}" />
                                     </td>
                                     <td>
                                         <c:out value="${map['avgqtd']}" />
@@ -80,6 +80,15 @@
                                 </tr>
                               </c:forEach>
                             </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Total</th>
+                                        <th><c:out value="${qtd}" /></th>
+                                        <th><c:out value="${ftotal}" /></th>
+                                        <th><c:out value="${avgqtd}" /></th>
+                                        <th><c:out value="${avgtotal}" /></th>
+                                    </tr>
+                                </tfoot>
                         </table>
                         
                     </div>

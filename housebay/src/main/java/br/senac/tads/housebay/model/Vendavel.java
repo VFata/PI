@@ -51,7 +51,7 @@ public abstract class Vendavel extends TabelaDB {
         DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols();
         decimalFormatSymbols.setDecimalSeparator(',');
         decimalFormatSymbols.setGroupingSeparator('.');
-        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00", decimalFormatSymbols);
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0.0", decimalFormatSymbols);
         return "R$" + decimalFormat.format(valor);
     }
     public void setValor(double valor) {

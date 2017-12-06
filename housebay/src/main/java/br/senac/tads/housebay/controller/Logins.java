@@ -71,7 +71,6 @@ public class Logins extends HttpServlet {
             request.setAttribute("errors", erros);
             session.removeAttribute("erro");
         }
-        
         RequestDispatcher dispatcher = request.getRequestDispatcher(forwardURL);
         dispatcher.forward(request, response);
     }

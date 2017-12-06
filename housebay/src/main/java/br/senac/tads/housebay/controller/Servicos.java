@@ -52,7 +52,7 @@ public class Servicos extends HttpServlet {
         String id = request.getParameter("id");
         HttpSession sessao = request.getSession();
 
-        response.setContentType("text/html;charset=UTF-8");
+        //response.setContentType("text/html;charset=UTF-8");
         
         String responseURL;
         
@@ -111,8 +111,7 @@ public class Servicos extends HttpServlet {
         List erros = (List) sessao.getAttribute("erro");
         //System.out.println("DEBUG: post method");
 
-        response.setContentType("text/html;charset=UTF-8");
-        
+        //response.setContentType("text/html;charset=UTF-8");
         if (url.equals("/servicos/destroy") && id != null) {
             //Deleta o servico id=xxx
             Servico servico = new Servico();
@@ -132,7 +131,6 @@ public class Servicos extends HttpServlet {
             servico.setNome(request.getParameter("nome"));
             servico.setDescricao(request.getParameter("descricao"));
             servico.setValor(Double.parseDouble(request.getParameter("valor")));
-                                  
             
             try {
                 ValidateServico.create(servico);
@@ -164,7 +162,6 @@ public class Servicos extends HttpServlet {
             servico.setNome(request.getParameter("nome"));
             servico.setDescricao(request.getParameter("descricao"));
             servico.setValor(Double.parseDouble(request.getParameter("valor")));
-            
             
             try {
                 ValidateServico.update(servico);

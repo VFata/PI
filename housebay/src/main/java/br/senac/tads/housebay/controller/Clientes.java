@@ -62,11 +62,8 @@ public class Clientes extends HttpServlet{
         String url = request.getServletPath();
         String id = request.getParameter("id");
         HttpSession sessao = request.getSession();
-
-        //response.setContentType("text/html;charset=UTF-8");
         
         String responseURL;
-        
         if (url.equals("/clientes") && id == null) {
             //Lista clientes
             String query = request.getParameter("q");

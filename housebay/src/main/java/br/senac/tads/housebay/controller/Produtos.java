@@ -51,10 +51,8 @@ public class Produtos extends HttpServlet {
         String id = request.getParameter("id");
         HttpSession sessao = request.getSession();
 
-        response.setContentType("text/html;charset=UTF-8");
-        
-        String responseURL;
-        
+        //response.setContentType("text/html;charset=UTF-8");
+        String responseURL;        
         if (url.equals("/produtos") && id == null) {
             //Lista produtos
             String query = request.getParameter("q");
@@ -110,8 +108,7 @@ public class Produtos extends HttpServlet {
         List erros = (List) sessao.getAttribute("erro");
         //System.out.println("DEBUG: post method");
 
-        response.setContentType("text/html;charset=UTF-8");
-        
+        //response.setContentType("text/html;charset=UTF-8");
         if (url.equals("/produtos/destroy") && id != null) {
             //Deleta o produto id=xxx
             Produto produto = new Produto();

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.senac.tads.housebay.controller;
 
 import br.senac.tads.housebay.controller.validate.ValidateEmpresa;
@@ -20,7 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "Empresas", urlPatterns = {"/empresas", "/empresas/new", "/empresas/create", "/empresas/edit", "/empresas/update", "/empresas/destroy"})
+@WebServlet(name = "Empresas", 
+        urlPatterns = {"/empresas", "/empresas/new", "/empresas/create", "/empresas/edit", "/empresas/update", "/empresas/destroy"})
 public class Empresas extends HttpServlet {
     
     
@@ -119,7 +115,6 @@ public class Empresas extends HttpServlet {
         HttpSession sessao = request.getSession();
         List mensagens = (List) sessao.getAttribute("mensagem");
         List erros = (List) sessao.getAttribute("erro");
-        //System.out.println("DEBUG: post method");
 
         response.setContentType("text/html;charset=UTF-8");
         
@@ -141,12 +136,6 @@ public class Empresas extends HttpServlet {
             empresa.setNome(request.getParameter("nome"));
             empresa.setCnpj(request.getParameter("cnpj"));
 
-            /*
-            Calendar agora = Calendar.getInstance();
-            empresa.setCriado((GregorianCalendar) agora);
-            empresa.setModificado((GregorianCalendar) agora);
-            empresa.setAtivo(true);          
-            */
             try {
                 ValidateEmpresa.create(empresa);
             } catch (EmpresaException ex) {
@@ -175,12 +164,7 @@ public class Empresas extends HttpServlet {
             empresa.setId(Long.parseLong(id));
             empresa.setNome(request.getParameter("nome"));
             empresa.setCnpj(request.getParameter("cnpj"));
-            /*
-            Calendar agora = Calendar.getInstance();
-            empresa.setCriado((GregorianCalendar) agora);
-            empresa.setModificado((GregorianCalendar) agora);
-            empresa.setAtivo(true);
-            */
+            
             try {
                 ValidateEmpresa.update(empresa);
             } catch (EmpresaException ex) {
@@ -215,6 +199,7 @@ public class Empresas extends HttpServlet {
             sessao.removeAttribute("empresa");
         }
         request.setAttribute("type", "new");
+        
         List mensagens = (List) sessao.getAttribute("mensagem");
         if (mensagens != null) {
             request.setAttribute("notifications", mensagens);

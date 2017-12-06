@@ -5,6 +5,7 @@
  */
 package br.senac.tads.housebay.db;
 
+import br.senac.tads.housebay.model.Empresa;
 import br.senac.tads.housebay.model.Tipo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,21 +23,24 @@ import java.util.Map;
  * @author Diego
  */
 public class RelatorioUtils {
-    public static List<Map> geraRelatorio(int tipo, GregorianCalendar inicio, GregorianCalendar fim) {
+    public static List<Map> geraRelatorio(int tipo, Empresa empresa, GregorianCalendar inicio, GregorianCalendar fim) {
         String sql = "SELECT DISTINCT vendaveis.nome AS \"nome\", "
                 + "SUM(venda_vendaveis.quantidade) AS \"quantidade\", "
                 + "SUM(venda_vendaveis.valor_total) AS \"total\" "
                 + "FROM vendaveis "
                 + "JOIN venda_vendaveis ON venda_vendaveis.vendavel_id = vendaveis.id "
-                + "WHERE vendaveis.tipo = ?"
+                + "JOIN vendas ON venda_vendaveis.venda_id = vendas.id "
+                + "WHERE vendaveis.tipo = ? "
+                + " AND vendas.empresa_id = ? "
                 + " AND (venda_vendaveis.criado <= (?) AND venda_vendaveis.criado >= (?)) "
                 + "GROUP BY nome";
         List<Map> list = null;
         try (Connection connection = SQLUtils.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, tipo);
-            statement.setTimestamp(2, new Timestamp(fim.getTimeInMillis()));
-            statement.setTimestamp(3, new Timestamp(inicio.getTimeInMillis()));
+            statement.setLong(2, empresa.getId());
+            statement.setTimestamp(3, new Timestamp(fim.getTimeInMillis()));
+            statement.setTimestamp(4, new Timestamp(inicio.getTimeInMillis()));
 
             try (ResultSet resultados = statement.executeQuery()) {
                 list = new ArrayList();
@@ -56,8 +60,15 @@ public class RelatorioUtils {
         return list;
     }
     
-     public static Tipo[] getTipoList() {
-        return Tipo.values();
-     }
+    public static Tipo[] getTipoList() {
+       return Tipo.values();
+    }
 
+    public static List<Empresa> getEmpresaList() {
+        return DAOEmpresa.search(null);
+    } 
+    
+    public static Empresa getEmpresa(long id) {
+        return DAOEmpresa.read(id);
+    }
 }

@@ -39,6 +39,7 @@ public class Homepage extends HttpServlet {
             request.setAttribute("notifications", mensagens);
             session.removeAttribute("mensagem");
         }
+        
         List erros = (List) session.getAttribute("erro");
         if (erros != null) {
             request.setAttribute("errors", erros);

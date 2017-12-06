@@ -23,7 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-@WebServlet(name = "Funcionarios", urlPatterns = {"/funcionarios", "/funcionarios/new", "/funcionarios/create", "/funcionarios/edit", "/funcionarios/update", "/funcionarios/destroy"})
+@WebServlet(name = "Funcionarios", 
+        urlPatterns = {"/funcionarios", "/funcionarios/new", "/funcionarios/create", "/funcionarios/edit", "/funcionarios/update", "/funcionarios/destroy"})
 public class Funcionarios extends HttpServlet{
     
     /*  ROTAS:
@@ -55,10 +56,8 @@ public class Funcionarios extends HttpServlet{
         String id = request.getParameter("id");
         HttpSession sessao = request.getSession();
 
-        response.setContentType("text/html;charset=UTF-8");
-        
+        //response.setContentType("text/html;charset=UTF-8");
         String responseURL;
-        
         if (url.equals("/funcionarios") && id == null) {
             //Lista funcionarios
             String query = request.getParameter("q");
@@ -120,7 +119,6 @@ public class Funcionarios extends HttpServlet{
         //System.out.println("DEBUG: post method");
 
         //response.setContentType("text/html;charset=UTF-8");
-        
         if (url.equals("/funcionarios/destroy") && id != null) {
             //Deleta o funcionario id=xxx
             Funcionario funcionario = new Funcionario();
@@ -144,14 +142,6 @@ public class Funcionarios extends HttpServlet{
             
             funcionario.setEmail(request.getParameter("email"));
             funcionario.setSenha(DAOFuncionario.geraSenha(request.getParameter("senha")));
-            
-            /*
-            Calendar agora = Calendar.getInstance();
-            funcionario.setCriado((GregorianCalendar) agora);
-            funcionario.setModificado((GregorianCalendar) agora);
-            funcionario.setAtivo(true);
-            */
-            
             String dataNascimento = request.getParameter("nascimento");
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             GregorianCalendar nasc = new GregorianCalendar();

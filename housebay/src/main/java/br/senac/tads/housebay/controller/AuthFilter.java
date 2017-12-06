@@ -29,7 +29,7 @@ import javax.servlet.http.HttpSession;
  * @author Diego
  */
 @WebFilter(filterName = "AuthFilter", 
-        urlPatterns = {"/home/*", "/clientes/*", "/empresas/*", "/funcionarios/*", "/pets/*", "/produtos/*", "/servicos", "/vendas/*", "/vendasJson/*", "/relatorios", "/password" }, 
+        urlPatterns = {"/home/*", "/clientes/*", "/empresas/*", "/funcionarios/*", "/pets/*", "/produtos/*", "/servicos", "/vendas/*", "/vendasJson/*", "/relatorios", "/password"}, 
         dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD}
 )
 public class AuthFilter implements Filter {
@@ -42,13 +42,13 @@ public class AuthFilter implements Filter {
     private void doBeforeProcessing(HttpServletRequest request, HttpServletResponse response)
         throws IOException, ServletException {
         request.setCharacterEncoding("UTF-8");
-        // response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
     }    
     
     private void doAfterProcessing(HttpServletRequest request, HttpServletResponse response)
         throws IOException, ServletException {
-        // request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
+        //request.setCharacterEncoding("UTF-8");
+        //response.setContentType("text/html;charset=UTF-8");
     }
 
     /**
