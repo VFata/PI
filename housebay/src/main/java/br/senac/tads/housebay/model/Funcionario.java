@@ -51,7 +51,7 @@ public class Funcionario extends TabelaDB {
         return sdf.format(this.dataNascimento.getTime());
     }
     public String getFormatDataNascimento() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd / mm / yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd / MM / yyyy");
         return sdf.format(this.dataNascimento.getTime());
     }
     public void setDataNascimento(GregorianCalendar dataNascimento) {

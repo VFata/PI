@@ -76,7 +76,7 @@ public class RelatorioUtils {
                     map.put("nome", resultados.getString("nome"));
                     map.put("quantidade", resultados.getLong("quantidade"));
                     map.put("total", resultados.getDouble("total"));
-                    map.put("dias", (fim.getTimeInMillis() - inicio.getTimeInMillis()) / (1000*60*60*24) );
+                    map.put("dias", 1 + (fim.getTimeInMillis() - inicio.getTimeInMillis()) / (1000*60*60*24) );
                     
                     list.add(map);
                 }

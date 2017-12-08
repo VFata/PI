@@ -126,6 +126,9 @@ public class Relatorios extends HttpServlet {
             erros.add("Data inicio não é anterior à data fim.");
             request.setAttribute("errors", erros);
             
+            request.setAttribute("tipos", RelatorioUtils.getTipoList());
+            request.setAttribute("empresas", RelatorioUtils.getEmpresaList());
+            
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/relatorio/relatorio_form.jsp");
             dispatcher.forward(request, response);
             return;
@@ -164,11 +167,7 @@ public class Relatorios extends HttpServlet {
         
         SimpleDateFormat sdf = new SimpleDateFormat("dd / MMM / yyyy");
         mensagens.add("Inicio: " + sdf.format(inicio.getTime()));
-        
-        
         mensagens.add("Fim: " + sdf.format(fim.getTime()));
-        
-        
         mensagens.add("Dias: " + dias);
         
         request.setAttribute("notifications", mensagens);
