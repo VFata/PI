@@ -60,6 +60,7 @@
                                                     <c:forEach items="${tipos}" var="tipo">
                                                         <option value="${tipo.value}"><c:out value="${tipo}" /></option>
                                                     </c:forEach>
+                                                    <option value="-1">Todos</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -79,6 +80,7 @@
                                                     <c:forEach items="${empresas}" var="empresa" >
                                                         <option  value="${empresa.id}"><c:out value="${empresa.nome}" /></option>
                                                     </c:forEach>
+                                                    <option  value="-1">Todas</option>
                                                 </select>
                                             </span>
                                         </div>

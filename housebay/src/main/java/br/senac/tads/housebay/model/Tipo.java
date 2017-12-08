@@ -30,4 +30,15 @@ public enum Tipo {
         }
         return null;
     }
+    
+    public static Tipo getTipo(int value) {
+        switch(value) {
+            case(0):
+                return PRODUTO;
+            case(1):
+                return SERVICO;
+            default:
+                return null;
+        }
+    }
 }

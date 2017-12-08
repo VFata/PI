@@ -7,6 +7,7 @@ package br.senac.tads.housebay.controller;
 
 import br.senac.tads.housebay.db.RelatorioUtils;
 import br.senac.tads.housebay.model.Empresa;
+import br.senac.tads.housebay.model.Tipo;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -72,7 +73,7 @@ public class Relatorios extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         
-        int tipo = Integer.parseInt(request.getParameter("tipo"));
+        Tipo tipo = RelatorioUtils.getTipo(Integer.parseInt(request.getParameter("tipo")));
         Empresa empresa = RelatorioUtils.getEmpresa(Long.parseLong(request.getParameter("empresa")));
         
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -160,6 +161,16 @@ public class Relatorios extends HttpServlet {
         if (mensagens == null) {
             mensagens = new ArrayList();
         }
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd / MMM / yyyy");
+        mensagens.add("Inicio: " + sdf.format(inicio.getTime()));
+        
+        
+        mensagens.add("Fim: " + sdf.format(fim.getTime()));
+        
+        
+        mensagens.add("Dias: " + dias);
+        
         request.setAttribute("notifications", mensagens);
         session.removeAttribute("mensagem");
         
